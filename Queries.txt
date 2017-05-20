@@ -1,0 +1,209 @@
+//offers view
+create view view_offers
+as
+select o.oid,o.storeid,s.storename, o.discount, o.discounton, o.termsandcondition, o.totalcoupons, o.offerimg, o.sDate, o.eDate,
+o.timedate, o.offerstatus, o.redeemed
+from storedetails s, offers o
+where o.storeid = s.storeid
+
+//offers sp
+DELIMITER $$
+CREATE PROCEDURE `offers`(
+        IN _storeid VARCHAR(100),
+        IN _discount VARCHAR(10),
+        IN _discounton VARCHAR(400),
+        IN _totalcoupons int(10),
+        IN _sDate VARCHAR(100),
+        IN _eDate VARCHAR(100),
+        IN _tc VARCHAR(2000),
+        IN _photo varchar(500),
+        IN _q varchar(50),
+        INOUT _oid INT(10)
+    )
+BEGIN
+declare temp int(10);
+start transaction;
+
+if(_q='1') then
+insert into offers(storeid, discount, discounton, totalcoupons, sDate, eDate, termsandcondition)
+values(_storeid, _discount, _discounton, _totalcoupons, _sDate, _eDate, _tc);
+
+select oid into temp from offers where oid=(select max(oid) from offers);
+set _oid=temp;
+end if;
+
+if(_q='2') then
+update offers set discount=_discount, discounton=_discounton, termsandcondition=_tc, sDate=_sDate, eDate=_eDate where oid=_oid;
+set _oid=1;
+end if;
+
+if(_q='3') then
+update offers set offerimg=_photo where oid=_oid;
+set _oid=1;
+end if;
+commit;
+
+END
+$$
+
+// sp on claimed offers
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `sp_coupon` $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_coupon`(
+        IN _storeid VARCHAR(100),
+        IN _email varchar(100),
+        IN _coupon varchar(45),
+        IN _q varchar(50),
+        IN _oid INT(10),
+        INOUT _cid INT(10)
+    )
+BEGIN
+declare _temp varchar(45);
+start transaction;
+
+if(_q='1') then
+
+IF (SELECT count(*) FROM claimedoffers where uid=_email and oid=_oid)>0 THEN
+
+    select coupon into _temp from claimedoffers where uid=_email and oid=_oid;
+      if(_temp=null) then
+            begin
+        UPDATE claimedoffers SET coupon=_coupon and claimdate=current_timestamp where uid=_email and oid=_oid;
+        set _cid=1;
+          end;
+          else
+            begin
+            set _cid=2;
+            end;
+          end if;
+
+ELSE
+        BEGIN
+
+            INSERT INTO claimedoffers(oid, storeid, uid, coupon, claimdate) VALUES (_oid, _storeid, _email, _coupon, current_timestamp);
+            set _cid=1;
+
+        END;
+end if;
+end if;
+
+if(_q='2') then
+IF (SELECT count(*) FROM claimedoffers where uid=_email and oid=_oid)>0 THEN
+        BEGIN
+        UPDATE claimedoffers SET fav= fav xor 1 where uid=_email and oid=_oid;
+        END;
+        ELSE
+        BEGIN
+        INSERT INTO claimedoffers(oid, storeid, uid, coupon) VALUES (_oid, _storeid, _email, 'NA');
+        UPDATE claimedoffers SET fav= fav xor 1 where uid=_email and oid=_oid;
+        END;
+        END IF;
+set _cid=1;
+end if;
+
+if(_q='3') then
+update claimedoffers set couponstatus='Redeemed', redeemdate=current_timestamp where uid=_email and oid=_oid;
+set _cid=1;
+end if;
+
+if(_q='4') then
+select * from claimedoffers where cid=_cid;
+end if;
+
+if(_q='5') then
+delete from claimedoffers where cid=_cid;
+end if;
+
+if(_q='6') then
+update claimedoffers set couponstatus='Expired', redeemdate=current_timestamp where uid=_email and oid=_oid;
+end if;
+commit;
+
+END $$
+
+DELIMITER ;
+//
+
+
+//sp_advertise
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `sp_adv` $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_adv`(
+        IN _storeid VARCHAR(100),
+        IN _advtitle VARCHAR(500),
+        IN _advdesc VARCHAR(2000),
+        IN _sDate VARCHAR(45),
+        IN _eDate VARCHAR(45),
+        IN _advtc VARCHAR(5000),
+        IN _photo varchar(45),
+        IN _q varchar(50),
+        INOUT _aid INT(10)
+    )
+BEGIN
+declare temp int(10);
+start transaction;
+
+if(_q='1') then
+insert into advertise(storeid, advtitle, advdesc, sDate, eDate, advtc)
+values(_storeid, _advtitle, _advdesc, _sDate, _eDate, _advtc);
+
+select aid into temp from advertise where aid=(select max(aid) from advertise);
+set _aid=temp;
+end if;
+
+if(_q='2') then
+update advertise set advdesc=_advdesc, advtitle=_advtitle, advtc=_advtc, sDate=_sDate, eDate=_eDate where aid=_aid;
+set _aid=1;
+end if;
+
+if(_q='3') then
+update advertise set advimg=_photo where aid=_aid;
+set _aid=1;
+end if;
+commit;
+END $$
+
+DELIMITER ;
+//
+
+
+
+DROP TABLE IF EXISTS `shejari`.`claimedoffers`;
+CREATE TABLE  `shejari`.`claimedoffers` (
+  `cid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` varchar(100) NOT NULL,
+  `oid` int(10) unsigned NOT NULL,
+  `couponstatus` varchar(45) NOT NULL DEFAULT 'Unused',
+  `claimdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `redeemdate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `fav` int(5) unsigned NOT NULL DEFAULT '0',
+  `coupon` varchar(45) NOT NULL,
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+
+// trigger for increasing store count in counter table
+
+delimiter $$
+CREATE TRIGGER tgr_incStore
+after insert ON storedetails
+for each row
+BEGIN
+UPDATE log_counters SET stores = stores+1 where counterid = 1;
+END;
+$$
+
+// trigger for increasing user count in counter table
+
+delimiter $$
+CREATE TRIGGER tgr_incUser
+after insert ON users
+for each row
+BEGIN
+UPDATE log_counters SET members = members+1 where counterid = 1;
+END;
+$$
+
+

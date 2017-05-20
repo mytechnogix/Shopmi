@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script>
+            function check(){
+            var uri = "test.asp?name=ståle&car=saab";
+            var uri_enc = encodeURIComponent(uri);
+            
+            window.location=uri_enc;
+            }
+        </script>
+
+    </head>
+    <body>
+        <a href="JavaScript:check()">Click Me</a>
+    </body>
+</html>

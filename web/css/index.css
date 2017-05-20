@@ -1,0 +1,85 @@
+#login-after-div, #login-before-div
+{
+    display: none;
+}
+.bt-login,.bt-login:hover, .bt-login:active, .bt-login:focus {
+    background-color: #ff8627;
+    color: #ffffff;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    transition: background-color 300ms linear 0s;
+}
+
+
+.login-tab {
+    margin: 0 auto;
+    max-width: 380px;
+}
+
+.login-modal-header {
+    background: #27ae60;
+    color: #fff;
+}
+
+.login-modal-header .modal-title {
+    color: #fff;
+}
+
+.login-modal-header .close {
+    color: #fff;
+}
+
+.login-modal i {
+    color: #000;
+}
+
+.login-modal form {
+    max-width: 340px;
+}
+
+.tab-pane form {
+    margin: 0 auto;
+}
+.login-modal-footer{
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+.box .top {
+    cursor: pointer;
+}
+.box .bottom {
+    padding: 0px;
+    display: none;
+}
+.latest_postnav>li
+{
+    list-style-type: none;
+}
+.catg_title
+{
+    color: white;
+    font-family: aharoni;
+    font-size: 20px;
+    line-height: 2;
+}
+.users-list >li img
+{
+    border-radius: 0px;
+}
+
+#footer{display:inline; float:left; width:100%; margin-bottom:20px}
+.footer_top{background-color:#252525; color:#ddd; display:inline; float:left; padding:10px 30px 48px; width:100%}
+.footer_widget{display:inline; float:left; width:100%; min-height:310px}
+.footer_widget > h2{border-bottom:3px solid #666; font-family:Oswald,arial,Georgia,serif; font-size:16px; padding:10px 0; text-transform:uppercase}
+.tag_nav{}
+.tag_nav li{}
+.tag_nav li a{border-bottom:1px solid #ddd; color:#ccc; display:block; padding:6px 6px 6px 0; -webkit-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
+.tag_nav li a:hover{padding-left:10px}
+.footer_bottom{float:left; display:inline; width:100%; padding:10px 30px; background-color:#303030; color:#ccc}
+.copyright{float:left; width:50%; padding-top:5px; text-align:left}
+.copyright a{color:#ccc}
+.developer{float:right; width:50%; text-align:right; padding-top:5px; color:#222}
+.developer a{color:#222}
+.catgArchive{border:medium none; color:#fff; display:inline; float:left; font-weight:bold; padding:10px 15px; width:100%; margin-top:15px}
+.catgArchive option{background-color:#fff; font-weight:normal; padding:5px; color:#d083cf}
