@@ -3,6 +3,7 @@ package DAO;
 import BO.ManageAdvBO;
 import BO.ManageOfferBO;
 import BO.ManageStoreBO;
+import BO.ManageUsersBO;
 import com.quickc.pack.DBConnector;
 import com.quickc.pack.Email;
 import java.security.GeneralSecurityException;
@@ -39,7 +40,7 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("insert into storedetails(storename, category, storearea, city, websiteurl, services, workinghours, servicearea, closedon, subtype, maplocation, contact, fulladdress, email, addedBy) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst = con.prepareStatement("insert into storedetails(storename, category, storearea, city, websiteurl, services, workinghours, servicearea, closedon, subtype, maplocation, contact, fulladdress, email, addedBy, hindistorename) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objBO.getStoreName());
             pst.setString(2, objBO.getStoreCat());
             pst.setString(3, objBO.getStoreArea());
@@ -55,7 +56,7 @@ public class ManageDAO {
             pst.setString(13, objBO.getAddress());
             pst.setString(14, objBO.getEmail());
             pst.setString(15, objBO.getAddedBy());
-
+            pst.setString(16, objBO.getStoreNameHindi());
 
             cnt = pst.executeUpdate();
             if (cnt > 0) {
@@ -93,7 +94,7 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("update storedetails set storename=?, category=?, storearea=?, city=?, websiteurl=?, services=?, workinghours=?, servicearea=?, closedon=?, subtype=?, contact=?, fulladdress=?, email=? where storeid=?");
+            pst = con.prepareStatement("update storedetails set storename=?, category=?, storearea=?, city=?, websiteurl=?, services=?, workinghours=?, servicearea=?, closedon=?, subtype=?, contact=?, fulladdress=?, email=?, hindistorename=? where storeid=?");
             pst.setString(1, objBO.getStoreName());
             pst.setString(2, objBO.getStoreCat());
             pst.setString(3, objBO.getStoreArea());
@@ -107,7 +108,8 @@ public class ManageDAO {
             pst.setString(11, objBO.getContact());
             pst.setString(12, objBO.getAddress());
             pst.setString(13, objBO.getEmail());
-            pst.setString(14, objBO.getStoreId());
+            pst.setString(14, objBO.getStoreNameHindi());
+            pst.setString(15, objBO.getStoreId());
 
             cnt = pst.executeUpdate();
             if (cnt > 0) {
@@ -277,7 +279,7 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("Select * from view_offers where offerstatus='Active' order by timedate desc");
+            pst = con.prepareStatement("Select * from view_offers where offerstatus='Active' order by timedate desc limit 20");
             rs = pst.executeQuery();
             while (rs.next()) {
                 objBO = new ManageOfferBO();
@@ -517,5 +519,56 @@ public class ManageDAO {
             throw new Exception(e);
         }
         return l;
+    }
+
+    public void addUser(ManageUsersBO objBO) {
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_user(?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(7, Types.INTEGER);
+            stmt.setString(1, objBO.getEmail());
+            stmt.setString(2, objBO.getFnm());
+            stmt.setString(3, objBO.getLnm());
+            stmt.setString(4, objBO.getPass());
+            stmt.setString(5, objBO.getNewsFrom());
+            stmt.setString(6, "1");
+            stmt.setInt(7, 0);
+            stmt.executeQuery();
+            objBO.setFlag(stmt.getInt("_flag"));
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<ManageStoreBO> getRecentStores() throws Exception {
+        ManageStoreBO objBO = new ManageStoreBO();
+
+        ArrayList<ManageStoreBO> myclass = new ArrayList<ManageStoreBO>();
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            pst = con.prepareStatement("SELECT storeid,storename, storearea,city, photo FROM storedetails WHERE regDate BETWEEN NOW() - INTERVAL 30 DAY AND NOW() order by regDate desc limit 12");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                objBO = new ManageStoreBO();
+                objBO.setStoreName(rs.getString("storename"));
+                objBO.setStoreId(rs.getString("storeid"));
+                objBO.setStoreArea(rs.getString("storearea"));
+                objBO.setCity(rs.getString("city"));
+                objBO.setStorePhotoLg(rs.getString("photo"));
+                myclass.add(objBO);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return myclass;
     }
 }

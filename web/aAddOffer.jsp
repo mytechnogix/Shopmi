@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.sql.Connection"%>

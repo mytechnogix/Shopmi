@@ -4,6 +4,7 @@ public class ManageStoreBO {
 
     private String _storeId;
     private String _storeName;
+    private String _storeNameHindi;
     private String _city;
     private String _storeArea;
     private String _storeCat;
@@ -23,6 +24,14 @@ public class ManageStoreBO {
     private String _visitCount;
     private String _rating;
     private String _storePhotoLg;
+
+    public String getStoreNameHindi() {
+        return _storeNameHindi;
+    }
+
+    public void setStoreNameHindi(String _storeNameHindi) {
+        this._storeNameHindi = _storeNameHindi;
+    }
 
     public String getStorePhotoLg() {
         return _storePhotoLg;

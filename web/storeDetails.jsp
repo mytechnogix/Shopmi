@@ -52,7 +52,7 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="initMap()">
         <div class="wrapper">
-            <jsp:include page="header.jsp"/>
+            <jsp:include page="headerStoreDetails.jsp"/>
 
             <div class="content-wrapper">
                 <section class="content">
@@ -411,38 +411,26 @@
                                 </div>
                                 <div class="box-body">
                                     <ul class="todo-list">
+                                        <%
+                                            pst = con.prepareStatement("select storename, storeid from storedetails where storeid!=? and category=? order by storename limit 10");
+                                            pst.setString(1, storeid);
+                                            pst.setString(2, objBO.getStoreCat());
+
+                                            rs = pst.executeQuery();
+                                            while (rs.next()) {
+                                        %>
                                         <li>
-                                            <a href="#">
+                                            <a href="storeDetails.jsp?id=<%=rs.getInt("storeid")%>">
                                                 <span class="handle">
                                                     <i class="fa fa-map-marker"></i>
                                                 </span>
-                                                <span class="text">Design a nice theme</span>
+                                                <span class="text"><%=rs.getString("storename")%></span>
                                                 <div class="tools">
                                                     <i class="fa fa-external-link"></i>
                                                 </div>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="handle">
-                                                    <i class="fa fa-map-marker"></i>
-                                                </span>
-                                                <span class="text">Design a nice theme</span>
-                                                <div class="tools">
-                                                    <i class="fa fa-external-link"></i>
-                                                </div>
-                                            </a>
-                                        </li><li>
-                                            <a href="#">
-                                                <span class="handle">
-                                                    <i class="fa fa-map-marker"></i>
-                                                </span>
-                                                <span class="text">Design a nice theme</span>
-                                                <div class="tools">
-                                                    <i class="fa fa-external-link"></i>
-                                                </div>
-                                            </a>
-                                        </li>
+                                        <%}%>
                                     </ul>
                                 </div>
                             </div>

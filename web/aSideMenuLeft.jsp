@@ -1,7 +1,7 @@
 <%
     String name = String.valueOf(session.getAttribute("adminName"));
     String img = String.valueOf(session.getAttribute("adminImg"));
-
+    String adminRole = String.valueOf(session.getAttribute("adminRole"));
 %>
 <aside class="main-sidebar">
     <section class="sidebar">
@@ -22,12 +22,6 @@
                 </a>
             </li>
             <li>
-                <a href="aManageSite.jsp">
-                    <i class="fa fa-files-o"></i>
-                    <span>Manage Site</span>
-                </a>
-            </li>
-            <li>
                 <a href="aManageStores.jsp">
                     <i class="fa fa-files-o"></i>
                     <span>Manage Stores</span>
@@ -43,6 +37,15 @@
                 <a href="aManageAdv.jsp">
                     <i class="fa fa-files-o"></i>
                     <span>Manage Advertisements</span>
+                </a>
+            </li>
+            <%
+                if (adminRole.equalsIgnoreCase("Platinum")) {
+            %>
+            <li>
+                <a href="aManageSite.jsp">
+                    <i class="fa fa-files-o"></i>
+                    <span>Manage Site</span>
                 </a>
             </li>
             <li>
@@ -80,6 +83,8 @@
                     <i class="fa fa-edit"></i> <span>Enquiries</span>
                 </a>
             </li>
+            <%                }
+            %>
             <li>
                 <a href="aIntruderAlert.jsp">
                     <i class="fa fa-calendar"></i> 

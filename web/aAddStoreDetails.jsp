@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.sql.Connection"%>
@@ -36,7 +37,7 @@
                                     <input type="hidden" name="opType" value="add"/>
                                     <div class="box-body">
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Select City</label>
                                                     <select class="form-control" id="txtOfferCity" name="txtOfferCity" required>
@@ -45,7 +46,13 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>स्टोर नाम</label>
+                                                    <input type="text" id="txtOfferStoreNameHindi" name="txtOfferStoreNameHindi" class="form-control" placeholder="स्टोर का नाम दर्ज करें" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Store Name</label>
                                                     <input type="text" id="txtOfferStoreName" name="txtOfferStoreName" class="form-control" placeholder="Enter store name" required>

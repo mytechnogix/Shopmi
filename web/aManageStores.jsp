@@ -38,6 +38,9 @@
             }
         </style>
     </head>
+    <%
+        String adminRole = String.valueOf(session.getAttribute("adminRole"));
+    %>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
             <jsp:include page="aHeader.jsp"/>
@@ -71,12 +74,16 @@
                                                 <th>Status</th>
                                                 <th>Photo</th>
                                                 <th>Reg. Date</th>
+                                                <%
+                                                    if (adminRole.equalsIgnoreCase("platinum")) {
+                                                %>
                                                 <th>Actions</th>
+                                                <%}%>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <%
-                                                String storeName = "", category = "", location = "", city = "", storeStatus;
+                                                String storeName = "", category = "", location = "", city = "", storeStatus = "";
                                                 String regDate = "", img = "";
                                                 int cnt = 0, storeid = 0;
                                                 PreparedStatement pst;
@@ -100,32 +107,31 @@
                                             %>
                                             <tr>
                                                 <td><%=storeid%></td>
+                                                <%
+                                                    if (adminRole.equalsIgnoreCase("platinum") || adminRole.equalsIgnoreCase("gold")) {
+                                                %>
                                                 <td class="text-blue" style="cursor: pointer"><a href="aStoreDetails.jsp?id=<%=storeid%>"><%=storeName%></a></td>
+                                                <%} else {
+                                                %>
+                                                <td><%=storeName%></td>
+                                                <%}%>                                            
                                                 <td><%=category%></td>
                                                 <td><%=location%>, <%=city%></td>
                                                 <td><a href="JavaScript:changeStatus('<%=storeid%>','<%=storeStatus%>','store')"><%=storeStatus%></a></td>
                                                 <td class="text-blue"><%=img%></td>
                                                 <td><%=regDate%></td>
+                                                <%
+                                                    if (adminRole.equalsIgnoreCase("platinum")) {
+                                                %>
                                                 <td>
                                                     <a href="JavaScript:del('<%=storeid%>','store')" style="margin-left: 7px">
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>
                                                 </td>
+                                                <%}%>
                                             </tr>
                                             <%}%>
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>SID</th>
-                                                <th>Store Name</th>
-                                                <th>Category</th>
-                                                <th>Location</th>
-                                                <th>Status</th>
-                                                <th>Photo</th>
-                                                <th>Reg. Date</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>

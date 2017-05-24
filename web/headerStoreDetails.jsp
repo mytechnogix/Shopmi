@@ -1,4 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.concurrent.TimeUnit"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.text.DateFormat"%>
@@ -27,33 +26,7 @@
                     <i class="fa fa-search"></i>
                 </button>
             </div>
-            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <div class="form-group" style="margin-top:  8px">
-                            <select class="form-control  btn-warning" id="sel1">
-                                <%
-                                    pst = con.prepareStatement("select distinct city from storedetails order by city");
-                                    rs = pst.executeQuery();
-                                    while (rs.next()) {
-                                %>
-                                <option><%=rs.getString("city")%></option>
-                                <%}%>
-                            </select>
-                        </div>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="search" class="form-control" id="query" maxlength="60" placeholder="Search by Store Name or Category" style="width: 500px">
-                            <div class="input-group-addon" id="crossDiv" style="cursor: pointer; display: none">
-                                <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+
             <%
                 String fnm = String.valueOf(session.getAttribute("fnm"));
                 String uid = String.valueOf(session.getAttribute("uid"));

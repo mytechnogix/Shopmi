@@ -9,7 +9,7 @@
     <jsp:include page="aHeadFiles.jsp"/>
     <body style="background-color: darkslategray">
         <%
-            String aid = "", pass = "", name = "", img = "";
+            String aid = "", pass = "", name = "", img = "", role = "";
             aid = request.getParameter("aid");
             pass = request.getParameter("pass");
             PreparedStatement pst;
@@ -30,12 +30,15 @@
                 while (rs.next()) {
                     cnt++;
                     name = rs.getString("nm");
+                    role = rs.getString("role");
                 }
 
                 if (cnt > 0) {
                     session.setAttribute("adminFlag", "1");
                     session.setAttribute("aid", aid);
                     session.setAttribute("adminName", name);
+                    session.setAttribute("adminRole", role);
+
                     response.sendRedirect("aDashboard.jsp");
                 } else {
         %>

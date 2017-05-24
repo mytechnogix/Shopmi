@@ -1,5 +1,6 @@
-<%@page import="java.util.regex.Pattern"%><%@page import="DAO.ManageDAO"%><%@page import="BO.ManageOfferBO"%><%
+<%@page contentType="text/html" pageEncoding="UTF-8"%><%@page import="java.util.regex.Pattern"%><%@page import="DAO.ManageDAO"%><%@page import="BO.ManageOfferBO"%><%
     String storeId, offerOn, discount, totalCoupons, tc = "", dates, oid = "", start = "", end = "";
+    request.setCharacterEncoding("UTF-8");
     storeId = request.getParameter("offerStoreId");
     offerOn = request.getParameter("offerOn");
     discount = request.getParameter("offerDiscount");

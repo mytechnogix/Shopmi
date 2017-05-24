@@ -3,6 +3,7 @@
     Created on : Mar 12, 2017, 9:21:24 PM
     Author     : Ankush
 --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="DAO.ManageDAO"%>
 <%@page import="BO.ManageStoreBO"%>
 <%@page import="com.quickc.pack.DBConnector"%>

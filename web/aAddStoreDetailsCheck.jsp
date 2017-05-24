@@ -4,6 +4,7 @@
     String storeCatDdl, storeCatTxt, storeCat = "", storeAreaDdl, storeAreaTxt, storeArea = "", url;
     String lat, longi, storeURL = "", am, pm;
 
+    request.setCharacterEncoding("UTF-8");
     storeCatDdl = request.getParameter("ddlOfferStoreCat");
     storeCatTxt = request.getParameter("txtOfferStoreCat");
     storeAreaDdl = request.getParameter("ddlOfferStoreArea");
@@ -33,6 +34,7 @@
     lat = String.valueOf(session.getAttribute("latitude"));
     longi = String.valueOf(session.getAttribute("longitude"));
     objBO.setStoreName(request.getParameter("txtOfferStoreName"));
+    objBO.setStoreNameHindi(request.getParameter("txtOfferStoreNameHindi"));
     objBO.setStoreArea(storeArea);
     objBO.setStoreCat(storeCat);
     objBO.setCity(request.getParameter("txtOfferCity"));
@@ -49,7 +51,7 @@
     if (request.getParameter("opType").equals("add")) {
         objBO.setMapLocation(lat + "," + longi);
         objDAO.addStoreDetails(objBO);
-        if (!(objBO.getStoreId().equals(null)) && !(objBO.getStoreId().equals(""))) {
+        if (objBO.getStoreId() != null && !(objBO.getStoreId().equals(""))) {
             session.setAttribute("storeidAdd", objBO.getStoreId());
             response.sendRedirect("aAddStorePhoto.jsp");
         } else {

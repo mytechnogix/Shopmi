@@ -59,14 +59,14 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                            <input type="text" class="form-control" id="email" placeholder="Username">
+                                            <input type="email" class="form-control" id="emailLog" placeholder="Username">
                                         </div>
                                         <span class="help-block has-error" id="email-error"></span>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                                            <input type="password" class="form-control" id="pass" placeholder="Password">
+                                            <input type="password" class="form-control" id="passLog" placeholder="Password">
                                         </div>
                                         <span class="help-block has-error" id="password-error"></span>
                                     </div>
@@ -91,25 +91,45 @@
                                 </form>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="profile">
-                                &nbsp;&nbsp;
-                                <span id="registration_fail" class="response_error" style="display: none;">Registration failed, please try again.</span>
                                 <div class="clearfix"></div>
-                                <form>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                            <input type="text" class="form-control" id="username" placeholder="Username">
-                                        </div>
-                                        <span class="help-block has-error" data-error='0' id="username-error"></span>
-                                    </div>
+                                <br>
+                                <form action="#">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-at"></i></div>
-                                            <input type="text" class="form-control" id="remail" placeholder="Email">
+                                            <input type="email" class="form-control" id="emailReg" name="emailReg" placeholder="Email" required>
                                         </div>
-                                        <span class="help-block has-error" data-error='0' id="remail-error"></span>
                                     </div>
-                                    <button type="button" id="register_btn" class="btn btn-block bt-login" data-loading-text="Registering....">Register</button>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                            <input type="text" class="form-control" id="fnmReg" name="fnmReg" placeholder="First Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                            <input type="text" class="form-control" id="lnmReg" name="lnmReg" placeholder="Last Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                                            <input type="text" class="form-control" id="passReg" name="passReg" placeholder="Password" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                                            <input type="text" class="form-control" id="cpassReg" name="cpassReg" placeholder="Confirm Password" required>
+                                        </div>
+                                    </div>
+                                    <button type="button" onclick="registerUser()" id="register_btn" class="btn btn-block bt-login">Register</button>
+
+                                    &nbsp;&nbsp;
+                                    <span id="regSuccess" style="display: none; color: green">Registration Successful !  <a href='javascript:;' class='signin-tab'> Login Now</a></span>
+                                    <span id="regError" style="display: none; color: red"></span>
+
                                     <div class="clearfix"></div>
                                     <div class="login-modal-footer">
                                         <div class="row">

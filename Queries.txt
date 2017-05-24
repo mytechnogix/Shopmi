@@ -206,4 +206,46 @@ UPDATE log_counters SET members = members+1 where counterid = 1;
 END;
 $$
 
+//sp_users for user login and user registration
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `sp_user` $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user`(
+        IN _email VARCHAR(100),
+        IN _fnm VARCHAR(45),
+        IN _lnm VARCHAR(45),
+        IN _pass VARCHAR(45),
+        IN _newsFrom VARCHAR(500),
+        IN _q VARCHAR(10),
+        INOUT _flag INT(10)
+    )
+BEGIN
+start transaction;
+
+if(_q='1') then
+  begin
+  if(select count(email) from users where email=_email)>0 then
+    set _flag=2;
+  else
+    insert into users(email, fnm, lnm, pass) values(_email, _fnm, _lnm, _pass);
+    set _flag=1;
+  end if;
+  end;
+end if;
+
+if(_q='2') then
+select * from users where email=_email and pass=_pass;
+set _flag=1;
+end if;
+
+if(_q='3') then
+update users set fnm=_fnm, lnm=_lnm, pass=_pass, newsfrom=_newsFrom where email=_email;
+set _flag=1;
+end if;
+commit;
+END $$
+
+DELIMITER ;
+
 

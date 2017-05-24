@@ -199,6 +199,8 @@ function getOfferOutput(){
     }
 }
 // ajax-check login details
+var idFlag=false;
+var passFlag=false;
 function loginCheck1(str){
     if (typeof XMLHttpRequest != "undefined"){
         xmlHttp= new XMLHttpRequest();
@@ -211,25 +213,46 @@ function loginCheck1(str){
         return;
     }
     if(str=="1"){
-        var id=document.getElementById("email").value;
-        var pass=document.getElementById("pass").value;
-        //alert(id+" "+pass);
-        var url="loginCheck.jsp";
-        url +="?id="+id+"&pass="+pass+"&log=1";
-        xmlHttp.onreadystatechange=stateChange1;
-        xmlHttp.open("GET",url,true);
-        xmlHttp.send(null);
+        var id=document.getElementById("emailLog").value;
+        var pass=document.getElementById("passLog").value;
+        // alert(id+" "+pass);
+        if(id!='' && !id.length<=0 )
+        {
+            idFlag=true;
+        }
+        else
+        {
+            document.getElementById("emailLog").focus();
+        }
+        if(idFlag){
+            if(pass!='' && !pass.length<=0 )
+            {
+                passFlag=true;
+            }
+            else
+            {
+                document.getElementById("passLog").focus();
+            }
+        }
+        if(idFlag && passFlag){
+            var url="loginCheck.jsp";
+            url +="?id="+id+"&pass="+pass+"&log=1";
+            xmlHttp.onreadystatechange=loginCheckOutput;
+            xmlHttp.open("GET",url,true);
+            xmlHttp.send(null);
+        }
     }
+
     else
     {
         var url="loginCheck.jsp";
         url +="?log=0";
-        xmlHttp.onreadystatechange=stateChange1;
+        xmlHttp.onreadystatechange=loginCheckOutput;
         xmlHttp.open("GET",url,true);
         xmlHttp.send(null);   
     }
 }
-function stateChange1(){
+function loginCheckOutput(){
     if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
         // alert(xmlHttp.responseText);
         if(xmlHttp.responseText=="1" || xmlHttp.responseText=="0"){
@@ -238,6 +261,97 @@ function stateChange1(){
         if(xmlHttp.responseText=="2")
         {
             $("#loginError").show();
+        }
+    }
+}
+// ajax-check registration details
+function registerUser(){
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var id=document.getElementById("emailReg");
+    var pass=document.getElementById("passReg");
+    var fnm=document.getElementById("fnmReg");
+    var lnm=document.getElementById("lnmReg");
+    var cpass=document.getElementById("cpassReg");
+    
+    //alert(id+" "+fnm+" "+lnm+" "+pass+" "+cpass);
+    //var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+
+    if(id.value.trim()=='' || id.value.trim().length<=0  )
+    {
+        id.focus();
+        $("#regSuccess").hide();
+        $("#regError").text("Email address name cannot be empty");
+        $("#regError").show();
+    }
+    else if(fnm.value.trim()=='' || fnm.value.trim().length<=0 )
+    {
+        fnm.focus();
+        $("#regSuccess").hide();
+        $("#regError").text("First name cannot be empty");
+        $("#regError").show();
+    }
+    else if(lnm.value.trim()=='' || lnm.value.trim().length<=0){
+        lnm.focus();
+        $("#regSuccess").hide();
+        $("#regError").text("Last name cannot be empty");
+        $("#regError").show();
+    }
+    else if(pass.value.trim()=='' || pass.value.trim().length<=0){
+        pass.focus();
+        $("#regSuccess").hide();
+        $("#regError").text("Password cannot be empty");
+        $("#regError").show();
+    }
+    else if(cpass.value.trim()=='' || cpass.value.trim().length<=0){
+        cpass.focus();
+        $("#regSuccess").hide();
+        $("#regError").text("Confirm password cannot be empty");
+        $("#regError").show();
+    }
+    else if(pass.value.trim()!=cpass.value.trim()){
+        $("#regSuccess").hide();
+        $("#regError").text("Passwords Mismatched!");
+        $("#regError").show();
+    }
+    else
+    {
+        //alert("submitted");
+        var url="registerCheck.jsp";
+        url +="?email="+id.value+"&fnm="+fnm.value+"&lnm="+lnm.value+"&pass="+pass.value;
+        xmlHttp.onreadystatechange=registerUserOutput;
+        xmlHttp.open("GET",url,true);
+        xmlHttp.send(null);
+    }
+}
+function registerUserOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //   alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="1"){
+            $("#regError").hide();
+            $("#register_btn").attr("disabled", "disabled");
+            $("#regSuccess").show();
+
+        }
+        else if(xmlHttp.responseText=="0")
+        {
+            $("#regSuccess").hide();
+            $("#regError").text("Registration Failed!");
+            $("#regError").show();
+        }
+        else if(xmlHttp.responseText=="2")
+        {
+            $("#regSuccess").hide();
+            $("#regError").text("Already registered!");
+            $("#regError").show();                
         }
     }
 }
@@ -320,53 +434,9 @@ $(document).on('click','.forgetpass-tab',function(e){
     e.preventDefault();
     $('#forgetpass-taba').tab('show');
 });
-//admin add store - step 3 add photo
-//var photoFlag=0;
-//function fileCheck(obj) {
-//        alert();
-//
-//    var fileUpload = $("#fileUpload")[0];
-//    //Check whether HTML5 is supported.
-//    if (typeof (fileUpload.files) != "undefined") {
-//        //Initiate the FileReader object.
-//        var reader = new FileReader();
-//        //Read the contents of Image File.
-//        reader.readAsDataURL(fileUpload.files[0]);
-//        reader.onload = function (e) {
-//            //Initiate the JavaScript Image object.
-//            var image = new Image();
-//            //Set the Base64 string return from FileReader as source.
-//            image.src = e.target.result;
-//            image.onload = function () {
-//                //Determine the Height and Width.
-//                var height = this.height;
-//                var width = this.width;
-//                alert(width+" - "+height);
-//                if (height!=width) {
-//                    alert("Height and Width must not exceed 128px.");
-//                    photoFlag = 0;
-//                }
-//                else{
-//                    alert("Uploaded image has valid Height and Width.");
-//                    photoFlag = 1;
-//                }
-//            };
-//        }
-//    } else {
-//        alert("This browser does not support HTML5.");
-//    }
-//    var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
-//    if(photoFlag==1){
-//        if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1){
-//            alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
-//            photoFlag=0;
-//        }
-//        else{
-//            photoFlag=1;
-//        }
-//    }
-//}
-//function checkDimension(){
- //   alert();
-    
-//}
+
+
+function setSearchCat(str)
+{
+    window.location = "search.jsp?search="+str;
+}
