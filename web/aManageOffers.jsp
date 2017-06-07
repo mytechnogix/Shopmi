@@ -66,7 +66,7 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Sr.No.</th>
+                                                <th>OID</th>
                                                 <th>Store Name</th>
                                                 <th>Offer Duration</th>
                                                 <th>Status</th>
@@ -77,7 +77,7 @@
                                         </thead>
                                         <tbody>
                                             <%
-                                                String sDate = "", eDate = "",timedate = "", img = "", offerStatus = "", storeName="";
+                                                String sDate = "", eDate = "", timedate = "", img = "", offerStatus = "", storeName = "";
                                                 int cnt = 0, oid = 0, storeid = 0;
                                                 PreparedStatement pst;
                                                 ResultSet rs;
@@ -100,7 +100,7 @@
 
                                             %>
                                             <tr>
-                                                <td><%=cnt%>.</td>
+                                                <td><%=oid%></td>
                                                 <td class="text-blue"><a href="aOfferDetails.jsp?oid=<%=oid%>&sid=<%=storeid%>"><%=storeName%></a></td>
                                                 <td><%=sDate%> - <%=eDate%></td>
                                                 <td><a href="JavaScript:changeStatus('<%=oid%>','<%=offerStatus%>','offer')"><%=offerStatus%></a></td>
@@ -130,9 +130,10 @@
                             </div>
                         </div>
                         <div class="col-sm-4 imgPreview">
-                            <div class="box box-primary" style="position: fixed">
+                            <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Image Preview</h3>
+                                    <small class="pull-right"><a id="picPath" href="#">Change Picture</a></small>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
@@ -185,15 +186,25 @@
                 $(".imgDetails").show();
                 $(".imgDetails1").show();
             });
-            $("table tr td:nth-child(6)").click(function () {
-                $("#offerDetails").addClass("col-lg-8");
-                $(".imgPreview").show();
+//            $("table tr td:nth-child(6)").click(function () {
+//                $("#offerDetails").addClass("col-lg-8");
+//                $(".imgPreview").show();
+//                var td6 = $(this).text();
+//                $("#picPath").attr("href","aAddOfferPhoto.jsp?oid="+sid);
+//                $(".setImage").html("<img src='images/offerphotos/"+td6+"' class='preview'>");
+//                $("#imgPreviewName").text(td6);
+//                //alert(td2);
+//            });
+            $("table tr").on("click","td:nth-child(6)",function () {
+                var oid = $(this).siblings(":nth-child(1)").text();
+                oid=oid.trim();
                 var td6 = $(this).text();
+                $("#offerDetails").addClass("col-lg-8");
+                $("#picPath").attr("href","aAddOfferPhoto.jsp?oid="+oid);
                 $(".setImage").html("<img src='images/offerphotos/"+td6+"' class='preview'>");
                 $("#imgPreviewName").text(td6);
-                //alert(td2);
+                $(".imgPreview").show();
             });
-
         </script>
     </body>
 </html>

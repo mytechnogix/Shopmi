@@ -1,3 +1,116 @@
+//$("#crossDiv").hide();
+//
+//$('#crossDiv').click(function(){
+//    $("#searchResults").hide();
+//    $("#filterWP").hide();
+//    $("#similarResultsWP").hide();
+//    $("#sliderSection").show();
+//    $("#offerWP").show();
+//    $("#partnersWP").show();
+//    $("#recentlyWP").show();
+//    $("#siteCounters").show();
+//    $("#searchQuery").val("");
+//    $("#crossDiv").hide();
+//});
+//
+//$("#searchQuery").keyup(function(){
+//    query = $("#searchQuery").val().trim();
+//    $("#resFor").text(query);
+//    if(query.length>0 && query!=null && query!=" "){
+//        $("#crossDiv").show();
+//        $("#sliderSection").hide();
+//        $("#offerWP").hide();
+//        $("#recentlyWP").hide();
+//        $("#partnersWP").hide();
+//        $("#siteCounters").hide();
+//        $("#searchResults").show();
+//        $("#filterWP").show();
+//        $("#similarResultsWP").show();
+//        getSuggestions();
+//    }
+//    else
+//    {
+//        $("#filterWP").hide();
+//        $("#searchResults").hide();
+//        $("#similarResultsWP").hide();
+//        $("#sliderSection").show();
+//        $("#recentlyWP").show();
+//        $("#offerWP").show();
+//        $("#partnersWP").show();
+//        $("#siteCounters").show();
+//        $("#siteCounters").show();
+//        $("#crossDiv").hide();
+//    }
+//});
+$(document).on('click','.product-info', function() {
+    $parent_box = $(this).closest('.boxr');
+    $parent_box.siblings().find('.bottom').slideUp();
+    $parent_box.find('.bottom').slideToggle(1000, 'swing');
+});
+//ajax -get suggestions
+var xmlHttp
+var searchQuery;
+function getSuggestions(){
+    //alert("");
+    var filter = $('input:radio[name=filterChk]:checked').val();
+    var str = $("#searchQuery").val().trim();
+    searchQuery = str;
+    //    alert(filter+str);
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var url="getSuggestAjax.jsp";
+    url +="?query=" +str+"&filter="+filter;
+    xmlHttp.onreadystatechange = getSuggestionsOutput;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+function getSuggestionsOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        var someString = xmlHttp.responseText;
+        //alert(xmlHttp.responseText);
+        var count = 0;
+        var pos = someString.indexOf("<tr");
+        while(pos > -1){
+            ++count;
+            pos = someString.indexOf("<tr", ++pos);
+        }
+        //alert(count);
+        if(count>=3)
+        {
+            count=count-2;
+        }
+        else if(count==2)
+        {
+            count=0;
+        }
+        //document.getElementById("showCount").innerHTML=count;
+        $("#showData").html(xmlHttp.responseText);
+        alert($("#showData").height());
+        document.getElementById("showCount").innerHTML=count;
+        $("#resFor").text(searchQuery);
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+
+        $("#example1_filter").hide();
+        $("#example1_length").hide();
+        
+    }
+}
 //admin add offers
 var xmlhttp;
 var optype="";
@@ -79,12 +192,235 @@ function getOutput()
         }
     }
 }
+var xmlhttp;
+function saveEnquiry()
+{
+    xmlhttp=GetXmlHttpObject();
+    if (xmlhttp==null)
+    {
+        alert ("Your browser does not support Ajax HTTP");
+        return;
+    }
+    var enqType = $("#enqType").val();
+    var enqSid = $("#sid").val();
+    var enqSub = $("#txtEnqSubject").val();
+    var enqDesc = $("#txtEnqDesc").val();
+    
+    //alert(enqType+enqSub+enqDesc+enqSid);
+    if(enqSub.trim()=="" || enqSub.trim().length==0){
+        $("#txtEnqSubject").focus();
+    }
+    else if(enqDesc.trim()=="" || enqDesc.trim().length==0){
+        $("#txtEnqDesc").focus();
+    }
+    else{
+        var url="enquiryCheck.jsp";
+        url=url+"?type="+enqType+"&sub="+enqSub+"&desc="+enqDesc+"&sid="+enqSid;
+        xmlhttp.onreadystatechange=saveEnquiryOutput;
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send(null);
+    }
+}
+function saveEnquiryOutput()
+{
+    if (xmlhttp.readyState==4)
+    {
+        //  alert(xmlhttp.responseText);
+        if(xmlhttp.responseText=="1"){
+            $('#enquiryModalShop').modal('hide');           
+            $('#enquiryModalSuccess').modal('show'); 
+            $("#enquired").addClass("changeColor");
+        }
+        else{
+            $('#enquiryModalShop').modal('hide');           
+            $("#modalMsgEnq").text("Failed to send enquiry");
+            $('#enquiryModalSuccess').modal('show');  
+        }
+    }
+}
+var xmlhttp;
+function checkIconColor()
+{
+    xmlhttp=GetXmlHttpObject();
+    if (xmlhttp==null)
+    {
+        alert ("Your browser does not support Ajax HTTP");
+        return;
+    }
+    var enqid = $("#sid").val();
+    var type = $("#type").val();
 
+    var url="checkIconColor.jsp";
+    url=url+"?id="+enqid+"&type="+type;
+    xmlhttp.onreadystatechange=checkIconColorOutput;
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send(null);
+}
+function checkIconColorOutput()
+{
+    if (xmlhttp.readyState==4)
+    {
+        //alert(xmlhttp.responseText);
+        if((xmlhttp.responseText).startsWith("1") || (xmlhttp.responseText).startsWith("0")){
+            var str = xmlhttp.responseText;
+            var strarray = str.split(',');
+            for (var i = 0; i < strarray.length; i++) {
+                if(strarray[i]=="1" && i==0)
+                {
+                    $("#addFav").toggleClass("changeColor");
+                }
+                if(strarray[i]=="1" && i==1)
+                {
+                    $("#rated").addClass("changeColor");
+                }
+                if(strarray[i]=="1" && i==2)
+                {
+                    //          alert("");
+                    $("#enquired").addClass("changeColor");
+                }
+                if(strarray[i]=="1" && i==3)
+                {
+                    $("#settingsTabRev").hide();
+                    $("#successReviewMsg").hide();
+                    $("#editReviewMsg").show();
+                }
+            }
+        }
+    }
+}
 //ajax -2
+
+var xmlhttp;
+function toggleFav()
+{
+    xmlhttp=GetXmlHttpObject();
+    if (xmlhttp==null)
+    {
+        alert ("Your browser does not support Ajax HTTP");
+        return;
+    }
+    var enqid = $("#sid").val();
+    var type = $("#type").val();
+
+    var url="toggleFavCheck.jsp";
+    url=url+"?id="+enqid+"&type="+type;
+    xmlhttp.onreadystatechange=toggleFavOutput;
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send(null);
+}
+function toggleFavOutput()
+{
+    if (xmlhttp.readyState==4)
+    {
+        //alert(xmlhttp.responseText);
+        if(xmlhttp.responseText=="1"){
+            $("#addFav").toggleClass("changeColor");
+        }
+    }
+}
+
+var xmlhttp;
+function submitReview()
+{
+    xmlhttp=GetXmlHttpObject();
+    if (xmlhttp==null)
+    {
+        alert ("Your browser does not support Ajax HTTP");
+        return;
+    }
+    var enqid = $("#sid").val();
+    var type = $("#type").val();
+    var review = $("#txtAreaReview").val();
+    
+    var url="submitReviewCheck.jsp";
+    url=url+"?id="+enqid+"&type="+type+"&review="+review;
+    xmlhttp.onreadystatechange=submitReviewOutput;
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send(null);
+}
+function submitReviewOutput()
+{
+    if (xmlhttp.readyState==4)
+    {
+        //alert(xmlhttp.responseText);
+        if(xmlhttp.responseText=="1"){
+            $("#settingsTabRev").hide();
+            $("#successReviewMsg").show();
+        }
+    }
+}
+
+var xmlhttp;
+var rateVal;
+function toggleRating(str)
+{
+    rateVal=str;
+    xmlhttp=GetXmlHttpObject();
+    if (xmlhttp==null)
+    {
+        alert ("Your browser does not support Ajax HTTP");
+        return;
+    }
+    var enqid = $("#sid").val();
+    var type = $("#type").val();
+    
+    var url="toggleRatingCheck.jsp";
+    url=url+"?id="+enqid+"&type="+type+"&rating="+rateVal;
+    xmlhttp.onreadystatechange=toggleRatingOutput;
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send(null);
+}
+function toggleRatingOutput()
+{
+    if (xmlhttp.readyState==4)
+    {
+        // alert(xmlhttp.responseText);
+        if(xmlhttp.responseText=="1"){
+            $("#shop").hide();  
+            $("#rateMsg").text("You have rated "+rateVal + " stars to this shop");
+            $("#rateMsg").show();  
+            $("#rateThanks").show();  
+            $("#rated").addClass("changeColor");  
+
+        }
+    }
+}
+
+var xmlHttp;
+function getUserRatedCount()
+{
+    xmlHttp=GetXmlHttpObject();
+    if (xmlHttp==null)
+    {
+        alert ("Your browser does not support Ajax HTTP");
+        return;
+    }
+    var enqid = $("#sid").val();
+    var type = $("#type").val();
+    
+    var url="getUserRatedCount.jsp";
+    url=url+"?id="+enqid+"&type="+type;
+    xmlHttp.onreadystatechange=getUserRatedCountOutput;
+    xmlHttp.open("GET",url,true);
+    xmlHttp.send(null);
+}
+function getUserRatedCountOutput()
+{
+    if (xmlHttp.readyState==4)
+    {
+        //alert(xmlHttp.responseText);
+        var res=xmlHttp.responseText;
+        if(res=="1" || res=="2" || res=="3" || res=="4" || res=="5"){
+            $("#ratingScore").val(res);  
+        }
+    }
+}
+
 var xmlhttp;
 var gtype="";
 function changeStatus(id,status,type)
 {
+    //alert("");
     gtype = type;
     xmlhttp=GetXmlHttpObject();
     if (xmlhttp==null)
@@ -102,14 +438,17 @@ function getOutput1()
 {
     if (xmlhttp.readyState==4)
     {
+        //alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1")
         {
-            location.reload();
+            window.location.reload();
         }
     }
 }
 // check login before claiming offer
-function checkLogin(){
+var op;
+function checkLogin(str){
+    op=str;
     if (typeof XMLHttpRequest != "undefined"){
         xmlHttp= new XMLHttpRequest();
     }
@@ -128,18 +467,26 @@ function checkLogin(){
 }
 function checkOfferLoginOutput(){
     if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
-        //var someString = xmlHttp.responseText;
-        //  alert(someString);
         if(xmlHttp.responseText=="0"){
-            // alert("You must login first");
-            //     $('#offerModal').modal('hide');    
-            //$('#loginModal').modal({backdrop: 'static', keyboard: false})
             $('#loginModal').modal('show');           
         }
         if(xmlHttp.responseText=="1")
         {
-            //            alert("call another ajax here");
-            getOffer($("#oid").val(), $("#sid").val());
+            if(op=="offer"){
+                getOffer($("#oid").val(), $("#sid").val());
+            }
+            else if(op=="enq")
+            {
+                $('#enquiryModalShop').modal('show');           
+            }
+            else if(op=="fav")
+            {
+                toggleFav();     
+            }
+            else if(op=="rate")
+            {
+                $('#ratingModal').modal('show');           
+            }
         }
     }
 }
@@ -373,7 +720,6 @@ function GetXmlHttpObject()
 
 $("#txtOfferStoreArea").attr("disabled", "disabled");
 $("#txtOfferStoreCat").attr("disabled", "disabled");
-
 $("#ddlOfferStoreArea").change(function() {
     var opt = $(this).find('option:selected').val();
     if(opt=="Other")
@@ -435,8 +781,10 @@ $(document).on('click','.forgetpass-tab',function(e){
     $('#forgetpass-taba').tab('show');
 });
 
-
 function setSearchCat(str)
 {
     window.location = "search.jsp?search="+str;
 }
+
+
+

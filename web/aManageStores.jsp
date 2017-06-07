@@ -60,8 +60,8 @@
                         <div class="col-md-12" id="storeDetails">
                             <div class="box box-primary">
                                 <div class="box-header">
-                                    <a href="aAddStoreLocation.jsp" class="btn-sm btn-primary pull-right">
-                                        <i class="fa fa-plus"></i>  Add Store</a>
+                                    <a href="aAddStoreLocation.jsp?type=stores" class="btn-sm btn-primary pull-right">
+                                        <i class="fa fa-plus"></i> Add Store</a>
                                 </div>
                                 <div class="box-body">
                                     <table id="example1" class="table table-bordered table-striped">

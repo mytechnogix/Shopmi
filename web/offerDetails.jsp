@@ -17,7 +17,7 @@
     int oid = 0;
     ManageDAO objDAO = new ManageDAO();
     try {
-        oid = Integer.parseInt(objDAO.decryptAESEncryptWithSaltAndIV(request.getParameter("p"), session.getAttribute("RANDKEY").toString(), request.getParameter("s"), request.getParameter("i")));
+        oid = Integer.parseInt(request.getParameter("id"));
         Class.forName("com.mysql.jdbc.Driver");
         DBConnector dbc = new DBConnector();
         con = DriverManager.getConnection(dbc.getConstr());
@@ -63,7 +63,7 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed"  onload="initMap()">
         <div class="wrapper">
-            <jsp:include page="header.jsp"/>
+            <jsp:include page="headerStoreDetails.jsp"/>
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
@@ -85,7 +85,7 @@
 
                                 <input type="checkbox" name="chbTc" id="chbTc">
                                 <span>  <a href="#">Accept T&C</a></span><br><br>
-                                <button id="btnGetOffer" class="btn-lg btn-success" style="width: 200px" onclick="checkLogin()">Get Offer</button>
+                                <button id="btnGetOffer" class="btn-lg btn-success" style="width: 200px" onclick="checkLogin('offer')">Get Offer</button>
                                 <button id="btnWishList" class="btn-lg btn-success" style="width: 200px">Add to Favorite</button>
 
                             </div>

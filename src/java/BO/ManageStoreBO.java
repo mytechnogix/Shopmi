@@ -23,7 +23,16 @@ public class ManageStoreBO {
     private String _addedBy;
     private String _visitCount;
     private String _rating;
+    private String _reviewCount;
     private String _storePhotoLg;
+
+    public String getReviewCount() {
+        return _reviewCount;
+    }
+
+    public void setReviewCount(String _reviewCount) {
+        this._reviewCount = _reviewCount;
+    }
 
     public String getStoreNameHindi() {
         return _storeNameHindi;

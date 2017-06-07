@@ -8,7 +8,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Add Store</title>
+        <title>Add Location</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -104,25 +104,21 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Add Store
+                        Add Location
                         <small>( Step 1 of 3 )</small>
                     </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Manage Store</li>
-                        <li class="active">Add New Store</li>
-                    </ol>
                 </section>
                 <section class="content">
                     <div class="row" >
                         <div class="col-md-12">
                             <div class="box box-primary">
                                 <form role="form" action="aAddStoreLocationCheck.jsp" onsubmit="return validateAddStore();">
+                                    <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Search Store Location</label>
+                                                    <label>Search Location</label>
                                                     <div class="input-group margin">
                                                         <input type="text" id="txtLocation" onkeyup="getStoreLocation()" class="form-control" placeholder="Enter store area and city to locate" >
                                                         <span class="input-group-btn">

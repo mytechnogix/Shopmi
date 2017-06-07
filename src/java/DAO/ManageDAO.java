@@ -1,9 +1,6 @@
 package DAO;
 
-import BO.ManageAdvBO;
-import BO.ManageOfferBO;
-import BO.ManageStoreBO;
-import BO.ManageUsersBO;
+import BO.*;
 import com.quickc.pack.DBConnector;
 import com.quickc.pack.Email;
 import java.security.GeneralSecurityException;
@@ -252,9 +249,11 @@ public class ManageDAO {
                 objBO.setRating(rs.getString("rating"));
                 objBO.setContact(rs.getString("contact"));
                 objBO.setVisitCount(rs.getString("visitcount"));
+                objBO.setReviewCount(rs.getString("reviewcount"));
                 objBO.setAddress(rs.getString("fulladdress"));
                 objBO.setEmail(rs.getString("email"));
                 photoSm = rs.getString("photo");
+                photoLg = photoSm;
                 System.out.println(">>>>>>> Photo: " + photo);
                 if (photoSm.contains("default")) {
                     photoSm = "shopIcon_sm.png";
@@ -491,6 +490,28 @@ public class ManageDAO {
         }
     }
 
+    public void calcAvgRating() throws SQLException {
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            pst = con.prepareStatement("SELECT count(review) AS reviewcount, avg(rating) avgrating, storeid FROM reviewstore GROUP BY storeid order by storeid desc");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                pst = con.prepareStatement("update storedetails set rating=?, reviewcount=? where storeid=?");
+                pst.setString(1, rs.getString("avgrating"));
+                pst.setString(2, rs.getString("reviewcount"));
+                pst.setString(3, rs.getString("storeid"));
+                pst.executeUpdate();
+            }
+            con.close();
+        } catch (Exception ex) {
+            con.close();
+            ex.printStackTrace();
+        }
+    }
+
     public long getTimePrecision(String value) throws Exception {
         long l = 0;
         String val = "";
@@ -550,12 +571,12 @@ public class ManageDAO {
         ManageStoreBO objBO = new ManageStoreBO();
 
         ArrayList<ManageStoreBO> myclass = new ArrayList<ManageStoreBO>();
-
+        String photoSm = "", photoLg = "";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("SELECT storeid,storename, storearea,city, photo FROM storedetails WHERE regDate BETWEEN NOW() - INTERVAL 30 DAY AND NOW() order by regDate desc limit 12");
+            pst = con.prepareStatement("SELECT storeid,storename, storearea,city, photo FROM storedetails WHERE regDate BETWEEN NOW() - INTERVAL 30 DAY AND NOW() order by regDate desc limit 16");
             rs = pst.executeQuery();
             while (rs.next()) {
                 objBO = new ManageStoreBO();
@@ -563,12 +584,326 @@ public class ManageDAO {
                 objBO.setStoreId(rs.getString("storeid"));
                 objBO.setStoreArea(rs.getString("storearea"));
                 objBO.setCity(rs.getString("city"));
-                objBO.setStorePhotoLg(rs.getString("photo"));
+                photoSm = rs.getString("photo");
+                photoLg = photoSm;
+                if (photoSm.contains("default")) {
+                    photoSm = "shopIcon_sm.png";
+                    photoLg = "shopIcon_lg.png";
+                }
+                objBO.setStorePhoto(photoSm);
+                objBO.setStorePhotoLg(photoLg);
+                //objBO.setStorePhotoLg(rs.getString("photo"));
                 myclass.add(objBO);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return myclass;
+    }
+
+    public void addHallDetails(ManageHallBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(15, Types.INTEGER);
+            stmt.setString(1, objBO.getHallName());
+            stmt.setString(2, objBO.getHallNameHindi());
+            stmt.setInt(3, objBO.getHallAreaSqft());
+            stmt.setString(4, objBO.getHallArea());
+            stmt.setString(5, objBO.getAddress());
+            stmt.setString(6, objBO.getContact());
+            stmt.setString(7, objBO.getUrl());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getHallServices());
+            stmt.setString(10, objBO.getMapLocation());
+            stmt.setString(11, objBO.getCity());
+            stmt.setString(12, objBO.getSubType());
+            stmt.setString(13, objBO.getAddedBy());
+            stmt.setString(14, objBO.getPhoto());
+            stmt.setInt(15, 0);
+            stmt.setString(16, "1");
+            stmt.execute();
+            objBO.setHallId(stmt.getInt("_hid"));
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateHallDetails(ManageHallBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(15, Types.INTEGER);
+            stmt.setString(1, objBO.getHallName());
+            stmt.setString(2, objBO.getHallNameHindi());
+            stmt.setInt(3, objBO.getHallAreaSqft());
+            stmt.setString(4, objBO.getHallArea());
+            stmt.setString(5, objBO.getAddress());
+            stmt.setString(6, objBO.getContact());
+            stmt.setString(7, objBO.getUrl());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getHallServices());
+            stmt.setString(10, objBO.getMapLocation());
+            stmt.setString(11, objBO.getCity());
+            stmt.setString(12, objBO.getSubType());
+            stmt.setString(13, objBO.getAddedBy());
+            stmt.setString(14, objBO.getPhoto());
+            stmt.setInt(15, objBO.getHallId());
+            stmt.setString(16, "2");
+            stmt.execute();
+            if (stmt.getInt("_hid") == 1) {
+                objBO.setAddFlag(true);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateHallPhoto(ManageHallBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(15, Types.INTEGER);
+            stmt.setString(1, objBO.getHallName());
+            stmt.setString(2, objBO.getHallNameHindi());
+            stmt.setInt(3, objBO.getHallAreaSqft());
+            stmt.setString(4, objBO.getHallArea());
+            stmt.setString(5, objBO.getAddress());
+            stmt.setString(6, objBO.getContact());
+            stmt.setString(7, objBO.getUrl());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getHallServices());
+            stmt.setString(10, objBO.getMapLocation());
+            stmt.setString(11, objBO.getCity());
+            stmt.setString(12, objBO.getSubType());
+            stmt.setString(13, objBO.getAddedBy());
+            stmt.setString(14, objBO.getPhoto());
+            stmt.setInt(15, objBO.getHallId());
+            stmt.setString(16, "3");
+            stmt.execute();
+
+            if (stmt.getInt("_hid") == 1) {
+                objBO.setAddFlag(true);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void getAllHallDetails(ManageHallBO objBO) {
+        try {
+            String photo = "", photoSm, photoLg;
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("Select * from halls where hallid=" + objBO.getHallId() + "");
+
+            while (rs.next()) {
+                objBO.setHallName(rs.getString("hallname"));
+                objBO.setHallArea(rs.getString("hall_area"));
+                objBO.setContact(rs.getString("contact"));
+                objBO.setHallServices(rs.getString("services"));
+                objBO.setHallAreaSqft(rs.getInt("areasqft"));
+                objBO.setUrl(rs.getString("websiteurl"));
+                objBO.setCity(rs.getString("city"));
+                objBO.setMapLocation(rs.getString("maplocation"));
+                objBO.setRating(rs.getString("rating"));
+                objBO.setContact(rs.getString("contact"));
+                objBO.setVisitCount(rs.getInt("visitcount"));
+                objBO.setAddress(rs.getString("fulladdress"));
+                objBO.setEmail(rs.getString("email"));
+                photoSm = rs.getString("photo");
+                photoLg = photoSm;
+                System.out.println(">>>>>>> Photo: " + photo);
+                if (photoSm.contains("default")) {
+                    photoSm = "shopIcon_sm.png";
+                    photoLg = "shopIcon_lg.png";
+                }
+                objBO.setPhoto(photoSm);
+                objBO.setPhotoLg(photoLg);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addMesDetails(ManageMesBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(20, Types.INTEGER);
+            stmt.setString(1, objBO.getMesName());
+            stmt.setString(2, objBO.getMesNameHindi());
+            stmt.setString(3, objBO.getContact());
+            stmt.setString(4, objBO.getAddress());
+            stmt.setString(5, objBO.getMesArea());
+            stmt.setString(6, objBO.getServices());
+            stmt.setString(7, objBO.getServiceArea());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getUrl());
+            stmt.setString(10, objBO.getHomeDelivery());
+            stmt.setString(11, objBO.getLunchTime());
+            stmt.setString(12, objBO.getDinnerTime());
+            stmt.setString(13, objBO.getStatus());
+            stmt.setString(14, objBO.getMapLocation());
+            stmt.setString(15, objBO.getSubType());
+            stmt.setString(16, objBO.getClosedOn());
+            stmt.setString(17, objBO.getCity());
+            stmt.setString(18, objBO.getAddedBy());
+            stmt.setString(19, objBO.getPhoto());
+            stmt.setInt(20, objBO.getMesId());
+            stmt.setString(21, "1");
+            stmt.execute();
+            objBO.setMesId(stmt.getInt("_mesid"));
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateMesDetails(ManageMesBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(20, Types.INTEGER);
+            stmt.setString(1, objBO.getMesName());
+            stmt.setString(2, objBO.getMesNameHindi());
+            stmt.setString(3, objBO.getContact());
+            stmt.setString(4, objBO.getAddress());
+            stmt.setString(5, objBO.getMesArea());
+            stmt.setString(6, objBO.getServices());
+            stmt.setString(7, objBO.getServiceArea());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getUrl());
+            stmt.setString(10, objBO.getHomeDelivery());
+            stmt.setString(11, objBO.getLunchTime());
+            stmt.setString(12, objBO.getDinnerTime());
+            stmt.setString(13, objBO.getStatus());
+            stmt.setString(14, objBO.getMapLocation());
+            stmt.setString(15, objBO.getSubType());
+            stmt.setString(16, objBO.getClosedOn());
+            stmt.setString(17, objBO.getCity());
+            stmt.setString(18, objBO.getAddedBy());
+            stmt.setString(19, objBO.getPhoto());
+            stmt.setInt(20, objBO.getMesId());
+            stmt.setString(21, "2");
+            stmt.execute();
+            if (stmt.getInt("_mesid") > 0) {
+                objBO.setAddFlag(true);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateMesPhoto(ManageMesBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(20, Types.INTEGER);
+            stmt.setString(1, objBO.getMesName());
+            stmt.setString(2, objBO.getMesNameHindi());
+            stmt.setString(3, objBO.getContact());
+            stmt.setString(4, objBO.getAddress());
+            stmt.setString(5, objBO.getMesArea());
+            stmt.setString(6, objBO.getServices());
+            stmt.setString(7, objBO.getServiceArea());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getUrl());
+            stmt.setString(10, objBO.getHomeDelivery());
+            stmt.setString(11, objBO.getLunchTime());
+            stmt.setString(12, objBO.getDinnerTime());
+            stmt.setString(13, objBO.getStatus());
+            stmt.setString(14, objBO.getMapLocation());
+            stmt.setString(15, objBO.getSubType());
+            stmt.setString(16, objBO.getClosedOn());
+            stmt.setString(17, objBO.getCity());
+            stmt.setString(18, objBO.getAddedBy());
+            stmt.setString(19, objBO.getPhoto());
+            stmt.setInt(20, objBO.getMesId());
+            stmt.setString(21, "3");
+            stmt.execute();
+
+            if (stmt.getInt("_mesid") == 1) {
+                objBO.setAddFlag(true);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void getAllMesDetails(ManageMesBO objBO) {
+        try {
+            String photo = "", photoSm = "", photoLg = "";
+            int cnt = 0;
+
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            Connection con = DriverManager.getConnection(dbc.getConstr());
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("Select * from mes where mesid=" + objBO.getMesId() + "");
+
+            while (rs.next()) {
+                objBO.setMesName(rs.getString("mesname"));
+                objBO.setMesArea(rs.getString("mesarea"));
+                objBO.setContact(rs.getString("contact"));
+                objBO.setServiceArea(rs.getString("servicearea"));
+                objBO.setServices(rs.getString("services"));
+                objBO.setClosedOn(rs.getString("closedon"));
+                objBO.setLunchTime(rs.getString("lunchtime"));
+                objBO.setDinnerTime(rs.getString("dinnertime"));
+                objBO.setHomeDelivery(rs.getString("homedelivery"));
+                objBO.setUrl(rs.getString("websiteurl"));
+                objBO.setCity(rs.getString("city"));
+                objBO.setMapLocation(rs.getString("maplocation"));
+                objBO.setRating(rs.getString("rating"));
+                objBO.setContact(rs.getString("contact"));
+                objBO.setVisitCount(rs.getString("visitcount"));
+                objBO.setAddress(rs.getString("address"));
+                objBO.setEmail(rs.getString("email"));
+                photoSm = rs.getString("photo");
+                photoLg = photoSm;
+                System.out.println(">>>>>>> Photo: " + photo);
+                if (photoSm.contains("default")) {
+                    photoSm = "shopIcon_sm.png";
+                    photoLg = "shopIcon_lg.png";
+                }
+                objBO.setPhoto(photoSm);
+                objBO.setPhotoLg(photoLg);
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

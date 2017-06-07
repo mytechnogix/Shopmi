@@ -22,10 +22,17 @@
                 </a>
             </li>
             <li>
-                <a href="aManageStores.jsp">
+                <a href="#">
                     <i class="fa fa-files-o"></i>
-                    <span>Manage Stores</span>
+                    <span>Manage Services</span>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
+                <ul class="treeview-menu">
+                    <li><a href="aManageStores.jsp"><i class="fa fa-circle-o"></i> Manage Shops</a></li>
+                    <li><a href="aManageHalls.jsp"><i class="fa fa-circle-o"></i> Manage Party Halls</a></li>
+                    <li><a href="aManageMes.jsp"><i class="fa fa-circle-o"></i> Manage Mes</a></li>
+                    <li><a href="aManageHostels.jsp"><i class="fa fa-circle-o"></i> Manage Hostels</a></li>
+                </ul>
             </li>
             <li>
                 <a href="aManageOffers.jsp">

@@ -2,5 +2,5 @@
 <%
     ScheduleTimers obj = new ScheduleTimers();
     obj.PopularCats();
-
+    obj.CalcAvgRating();
 %>

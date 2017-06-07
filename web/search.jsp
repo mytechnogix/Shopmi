@@ -20,54 +20,135 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Search Shops</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-        <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="css/carousalOffers.css">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+        <link rel="stylesheet" href="dist/css/AdminLTE.min.css"/>
+        <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+        <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css"/>
+        <link rel="stylesheet" href="css/carousalOffers.css"/>
+        <link rel="stylesheet" href="css/index.css"/>
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-        <script>
-            //ajax -get suggestions
-            var xmlHttp
-            var xmlHttp
-            function getSuggestions(str){
-                if (typeof XMLHttpRequest != "undefined"){
-                    xmlHttp= new XMLHttpRequest();
-                }
-                else if (window.ActiveXObject){
-                    xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                if (xmlHttp==null){
-                    alert("Browser does not support XMLHTTP Request")
-                    return;
-                }
-                var url="getSuggestAjax.jsp";
-                url +="?query=" +str;
-                xmlHttp.onreadystatechange = stateChange;
-                xmlHttp.open("GET", url, true);
-                xmlHttp.send(null);
-            }
-            function stateChange(){
-                if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
-                    var someString = xmlHttp.responseText;
-                    var count = 0;
-                    var pos = someString.indexOf("<li");
-                    while(pos > -1){
-                        ++count;
-                        pos = someString.indexOf("<li", ++pos);
-                    }
-                    //  alert(count);
-                    document.getElementById("showCount").innerHTML=count;
-                    document.getElementById("showData").innerHTML=xmlHttp.responseText
-                }
-            }
-        </script>
         <style>
+            @media (max-width:767px) {
+                .fixed .content-wrapper,.fixed .right-side {
+                    padding-top: 50px;
+                }
+            }
             #login-after-div, #login-before-div
             {
                 display: none;
+            }
+            .option-input {
+                display: inline-block;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                -ms-appearance: none;
+                -o-appearance: none;
+                width: 20px;
+                height: 20px;
+                -webkit-transition: all 0.15s ease-out 0;
+                -moz-transition: all 0.15s ease-out 0;
+                transition: all 0.15s ease-out 0;
+                background: #cbd1d8;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+                text-align: center;
+            }
+
+            .option-input:hover { background: #9faab7; }
+
+            .option-input:checked { background: #40e0d0; }
+
+            .option-input:checked::before {
+                width: 20px;
+                height: 20px;
+                content: '\2713';
+                display: block;
+            }
+
+            .option-input:checked::after {
+                -webkit-animation: click-wave 0.65s;
+                -moz-animation: click-wave 0.65s;
+                animation: click-wave 0.65s;
+                background: #40e0d0;
+                content: '';
+                top: -30px;
+                display: block;
+            }
+
+            .option-input.radio { border-radius: 50%; }
+
+            .option-input.radio::after { border-radius: 50%; }
+            .radioLabel1
+            {
+                font-size: 20px;
+                top: -3px;
+                position: relative
+            }
+            @-webkit-keyframes 
+            click-wave { 0% {
+                         width: 40px;
+                         height: 40px;
+                         opacity: 0.35;
+                         position: relative;
+            }
+            100% {
+                width: 200px;
+                height: 200px;
+                margin-left: -80px;
+                margin-top: -80px;
+                opacity: 0.0;
+            }
+            }
+
+            @-moz-keyframes 
+            click-wave { 0% {
+                         width: 40px;
+                         height: 40px;
+                         opacity: 0.35;
+                         position: relative;
+            }
+            100% {
+                width: 200px;
+                height: 200px;
+                margin-left: -80px;
+                margin-top: -80px;
+                opacity: 0.0;
+            }
+            }
+
+            @-o-keyframes 
+            click-wave { 0% {
+                         width: 40px;
+                         height: 40px;
+                         opacity: 0.35;
+                         position: relative;
+            }
+            100% {
+                width: 200px;
+                height: 200px;
+                margin-left: -80px;
+                margin-top: -80px;
+                opacity: 0.0;
+            }
+            }
+
+            @keyframes 
+            click-wave { 0% {
+                         width: 40px;
+                         height: 40px;
+                         opacity: 0.35;
+                         position: relative;
+            }
+            100% {
+                width: 200px;
+                height: 200px;
+                margin-left: -80px;
+                margin-top: -80px;
+                opacity: 0.0;
+            }
             }
         </style>
     </head>
@@ -101,31 +182,57 @@
                         </div>
                     </div>
                     <br>
+                    <div class="row" id="filterWP">
+                        <div class="col-lg-12 box text-center" style="padding: 0px">
+                            <div class="box-body text-center">
+                                <span class="col-lg-3 label label-info" style="font-size: 16px">Filter By</span>
+                                <span class="col-lg-3">
+                                    <input type="radio" class="flat-red option-input radio" value="visitcount" name="filterChk" id="chkPopular" checked>
+                                    <span class="radioLabel1"> Popularity</span>
+                                </span>
+                                <span class="col-lg-3">
+                                    <input type="radio" class="flat-red option-input radio" value="rating" name="filterChk" id="chkRating">
+                                    <span class="radioLabel1"> Shop Rating</span>
+                                </span>
+                                <span class="col-lg-3">
+                                    <input type="radio" class="flat-red option-input radio" value="storename" name="filterChk" id="chkReview">
+                                    <span class="radioLabel1"> Reviews</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="box box-primary" id="similarResultsWP">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Similar Searches</h3>
+                                    <h3 class="box-title"><i class="fa fa-search"></i> Popular Stores</h3>
                                 </div>
                                 <div class="box-body">
-
+                                    <ul class="todo-list">
+                                        <%
+                                            pst = con.prepareStatement("select storename, count(*) as frequency from log_popular group by category order by count(*) desc limit 10;");
+                                            rs = pst.executeQuery();
+                                            while (rs.next()) {
+                                        %>
+                                        <li>
+                                            <a href="search.jsp?search=<%=rs.getString("storename")%>">
+                                                <span class="handle">
+                                                    <i class="fa fa-tag"></i>
+                                                </span>
+                                                <span class="text"><%=rs.getString("storename")%></span>
+                                                <div class="tools">
+                                                    <i class="fa fa-external-link"></i>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <%}%>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-lg-6">
                             <div class="box box-primary" id="searchResults">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Showing <span id="showCount">0</span>
-                                        shop(s) related to <span id="resFor" style="color: green; font-weight: bold"><%=query%></span>
-                                    </h3>
-                                </div>
-                                <div class="box-body">
-                                    <ul class="products-list product-list-in-box">
-                                        <div id="showData" class="item"></div>
-                                    </ul>
-                                </div>
-                                <div class="box-footer text-center">
-                                    <a href="javascript:void(0)" class="uppercase">Load More Shops</a>
+                                <div class="box-body" id="showData"  style="min-height: 480px;">
                                 </div>
                             </div>
                         </div>
@@ -256,6 +363,8 @@
         <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
         <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <script src="plugins/fastclick/fastclick.js"></script>
+        <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
         <script src="dist/js/app.min.js"></script>
         <script src="dist/js/pages/dashboard.js"></script>
         <script src="dist/js/demo.js"></script>
@@ -265,33 +374,29 @@
         <script src="js/custom.js"></script>
         <jsp:include page="modals.jsp"/>
         <script>
-            $(document).on('click','.product-info', function() {
-                $parent_box = $(this).closest('.boxr');
-                $parent_box.siblings().find('.bottom').slideUp();
-                $parent_box.find('.bottom').slideToggle(1000, 'swing');
-            });
+
             $("#crossDiv").show();
-            $("#query").val("<%=query%>");
+            $("#searchQuery").val("<%=query%>");
             $('#crossDiv').click(function(){
-                $("#query").val("");
+                $("#searchQuery").val("");
                 $("#crossDiv").hide();
                 $("#resFor").text("");
-                $("#showData").text("");
+                $("#showData").text("Search results will be shown here");
                 $("#showCount").text("0");
             });
 
-            $("#query").keyup(function(){
+            $("#searchQuery").keyup(function(){
                 $("#crossDiv").show();
-                query = $("#query").val().trim();
+                query = $("#searchQuery").val().trim();
                 $("#resFor").text(query);
                 if(query.length>0 && query!=null && query!=" "){
-                    getSuggestions(query);
+                    getSuggestions();
                 }
                 else
                 {
                     $("#crossDiv").hide();
                     $("#resFor").text("");
-                    $("#showData").text("");
+                    $("#showData").text("Search results will be shown here");
                     $("#showCount").text("0");
                 }
             });

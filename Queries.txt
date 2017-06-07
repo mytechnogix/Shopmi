@@ -248,4 +248,127 @@ END $$
 
 DELIMITER ;
 
+// sp_halls 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `sp_hall` $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_hall`(
+        IN _hallName VARCHAR(500),
+        IN _hallNameHindi VARCHAR(500),
+        IN _hallAreaSqft int(10),
+        IN _hallArea VARCHAR(200),
+        IN _address VARCHAR(3000),
+        IN _contact VARCHAR(45),
+        IN _url varchar(200),
+        IN _email varchar(45),
+        IN _services varchar(5000),
+        IN _mapLocation varchar(100),
+        IN _city varchar(200),
+        IN _subType varchar(45),
+        IN _addedBy varchar(45),
+        IN _photo varchar(100),
+        INOUT _hid INT(10),
+        IN _q varchar(50)
+    )
+BEGIN
+declare temp int(10);
+start transaction;
 
+if(_q='1') then
+insert into halls(hallid, hallname, hallnamehindi, areasqft, fulladdress, contact, services, maplocation, email, substype, addedBy,
+hall_area, websiteurl,city)
+values(_hid, _hallName, _hallNameHindi, _hallAreaSqft, _address, _contact, _services, _mapLocation, _email, _subType, _addedBy,
+_hallArea, _url, _city);
+
+select hallid into temp from halls where hallid=(select max(hallid) from halls);
+set _hid=temp;
+end if;
+
+if(_q='2') then
+update halls set hallname=_hallName, hallnamehindi=_hallNameHindi, areasqft=_hallAreaSqft, fulladdress=_address, contact=_contact,
+services=_services,maplocation=_mapLocation, email=_email, substype=_subType, hall_area=_hallArea, websiteurl=_url, city=_city where hallid=_hid;
+set _hid=1;
+end if;
+
+if(_q='3') then
+update halls set photo=_photo where hallid=_hid;
+set _hid=1;
+end if;
+
+if(_q='4') then
+delete from halls where hallid=_hid;
+set _hid=1;
+end if;
+commit;
+END $$
+
+DELIMITER ;
+
+//sp_mes
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `sp_mes` $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_mes`(
+        IN _mesname VARCHAR(1000),
+        IN _mesnamehindi VARCHAR(1000),
+        IN _contact VARCHAR(45),
+        IN _address VARCHAR(5000),
+        IN _mesarea VARCHAR(100),
+        IN _services VARCHAR(3000),
+        IN _serviceArea VARCHAR(100),
+        IN _email VARCHAR(45),
+        IN _websiteurl VARCHAR(45),
+        IN _homedelivery VARCHAR(45),
+        IN _lunchtime varchar(45),
+        IN _dinnertime varchar(45),
+        IN _messtatus varchar(45),
+        IN _maplocation varchar(45),
+        IN _subtype varchar(45),
+        IN _closedon varchar(45),
+        IN _city varchar(45),
+        IN _addedby varchar(45),
+        IN _photo varchar(1000),
+        INOUT _mesid INT(10),
+        IN _q varchar(50)
+    )
+BEGIN
+declare temp int(10);
+start transaction;
+
+if(_q='1') then
+insert into mes(mesname, mesnamehindi, contact, address, mesarea, services, servicearea, email, websiteurl, homedelivery, lunchtime, dinnertime,
+maplocation, subtype, closedon, city, addedby)
+values(_mesname, _mesnamehindi, _contact, _address, _mesarea, _services, _servicearea, _email, _websiteurl, _homedelivery, _lunchtime, _dinnertime,
+_maplocation, _subtype, _closedon, _city, _addedby);
+
+select mesid into temp from mes where mesid=(select max(mesid) from mes);
+set _mesid=temp;
+end if;
+
+if(_q='2') then
+update mes set mesname=_mesname, mesnamehindi=_mesnamehindi, contact=_contact, address=_address, mesarea=_mesarea, services=_services,
+servicearea=_servicearea,email=_email,
+websiteurl=_websiteurl, homedelivery=_homedelivery, lunchtime=_lunchtime,dinnertime=_dinnertime,closedon=_closedon,
+city=_city where mesid=_mesid;
+set _mesid=1;
+end if;
+
+if(_q='3') then
+update mes set photo=_photo where mesid=_mesid;
+set _mesid=1;
+end if;
+
+if(_q='4') then
+update mes set messtatus=_messtatus where mesid=_mesid;
+set _mesid=1;
+end if;
+
+if(_q='5') then
+update mes set maplocation=_maplocation where mesid=_mesid;
+set _mesid=1;
+end if;
+
+commit;
+END $$
+
+DELIMITER ;

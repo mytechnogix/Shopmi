@@ -13,6 +13,14 @@ public class ScheduleTimers {
         Timer timer = new Timer();
         //runs after every 24 hours from starting time
         timer.scheduleAtFixedRate(tasknew, 500, 86400000);
-        
+
+    }
+
+    public void CalcAvgRating() throws Exception {
+        TimerTask tasknew = new CalcAvgRatingTimer();
+        Timer timer = new Timer();
+        //runs after every 12 hours from starting time
+        timer.scheduleAtFixedRate(tasknew, 500, 43200000);
+
     }
 }

@@ -1,0 +1,25 @@
+#rateMsg
+{
+ display: none   
+}
+.c-rating{
+    font-size: 30px;
+    background-color: #fff;
+    display:flex;
+    list-style:none;
+    width: 137px;
+    margin: 0 auto;
+    padding:0
+}
+.c-rating__item{
+    -webkit-box-flex:0;
+    -webkit-flex:0 0 24px;
+    -ms-flex:0 0 24px;
+    flex:0 0 24px;
+    height:24px;
+    background:url(../images/stars.svg);
+    cursor:pointer
+}
+.c-rating__item.is-active,.c-rating__item:hover{
+    background-position:-24px 0
+}

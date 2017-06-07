@@ -22,8 +22,9 @@
                 <p class="login-box-msg">Sign in to start your session</p>
 
                 <form action="aLoginCheck.jsp" method="post">
+                    <input type="hidden" name="type" value="admin">
                     <div class="form-group has-feedback">
-                        <input type="email" class="form-control" name="aid" placeholder="Admin ID">
+                        <input type="email" class="form-control" name="id" placeholder="Admin ID">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">

@@ -39,6 +39,28 @@
             } else {
                 out.print("0");
             }
+        } else if (type.equals("hall")) {
+            pst = con.prepareStatement("update halls set status=? where hallid=?");
+            pst.setString(1, status);
+            pst.setString(2, id);
+            cnt = pst.executeUpdate();
+
+            if (cnt > 0) {
+                out.print("1");
+            } else {
+                out.print("0");
+            }
+        } else if (type.equals("mes")) {
+            pst = con.prepareStatement("update mes set messtatus=? where mesid=?");
+            pst.setString(1, status);
+            pst.setString(2, id);
+            cnt = pst.executeUpdate();
+
+            if (cnt > 0) {
+                out.print("1");
+            } else {
+                out.print("0");
+            }
         } else {
             pst = con.prepareStatement("update storedetails set storestatus=? where storeid=?");
             pst.setString(1, status);

@@ -9,9 +9,11 @@
     <jsp:include page="aHeadFiles.jsp"/>
     <body style="background-color: darkslategray">
         <%
-            String aid = "", pass = "", name = "", img = "", role = "";
-            aid = request.getParameter("aid");
+            String id = "", pass = "", name = "", img = "", role = "", type = "";
+            id = request.getParameter("id");
             pass = request.getParameter("pass");
+            type = request.getParameter("type");
+
             PreparedStatement pst;
             Connection con;
             ResultSet rs;
@@ -21,26 +23,19 @@
                 Class.forName("com.mysql.jdbc.Driver");
                 DBConnector dbc = new DBConnector();
                 con = DriverManager.getConnection(dbc.getConstr());
+                if (type.equals("admin")) {
+                    pst = con.prepareStatement("select * from admin where email=? and pass=?;");
+                    pst.setString(1, id);
+                    pst.setString(2, pass);
+                    rs = pst.executeQuery();
 
-                pst = con.prepareStatement("select * from admin where email=? and pass=?;");
-                pst.setString(1, aid);
-                pst.setString(2, pass);
-                rs = pst.executeQuery();
-
-                while (rs.next()) {
-                    cnt++;
-                    name = rs.getString("nm");
-                    role = rs.getString("role");
-                }
-
-                if (cnt > 0) {
-                    session.setAttribute("adminFlag", "1");
-                    session.setAttribute("aid", aid);
-                    session.setAttribute("adminName", name);
-                    session.setAttribute("adminRole", role);
-
-                    response.sendRedirect("aDashboard.jsp");
-                } else {
+                    if (rs.next()) {
+                        session.setAttribute("adminFlag", "1");
+                        session.setAttribute("aid", id);
+                        session.setAttribute("adminName", rs.getString("nm"));
+                        session.setAttribute("adminRole", rs.getString("role"));
+                        response.sendRedirect("aDashboard.jsp");
+                    } else {
         %>
         <br><br><br><br>
         <table width="400px" height="250px" align="center" border="3">
@@ -51,6 +46,31 @@
             </td>
         </table>
         <%            }
+        } else if (type.equals("hall")) {
+            pst = con.prepareStatement("select hallname, photo from halls where hallid=? and pass=? and status='Active';");
+            pst.setString(1, id);
+            pst.setString(2, pass);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                session.setAttribute("hallFlag", "1");
+                session.setAttribute("hallid", id);
+                session.setAttribute("hallPhoto", rs.getString("photo"));
+                session.setAttribute("hallName", rs.getString("hallname"));
+                response.sendRedirect("hDashboard.jsp");
+            } else {
+        %>
+        <br><br><br><br>
+        <table width="400px" height="250px" align="center" border="3">
+            <td align="center">
+                <span style="font-size: 20px; font-family: verdana; color: white">Login Failed! Try Again</span>
+                <br><br>
+                <div class="btn btn-primary" onclick="history.back()">Retry</div>
+            </td>
+        </table>
+        <%                    }
+                }
+
                 con.close();
             } catch (Exception e) {
                 out.print("Error Occured !!" + e);

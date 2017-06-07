@@ -1,3 +1,6 @@
+<%@page import="com.quickc.pack.DBConnector"%>
+<%@page import="java.util.*,java.text.*,java.sql.*" %>
+<link rel="stylesheet" href="css/rating.min.css">
 <%
     if (String.valueOf(session.getAttribute("flag")).equals("1")) {
 %>
@@ -180,3 +183,177 @@
         </div>
     </div>
 </div>       
+<div id="enquiryModalShop" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center">Send enquiry to shop</h4>
+            </div>
+            <div class="modal-body">
+                <!--                <form role="form" name="enqForm" action="enquiryCheck.jsp">-->
+                <input type="hidden" name="enqType" id="enqType" value="store">
+                <div class="form-group">
+                    <label for="lblSubject">Subject</label>
+                    <input type="text" class="form-control" id="txtEnqSubject" name="txtEnqSubject" placeholder="Enter enquiry subject">
+                </div>
+                <div class="form-group">
+                    <label for="lblDesc">Enquiry Description</label>
+                    <textarea class="form-control" rows="3" id="txtEnqDesc" name="txtEnqDesc" placeholder="Enter enquiry in detail"></textarea>
+                </div>
+                <button type="button" onclick="saveEnquiry()" class="btn btn-primary">Submit</button>
+                <!--                </form>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="ratingModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center">Rate this shop</h4>
+            </div>
+            <div class="modal-body text-center">
+                <main class="o-content">
+                    <div class="o-container">
+                        <div class="o-section">
+                            <div id="shop"></div>
+                            <br>
+                            <div id="rateMsg">Rate here</div><br>
+                            <div id="rateThanks" style="display: none">Thank you for rating</div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="enquiryModalSuccess" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center" style="background-color: #605ca8">
+                <img id="modalImg_offer" src="images/rightIcon.png" style="width: 100px; height: 100px; border-radius: 50%">
+                <h3 id="modalMsgEnq" style="color: white">Your enquiry has sent to shop.<br> They will get back to you soon.<br>Thank you!</h3>
+                <input type="hidden" id="hdfRatingValue" />  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<%
+    int yy = 0, mm = 0;
+    Calendar c = Calendar.getInstance();
+    yy = c.get(Calendar.YEAR);
+    mm = c.get(Calendar.MONTH);
+%>
+<div id="bookCalendarModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="loginModalLabel">Check Availability</h4>
+            </div>
+            <div class="modal-body">
+                <select name="month" id="month" class="col-md-4" style="height: 34px;">
+                    <option value="0">Jan</option>
+                    <option value="1">Feb</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">Jun</option>
+                    <option value="6">Jul</option>
+                    <option value="7">Aug</option>
+                    <option value="8">Sept</option>
+                    <option value="9">Oct</option>
+                    <option value="10">Nov</option>
+                    <option value="11">Dec</option>
+                </select>
+                <select name="year" id="year" class="col-md-4" style="height: 34px">
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                </select>
+                <input type=button id="btnDisplay" class="col-md-4 btn btn-primary" value="Display" onclick="getCalendarMonth()">
+                <br><br>
+                <div id="showCalendar" class="table-responsive"></div>
+            </div>
+            <div class="modal-footer">
+                <canvas id="myCanvas" width="20" height="10"
+                        style="border:1px solid #000000; background-color:red"> 
+                </canvas>  Booked Date
+                <canvas id="myCanvas" width="20" height="10"
+                        style="margin-left: 3px; border:1px solid #000000; background-color:white"> 
+                </canvas>  Available Date
+            </div>
+        </div>
+    </div>
+    <script>
+        $('select option[value=<%=mm%>]').attr('selected','selected');
+    </script>
+</div>
+<input type="hidden" name="ratingScore" id="ratingScore" value="">
+
+<script src="js/rating.min.js"></script>
+<script>
+    (function() {
+        'use strict';
+        var shop = document.querySelector('#shop');
+        //  var userId=$("#uid").val();
+        // alert(userId);
+        //        if(userId!="null")
+        //        {
+        //            getUserRatedCount();
+        //        }
+        //alert($("#ratingScore").val());
+        var data = [
+            {
+                rating: 5
+            }
+        ];
+        // INITIALIZE
+        (function init() {
+            for (var i = 0; i < data.length; i++) {
+                addRatingWidget(buildShopItem(data[i]), data[i]);
+            }
+        })();
+
+        // BUILD SHOP ITEM
+        function buildShopItem(data) {
+            var shopItem = document.createElement('div');
+
+            var html = '' +
+                '<ul class="c-rating"></ul>';
+
+            shopItem.classList.add('c-shop-item');
+            shopItem.innerHTML = html;
+            shop.appendChild(shopItem);
+
+            return shopItem;
+        }
+        // ADD RATING WIDGET
+        var rateVal=0;
+        function addRatingWidget(shopItem, data) {
+            var ratingElement = shopItem.querySelector('.c-rating');
+            var currentRating = data.rating;
+            var maxRating = 5;
+            var callback = function(rating) { 
+                
+                rateVal=rating;
+                toggleRating(rateVal);
+                //                $("#rateMsg").text("You have rated "+rating + " stars to this shop");
+                //                $("#rateMsg").show();    
+            };
+           
+            var r = rating(ratingElement, currentRating, maxRating, callback);
+        }
+    })();
+</script>
