@@ -184,14 +184,14 @@ CREATE TABLE  `shejari`.`claimedoffers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 
-// trigger for increasing store count in counter table
+// trigger for increasing store count and category count in counter table
 
 delimiter $$
-CREATE TRIGGER tgr_incStore
+CREATE TRIGGER tgr_incStoreAndCategory
 after insert ON storedetails
 for each row
 BEGIN
-UPDATE log_counters SET stores = stores+1 where counterid = 1;
+UPDATE log_counters SET categories = (select count(distinct(category)) as total from storedetails), stores=stores+1 where counterid = 1;
 END;
 $$
 
@@ -368,6 +368,71 @@ update mes set maplocation=_maplocation where mesid=_mesid;
 set _mesid=1;
 end if;
 
+commit;
+END $$
+
+DELIMITER ;
+
+// sp_hostel
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `sp_hostel` $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_hostel`(
+        IN _hostName VARCHAR(500),
+        IN _hostNameHindi VARCHAR(500),
+        IN _hostAreaSqft int(45),
+        IN _hostArea VARCHAR(100),
+        IN _address VARCHAR(5000),
+        IN _contact VARCHAR(45),
+        IN _url varchar(100),
+        IN _email varchar(45),
+        IN _forwhom varchar(45),
+        IN _amenities varchar(5000),
+        IN _bedrooms varchar(45),
+        IN _beds varchar(45),
+        IN _rent varchar(10),
+        IN _deposit varchar(10),
+        IN _desc varchar(5000),
+        IN _mapLocation varchar(45),
+        IN _city varchar(45),
+        IN _addedBy varchar(200),
+        IN _photo varchar(100),
+        IN _furnished varchar(45),
+        IN _possession varchar(45),
+        INOUT _hostid INT(10),
+        IN _q varchar(50)
+    )
+BEGIN
+declare temp int(10);
+start transaction;
+
+if(_q='1') then
+insert into hostel(hostname, hostnamehindi, hostarea, hostareasqft, address, contact, websiteurl, email, forwhom,
+amenities, bedrooms, beds, rent, deposit, description, maplocation, city, addedby, furnished, possession)
+values(_hostName, _hostNameHindi, _hostArea, _hostAreaSqft, _address, _contact, _url, _email, _forwhom,
+_amenities, _bedrooms, _beds, _rent, _deposit, _desc, _mapLocation, _city, _addedBy, _furnished, _possession);
+
+select hostid into temp from hostel where hostid=(select max(hostid) from hostel);
+set _hostid=temp;
+end if;
+
+if(_q='2') then
+update hostel set hostname=_hostName, hostnamehindi=_hostNameHindi, hostarea=_hostArea, hostareasqft=_hostAreaSqft,
+address=_address, contact=_contact, websiteurl=_url, email=_email, forwhom=_forwhom, amenities=_amenities, bedrooms=_bedrooms,
+beds=_beds, rent=_rent, deposit=_deposit, description=_desc, city=_city, furnished=_furnished, possession = _possession
+where hostid=_hostid;
+set _hostid=1;
+end if;
+
+if(_q='3') then
+update hostel set photo=_photo where hostid=_hostid;
+set _hostid=1;
+end if;
+
+if(_q='4') then
+delete from hostel where hallid=_hostid;
+set _hostid=1;
+end if;
 commit;
 END $$
 

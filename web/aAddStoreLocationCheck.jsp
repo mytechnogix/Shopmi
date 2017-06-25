@@ -6,8 +6,9 @@
         response.sendRedirect("aAddStoreDetails.jsp");
     } else if (s.equals("halls")) {
         response.sendRedirect("aAddHallDetails.jsp");
-    }
-     else if (s.equals("mes")) {
+    } else if (s.equals("mes")) {
         response.sendRedirect("aAddMesDetails.jsp");
+    } else if (s.equals("hostels")) {
+        response.sendRedirect("aAddHostelDetails.jsp");
     }
 %>

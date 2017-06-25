@@ -23,4 +23,12 @@ public class ScheduleTimers {
         timer.scheduleAtFixedRate(tasknew, 500, 43200000);
 
     }
+
+    public void updateClaimedOfferStatusJob() throws Exception {
+        TimerTask tasknew = new NotifyClaimedOffers();
+        Timer timer = new Timer();
+        //runs after every 1 hours from starting time
+        timer.scheduleAtFixedRate(tasknew, 500, 3600000);
+
+    }
 }

@@ -12,27 +12,101 @@
         Class.forName("com.mysql.jdbc.Driver");
         DBConnector dbc = new DBConnector();
         con = DriverManager.getConnection(dbc.getConstr());
-        pst = con.prepareStatement("select storeid from reviewstore where uid=? and storeid=?");
-        pst.setString(1, uid);
-        pst.setString(2, id);
-        rs = pst.executeQuery();
-        if (rs.next()) {
+        if (type.equalsIgnoreCase("store")) {
+            pst = con.prepareStatement("select storeid from reviewstore where uid=? and storeid=?");
+            pst.setString(1, uid);
+            pst.setString(2, id);
+            rs = pst.executeQuery();
+            if (rs.next()) {
 
-            pst = con.prepareStatement("update reviewstore set fav=fav xor 1 where uid=? and storeid=?");
-            pst.setString(1, uid);
-            pst.setString(2, id);
-            cnt = pst.executeUpdate();
-            if (cnt > 0) {
-                res = "1";
+                pst = con.prepareStatement("update reviewstore set fav=fav xor 1 where uid=? and storeid=?");
+                pst.setString(1, uid);
+                pst.setString(2, id);
+                cnt = pst.executeUpdate();
+                if (cnt > 0) {
+                    res = "1";
+                }
+            } else {
+                pst = con.prepareStatement("insert into reviewstore(uid, storeid, fav) values(?,?,?);");
+                pst.setString(1, uid);
+                pst.setString(2, id);
+                pst.setInt(3, 1);
+                cnt = pst.executeUpdate();
+                if (cnt > 0) {
+                    res = "1";
+                }
             }
-        } else {
-            pst = con.prepareStatement("insert into reviewstore(uid, storeid, fav) values(?,?,?);");
+        } else if (type.equalsIgnoreCase("hall")) {
+            pst = con.prepareStatement("select hallid from reviewhall where uid=? and hallid=?");
             pst.setString(1, uid);
             pst.setString(2, id);
-            pst.setInt(3, 1);
-            cnt = pst.executeUpdate();
-            if (cnt > 0) {
-                res = "1";
+            rs = pst.executeQuery();
+            if (rs.next()) {
+
+                pst = con.prepareStatement("update reviewhall set fav=fav xor 1 where uid=? and hallid=?");
+                pst.setString(1, uid);
+                pst.setString(2, id);
+                cnt = pst.executeUpdate();
+                if (cnt > 0) {
+                    res = "1";
+                }
+            } else {
+                pst = con.prepareStatement("insert into reviewhall(uid, hallid, fav) values(?,?,?);");
+                pst.setString(1, uid);
+                pst.setString(2, id);
+                pst.setInt(3, 1);
+                cnt = pst.executeUpdate();
+                if (cnt > 0) {
+                    res = "1";
+                }
+            }
+        } else if (type.equalsIgnoreCase("hostel")) {
+            pst = con.prepareStatement("select hostid from reviewhost where uid=? and hostid=?");
+            pst.setString(1, uid);
+            pst.setString(2, id);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+
+                pst = con.prepareStatement("update reviewhost set fav=fav xor 1 where uid=? and hostid=?");
+                pst.setString(1, uid);
+                pst.setString(2, id);
+                cnt = pst.executeUpdate();
+                if (cnt > 0) {
+                    res = "1";
+                }
+            } else {
+                pst = con.prepareStatement("insert into reviewhost(uid, hostid, fav) values(?,?,?);");
+                pst.setString(1, uid);
+                pst.setString(2, id);
+                pst.setInt(3, 1);
+                cnt = pst.executeUpdate();
+                if (cnt > 0) {
+                    res = "1";
+                }
+            }
+        } else if (type.equalsIgnoreCase("mes")) {
+            pst = con.prepareStatement("select mesid from reviewmes where uid=? and mesid=?");
+            pst.setString(1, uid);
+            pst.setString(2, id);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+
+                pst = con.prepareStatement("update reviewmes set fav=fav xor 1 where uid=? and mesid=?");
+                pst.setString(1, uid);
+                pst.setString(2, id);
+                cnt = pst.executeUpdate();
+                if (cnt > 0) {
+                    res = "1";
+                }
+            } else {
+                pst = con.prepareStatement("insert into reviewmes(uid, mesid, fav) values(?,?,?);");
+                pst.setString(1, uid);
+                pst.setString(2, id);
+                pst.setInt(3, 1);
+                cnt = pst.executeUpdate();
+                if (cnt > 0) {
+                    res = "1";
+                }
             }
         }
         out.print(res);

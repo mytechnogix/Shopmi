@@ -125,6 +125,29 @@
             } else {
                 out.print("0");
             }
+        } else if (type.equals("hostel")) {
+
+            int aid = Integer.parseInt(request.getParameter("id"));
+            String OriginalFile = "/images/hostelphotos/";
+
+            pst = con.prepareStatement("select photo from hostel where hostid=?");
+            pst.setInt(1, aid);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                imgName = rs.getString("photo");
+            }
+            originalFileAbsolute = getServletContext().getRealPath(OriginalFile);
+
+            File file1 = new File(originalFileAbsolute + "/" + imgName);
+            file1.delete();
+            pst = con.prepareStatement("delete from hostel where hostid=?;");
+            pst.setInt(1, aid);
+            cnt = pst.executeUpdate();
+            if (cnt > 0) {
+                out.print("1");
+            } else {
+                out.print("0");
+            }
         }
         con.close();
     } catch (Exception ex) {

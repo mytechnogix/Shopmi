@@ -191,18 +191,66 @@
                 <h4 class="modal-title text-center">Send enquiry to shop</h4>
             </div>
             <div class="modal-body">
-                <!--                <form role="form" name="enqForm" action="enquiryCheck.jsp">-->
-                <input type="hidden" name="enqType" id="enqType" value="store">
-                <div class="form-group">
-                    <label for="lblSubject">Subject</label>
-                    <input type="text" class="form-control" id="txtEnqSubject" name="txtEnqSubject" placeholder="Enter enquiry subject">
-                </div>
-                <div class="form-group">
-                    <label for="lblDesc">Enquiry Description</label>
-                    <textarea class="form-control" rows="3" id="txtEnqDesc" name="txtEnqDesc" placeholder="Enter enquiry in detail"></textarea>
-                </div>
-                <button type="button" onclick="saveEnquiry()" class="btn btn-primary">Submit</button>
-                <!--                </form>-->
+                <form role="form" name="enqFormStore">
+                    <input type="hidden" name="enqType" id="enqType" value="store">
+                    <div class="form-group">
+                        <label for="lblSubject">Subject</label>
+                        <input type="text" class="form-control" id="txtEnqSubject" name="txtEnqSubject" placeholder="Enter enquiry subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="lblDesc">Enquiry Description</label>
+                        <textarea class="form-control" rows="3" id="txtEnqDesc" name="txtEnqDesc" placeholder="Enter enquiry in detail"></textarea>
+                    </div>
+                    <button type="button" onclick="saveEnquiry('store')" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="enquiryModalHall" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center">Send enquiry to Hall</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" name="enqFormHall">
+                    <input type="hidden" name="enqType" id="enqType" value="hall">
+                    <div class="form-group">
+                        <label for="lblSubject">Subject</label>
+                        <input type="text" class="form-control" id="txtEnqSubject" name="txtEnqSubject" placeholder="Enter enquiry subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="lblDesc">Enquiry Description</label>
+                        <textarea class="form-control" rows="3" id="txtEnqDesc" name="txtEnqDesc" placeholder="Enter enquiry in detail"></textarea>
+                    </div>
+                    <button type="button" onclick="saveEnquiry('hall')" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="enquiryModalMes" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center">Send enquiry to Mes</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" name="enqFormMes">
+                    <input type="hidden" name="enqType" id="enqType" value="hall">
+                    <div class="form-group">
+                        <label for="lblSubject">Subject</label>
+                        <input type="text" class="form-control" id="txtEnqSubject" name="txtEnqSubject" placeholder="Enter enquiry subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="lblDesc">Enquiry Description</label>
+                        <textarea class="form-control" rows="3" id="txtEnqDesc" name="txtEnqDesc" placeholder="Enter enquiry in detail"></textarea>
+                    </div>
+                    <button type="button" onclick="saveEnquiry('mes')" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
     </div>
@@ -239,11 +287,25 @@
         <div class="modal-content">
             <div class="modal-body text-center" style="background-color: #605ca8">
                 <img id="modalImg_offer" src="images/rightIcon.png" style="width: 100px; height: 100px; border-radius: 50%">
-                <h3 id="modalMsgEnq" style="color: white">Your enquiry has sent to shop.<br> They will get back to you soon.<br>Thank you!</h3>
+                <h3 id="modalMsgEnq" style="color: white">Your enquiry has sent successfully.<br> They will get back to you soon.<br>Thank you!</h3>
                 <input type="hidden" id="hdfRatingValue" />  
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="contactModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="login-box-body text-center"  style="background-color: #605ca8">
+                    <h3 id="modalMsg_offer" style="color: white">Contact Details here</h3>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

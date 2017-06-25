@@ -20,7 +20,16 @@ public class ManageHallBO {
     private String _photoLg;
     private boolean _addFlag;
     private int _visitCount;
+    private int _reviewCount;
     private String _rating;
+
+    public int getReviewCount() {
+        return _reviewCount;
+    }
+
+    public void setReviewCount(int _reviewCount) {
+        this._reviewCount = _reviewCount;
+    }
 
     public String getPhotoLg() {
         return _photoLg;

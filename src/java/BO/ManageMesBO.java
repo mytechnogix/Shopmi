@@ -24,9 +24,18 @@ public class ManageMesBO {
     private String _regDate;
     private String _visitCount;
     private String _rating;
+    private String _reviewCount;
     private String _photo;
     private String _photoLg;
     private String _serviceArea;
+
+    public String getReviewCount() {
+        return _reviewCount;
+    }
+
+    public void setReviewCount(String _reviewCount) {
+        this._reviewCount = _reviewCount;
+    }
 
     public String getPhotoLg() {
         return _photoLg;

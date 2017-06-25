@@ -14,7 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.*;
@@ -904,6 +908,213 @@ public class ManageDAO {
             }
         } catch (Exception ex) {
             Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addHostelDetails(ManageHostelBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(22, Types.INTEGER);
+            stmt.setString(1, objBO.getHostName());
+            stmt.setString(2, objBO.getHostNameHindi());
+            stmt.setString(3, objBO.getHostAreaSqft());
+            stmt.setString(4, objBO.getHostArea());
+            stmt.setString(5, objBO.getAddress());
+            stmt.setString(6, objBO.getContact());
+            stmt.setString(7, objBO.getWebsiteUrl());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getForWhom());
+            stmt.setString(10, "");
+            stmt.setString(11, objBO.getBedrooms());
+            stmt.setString(12, objBO.getBeds());
+            stmt.setString(13, objBO.getRent());
+            stmt.setString(14, objBO.getDeposit());
+            stmt.setString(15, objBO.getDescription());
+            stmt.setString(16, objBO.getMaplocation());
+            stmt.setString(17, objBO.getCity());
+            stmt.setString(18, objBO.getAddedBy());
+            stmt.setString(19, objBO.getPhoto());
+            stmt.setString(20, objBO.getFurnished());
+            stmt.setString(21, objBO.getPossession());
+            stmt.setInt(22, 0);
+            stmt.setString(23, "1");
+            stmt.execute();
+            objBO.setHostId(stmt.getInt("_hostid"));
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateHostelDetails(ManageHostelBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(22, Types.INTEGER);
+            stmt.setString(1, objBO.getHostName());
+            stmt.setString(2, objBO.getHostNameHindi());
+            stmt.setString(3, objBO.getHostAreaSqft());
+            stmt.setString(4, objBO.getHostArea());
+            stmt.setString(5, objBO.getAddress());
+            stmt.setString(6, objBO.getContact());
+            stmt.setString(7, objBO.getWebsiteUrl());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getForWhom());
+            stmt.setString(10, "");
+            stmt.setString(11, objBO.getBedrooms());
+            stmt.setString(12, objBO.getBeds());
+            stmt.setString(13, objBO.getRent());
+            stmt.setString(14, objBO.getDeposit());
+            stmt.setString(15, objBO.getDescription());
+            stmt.setString(16, objBO.getMaplocation());
+            stmt.setString(17, objBO.getCity());
+            stmt.setString(18, objBO.getAddedBy());
+            stmt.setString(19, objBO.getPhoto());
+            stmt.setString(20, objBO.getFurnished());
+            stmt.setString(21, objBO.getPossession());
+            stmt.setInt(22, objBO.getHostId());
+            stmt.setString(23, "2");
+            stmt.execute();
+            if (stmt.getInt("_hostid") == 1) {
+                objBO.setAddFlag(true);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateHostelPhoto(ManageHostelBO objBO) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(22, Types.INTEGER);
+            stmt.setString(1, objBO.getHostName());
+            stmt.setString(2, objBO.getHostNameHindi());
+            stmt.setString(3, objBO.getHostAreaSqft());
+            stmt.setString(4, objBO.getHostArea());
+            stmt.setString(5, objBO.getAddress());
+            stmt.setString(6, objBO.getContact());
+            stmt.setString(7, objBO.getWebsiteUrl());
+            stmt.setString(8, objBO.getEmail());
+            stmt.setString(9, objBO.getForWhom());
+            stmt.setString(10, "");
+            stmt.setString(11, objBO.getBedrooms());
+            stmt.setString(12, objBO.getBeds());
+            stmt.setString(13, objBO.getRent());
+            stmt.setString(14, objBO.getDeposit());
+            stmt.setString(15, objBO.getDescription());
+            stmt.setString(16, objBO.getMaplocation());
+            stmt.setString(17, objBO.getCity());
+            stmt.setString(18, objBO.getAddedBy());
+            stmt.setString(19, objBO.getPhoto());
+            stmt.setString(20, objBO.getFurnished());
+            stmt.setString(21, objBO.getPossession());
+            stmt.setInt(22, objBO.getHostId());
+            stmt.setString(23, "3");
+            stmt.execute();
+
+            if (stmt.getInt("_hostid") == 1) {
+                objBO.setAddFlag(true);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void getAllHostelDetails(ManageHostelBO objBO) {
+        try {
+            String photo = "", photoSm, photoLg;
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("Select * from hostel where hostid=" + objBO.getHostId() + "");
+
+            while (rs.next()) {
+                objBO.setHostName(rs.getString("hostname"));
+                objBO.setHostArea(rs.getString("hostarea"));
+                objBO.setContact(rs.getString("contact"));
+                objBO.setHostAreaSqft(rs.getString("hostareasqft"));
+                objBO.setWebsiteUrl(rs.getString("websiteurl"));
+                objBO.setCity(rs.getString("city"));
+                objBO.setMaplocation(rs.getString("maplocation"));
+                objBO.setRating(rs.getString("rating"));
+                objBO.setContact(rs.getString("contact"));
+                objBO.setVisitCount(rs.getString("visitcount"));
+                objBO.setReviewCount(rs.getString("reviewcount"));
+                objBO.setAddress(rs.getString("address"));
+                objBO.setEmail(rs.getString("email"));
+                photoSm = rs.getString("photo");
+                objBO.setRent(rs.getString("rent"));
+                objBO.setDeposit(rs.getString("deposit"));
+                objBO.setForWhom(rs.getString("forwhom"));
+                objBO.setBedrooms(rs.getString("bedrooms"));
+                objBO.setDescription(rs.getString("description"));
+                objBO.setAmenities(rs.getString("amenities"));
+                objBO.setFurnished(rs.getString("furnished"));
+                objBO.setPossession(rs.getString("possession"));
+                photoLg = photoSm;
+                if (photoSm.contains("default")) {
+                    photoSm = "shopIcon_sm.png";
+                    photoLg = "shopIcon_lg.png";
+                }
+                objBO.setPhoto(photoSm);
+                objBO.setPhotoLg(photoLg);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateClaimedOfferStatus() throws SQLException {
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            String claimDate = "", remTime = "";
+            Date dt = Calendar.getInstance().getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+            pst = con.prepareStatement("select * from claimedoffers where couponstatus!='Expired' order by claimdate desc");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                claimDate = rs.getString("claimdate");
+                String ft = formatter.format(dt);
+                Date claim = formatter.parse(claimDate);
+                Date today = formatter.parse(ft);
+                long duration = today.getTime() - claim.getTime();
+
+                long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
+                diffInHours = 48 - diffInHours;
+                if (diffInHours <= 48 && !(diffInHours < 0)) {
+                    remTime = diffInHours + "h Left";
+                } else {
+                    remTime = "Expired";
+                }
+
+                pst = con.prepareStatement("update claimedoffers set couponstatus=? where cid=?");
+                pst.setString(1, remTime);
+                pst.setString(2, rs.getString("cid"));
+                pst.executeUpdate();
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }

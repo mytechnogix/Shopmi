@@ -169,6 +169,7 @@
                 </div>
             </div>
         </div>
+        <jsp:include page="footer.jsp"/>
         <script>
             //  $("#directionPanel").hide();
             $('#btnGetDirection').click(function() {

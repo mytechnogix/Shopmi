@@ -254,7 +254,19 @@
                     $('#lblDinnerPM').text($('#lblDinnerPM').text() == 'PM' ? 'AM' : 'PM');
                     $('#txtDinnerPM').val($('#lblDinnerPM').text());
                 });
-                                
+
+                $("#txtMesArea").attr("disabled", "disabled");
+                $("#ddlMesArea").change(function() {
+                    var opt = $(this).find('option:selected').val();
+                    if(opt=="Other")
+                    {
+                        $("#txtMesArea").removeAttr("disabled");
+                    }
+                    else
+                    {
+                        $("#txtMesArea").attr("disabled", "disabled");
+                    }
+                });
             </script>
         </div>
     </body>

@@ -1,47 +1,3 @@
-//$("#crossDiv").hide();
-//
-//$('#crossDiv').click(function(){
-//    $("#searchResults").hide();
-//    $("#filterWP").hide();
-//    $("#similarResultsWP").hide();
-//    $("#sliderSection").show();
-//    $("#offerWP").show();
-//    $("#partnersWP").show();
-//    $("#recentlyWP").show();
-//    $("#siteCounters").show();
-//    $("#searchQuery").val("");
-//    $("#crossDiv").hide();
-//});
-//
-//$("#searchQuery").keyup(function(){
-//    query = $("#searchQuery").val().trim();
-//    $("#resFor").text(query);
-//    if(query.length>0 && query!=null && query!=" "){
-//        $("#crossDiv").show();
-//        $("#sliderSection").hide();
-//        $("#offerWP").hide();
-//        $("#recentlyWP").hide();
-//        $("#partnersWP").hide();
-//        $("#siteCounters").hide();
-//        $("#searchResults").show();
-//        $("#filterWP").show();
-//        $("#similarResultsWP").show();
-//        getSuggestions();
-//    }
-//    else
-//    {
-//        $("#filterWP").hide();
-//        $("#searchResults").hide();
-//        $("#similarResultsWP").hide();
-//        $("#sliderSection").show();
-//        $("#recentlyWP").show();
-//        $("#offerWP").show();
-//        $("#partnersWP").show();
-//        $("#siteCounters").show();
-//        $("#siteCounters").show();
-//        $("#crossDiv").hide();
-//    }
-//});
 $(document).on('click','.product-info', function() {
     $parent_box = $(this).closest('.boxr');
     $parent_box.siblings().find('.bottom').slideUp();
@@ -93,7 +49,7 @@ function getSuggestionsOutput(){
         }
         //document.getElementById("showCount").innerHTML=count;
         $("#showData").html(xmlHttp.responseText);
-        alert($("#showData").height());
+        // alert($("#showData").height());
         document.getElementById("showCount").innerHTML=count;
         $("#resFor").text(searchQuery);
         $("#example1").DataTable();
@@ -193,29 +149,46 @@ function getOutput()
     }
 }
 var xmlhttp;
-function saveEnquiry()
+var eType="";
+function saveEnquiry(str)
 {
+    eType=str;
     xmlhttp=GetXmlHttpObject();
     if (xmlhttp==null)
     {
         alert ("Your browser does not support Ajax HTTP");
         return;
     }
-    var enqType = $("#enqType").val();
-    var enqSid = $("#sid").val();
-    var enqSub = $("#txtEnqSubject").val();
-    var enqDesc = $("#txtEnqDesc").val();
-    
-    //alert(enqType+enqSub+enqDesc+enqSid);
+    var enqType = str;
+    var enqId = $("#id").val();
+    var enqSub="";
+    var enqDesc="";
+    if(enqType=="store"){
+        enqSub = document.forms["enqFormStore"]["txtEnqSubject"].value;
+        enqDesc = document.forms["enqFormStore"]["txtEnqDesc"].value;
+    }
+    else if(enqType=="hall"){
+        enqSub = document.forms["enqFormHall"]["txtEnqSubject"].value;
+        enqDesc = document.forms["enqFormHall"]["txtEnqDesc"].value;        
+    }
+    else if(enqType=="mes"){
+        enqSub = document.forms["enqFormMes"]["txtEnqSubject"].value;
+        enqDesc = document.forms["enqFormMes"]["txtEnqDesc"].value;        
+    }
+    else
+    {
+            
+    }
+    // alert(enqType+enqSub+enqDesc+enqId);
     if(enqSub.trim()=="" || enqSub.trim().length==0){
-        $("#txtEnqSubject").focus();
+        document.forms["enqFormHall"]["txtEnqSubject"].focus();
     }
     else if(enqDesc.trim()=="" || enqDesc.trim().length==0){
-        $("#txtEnqDesc").focus();
+        document.forms["enqFormHall"]["txtEnqDesc"].focus();
     }
     else{
         var url="enquiryCheck.jsp";
-        url=url+"?type="+enqType+"&sub="+enqSub+"&desc="+enqDesc+"&sid="+enqSid;
+        url=url+"?type="+enqType+"&sub="+enqSub+"&desc="+enqDesc+"&sid="+enqId;
         xmlhttp.onreadystatechange=saveEnquiryOutput;
         xmlhttp.open("GET",url,true);
         xmlhttp.send(null);
@@ -225,44 +198,60 @@ function saveEnquiryOutput()
 {
     if (xmlhttp.readyState==4)
     {
-        //  alert(xmlhttp.responseText);
+        alert(xmlhttp.responseText);
+
         if(xmlhttp.responseText=="1"){
-            $('#enquiryModalShop').modal('hide');           
-            $('#enquiryModalSuccess').modal('show'); 
-            $("#enquired").addClass("changeColor");
+            alert(eType);
+            if(eType=="store"){
+                $('#enquiryModalShop').modal('hide');   
+                $('#enquiryModalSuccess').modal('show'); 
+                $("#enquiredStore").addClass("changeColor");
+            }
+            else if(eType=="hall")
+            {
+                $('#enquiryModalHall').modal('hide');   
+                $('#enquiryModalSuccess').modal('show'); 
+                $("#enquiredHall").addClass("changeColor");
+            }
+            else if(eType=="mes")
+            {
+                $('#enquiryModalMes').modal('hide');   
+                $('#enquiryModalSuccess').modal('show'); 
+                $("#enquiredMes").addClass("changeColor");
+            }
         }
         else{
-            $('#enquiryModalShop').modal('hide');           
             $("#modalMsgEnq").text("Failed to send enquiry");
             $('#enquiryModalSuccess').modal('show');  
         }
     }
 }
-var xmlhttp;
+var XmlHttp;
 function checkIconColor()
 {
-    xmlhttp=GetXmlHttpObject();
-    if (xmlhttp==null)
+    XmlHttp=GetXmlHttpObject();
+    if (XmlHttp==null)
     {
         alert ("Your browser does not support Ajax HTTP");
         return;
     }
-    var enqid = $("#sid").val();
+    var enqid = $("#id").val();
     var type = $("#type").val();
-
+    
+    // alert(enqid+type);
     var url="checkIconColor.jsp";
     url=url+"?id="+enqid+"&type="+type;
-    xmlhttp.onreadystatechange=checkIconColorOutput;
-    xmlhttp.open("GET",url,true);
-    xmlhttp.send(null);
+    XmlHttp.onreadystatechange=checkIconColorOutput;
+    XmlHttp.open("GET",url,true);
+    XmlHttp.send(null);
 }
 function checkIconColorOutput()
 {
-    if (xmlhttp.readyState==4)
+    if (XmlHttp.readyState==4)
     {
-        //alert(xmlhttp.responseText);
-        if((xmlhttp.responseText).startsWith("1") || (xmlhttp.responseText).startsWith("0")){
-            var str = xmlhttp.responseText;
+        //alert(XmlHttp.responseText);
+        if((XmlHttp.responseText).startsWith("1") || (XmlHttp.responseText).startsWith("0")){
+            var str = XmlHttp.responseText;
             var strarray = str.split(',');
             for (var i = 0; i < strarray.length; i++) {
                 if(strarray[i]=="1" && i==0)
@@ -276,7 +265,9 @@ function checkIconColorOutput()
                 if(strarray[i]=="1" && i==2)
                 {
                     //          alert("");
-                    $("#enquired").addClass("changeColor");
+                    $("#enquiredHall").addClass("changeColor");
+                    $("#enquiredStore").addClass("changeColor");
+                    $("#enquiredMes").addClass("changeColor");
                 }
                 if(strarray[i]=="1" && i==3)
                 {
@@ -299,7 +290,7 @@ function toggleFav()
         alert ("Your browser does not support Ajax HTTP");
         return;
     }
-    var enqid = $("#sid").val();
+    var enqid = $("#id").val();
     var type = $("#type").val();
 
     var url="toggleFavCheck.jsp";
@@ -328,7 +319,7 @@ function submitReview()
         alert ("Your browser does not support Ajax HTTP");
         return;
     }
-    var enqid = $("#sid").val();
+    var enqid = $("#id").val();
     var type = $("#type").val();
     var review = $("#txtAreaReview").val();
     
@@ -361,7 +352,7 @@ function toggleRating(str)
         alert ("Your browser does not support Ajax HTTP");
         return;
     }
-    var enqid = $("#sid").val();
+    var enqid = $("#id").val();
     var type = $("#type").val();
     
     var url="toggleRatingCheck.jsp";
@@ -395,7 +386,7 @@ function getUserRatedCount()
         alert ("Your browser does not support Ajax HTTP");
         return;
     }
-    var enqid = $("#sid").val();
+    var enqid = $("#id").val();
     var type = $("#type").val();
     
     var url="getUserRatedCount.jsp";
@@ -477,7 +468,12 @@ function checkOfferLoginOutput(){
             }
             else if(op=="enq")
             {
-                $('#enquiryModalShop').modal('show');           
+                if($("#type").val()=="store")
+                    $('#enquiryModalShop').modal('show');     
+                else if($("#type").val()=="hall")
+                    $('#enquiryModalHall').modal('show');   
+                else if($("#type").val()=="mes")
+                    $('#enquiryModalMes').modal('show');   
             }
             else if(op=="fav")
             {
@@ -485,13 +481,27 @@ function checkOfferLoginOutput(){
             }
             else if(op=="rate")
             {
-                $('#ratingModal').modal('show');           
+                $('#ratingModal').modal('show');        
+            }
+            else if(op=="hostel")
+            {
+                $('#contactHostelModal').modal('show');        
+            }
+            else if(op=="uLogin")
+            {
+                window.location="mycart.jsp";        
             }
         }
     }
 }
 var xmlHttp;
 function getOffer(oid, sid){
+    
+    alert(oid+" - "+sid);
+    if(oid==undefined || oid==null || sid==undefined || sid==null)
+    {
+        return;
+    }
     if (typeof XMLHttpRequest != "undefined"){
         xmlHttp= new XMLHttpRequest();
     }
@@ -702,7 +712,141 @@ function registerUserOutput(){
         }
     }
 }
-
+//amenities count
+var xmlhttp;
+var amenities="";
+var opType="";
+function checkAmenities(str)
+{
+    opType=str;
+    amenities="";
+    if($("#lift").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#ac").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#swim").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#harvest").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#servantroom").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#gas").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#gym").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#power").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#firesafe").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#club").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#play").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#security").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#park").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#housekeeping").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#internet").is(':checked')){
+        amenities+="1,";
+    } else {
+        amenities+="0,";
+    }
+    if($("#parking").is(':checked')){
+        amenities+="1";
+    } else {
+        amenities+="0";
+    }
+    // alert(amenities);
+    xmlhttp=GetXmlHttpObject();
+    if (xmlhttp==null)
+    {
+        alert ("Your browser does not support Ajax HTTP");
+        return;
+    }
+    //alert($("#hostidAdd").val());
+    var url="aAddHostelAmenitiesCheck.jsp";
+    url=url+"?id="+$("#hostidAdd").val()+"&amenities="+amenities;
+    xmlhttp.onreadystatechange=checkAmenitiesOutput;
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send(null);
+}
+function checkAmenitiesOutput()
+{
+    if (xmlhttp.readyState==4)
+    {
+        //alert(xmlhttp.responseText);
+        if(xmlhttp.responseText=="1"){
+            if(opType=="add")
+                window.location="aAddHostelPhoto.jsp";
+            if(opType=="update")
+                window.location="aManageHostels.jsp";
+        }
+        else{
+            alert("Failed to add Amenities");
+        }
+    }
+}
+var xmlhttp;
+function contacted()
+{
+    xmlhttp=GetXmlHttpObject();
+    if (xmlhttp==null)
+    {
+        alert ("Your browser does not support Ajax HTTP");
+        return;
+    }
+    var id = $("#id").val();
+    var type = $("#type").val();
+    var url="contactedHostel.jsp";
+    url=url+"?id="+id+"&type="+type;
+    //xmlhttp.onreadystatechange=checkAmenitiesOutput;
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send(null);
+}
 function GetXmlHttpObject()
 {
     if (window.XMLHttpRequest)

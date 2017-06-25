@@ -87,11 +87,11 @@
                             </div>
                             <div class="col-md-5">
                                 <input type="hidden" id="type" value="store">
-                                <input type="hidden" id="sid" value="<%=objBO.getStoreId()%>">
+                                <input type="hidden" id="id" value="<%=objBO.getStoreId()%>">
                                 <div class="box box-primary">
                                     <div class="box-body text-center">
                                         <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('enq')">
-                                            <i class="fa fa-envelope-o" id="enquired"></i> Enquire
+                                            <i class="fa fa-envelope-o" id="enquiredStore"></i> Enquire
                                         </a>
                                         <a class="btn btn-app bg-aqua">
                                             <i class="fa fa-shopping-cart"></i> Offers
@@ -256,7 +256,7 @@
                                             <div class="col-sm-4 border-right">
                                                 <div class="description-block">
                                                     <h5 class="description-header"><%=objBO.getRating()%></h5>
-                                                    <span class="description-text">Rated</span>
+                                                    <span class="description-text">Rating</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
