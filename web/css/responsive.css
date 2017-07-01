@@ -1,0 +1,60 @@
+@media (max-width: 479px) {
+    .smallsearch
+    {
+        margin-top: 5px!important;
+        margin-bottom: 3px!important;
+        width: 100%;
+    }
+    .flipkart-mapmarker, .flipkart-navbar-button
+    {
+        width: 40px;
+    }
+    .flipkart-navbar-input
+    {
+        width: 70%!important;
+    }
+    .searchMob
+    {
+        margin: 0 auto;
+    }
+    .advMobImg
+    {
+        height: 20%!important;
+    }
+    #carousel-example > div > div > div > div
+    {
+        margin-bottom: 8px;   
+    }
+}
+
+@media (max-width: 750px) {
+    .smallsearch
+    {
+        margin-top: 5px!important;
+        margin-bottom: 3px!important;
+        width: 100%;
+    }
+    .flipkart-mapmarker, .flipkart-navbar-button
+    {
+        width: 40px;
+    }
+    .flipkart-navbar-input
+    {
+        width: 80%;
+    }
+    .searchMob
+    {
+        margin: 0 auto;
+    }
+    .advMobImg
+    {
+        height: 20%!important;
+    }
+    #carousel-example > div > div > div > div
+    {
+        margin-bottom: 8px;   
+    }
+    .fixed .content-wrapper,.fixed .right-side {
+        padding-top: 20px;
+    }
+}

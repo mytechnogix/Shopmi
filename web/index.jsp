@@ -52,12 +52,7 @@
                 z-index: 99999;
                 position: fixed;
             }
-
-            @media (max-width:767px) {
-                .fixed .content-wrapper,.fixed .right-side {
-                    padding-top: 50px;
-                }
-            }
+            
             #example1
             {
                 font-size: 15px;
@@ -181,13 +176,13 @@
                                             %>
                                             <div class="item active" >
                                                 <a href="advertise.jsp?aid=<%=rs.getString("aid")%>" target="_blank">
-                                                    <img src="images/advphotos/<%=rs.getString("advimg")%>" alt="" width="100%" style="height: 420px">
+                                                    <img src="images/advphotos/<%=rs.getString("advimg")%>" alt="" width="100%" class="advMobImg" style="height: 420px">
                                                 </a>
                                             </div>
                                             <%} else {%>
                                             <div class="item">
                                                 <a href="advertise.jsp?aid=<%=rs.getString("aid")%>" target="_blank">
-                                                    <img src="images/advphotos/<%=rs.getString("advimg")%>" alt="" width="100%" style="height: 420px">
+                                                    <img src="images/advphotos/<%=rs.getString("advimg")%>" alt="" width="100%" class="advMobImg" style="height: 420px">
                                                 </a>
                                             </div>
                                             <%}
@@ -666,8 +661,13 @@
                                         rs = pst.executeQuery();
                                         if (rs.next()) {
                                     %>
-                                    <div class="box" id="recentlyJoined">
+                                    <div class="box box-primary" id="recentlyJoined">
                                         <div class="box-body text-center">
+                                            <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="900ms">
+                                                <i class="fa fa-desktop" style="font-size: 40px"></i>                    
+                                                <h3><%=rs.getInt("visits")%></h3>
+                                                <p>Visits</p>
+                                            </div>   
                                             <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="300ms">
                                                 <i class="fa fa-shopping-cart" style="font-size: 40px"></i>
                                                 <h3 class="timer"><%=rs.getInt("stores")%></h3>
@@ -683,11 +683,6 @@
                                                 <h3 class="timer"><%=rs.getInt("categories")%></h3>                    
                                                 <p>Categories</p>
                                             </div> 
-                                            <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="900ms">
-                                                <i class="fa fa-desktop" style="font-size: 40px"></i>                    
-                                                <h3><%=rs.getInt("visits")%></h3>
-                                                <p>Visits</p>
-                                            </div>   
                                         </div>
                                     </div>
                                     <%}%>
@@ -713,8 +708,8 @@
                     <jsp:include page="modals.jsp"/>
                     <script src="js/custom.js"></script>
                     <%
-                        session.setAttribute("RANDKEY", objDAO.generateSecret());
-                    %>
+                        //session.setAttribute("RANDKEY", objDAO.generateSecret());
+%>
                     <script>
                         $("#autocomplete").on("focus", function(){
                             //alert("");
@@ -723,67 +718,57 @@
                             }, 'slow', function () {
                             });
                         });
-                        //            function generateLink(str)
-                        //            {
-                        //                var salt = CryptoJS.lib.WordArray.random(128/8);
-                        //                var iv = CryptoJS.lib.WordArray.random(128/8);          
-                        //                var key128Bits100Iterations = CryptoJS.PBKDF2( '<%=session.getAttribute("RANDKEY")%>', salt, { keySize: 128/32, iterations: 100 });
-                        //                var encrypted = CryptoJS.AES.encrypt(str, key128Bits100Iterations, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7  });
-                        //                var path="offerDetails.jsp?p="+encrypted+"&s="+salt+"&i="+iv;
-                        //                window.open(path, "_blank");
-                        //            }
-            
                         $('input[type="radio"].flat-red').on("change",function(){
                             getSuggestions();
                         });
             
                         //$("#crossDiv").hide();
-                        $("#crossIcon").hide();
-                        $('#crossIcon').click(function(){
-                            $("#searchResults").hide();
-                            $("#filterWP").hide();
-                            $("#similarResultsWP").hide();
-                            $("#sliderSection").show();
-                            $("#offerWP").show();
-                            $("#partnersWP").show();
-                            $("#recentlyWP").show();
-                            $("#siteCounters").show();
-                            $("#searchQuery").val("");
-                            $("#crossIcon").hide();
-                            $("#searchIcon").show();
-                            $("#resFor").text("");
-                        });
-
-                        $("#searchQuery").keyup(function(){
-                            query = $("#searchQuery").val().trim();
-                            if(query.length>0 && query!=null && query!=" "){
-                                getSuggestions();
-                                $("#crossIcon").show();
-                                $("#searchIcon").hide();
-                                $("#sliderSection").hide();
-                                $("#offerWP").hide();
-                                $("#recentlyWP").hide();
-                                $("#partnersWP").hide();
-                                $("#siteCounters").hide();
-                                $("#searchResults").show();
-                                $("#filterWP").show();
-                                $("#similarResultsWP").show();
-                            }
-                            else
-                            {
-                                $("#filterWP").hide();
-                                $("#searchResults").hide();
-                                $("#similarResultsWP").hide();
-                                $("#sliderSection").show();
-                                $("#recentlyWP").show();
-                                $("#offerWP").show();
-                                $("#partnersWP").show();
-                                $("#siteCounters").show();
-                                $("#siteCounters").show();
-                                $("#crossIcon").hide();
-                                $("#searchIcon").show();
-                            }
-                        });
+                        //                        $("#crossIcon").hide();
+                        //                        $('#crossIcon').click(function(){
+                        //                            $("#searchResults").hide();
+                        //                            $("#filterWP").hide();
+                        //                            $("#similarResultsWP").hide();
+                        //                            $("#sliderSection").show();
+                        //                            $("#offerWP").show();
+                        //                            $("#partnersWP").show();
+                        //                            $("#recentlyWP").show();
+                        //                            $("#siteCounters").show();
+                        //                            $("#searchQuery").val("");
+                        //                            $("#crossIcon").hide();
+                        //                            $("#searchIcon").show();
+                        //                            $("#resFor").text("");
+                        //                        });
+                        //
+                        //                        $("#searchQuery").keyup(function(){
+                        //                            query = $("#searchQuery").val().trim();
+                        //                            if(query.length>0 && query!=null && query!=" "){
+                        //                                getSuggestions();
+                        //                                $("#crossIcon").show();
+                        //                                $("#searchIcon").hide();
+                        //                                $("#sliderSection").hide();
+                        //                                $("#offerWP").hide();
+                        //                                $("#recentlyWP").hide();
+                        //                                $("#partnersWP").hide();
+                        //                                $("#siteCounters").hide();
+                        //                                $("#searchResults").show();
+                        //                                $("#filterWP").show();
+                        //                                $("#similarResultsWP").show();
+                        //                            }
+                        //                            else
+                        //                            {
+                        //                                $("#filterWP").hide();
+                        //                                $("#searchResults").hide();
+                        //                                $("#similarResultsWP").hide();
+                        //                                $("#sliderSection").show();
+                        //                                $("#recentlyWP").show();
+                        //                                $("#offerWP").show();
+                        //                                $("#partnersWP").show();
+                        //                                $("#siteCounters").show();
+                        //                                $("#siteCounters").show();
+                        //                                $("#crossIcon").hide();
+                        //                                $("#searchIcon").show();
+                        //                            }
+                        //                        });
                     </script>
                     </body>
                     </html>

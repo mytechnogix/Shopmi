@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.sql.*"%>
@@ -110,9 +111,8 @@
                         </div>
                     </div>
                     <br>
-
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 hidden-xs">
                             <div class="box box-primary" id="similarResultsWP">
                                 <div class="box-header with-border">
                                     <h3 class="box-title"><i class="fa fa-search"></i> Popular Stores</h3>

@@ -6,16 +6,18 @@
 %>
 <script>
     // alert("after login");
-    $("#login-before-div").hide();
-    $("#login-after-div").show();
+    $(".login-before-div").hide();
+    $(".login-after-div").show();
+    
     //document.getElementById("user_name").innerHTML="Ankush Nistane";
 </script>
 <%    } else {
 %>
 <script>
     // alert("before login");
-    $("#login-before-div").show();
-    $("#login-after-div").hide();
+    $(".login-before-div").show();
+    $(".login-after-div").hide();
+    
 </script>
 <%    }
 %>

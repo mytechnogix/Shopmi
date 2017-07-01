@@ -1,4 +1,4 @@
-#login-after-div, #login-before-div
+.login-after-div, .login-before-div
 {
     display: none;
 }
@@ -9,7 +9,6 @@
     padding-top: 10px;
     transition: background-color 300ms linear 0s;
 }
-
 
 .login-tab {
     margin: 0 auto;

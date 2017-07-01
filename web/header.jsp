@@ -1,5 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<noscript>
+<meta http-equiv="refresh" content="0; url=nojs.jsp" />
+</noscript>
 <link href="css/autocomplete.css" rel="stylesheet" />
+<link href="css/responsive.css" rel="stylesheet" />
 <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
 <style>
     #flipkart-navbar {
@@ -248,11 +252,11 @@
             <div class="container">
                 <div class="row row3">
                     <div class="col-sm-3">
-                        <h2 style="margin:0px; color: white; font-family: forte"><a href="javascript:;" style="color: #fff"><span class="smallnav menu" onclick="openNav()">☰ MyShejari</span></a></h2>
+                        <h2 style="margin:0px; color: white; font-family: forte"><a href="javascript:;" style="color: #fff"><span class="smallnav menu" onclick="openNav()"><img src="images/menu-icon.png" style="width: 40px; height: 25px;"> MyShejari</span></a></h2>
                         <h1 style="margin:0px; color: white; font-family: forte"><a href="index.jsp" style="color: #fff"><span class="largenav" style="margin-top: 10px"><img src="images/logoFinal.png" style="width: 90px; height: 70px">MyShejari</span></a></h1>
                     </div>
                     <div class="flipkart-navbar-search smallsearch col-sm-7 col-xs-10" style="margin-top: 20px">
-                        <div class="row">
+                        <div class="row searchMob">
                             <button class="flipkart-mapmarker col-xs-1">
                                 <img src="images/storephotos/shopIcon_sm.png" width="23px" height="25px">
                             </button>
@@ -278,7 +282,7 @@
                 <div class="row row1" style="padding-top: 0px;">
                     <ul class="largenav pull-right">
                         <li class="upper-links dropdown" style="color: white">
-                            <a class="links" id="login-after-div" href="javascript:;">                       
+                            <a class="links login-after-div" href="javascript:;">                       
                                 <i class="fa fa-user"></i>  
                                 <%=fnm%></a>
                             <ul class="dropdown-menu">
@@ -287,25 +291,24 @@
                                 <li class="profile-li"><a class="profile-links" href="logout.jsp">Logout</a></li>
                             </ul>
                         </li>
-                        <li class="upper-links"><a class="links" id="login-before-div" href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                        <li class="upper-links"><a class="links login-before-div" href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
                         <li class="upper-links"><a class="links" href="#">Start a business</a></li>
                         <li class="upper-links"><a class="links" href="javascript:;" data-toggle="modal" data-target="#contactModal">Contact</a></li>
                     </ul>
                 </div>
             </div>
             <div id="mySidenav" class="sidenav">
-                <div class="container" style="background-color: #2874f0; padding-top: 10px;">
-                    <span class="sidenav-heading"><a href="index.jsp"><i class="fa fa-user"></i> Ankush</a></span>
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-                </div>
-                <div class="container" style="background-color: #2874f0; padding-top: 10px;">
-                    <span class="sidenav-heading"><a href="index.jsp"><i class="fa fa-user"></i> Ankush</a></span>
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-                </div>
-                <a href="#">Link</a>
-                <a href="#">Link</a>
-                <a href="#">Link</a>
-                <a href="#">Link</a>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                <a href="#" style="margin-top: 10px;"> </a>
+                <a href="mycart.jsp" class="login-after-div" id="userNameMob"><i class="fa fa-user"></i> <%=fnm%></a>
+                <a href="index.jsp" ><i class="fa fa-home"></i> Home</a>
+                <a href="javascript:checkLogin('uLogin')" class="login-before-div"><i class="glyphicon glyphicon-gift"></i> Login</a>
+                <a href="javascript:checkLogin('uLogin')"><i class="glyphicon glyphicon-gift"></i> My Offers</a>
+                <a href="javascript:checkLogin('uLogin')"><i class="fa fa-thumbs-o-up"></i> Favorites</a>
+                <a href="javascript:checkLogin('uLogin')"><i class="fa fa-comments-o"></i> Reviews</a>
+                <a href="javascript:checkLogin('uLogin')"><i class="fa fa-envelope-o"></i> Enquiries</a>
+                <a href="faq.jsp"><i class="glyphicon glyphicon-question-sign"></i> FAQ</a>
+                <a href="logout.jsp" class="login-after-div" id="userLogoutMob"><i class="fa fa-sign-out"></i> Logout</a>
             </div>
         </nav>
     </div>
@@ -341,13 +344,13 @@
                 id=strarray[0].trim();
                 type=strarray[1].trim();
                 if(type=="store")
-                window.location="storeDetails.jsp?id="+id;
+                    window.location="storeDetails.jsp?id="+id;
                 else if(type=="hall")
-                window.location="hallDetails.jsp?id="+id;
+                    window.location="hallDetails.jsp?id="+id;
                 else if(type=="hostel")
-                window.location="hostDetails.jsp?id="+id;
+                    window.location="hostDetails.jsp?id="+id;
                 else if(type=="mes")
-                window.location="mesDetails.jsp?id="+id;
+                    window.location="mesDetails.jsp?id="+id;
                 
             },
             showNoSuggestionNotice: true

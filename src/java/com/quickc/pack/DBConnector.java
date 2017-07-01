@@ -6,7 +6,7 @@ public class DBConnector {
 
     public DBConnector() {
         constr = "jdbc:mysql://localhost:3306/shoppee?useUnicode=yes&characterEncoding=UTF-8&user=root&password=ROOT";
-       // constr = "jdbc:mysql://localhost:3306/shoppee?useUnicode=yes&characterEncoding=UTF-8&user=ankush&password=Ankush@02";
+        //constr = "jdbc:mysql://localhost:3306/shoppee?useUnicode=yes&characterEncoding=UTF-8&user=ankush&password=Ankush@02&useInformationSchema=true";
 
     }
 
