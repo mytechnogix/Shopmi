@@ -191,7 +191,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-6" id="otherDiv">
+                                            <div class="col-lg-4" id="otherDiv">
                                                 <div class="form-group">
                                                     <label>Description</label>
                                                     <div class="form-group date">
@@ -199,7 +199,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6" id="otherDiv">
+                                            <div class="col-lg-4" id="otherDiv">
+                                                <div class="form-group">
+                                                    <label>Metadata</label>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" id="txtHostMetadata" name="txtHostMetadata" rows="2" cols="100" placeholder="Enter metadata for search" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4" id="otherDiv">
                                                 <div class="form-group">
                                                     <label>Full Address</label>
                                                     <div class="form-group date">

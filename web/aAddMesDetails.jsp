@@ -192,7 +192,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Website URL</label>
                                                     <div class="input-group">
@@ -203,7 +203,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Email Address</label>
                                                     <div class="input-group">
@@ -212,6 +212,14 @@
                                                             <i class="fa fa-envelope"></i>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <label>Metadata</label>
+                                                <div class="form-group date">
+                                                    <textarea class="form-control" id="txtMesMetadata" name="txtMesMetadata" rows="2" cols="100" placeholder="Enter metadata for search" required></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">

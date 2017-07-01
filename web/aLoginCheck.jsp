@@ -69,6 +69,29 @@
             </td>
         </table>
         <%                    }
+        } else if (type.equals("store")) {
+            pst = con.prepareStatement("select storename, photo from storedetails where storeid=? and pass=? and storestatus='Active';");
+            pst.setString(1, id);
+            pst.setString(2, pass);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                session.setAttribute("storeFlag", "1");
+                session.setAttribute("storeid", id);
+                session.setAttribute("storePhoto", rs.getString("photo"));
+                session.setAttribute("storeName", rs.getString("storename"));
+                response.sendRedirect("sDashboard.jsp");
+            } else {
+        %>
+        <br><br><br><br>
+        <table width="400px" height="250px" align="center" border="3">
+            <td align="center">
+                <span style="font-size: 20px; font-family: verdana; color: white">Login Failed! Try Again</span>
+                <br><br>
+                <div class="btn btn-primary" onclick="history.back()">Retry</div>
+            </td>
+        </table>
+        <%                    }
                 }
 
                 con.close();

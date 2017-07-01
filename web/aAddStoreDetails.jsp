@@ -202,9 +202,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <label>Full Address</label>
-                                        <div class="form-group date">
-                                            <textarea class="form-control" id="txtOfferFullAddress" name="txtOfferFullAddress" rows="2" cols="100" placeholder="Enter full store address" required></textarea>
+                                        <div class="row">
+                                            <div class="col-lg-6" id="otherDiv">
+                                                <label>Metadata</label>
+                                                <div class="form-group date">
+                                                    <textarea class="form-control" id="txtMetadata" name="txtMetadata" rows="2" cols="100" placeholder="Search metadata" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6" id="otherDiv">
+                                                <label>Full Address</label>
+                                                <div class="form-group date">
+                                                    <textarea class="form-control" id="txtOfferFullAddress" name="txtOfferFullAddress" rows="2" cols="100" placeholder="Enter full store address" required></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="box-footer">

@@ -28,6 +28,15 @@ public class ManageMesBO {
     private String _photo;
     private String _photoLg;
     private String _serviceArea;
+    private String _metadata;
+
+    public String getMetadata() {
+        return _metadata;
+    }
+
+    public void setMetadata(String _metadata) {
+        this._metadata = _metadata;
+    }
 
     public String getReviewCount() {
         return _reviewCount;

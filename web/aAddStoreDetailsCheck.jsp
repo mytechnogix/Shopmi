@@ -34,6 +34,7 @@
     lat = String.valueOf(session.getAttribute("latitude"));
     longi = String.valueOf(session.getAttribute("longitude"));
     objBO.setStoreName(request.getParameter("txtOfferStoreName"));
+    objBO.setMetadata(request.getParameter("txtMetadata"));
     objBO.setStoreNameHindi(request.getParameter("txtOfferStoreNameHindi"));
     objBO.setStoreArea(storeArea);
     objBO.setStoreCat(storeCat);

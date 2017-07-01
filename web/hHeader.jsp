@@ -8,7 +8,7 @@
     String img = String.valueOf(session.getAttribute("hallPhoto"));
 %>
 <header class="main-header">
-    <a href="aDashboard.jsp" class="logo">
+    <a href="hDashboard.jsp" class="logo">
         <span class="logo-mini"><b>S</span>
         <span class="logo-lg"><b>Shejari</b>.com</span>
     </a>

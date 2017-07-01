@@ -35,6 +35,15 @@ public class ManageHostelBO {
     private String _photoLg;
     private String _possession;
     private String _furnished;
+    private String _metadata;
+
+    public String getMetadata() {
+        return _metadata;
+    }
+
+    public void setMetadata(String _metadata) {
+        this._metadata = _metadata;
+    }
 
     public String getPossession() {
         return _possession;

@@ -63,7 +63,7 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed"  onload="initMap()">
         <div class="wrapper">
-            <jsp:include page="headerStoreDetails.jsp"/>
+            <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
@@ -115,10 +115,6 @@
         </div>
         <jsp:include page="footer.jsp"/>
         <jsp:include page="modals.jsp"/>
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        <script>
-            $.widget.bridge('uibutton', $.ui.button);
-        </script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
@@ -130,7 +126,9 @@
         <script src="js/jquery.newsTicker.min.js"></script> 
         <script src="js/custom.js"></script> 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6XvLNwRfIt-b_F1X3QPta6yAK5Yh0mj4"></script>
-
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link href="css/autocomplete.css" rel="stylesheet" />
+        <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
         <!--         getOffer success modal-->
 
         <div id="couponModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">

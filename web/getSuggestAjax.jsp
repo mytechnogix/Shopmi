@@ -13,7 +13,7 @@
     int storeId = 0, cnt = 0;
     String res = "";
     if (rs.next()) {
-        res = "<table id='example1' class='table table-bordered table-striped products-list product-list-in-box'><thead><tr><th><span id='showCount'>0</span> shop(s) found related to <span id='resFor' style='color: green; font-weight: bold'></span></th></tr></thead><tbody>";
+        res = "<table id='example2' class='table table-bordered table-striped products-list product-list-in-box'><thead><tr><th><span id='showCount'>0</span> shop(s) found related to <span id='resFor' style='color: green; font-weight: bold'></span></th></tr></thead><tbody>";
         rs.previous();
         while (rs.next()) {
             if (rs.getString("storestatus").equals("Active")) {

@@ -39,7 +39,20 @@
         <link rel="stylesheet" href="css/carousalOffers.css"/>
         <link rel="stylesheet" href="css/index.css"/>
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script>
+            jQuery(window).load(function(){
+                jQuery(".hameid-loader-overlay").fadeOut(500);
+            });
+        </script>
         <style>
+            .hameid-loader-overlay {
+                width: 100%;
+                height: 100%;
+                background: url('images/loadingFinal.gif') center no-repeat #FFF;
+                z-index: 99999;
+                position: fixed;
+            }
+
             @media (max-width:767px) {
                 .fixed .content-wrapper,.fixed .right-side {
                     padding-top: 50px;
@@ -101,72 +114,10 @@
                 top: -3px;
                 position: relative
             }
-            /*            @-webkit-keyframes 
-                        click-wave { 0% {
-                                     width: 40px;
-                                     height: 40px;
-                                     opacity: 0.35;
-                                     position: relative;
-                        }
-                        100% {
-                            width: 200px;
-                            height: 200px;
-                            margin-left: -80px;
-                            margin-top: -80px;
-                            opacity: 0.0;
-                        }
-                        }
-                            
-                        @-moz-keyframes 
-                        click-wave { 0% {
-                                     width: 40px;
-                                     height: 40px;
-                                     opacity: 0.35;
-                                     position: relative;
-                        }
-                        100% {
-                            width: 200px;
-                            height: 200px;
-                            margin-left: -80px;
-                            margin-top: -80px;
-                            opacity: 0.0;
-                        }
-                        }
-                            
-                        @-o-keyframes 
-                        click-wave { 0% {
-                                     width: 40px;
-                                     height: 40px;
-                                     opacity: 0.35;
-                                     position: relative;
-                        }
-                        100% {
-                            width: 200px;
-                            height: 200px;
-                            margin-left: -80px;
-                            margin-top: -80px;
-                            opacity: 0.0;
-                        }
-                        }
-                            
-                        @keyframes 
-                        click-wave { 0% {
-                                     width: 40px;
-                                     height: 40px;
-                                     opacity: 0.35;
-                                     position: relative;
-                        }
-                        100% {
-                            width: 200px;
-                            height: 200px;
-                            margin-left: -80px;
-                            margin-top: -80px;
-                            opacity: 0.0;
-                        }
-                        }*/
         </style>
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed">
+        <div class="hameid-loader-overlay"></div>
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
@@ -196,25 +147,6 @@
                         </div>
                     </div>
                     <br>
-                    <!--                    <div class="row" id="filterWP">
-                                            <div class="col-lg-12 box text-center" style="padding: 0px">
-                                                <div class="box-body text-center">
-                                                    <span class="col-lg-3 label label-info" style="font-size: 16px">Filter By</span>
-                                                    <span class="col-lg-3">
-                                                        <input type="radio" class="flat-red option-input radio" value="visitcount" name="filterChk" id="chkPopular" checked>
-                                                        <span class="radioLabel1"> Popularity</span>
-                                                    </span>
-                                                    <span class="col-lg-3">
-                                                        <input type="radio" class="flat-red option-input radio" value="rating" name="filterChk" id="chkRating">
-                                                        <span class="radioLabel1"> Shop Rating</span>
-                                                    </span>
-                                                    <span class="col-lg-3">
-                                                        <input type="radio" class="flat-red option-input radio" value="storename" name="filterChk" id="chkReview">
-                                                        <span class="radioLabel1"> Reviews</span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>-->
                     <div class="row">
                         <div class="col-md-9">
                             <div class="nav-tabs-custom" id="sliderSection">
@@ -765,10 +697,6 @@
                         </div>
                     </div>      
                     <jsp:include page="footer.jsp"/>
-                    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-                    <script>
-                        $.widget.bridge('uibutton', $.ui.button);
-                    </script>
                     <script src="bootstrap/js/bootstrap.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
                     <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
@@ -788,6 +716,13 @@
                         session.setAttribute("RANDKEY", objDAO.generateSecret());
                     %>
                     <script>
+                        $("#autocomplete").on("focus", function(){
+                            //alert("");
+                            $('html, body').animate({
+                                scrollTop: 0
+                            }, 'slow', function () {
+                            });
+                        });
                         //            function generateLink(str)
                         //            {
                         //                var salt = CryptoJS.lib.WordArray.random(128/8);

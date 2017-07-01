@@ -26,6 +26,12 @@
                 </a>
             </li>
             <li>
+                <a href="hEnquiries.jsp">
+                    <i class="fa fa-files-o"></i>
+                    <span>Inquiries</span>
+                </a>
+            </li>
+            <li>
                 <a href="hReviews.jsp">
                     <i class="fa fa-files-o"></i>
                     <span>Reviews</span>

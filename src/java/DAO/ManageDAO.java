@@ -32,11 +32,12 @@ public class ManageDAO {
 
     String result = "";
     Connection con;
-    PreparedStatement pst;
+    PreparedStatement pst, pst1;
     ResultSet rs;
 
     public void addStoreDetails(ManageStoreBO objBO) throws SQLException {
         int cnt = 0;
+        String storeid = "";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
@@ -61,12 +62,21 @@ public class ManageDAO {
 
             cnt = pst.executeUpdate();
             if (cnt > 0) {
-                pst = con.prepareStatement("select storeid from storedetails where storename=? and category=?");
+                pst = con.prepareStatement("select storeid from storedetails where storename=? and category=?;");
                 pst.setString(1, objBO.getStoreName());
                 pst.setString(2, objBO.getStoreCat());
                 rs = pst.executeQuery();
-                while (rs.next()) {
-                    objBO.setStoreId(rs.getString("storeid"));
+                if (rs.next()) {
+                    storeid = rs.getString("storeid");
+                    pst1 = con.prepareStatement("insert into search values(?,?,?,?,?);");
+                    pst1.setInt(1, Integer.parseInt(storeid));
+                    pst1.setString(2, "store");
+                    pst1.setString(3, objBO.getStoreName());
+                    pst1.setString(4, objBO.getStoreArea());
+                    pst1.setString(5, objBO.getMetadata());
+                    pst1.executeUpdate();
+
+                    objBO.setStoreId(storeid);
                 }
 //                String body = "Dear Abhishek/Tejas,\n";
 //                body += "\n<b>Event Reminder for you</b>\n\n";
@@ -610,8 +620,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(15, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(16, Types.INTEGER);
             stmt.setString(1, objBO.getHallName());
             stmt.setString(2, objBO.getHallNameHindi());
             stmt.setInt(3, objBO.getHallAreaSqft());
@@ -626,8 +636,9 @@ public class ManageDAO {
             stmt.setString(12, objBO.getSubType());
             stmt.setString(13, objBO.getAddedBy());
             stmt.setString(14, objBO.getPhoto());
-            stmt.setInt(15, 0);
-            stmt.setString(16, "1");
+            stmt.setString(15, objBO.getMetadata());
+            stmt.setInt(16, 0);
+            stmt.setString(17, "1");
             stmt.execute();
             objBO.setHallId(stmt.getInt("_hid"));
             con.close();
@@ -643,8 +654,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(15, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(16, Types.INTEGER);
             stmt.setString(1, objBO.getHallName());
             stmt.setString(2, objBO.getHallNameHindi());
             stmt.setInt(3, objBO.getHallAreaSqft());
@@ -659,8 +670,9 @@ public class ManageDAO {
             stmt.setString(12, objBO.getSubType());
             stmt.setString(13, objBO.getAddedBy());
             stmt.setString(14, objBO.getPhoto());
-            stmt.setInt(15, objBO.getHallId());
-            stmt.setString(16, "2");
+            stmt.setString(15, objBO.getMetadata());
+            stmt.setInt(16, objBO.getHallId());
+            stmt.setString(17, "2");
             stmt.execute();
             if (stmt.getInt("_hid") == 1) {
                 objBO.setAddFlag(true);
@@ -678,8 +690,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(15, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(16, Types.INTEGER);
             stmt.setString(1, objBO.getHallName());
             stmt.setString(2, objBO.getHallNameHindi());
             stmt.setInt(3, objBO.getHallAreaSqft());
@@ -694,8 +706,9 @@ public class ManageDAO {
             stmt.setString(12, objBO.getSubType());
             stmt.setString(13, objBO.getAddedBy());
             stmt.setString(14, objBO.getPhoto());
-            stmt.setInt(15, objBO.getHallId());
-            stmt.setString(16, "3");
+            stmt.setString(15, objBO.getMetadata());
+            stmt.setInt(16, objBO.getHallId());
+            stmt.setString(17, "3");
             stmt.execute();
 
             if (stmt.getInt("_hid") == 1) {
@@ -734,7 +747,6 @@ public class ManageDAO {
                 objBO.setEmail(rs.getString("email"));
                 photoSm = rs.getString("photo");
                 photoLg = photoSm;
-                System.out.println(">>>>>>> Photo: " + photo);
                 if (photoSm.contains("default")) {
                     photoSm = "shopIcon_sm.png";
                     photoLg = "shopIcon_lg.png";
@@ -752,8 +764,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(20, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(21, Types.INTEGER);
             stmt.setString(1, objBO.getMesName());
             stmt.setString(2, objBO.getMesNameHindi());
             stmt.setString(3, objBO.getContact());
@@ -773,8 +785,9 @@ public class ManageDAO {
             stmt.setString(17, objBO.getCity());
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
-            stmt.setInt(20, objBO.getMesId());
-            stmt.setString(21, "1");
+            stmt.setString(20, objBO.getMetadata());
+            stmt.setInt(21, objBO.getMesId());
+            stmt.setString(22, "1");
             stmt.execute();
             objBO.setMesId(stmt.getInt("_mesid"));
             con.close();
@@ -790,8 +803,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(20, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(21, Types.INTEGER);
             stmt.setString(1, objBO.getMesName());
             stmt.setString(2, objBO.getMesNameHindi());
             stmt.setString(3, objBO.getContact());
@@ -811,8 +824,9 @@ public class ManageDAO {
             stmt.setString(17, objBO.getCity());
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
-            stmt.setInt(20, objBO.getMesId());
-            stmt.setString(21, "2");
+            stmt.setString(20, objBO.getMetadata());
+            stmt.setInt(21, objBO.getMesId());
+            stmt.setString(22, "2");
             stmt.execute();
             if (stmt.getInt("_mesid") > 0) {
                 objBO.setAddFlag(true);
@@ -830,8 +844,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(20, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(21, Types.INTEGER);
             stmt.setString(1, objBO.getMesName());
             stmt.setString(2, objBO.getMesNameHindi());
             stmt.setString(3, objBO.getContact());
@@ -851,8 +865,9 @@ public class ManageDAO {
             stmt.setString(17, objBO.getCity());
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
-            stmt.setInt(20, objBO.getMesId());
-            stmt.setString(21, "3");
+            stmt.setString(20, objBO.getMetadata());
+            stmt.setInt(21, objBO.getMesId());
+            stmt.setString(22, "3");
             stmt.execute();
 
             if (stmt.getInt("_mesid") == 1) {
@@ -916,8 +931,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(22, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(23, Types.INTEGER);
             stmt.setString(1, objBO.getHostName());
             stmt.setString(2, objBO.getHostNameHindi());
             stmt.setString(3, objBO.getHostAreaSqft());
@@ -939,8 +954,9 @@ public class ManageDAO {
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getFurnished());
             stmt.setString(21, objBO.getPossession());
-            stmt.setInt(22, 0);
-            stmt.setString(23, "1");
+            stmt.setString(22, objBO.getMetadata());
+            stmt.setInt(23, 0);
+            stmt.setString(24, "1");
             stmt.execute();
             objBO.setHostId(stmt.getInt("_hostid"));
             con.close();
@@ -956,8 +972,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(22, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(23, Types.INTEGER);
             stmt.setString(1, objBO.getHostName());
             stmt.setString(2, objBO.getHostNameHindi());
             stmt.setString(3, objBO.getHostAreaSqft());
@@ -979,8 +995,9 @@ public class ManageDAO {
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getFurnished());
             stmt.setString(21, objBO.getPossession());
-            stmt.setInt(22, objBO.getHostId());
-            stmt.setString(23, "2");
+            stmt.setString(22, objBO.getMetadata());
+            stmt.setInt(23, objBO.getHostId());
+            stmt.setString(24, "2");
             stmt.execute();
             if (stmt.getInt("_hostid") == 1) {
                 objBO.setAddFlag(true);
@@ -998,8 +1015,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(22, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(23, Types.INTEGER);
             stmt.setString(1, objBO.getHostName());
             stmt.setString(2, objBO.getHostNameHindi());
             stmt.setString(3, objBO.getHostAreaSqft());
@@ -1021,8 +1038,9 @@ public class ManageDAO {
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getFurnished());
             stmt.setString(21, objBO.getPossession());
-            stmt.setInt(22, objBO.getHostId());
-            stmt.setString(23, "3");
+            stmt.setString(22, objBO.getMetadata());
+            stmt.setInt(23, objBO.getHostId());
+            stmt.setString(24, "3");
             stmt.execute();
 
             if (stmt.getInt("_hostid") == 1) {
@@ -1116,5 +1134,37 @@ public class ManageDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static ArrayList<SearchBO> getMatch(String id) {
+        ArrayList<SearchBO> data = new ArrayList<SearchBO>();
+        try {
+            String area = "", name = "";
+            PreparedStatement pst;
+            ResultSet rs;
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            Connection con = DriverManager.getConnection(dbc.getConstr());
+            if (con != null) {
+                pst = con.prepareStatement("Select * from search where area LIKE ? or nm LIKE ? or metadata LIKE ?");
+                pst.setString(1, "%" + id + "%");
+                pst.setString(2, "%" + id + "%");
+                pst.setString(3, "%" + id + "%");
+
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    area = rs.getString("area");
+                    name = rs.getString("nm");
+                    SearchBO c = new SearchBO();
+                    c.setData(rs.getString("id") + "," + rs.getString("type"));
+                    c.setValue(rs.getString("nm") + ", " + rs.getString("area"));
+                    data.add(c);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
+        return data;
     }
 }

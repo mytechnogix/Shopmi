@@ -79,82 +79,91 @@
                                                     <input type="text" name="txtHallArea" id="txtHallArea" class="form-control" placeholder="Enter New Area" required>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>Hall Services</label>
-                                                        <input type="text" id="txtHallServices" name="txtHallServices" class="form-control" placeholder="Enter services in detail" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6" id="otherDiv">
-                                                    <div class="form-group">
-                                                        <label>Hall Area in Square Feet</label>
-                                                        <input type="text" id="txtHallAreaSqft" name="txtHallAreaSqft" class="form-control" placeholder="Enter hall dimensions" required>
-                                                    </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Hall Services</label>
+                                                    <input type="text" id="txtHallServices" name="txtHallServices" class="form-control" placeholder="Enter services in detail" required>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>Website URL</label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" id="txtHallURL" name="txtHallURL" placeholder="Enter website URL of hall">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-link"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>Email Address</label>
-                                                        <div class="input-group">
-                                                            <input type="email" class="form-control" id="txtHallEmail" name="txtHallEmail" placeholder="Enter email address">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-envelope"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            <div class="col-lg-3" id="otherDiv">
+                                                <div class="form-group">
+                                                    <label>Hall Area in Square Feet</label>
+                                                    <input type="number" id="txtHallAreaSqft" name="txtHallAreaSqft" class="form-control" placeholder="Enter hall dimensions" required>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="form-group">
-                                                        <label>Contact Number</label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" id="txtHallContact" name="txtHallContact" placeholder="Enter contact numbers separated by comma(,)">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-phone"></i>
-                                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label>Website URL</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtHallURL" name="txtHallURL" placeholder="Enter website URL of hall">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-link"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3" id="otherDiv">
-                                                    <div class="form-group">
-                                                        <label>Subscription Type</label>
-                                                        <select class="form-control" id="ddlHallSubs" name="ddlHallSubs" required>
-                                                            <option value="free">Initial - Free for 3 Months</option>
-                                                            <option value="3">3 Months</option>
-                                                            <option value="6">6 Months</option>
-                                                            <option value="12">1 Year</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>Full Address</label>
-                                                        <div class="form-group date">
-                                                            <textarea class="form-control" id="txtHallFullAddress" name="txtHallFullAddress" rows="2" cols="100" placeholder="Enter full address" required></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="box-footer">
-                                                <button type="submit" class="btn btn-primary">Next</button>
-                                                <input type="reset" value="Reset" class="btn btn-primary">
-                                                <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Email Address</label>
+                                                    <div class="input-group">
+                                                        <input type="email" class="form-control" id="txtHallEmail" name="txtHallEmail" placeholder="Enter email address">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label>Contact Number</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtHallContact" name="txtHallContact" placeholder="Enter contact numbers separated by comma(,)">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3" id="otherDiv">
+                                                <div class="form-group">
+                                                    <label>Subscription Type</label>
+                                                    <select class="form-control" id="ddlHallSubs" name="ddlHallSubs" required>
+                                                        <option value="free">Initial - Free for 3 Months</option>
+                                                        <option value="3">3 Months</option>
+                                                        <option value="6">6 Months</option>
+                                                        <option value="12">1 Year</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Metadata</label>
+                                                    <div class="form-group date">
+                                                        <textarea class="form-control" id="txtHallMetadata" name="txtHallMetadata" rows="2" cols="100" placeholder="Enter metadata for search" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Full Address</label>
+                                                    <div class="form-group date">
+                                                        <textarea class="form-control" id="txtHallFullAddress" name="txtHallFullAddress" rows="2" cols="100" placeholder="Enter full address" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-primary">Next</button>
+                                            <input type="reset" value="Reset" class="btn btn-primary">
+                                            <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>

@@ -22,6 +22,9 @@
     Class.forName("com.mysql.jdbc.Driver");
     DBConnector dbc = new DBConnector();
     con = DriverManager.getConnection(dbc.getConstr());
+
+    String rating = String.format("%.1f", Double.parseDouble(objBO.getRating()));
+
     pst = con.prepareStatement("insert into log_popular(storeid, uid, storename, category, city, storearea) values(?,?,?,?,?,?)");
     pst.setString(1, storeid);
     pst.setString(2, uid);
@@ -49,7 +52,7 @@
         <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/storeDetails.css">
-
+        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <style>
             .manageHeightMax
             {
@@ -68,7 +71,7 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="initMap()">
         <div class="wrapper">
-            <jsp:include page="headerStoreDetails.jsp"/>
+            <jsp:include page="header.jsp"/>
             <input type="hidden" id="uid" value="<%=uid%>">
             <div class="content-wrapper">
                 <section class="content">
@@ -147,7 +150,7 @@
                                 <div class="box box-primary" id="recentlyJoined">
                                     <div class="box-header with-border box-title">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
+                                            <input type="text" class="form-control" id="origin" placeholder="Enter your current location" required>
                                             <span class="input-group-btn">
                                                 <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
                                             </span>
@@ -255,7 +258,7 @@
                                             </div>
                                             <div class="col-sm-4 border-right">
                                                 <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getRating()%></h5>
+                                                    <h5 class="description-header"><%=rating%></h5>
                                                     <span class="description-text">Rating</span>
                                                 </div>
                                             </div>
@@ -309,11 +312,6 @@
         </div>
     </div>
     <jsp:include page="footer.jsp"/>
-    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-    </script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>

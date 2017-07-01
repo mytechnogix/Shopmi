@@ -36,6 +36,7 @@
         <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="css/index.css">
+        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <style>
             table{
                 width: available;
@@ -60,7 +61,7 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed">
         <div class="wrapper">
-            <jsp:include page="headerStoreDetails.jsp"/>
+            <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
@@ -264,7 +265,6 @@
             </div>
         </div>
         <jsp:include page="footer.jsp"/>
-        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>

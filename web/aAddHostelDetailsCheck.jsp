@@ -30,6 +30,7 @@
     objBO.setRent(request.getParameter("txtHostRent"));
     objBO.setDeposit(request.getParameter("txtHostDeposit"));
     objBO.setCity(request.getParameter("txtHostCity"));
+    objBO.setMetadata(request.getParameter("txtHostMetadata"));
     objBO.setBedrooms(request.getParameter("txtHostBedrooms"));
     objBO.setBeds(request.getParameter("txtHostBeds"));
     objBO.setDescription(request.getParameter("txtHostDesc"));
@@ -49,7 +50,6 @@
         objDAO.addHostelDetails(objBO);
         if (objBO.getHostId() != 0) {
             session.setAttribute("hostidAdd", objBO.getHostId());
-            //response.sendRedirect("aAddHostelPhoto.jsp");
             response.sendRedirect("aAddHostelAmenities.jsp");
         } else {
             out.print("Failed to add host details");

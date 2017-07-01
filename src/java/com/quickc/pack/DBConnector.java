@@ -6,7 +6,8 @@ public class DBConnector {
 
     public DBConnector() {
         constr = "jdbc:mysql://localhost:3306/shoppee?useUnicode=yes&characterEncoding=UTF-8&user=root&password=ROOT";
-        //constr = "jdbc:mysql://mysql32811-rajshree.cloud.hostnet.nl/hca?user=root&password=TRSilk10888";
+       // constr = "jdbc:mysql://localhost:3306/shoppee?useUnicode=yes&characterEncoding=UTF-8&user=ankush&password=Ankush@02";
+
     }
 
     public String getConstr() {

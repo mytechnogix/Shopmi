@@ -22,6 +22,15 @@ public class ManageHallBO {
     private int _visitCount;
     private int _reviewCount;
     private String _rating;
+    private String _metadata;
+
+    public String getMetadata() {
+        return _metadata;
+    }
+
+    public void setMetadata(String _metadata) {
+        this._metadata = _metadata;
+    }
 
     public int getReviewCount() {
         return _reviewCount;

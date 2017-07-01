@@ -49,7 +49,7 @@
         <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/storeDetails.css">
-
+        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <style>
             .manageHeightMax
             {
@@ -68,7 +68,7 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="initMap()">
         <div class="wrapper">
-            <jsp:include page="headerStoreDetails.jsp"/>
+            <jsp:include page="header.jsp"/>
             <input type="hidden" id="uid" value="<%=uid%>">
             <div class="content-wrapper">
                 <section class="content">
@@ -311,11 +311,6 @@
         </div>
     </div>
     <jsp:include page="footer.jsp"/>
-    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-    </script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>

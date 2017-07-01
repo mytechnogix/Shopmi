@@ -32,6 +32,7 @@
     objBO.setHallArea(hallArea);
     objBO.setHallAreaSqft(Integer.parseInt(request.getParameter("txtHallAreaSqft")));
     objBO.setCity(request.getParameter("txtHallCity"));
+    objBO.setMetadata(request.getParameter("txtHallMetadata"));
     objBO.setUrl(hallURL);
     objBO.setSubType(request.getParameter("ddlHallSubs"));
     objBO.setEmail(email);

@@ -6,10 +6,9 @@ $(document).on('click','.product-info', function() {
 //ajax -get suggestions
 var xmlHttp
 var searchQuery;
-function getSuggestions(){
-    //alert("");
+function getSuggestionsAjax(){
     var filter = $('input:radio[name=filterChk]:checked').val();
-    var str = $("#searchQuery").val().trim();
+    var str = $("#autocomplete").val().trim();
     searchQuery = str;
     //    alert(filter+str);
     if (typeof XMLHttpRequest != "undefined"){
@@ -31,7 +30,7 @@ function getSuggestions(){
 function getSuggestionsOutput(){
     if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
         var someString = xmlHttp.responseText;
-        //alert(xmlHttp.responseText);
+        // alert(xmlHttp.responseText);
         var count = 0;
         var pos = someString.indexOf("<tr");
         while(pos > -1){
@@ -57,7 +56,7 @@ function getSuggestionsOutput(){
             "paging": true,
             "lengthChange": false,
             "searching": false,
-            "ordering": true,
+            "ordering": false,
             "info": true,
             "autoWidth": false
         });

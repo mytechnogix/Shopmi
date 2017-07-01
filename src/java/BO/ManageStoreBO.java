@@ -25,6 +25,15 @@ public class ManageStoreBO {
     private String _rating;
     private String _reviewCount;
     private String _storePhotoLg;
+    private String _metadata;
+
+    public String getMetadata() {
+        return _metadata;
+    }
+
+    public void setMetadata(String _metadata) {
+        this._metadata = _metadata;
+    }
 
     public String getReviewCount() {
         return _reviewCount;

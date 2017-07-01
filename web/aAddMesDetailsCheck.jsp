@@ -32,6 +32,7 @@
     objBO.setMesNameHindi(request.getParameter("txtMesNameHindi"));
     objBO.setMesArea(mesArea);
     objBO.setCity(request.getParameter("txtMesCity"));
+    objBO.setMetadata(request.getParameter("txtMesMetadata"));
     objBO.setHomeDelivery(request.getParameter("ddlMesHomeDelivery"));
     objBO.setUrl(mesURL);
     objBO.setSubType(request.getParameter("ddlMesSubs"));

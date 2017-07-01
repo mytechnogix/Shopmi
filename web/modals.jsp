@@ -41,7 +41,7 @@
         <div class="modal-content login-modal">
             <div class="modal-header login-modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-center" id="loginModalLabel">Login To Shejari.com</h4>
+                <h4 class="modal-title text-center" id="loginModalLabel">Login To MyShejari.com</h4>
             </div>
             <div class="modal-body">
                 <div class="text-center">
@@ -118,13 +118,13 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                                            <input type="text" class="form-control" id="passReg" name="passReg" placeholder="Password" required>
+                                            <input type="password" class="form-control" id="passReg" name="passReg" placeholder="Password" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                                            <input type="text" class="form-control" id="cpassReg" name="cpassReg" placeholder="Confirm Password" required>
+                                            <input type="password" class="form-control" id="cpassReg" name="cpassReg" placeholder="Confirm Password" required>
                                         </div>
                                     </div>
                                     <button type="button" onclick="registerUser()" id="register_btn" class="btn btn-block bt-login">Register</button>

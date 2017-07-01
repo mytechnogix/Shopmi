@@ -32,7 +32,7 @@
             tc = rs.getString("termsandcondition");
             offerImg = rs.getString("offerimg");
             mapLocation = rs.getString("maplocation");
-            rating = rs.getString("rating");
+            rating = String.format("%.1f", Double.parseDouble(rs.getString("rating")));
             city = rs.getString("city");
             storeArea = rs.getString("storearea");
         }
@@ -63,7 +63,7 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed"  onload="initMap()">
         <div class="wrapper">
-            <jsp:include page="headerStoreDetails.jsp"/>
+            <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
@@ -113,10 +113,6 @@
             </div>
         </div>
         <jsp:include page="modals.jsp"/>
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        <script>
-            $.widget.bridge('uibutton', $.ui.button);
-        </script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
