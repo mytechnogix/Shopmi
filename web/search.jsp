@@ -31,11 +31,6 @@
         <link rel="stylesheet" href="css/index.css"/>
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <style>
-            @media (max-width:767px) {
-                .fixed .content-wrapper,.fixed .right-side {
-                    padding-top: 50px;
-                }
-            }
             #login-after-div, #login-before-div
             {
                 display: none;
@@ -79,6 +74,19 @@
                 display: block;
                 padding: 2px 0 0 0;
             }
+            .radioLabel2
+            {
+                font-size: 18px;
+                float: right;
+                clear: none;
+                display: block;
+                padding: 2px 5px 5px 10px;
+            }
+            #filterWP td
+            {
+                float: left;
+                padding-left: 10px;
+            }
         </style>
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="getSuggestionsAjax('<%=query%>')">
@@ -98,7 +106,6 @@
                                     pst = con.prepareStatement("select distinct category from storedetails");
                                     rs = pst.executeQuery();
                                     while (rs.next()) {
-
                                         if (lCnt == 4) {
                                             lCnt = 0;
                                         }
@@ -120,12 +127,12 @@
                                 <div class="box-body">
                                     <ul class="todo-list">
                                         <%
-                                            pst = con.prepareStatement("select storename, count(*) as frequency from log_popular group by category order by count(*) desc limit 10;");
+                                            pst = con.prepareStatement("select storename, storeid, count(*) as frequency from log_popular group by category order by count(*) desc limit 10;");
                                             rs = pst.executeQuery();
                                             while (rs.next()) {
                                         %>
                                         <li>
-                                            <a href="search.jsp?search=<%=rs.getString("storename")%>">
+                                            <a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>" target="_blank">
                                                 <span class="handle">
                                                     <i class="fa fa-tag"></i>
                                                 </span>
@@ -141,8 +148,8 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="row" id="filterWP">
-                                <div class=" box text-center" style="padding: 0px">
+                            <div class="row hidden-xs hidden-md hidden-sm" id="filterWP">
+                                <div class=" box box-primary text-center" style="padding: 0px">
                                     <div class="box-body text-center">
                                         <span class="col-sm-3 label label-info" style="font-size: 15px">Sort By</span>
                                         <span class="col-sm-3">
@@ -157,6 +164,35 @@
                                             <input type="radio" class="flat-red option-input radio" value="storename" name="filterChk" id="chkReview">
                                             <span class="radioLabel1"> Reviews</span>
                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-lg hidden-md" id="filterWP">
+                                <div class="box box-primary" style="padding: 0px">
+                                    <div class="box-header">
+                                        <i class="fa fa-sort"></i> Sort by
+                                    </div>
+                                    <div class="box-body">
+                                        <table>
+                                            <tr>
+                                                <td> <input type="radio" class="flat-red option-input radio" value="visitcount" name="filterChk" id="chkPopular" checked>
+                                                    <span class="radioLabel2"> Popularity</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="radio" class="flat-red option-input radio" value="rating" name="filterChk" id="chkRating">
+                                                    <span class="radioLabel2"> Shop Rating</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="radio" class="flat-red option-input radio" value="storename" name="filterChk" id="chkReview">
+                                                    <span class="radioLabel2"> Reviews</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+
                                     </div>
                                 </div>
                             </div>

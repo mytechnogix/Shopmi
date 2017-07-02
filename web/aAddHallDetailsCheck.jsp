@@ -8,20 +8,11 @@
     hallAreaDdl = request.getParameter("ddlHallArea");
     hallAreaTxt = request.getParameter("txtHallArea");
     email = request.getParameter("txtHallEmail");
-    url = request.getParameter("txtHallURL");
 
     if (hallAreaDdl.equalsIgnoreCase("Other")) {
         hallArea = hallAreaTxt;
     } else {
         hallArea = hallAreaDdl;
-    }
-    if (url == null || url.equals("")) {
-        hallURL = "NA";
-    } else {
-        hallURL = url;
-    }
-    if (email == null || email.equals("")) {
-        email = "NA";
     }
     ManageDAO objDAO = new ManageDAO();
     ManageHallBO objBO = new ManageHallBO();
@@ -33,7 +24,7 @@
     objBO.setHallAreaSqft(Integer.parseInt(request.getParameter("txtHallAreaSqft")));
     objBO.setCity(request.getParameter("txtHallCity"));
     objBO.setMetadata(request.getParameter("txtHallMetadata"));
-    objBO.setUrl(hallURL);
+    objBO.setUrl(request.getParameter("txtHallURL"));
     objBO.setSubType(request.getParameter("ddlHallSubs"));
     objBO.setEmail(email);
     objBO.setContact(request.getParameter("txtHallContact"));

@@ -50,11 +50,23 @@
     {
         height: 20%!important;
     }
+    .serviceMobImg
+    {
+        height: 10%!important;
+    }
     #carousel-example > div > div > div > div
     {
         margin-bottom: 8px;   
     }
     .fixed .content-wrapper,.fixed .right-side {
         padding-top: 20px;
+    }
+    #similarSearches
+    {
+        min-height: 300px;
+    }
+    .tab-content #activity
+    {
+        min-height: 300px!important;
     }
 }

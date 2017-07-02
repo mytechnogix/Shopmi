@@ -51,8 +51,9 @@
             </div>
         </div>
     </div>
+    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
     <div class="footer_bottom">
         <p class="copyright">Copyright &copy; 2017</p>
-        <p class="developer" style="color: white">Designed by TechnoGix</p>
+        <p class="developer" style="color: white; margin-right: 70px">Designed by TechnoGix</p>
     </div>
 </footer>

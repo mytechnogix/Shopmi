@@ -29,7 +29,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Welcome to Shejari.com</title>
+        <title>Welcome to MyShejari.com</title>
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
@@ -39,6 +39,8 @@
         <link rel="stylesheet" href="css/carousalOffers.css"/>
         <link rel="stylesheet" href="css/index.css"/>
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <link rel="icon" href="images/logoFinal.png" type="image/png">
+
         <script>
             jQuery(window).load(function(){
                 jQuery(".hameid-loader-overlay").fadeOut(500);

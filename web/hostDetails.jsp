@@ -88,8 +88,7 @@
             }
             .manageHeightMin
             {
-                min-height: 300px;
-                max-height: 300px;
+                max-height: 250px;
             }
             .changeColor
             {
@@ -101,372 +100,387 @@
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
+                <section class="content-header" style="background-color: #fff; padding-bottom: 3px">
+                    <h1><i class="fa fa-building"></i> Property Details</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
+                        <li class="active">Property Details</li>
+                    </ol>
+                </section> 
                 <section class="content">
                     <div class="row">
                         <div class="col-md-10">
-                            <div class="col-md-7">
-                                <div class="box box-widget widget-user-2">
-                                    <div class="widget-user-header bg-aqua">
-                                        <div class="widget-user-image">
-                                            <img class="img-circle" src="images/hostelphotos/<%=objBO.getPhoto()%>" alt="Hall Logo">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="box box-widget widget-user-2">
+                                        <div class="widget-user-header bg-aqua">
+                                            <div class="widget-user-image">
+                                                <img class="img-circle" src="images/hostelphotos/<%=objBO.getPhoto()%>" alt="Hall Logo">
+                                            </div>
+                                            <h3 class="widget-user-username"><b><%=objBO.getHostName()%></b></h3>
+                                            <h5 class="widget-user-desc"><%=objBO.getAddress()%>, <%=objBO.getCity()%></h5>
                                         </div>
-                                        <h3 class="widget-user-username"><b><%=objBO.getHostName()%></b></h3>
-                                        <h5 class="widget-user-desc"><%=objBO.getAddress()%>, <%=objBO.getCity()%></h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="hidden" id="type" value="hostel">
+                                    <input type="hidden" id="id" value="<%=objBO.getHostId()%>">
+                                    <div class="box box-primary">
+                                        <div class="box-body text-center">
+                                            <a class="btn btn-app bg-aqua" href="javascript:;">
+                                                <span style="font-weight: bold; font-size: 18px">₹ <%=objBO.getRent()%></span><br> Rent
+                                            </a>
+                                            <a class="btn btn-app bg-aqua" href="javascript:;">
+                                                <span style="font-weight: bold; font-size: 18px">₹ <%=objBO.getDeposit()%></span><br> Deposit
+                                            </a>
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:;">
+                                                <span style="font-weight: bold; font-size: 18px"><%=objBO.getHostAreaSqft()%> sqft</span><br> Buildup
+                                            </a>
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('fav')">
+                                                <i class="fa fa-heart-o" id="addFav"></i> 
+                                                <span id="txtFav"> Add to favorite</span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5">
-                                <input type="hidden" id="type" value="hostel">
-                                <input type="hidden" id="id" value="<%=objBO.getHostId()%>">
-                                <div class="box box-primary">
-                                    <div class="box-body text-center">
-                                        <a class="btn btn-app bg-aqua" href="javascript:;">
-                                            <span style="font-weight: bold; font-size: 18px">₹ <%=objBO.getRent()%></span><br> Rent
-                                        </a>
-                                        <a class="btn btn-app bg-aqua" href="javascript:;">
-                                            <span style="font-weight: bold; font-size: 18px">₹ <%=objBO.getDeposit()%></span><br> Deposit
-                                        </a>
-                                        <a class="btn btn-app bg-aqua" href="JavaScript:;">
-                                            <span style="font-weight: bold; font-size: 18px"><%=objBO.getHostAreaSqft()%> sqft</span><br> Buildup
-                                        </a>
-                                        <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('fav')">
-                                            <i class="fa fa-heart-o" id="addFav"></i> 
-                                            <span id="txtFav"> Add to favorite</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="nav-tabs-custom" id="sliderSection">
-                                    <div class="tab-content no-padding">
-                                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                            <ol class="carousel-indicators">
-                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                            </ol>
-                                            <div class="carousel-inner" role="listbox">
-                                                <div class="item active" >
-                                                    <img src="images/hostelphotos/<%=objBO.getPhotoLg()%>" alt="Hostel Photos" width="100%" style="height: 400px">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="nav-tabs-custom" id="sliderSection">
+                                        <div class="tab-content no-padding">
+                                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                </ol>
+                                                <div class="carousel-inner" role="listbox">
+                                                    <div class="item active" >
+                                                        <img src="images/hostelphotos/<%=objBO.getPhotoLg()%>" class="serviceMobImg" alt="Hostel Photos" width="100%" style="height: 400px">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="hidden" id="sid" value="<%=objBO.getHostId()%>">
-                            <div class="col-md-5">
-                                <div class="box box-primary" style="min-height: 400px">
-                                    <div class="box-body">
-                                        <div class="col-md-6" style="font-size: 15px; font-weight: bold; border: 1px">
-                                            <ul class="products-list product-list-in-box">
-                                                <li class="item" title="Bedrooms"> 
-                                                    <div class="product-img">
-                                                        <img src="images/amenities/bedrooms.png" style="width: 30px; height: 30px">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        3 Bedrooms
-                                                        <span class="product-description" >
-                                                            No. of Bedrooms  
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li class="item" title="Possession"> 
-                                                    <div class="product-img">
-                                                        <img src="images/amenities/possession.png" style="width: 30px; height: 30px">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        Immediately
-                                                        <span class="product-description">
-                                                            Possession
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li class="item" title="Furnished"> 
-                                                    <div class="product-img">
-                                                        <img src="images/amenities/furnished.png" style="width: 30px; height: 30px">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        Fully
-                                                        <span class="product-description">
-                                                            Furnished
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6" style="font-size: 15px; font-weight: bold; border: 1px">
-                                            <ul class="products-list product-list-in-box">
-                                                <li class="item" title="Posted On"> 
-                                                    <div class="product-img">
-                                                        <img src="images/amenities/beds.png" style="width: 30px; height: 30px">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        4 Beds
-                                                        <span class="product-description" >
-                                                            No. of Beds
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li class="item" title="Preferred Tenants"> 
-                                                    <div class="product-img">
-                                                        <img src="images/amenities/tenants.png" style="width: 30px; height: 30px">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        Family
-                                                        <span class="product-description" >
-                                                            Preferred Tenants
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li class="item" title="Posted On"> 
-                                                    <div class="product-img">
-                                                        <img src="images/amenities/postedon.png" style="width: 30px; height: 30px">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        2 Days Ago
-                                                        <span class="product-description" >
-                                                            Posted On
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="box-footer">
-                                        <button class="btn-lg btn-danger" onclick="checkLogin('hostel')" style="width: 100%">Get Owner Details</button>
-                                        <br><br>
-                                        <span class="center">
-                                            Report : 
-                                            <a href="#" style="margin-left: 10px">Rented Out</a>
-                                            <a href="#" style="margin-left: 20px">Wrong Information</a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border box-title">
-                                        <h3 class="box-title">Amenities</h3>
-                                    </div>
-                                    <div class="box-body" style="font-size: 18px">
-                                        <div class="col-lg-3">
-                                            <div class="checkbox" id="lift">
-                                                <img src="images/amenities/lift.png" style="width: 20px; height: 20px"> Lift
-                                            </div>
-                                            <div class="checkbox" id="ac">
-                                                <img src="images/amenities/ac.png" style="width: 20px; height: 20px"> Air Conditioner
-                                            </div>
-                                            <div class="checkbox" id="swim">
-                                                <img src="images/amenities/swim.png" style="width: 20px; height: 20px"> Swimming Pool
-                                            </div>
-                                            <div class="checkbox" id="harvest">
-                                                <img src="images/amenities/harvest.png" style="width: 20px; height: 20px"> Rain Water Harvesting
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="checkbox" id="servantroom">
-                                                <img src="images/amenities/servantroom.png" style="width: 20px; height: 20px"> Servant Room
-                                            </div>
-                                            <div class="checkbox" id="gas">
-                                                <img src="images/amenities/gas.png" style="width: 20px; height: 20px"> Gas Pipeline
-                                            </div>
-                                            <div class="checkbox" id="gym">
-                                                <img src="images/amenities/gym.png" style="width: 20px; height: 20px"> Gym
-                                            </div>
-                                            <div class="checkbox" id="power">
-                                                <img src="images/amenities/powerbackup.png" style="width: 20px; height: 20px"> Power Backup
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="checkbox" id="firesafe">
-                                                <img src="images/amenities/firesafety.png" style="width: 20px; height: 20px"> Fire Safety
-                                            </div>
-                                            <div class="checkbox" id="club">
-                                                <img src="images/amenities/club.png" style="width: 20px; height: 20px"> Club House
-                                            </div>
-                                            <div class="checkbox" id="play">
-                                                <img src="images/amenities/play.png" style="width: 20px; height: 20px"> Children's Play Area 
-                                            </div>
-                                            <div class="checkbox" id="security">
-                                                <img src="images/amenities/security.png" style="width: 20px; height: 20px"> Security
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="checkbox" id="park">
-                                                <img src="images/amenities/park.png" style="width: 20px; height: 20px"> Park
-                                            </div>
-                                            <div class="checkbox" id="housekeeping">
-                                                <img src="images/amenities/housekeeping.png" style="width: 20px; height: 20px"> House Keeping
-                                            </div>
-                                            <div class="checkbox" id="internet">
-                                                <img src="images/amenities/internet.png" style="width: 20px; height: 20px"> Internet Services
-                                            </div>
-                                            <div class="checkbox" id="parking">
-                                                <img src="images/amenities/parking.png" style="width: 20px; height: 20px"> Parking
-                                            </div>
+                                            </div>  
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="box box-primary" id="recentlyJoined">
-                                    <div class="box-header with-border box-title">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
-                                            <span class="input-group-btn">
-                                                <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
+                                <input type="hidden" id="sid" value="<%=objBO.getHostId()%>">
+                                <div class="col-md-5">
+                                    <div class="box box-primary" style="min-height: 400px">
+                                        <div class="box-body">
+                                            <div class="col-md-6" style="font-size: 15px; font-weight: bold; border: 1px">
+                                                <ul class="products-list product-list-in-box">
+                                                    <li class="item" title="Bedrooms"> 
+                                                        <div class="product-img">
+                                                            <img src="images/amenities/bedrooms.png" style="width: 30px; height: 30px">
+                                                        </div>
+                                                        <div class="product-info">
+                                                            3 Bedrooms
+                                                            <span class="product-description" >
+                                                                No. of Bedrooms  
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item" title="Possession"> 
+                                                        <div class="product-img">
+                                                            <img src="images/amenities/possession.png" style="width: 30px; height: 30px">
+                                                        </div>
+                                                        <div class="product-info">
+                                                            Immediately
+                                                            <span class="product-description">
+                                                                Possession
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item" title="Furnished"> 
+                                                        <div class="product-img">
+                                                            <img src="images/amenities/furnished.png" style="width: 30px; height: 30px">
+                                                        </div>
+                                                        <div class="product-info">
+                                                            Fully
+                                                            <span class="product-description">
+                                                                Furnished
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6" style="font-size: 15px; font-weight: bold; border: 1px">
+                                                <ul class="products-list product-list-in-box">
+                                                    <li class="item" title="Posted On"> 
+                                                        <div class="product-img">
+                                                            <img src="images/amenities/beds.png" style="width: 30px; height: 30px">
+                                                        </div>
+                                                        <div class="product-info">
+                                                            4 Beds
+                                                            <span class="product-description" >
+                                                                No. of Beds
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item" title="Preferred Tenants"> 
+                                                        <div class="product-img">
+                                                            <img src="images/amenities/tenants.png" style="width: 30px; height: 30px">
+                                                        </div>
+                                                        <div class="product-info">
+                                                            Family
+                                                            <span class="product-description" >
+                                                                Preferred Tenants
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item" title="Posted On"> 
+                                                        <div class="product-img">
+                                                            <img src="images/amenities/postedon.png" style="width: 30px; height: 30px">
+                                                        </div>
+                                                        <div class="product-info">
+                                                            2 Days Ago
+                                                            <span class="product-description" >
+                                                                Posted On
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <button class="btn-lg btn-danger" onclick="checkLogin('hostel')" style="width: 100%">Get Owner Details</button>
+                                            <br><br>
+                                            <span class="center">
+                                                Report : 
+                                                <a href="#" style="margin-left: 10px">Rented Out</a>
+                                                <a href="#" style="margin-left: 20px">Wrong Information</a>
                                             </span>
                                         </div>
-                                        <span class="label label-danger" id="lblDistance"></span>
-                                    </div>
-                                    <div class="box-body no-padding" id="map">
                                     </div>
                                 </div>
-                                <%
-                                    String review = "";
-                                    pst = con.prepareStatement("select review from reviewhost where hostid=? and uid=?");
-                                    pst.setInt(1, hostid);
-                                    pst.setString(2, uid);
-                                    rs = pst.executeQuery();
-                                    while (rs.next()) {
-                                        review = rs.getString("review");
-                                    }
-                                %>
-                                <div class="nav-tabs-custom">
-                                    <ul class="nav nav-tabs">
-                                        <li class="active"><a href="#settings" data-toggle="tab">Write a Review</a></li>
-                                        <li><a href="#activity" data-toggle="tab">Property Reviews</a></li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="active tab-pane" id="settings" style="min-height: 300px">
-                                            <div id="settingsTabRev">
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                            <textarea class="form-control" cols="70" rows="10" id="txtAreaReview" placeholder="Write a review about this store"><%if (!review.equals("NA")) {%><%=review%><%}%></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-10">
-                                                            <button type="button" onclick="submitReview()" id="btnPostReview" class="btn btn-danger" disabled>Post</button>
-                                                            <br>  
-                                                            <span id="loginFirstMsg" style="font-size: 12px">Login first to post a review</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="successReviewMsg" class="text-center" style="font-size: 16px"> <br>
-                                                <span>Post submitted successfully <br> Thank you.</span>
-                                                <br><br>
-                                            </div>
-                                            <div id="editReviewMsg" class="text-center" style="font-size: 16px"> <br>
-                                                <span>You have already posted a review. <br> Do you want to edit it. 
-                                                    <a href="javascript:RepostReview()"> Click here</a></span>
-                                                <br><br>
-                                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border box-title">
+                                            <h3 class="box-title">Amenities</h3>
                                         </div>
-                                        <div class="tab-pane pre-scrollable" style="min-height: 500px" id="activity">
-                                            <%
-                                                pst = con.prepareStatement("select * from view_reviewhost where hostid=? order by reviewdate desc");
-                                                pst.setInt(1, hostid);
-                                                rs = pst.executeQuery();
-                                                while (rs.next()) {
-                                                    if (!(rs.getString("review")).equals("NA")) {
-                                            %>
-                                            <div class="post">
-                                                <div class="user-block">
-                                                    <img class="img-circle img-bordered-sm" src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Photo">
-                                                    <span class="username">
-                                                        <a href="javascript:;"><%=rs.getString("fnm")%> <%=rs.getString("lnm")%></a>
-                                                    </span>
-                                                    <span class="description"><%=rs.getString("reviewdate")%></span>
+                                        <div class="box-body" style="font-size: 18px">
+                                            <div class="col-lg-3">
+                                                <div class="checkbox" id="lift">
+                                                    <img src="images/amenities/lift.png" style="width: 20px; height: 20px"> Lift
                                                 </div>
-                                                <span style="margin-left: 9%">
-                                                    <%=rs.getString("review")%>
-                                                </span>
+                                                <div class="checkbox" id="ac">
+                                                    <img src="images/amenities/ac.png" style="width: 20px; height: 20px"> Air Conditioner
+                                                </div>
+                                                <div class="checkbox" id="swim">
+                                                    <img src="images/amenities/swim.png" style="width: 20px; height: 20px"> Swimming Pool
+                                                </div>
+                                                <div class="checkbox" id="harvest">
+                                                    <img src="images/amenities/harvest.png" style="width: 20px; height: 20px"> Rain Water Harvesting
+                                                </div>
                                             </div>
-                                            <%}
-                                                }%>
+                                            <div class="col-lg-3">
+                                                <div class="checkbox" id="servantroom">
+                                                    <img src="images/amenities/servantroom.png" style="width: 20px; height: 20px"> Servant Room
+                                                </div>
+                                                <div class="checkbox" id="gas">
+                                                    <img src="images/amenities/gas.png" style="width: 20px; height: 20px"> Gas Pipeline
+                                                </div>
+                                                <div class="checkbox" id="gym">
+                                                    <img src="images/amenities/gym.png" style="width: 20px; height: 20px"> Gym
+                                                </div>
+                                                <div class="checkbox" id="power">
+                                                    <img src="images/amenities/powerbackup.png" style="width: 20px; height: 20px"> Power Backup
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="checkbox" id="firesafe">
+                                                    <img src="images/amenities/firesafety.png" style="width: 20px; height: 20px"> Fire Safety
+                                                </div>
+                                                <div class="checkbox" id="club">
+                                                    <img src="images/amenities/club.png" style="width: 20px; height: 20px"> Club House
+                                                </div>
+                                                <div class="checkbox" id="play">
+                                                    <img src="images/amenities/play.png" style="width: 20px; height: 20px"> Children's Play Area 
+                                                </div>
+                                                <div class="checkbox" id="security">
+                                                    <img src="images/amenities/security.png" style="width: 20px; height: 20px"> Security
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="checkbox" id="park">
+                                                    <img src="images/amenities/park.png" style="width: 20px; height: 20px"> Park
+                                                </div>
+                                                <div class="checkbox" id="housekeeping">
+                                                    <img src="images/amenities/housekeeping.png" style="width: 20px; height: 20px"> House Keeping
+                                                </div>
+                                                <div class="checkbox" id="internet">
+                                                    <img src="images/amenities/internet.png" style="width: 20px; height: 20px"> Internet Services
+                                                </div>
+                                                <div class="checkbox" id="parking">
+                                                    <img src="images/amenities/parking.png" style="width: 20px; height: 20px"> Parking
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5">
-                                <div class="box box-solid" id="directionPanel" style="max-height: 400px; min-height: 427px;">
-                                    <div class="box-header">
-                                        <i class="fa fa-map-marker"></i>
-                                        <h3 class="box-title">Direction to Store</h3>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="box box-primary" id="recentlyJoined">
+                                        <div class="box-header with-border box-title">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
+                                                <span class="input-group-btn">
+                                                    <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
+                                                </span>
+                                            </div>
+                                            <span class="label label-danger" id="lblDistance"></span>
+                                        </div>
+                                        <div class="box-body no-padding" id="map">
+                                        </div>
                                     </div>
-                                    <div class="box-body border-radius-none"id="right-panel">
-                                    </div>
-                                </div>
-                                <div class="box box-solid">
-                                    <div class="box-header">
-                                        <i class="ion ion-clipboard"></i>
-                                        <h3 class="box-title">Description</h3>
-                                    </div>
-                                    <div class="box-body border-radius-none" style="padding-bottom: 20px; min-height: 200px; text-align: justify; font-size: 15px">
-                                        <%=objBO.getDescription()%>
-                                    </div>
-                                </div>
-                                <div class="box box-widget widget-user">
-                                    <div class="widget-user-header bg-aqua-active text-center">
-                                        <h4>Property Insights</h4>
-                                    </div>
-                                    <div class="widget-user-image">
-                                        <img class="img-circle" src="images/hostelphotos/<%=objBO.getPhoto()%>" alt="Hostel Photo">
-                                    </div>
-                                    <div class="box-footer">
-                                        <div class="row">
-                                            <div class="col-sm-4 border-right">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getVisitCount()%></h5>
-                                                    <span class="description-text">Visits</span>
+                                    <%
+                                        String review = "";
+                                        pst = con.prepareStatement("select review from reviewhost where hostid=? and uid=?");
+                                        pst.setInt(1, hostid);
+                                        pst.setString(2, uid);
+                                        rs = pst.executeQuery();
+                                        while (rs.next()) {
+                                            review = rs.getString("review");
+                                        }
+                                    %>
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#settings" data-toggle="tab">Write a Review</a></li>
+                                            <li><a href="#activity" data-toggle="tab">Property Reviews</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="active tab-pane" id="settings" style="min-height: 300px">
+                                                <div id="settingsTabRev">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <textarea class="form-control" cols="70" rows="10" id="txtAreaReview" placeholder="Write a review about this store"><%if (!review.equals("NA")) {%><%=review%><%}%></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-10">
+                                                                <button type="button" onclick="submitReview()" id="btnPostReview" class="btn btn-danger" disabled>Post</button>
+                                                                <br>  
+                                                                <span id="loginFirstMsg" style="font-size: 12px">Login first to post a review</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="successReviewMsg" class="text-center" style="font-size: 16px"> <br>
+                                                    <span>Post submitted successfully <br> Thank you.</span>
+                                                    <br><br>
+                                                </div>
+                                                <div id="editReviewMsg" class="text-center" style="font-size: 16px"> <br>
+                                                    <span>You have already posted a review. <br> Do you want to edit it. 
+                                                        <a href="javascript:RepostReview()"> Click here</a></span>
+                                                    <br><br>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 border-right">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getRating()%></h5>
-                                                    <span class="description-text">Contacted</span>
+                                            <div class="tab-pane pre-scrollable" style="min-height: 300px" id="activity">
+                                                <%
+                                                    pst = con.prepareStatement("select * from view_reviewhost where hostid=? order by reviewdate desc");
+                                                    pst.setInt(1, hostid);
+                                                    rs = pst.executeQuery();
+                                                    while (rs.next()) {
+                                                        if (!(rs.getString("review")).equals("NA")) {
+                                                %>
+                                                <div class="post">
+                                                    <div class="user-block">
+                                                        <img class="img-circle img-bordered-sm" src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Photo">
+                                                        <span class="username">
+                                                            <a href="javascript:;"><%=rs.getString("fnm")%> <%=rs.getString("lnm")%></a>
+                                                        </span>
+                                                        <span class="description"><%=rs.getString("reviewdate")%></span>
+                                                    </div>
+                                                    <span style="margin-left: 9%">
+                                                        <%=rs.getString("review")%>
+                                                    </span>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getReviewCount()%></h5>
-                                                    <span class="description-text">Reviews</span>
-                                                </div>
+                                                <%}
+                                                    }%>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box box-primary manageHeightMax" id="similarSearches">
-                                    <div class="box-header">
-                                        <i class="fa fa-search"></i>
-                                        <h3 class="box-title">Similar Searches</h3>
+                                <div class="col-md-5">
+                                    <div class="box box-solid" id="directionPanel" style="max-height: 400px; min-height: 427px;">
+                                        <div class="box-header">
+                                            <i class="fa fa-map-marker"></i>
+                                            <h3 class="box-title">Direction to Store</h3>
+                                        </div>
+                                        <div class="box-body border-radius-none"id="right-panel">
+                                        </div>
                                     </div>
-                                    <div class="box-body">
-                                        <ul class="todo-list">
-                                            <%
-                                                pst = con.prepareStatement("select hostname, hostid from hostel where hostid!=? order by hostname limit 10");
-                                                pst.setInt(1, hostid);
-                                                rs = pst.executeQuery();
-                                                while (rs.next()) {
-                                            %>
-                                            <li>
-                                                <a href="hostDetails.jsp?id=<%=rs.getInt("hostid")%>">
-                                                    <span class="handle">
-                                                        <i class="fa fa-map-marker"></i>
-                                                    </span>
-                                                    <span class="text"><%=rs.getString("hostname")%></span>
-                                                    <div class="tools">
-                                                        <i class="fa fa-external-link"></i>
+                                    <div class="box box-solid">
+                                        <div class="box-header">
+                                            <i class="ion ion-clipboard"></i>
+                                            <h3 class="box-title">Description</h3>
+                                        </div>
+                                        <div class="box-body border-radius-none" style="padding-bottom: 20px; min-height: 200px; text-align: justify; font-size: 15px">
+                                            <%=objBO.getDescription()%>
+                                        </div>
+                                    </div>
+                                    <div class="box box-widget widget-user">
+                                        <div class="widget-user-header bg-aqua-active text-center">
+                                            <h4>Property Insights</h4>
+                                        </div>
+                                        <div class="widget-user-image">
+                                            <img class="img-circle" src="images/hostelphotos/<%=objBO.getPhoto()%>" alt="Hostel Photo">
+                                        </div>
+                                        <div class="box-footer">
+                                            <div class="row">
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getVisitCount()%></h5>
+                                                        <span class="description-text">Visits</span>
                                                     </div>
-                                                </a>
-                                            </li>
-                                            <%}%>
-                                        </ul>
+                                                </div>
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getRating()%></h5>
+                                                        <span class="description-text">Contacted</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getReviewCount()%></h5>
+                                                        <span class="description-text">Reviews</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box box-primary " id="similarSearches">
+                                        <div class="box-header">
+                                            <i class="fa fa-search"></i>
+                                            <h3 class="box-title">Similar Searches</h3>
+                                        </div>
+                                        <div class="box-body manageHeightMin pre-scrollable">
+                                            <ul class="todo-list">
+                                                <%
+                                                    pst = con.prepareStatement("select hostname, hostid from hostel where hostid!=? order by hostname limit 10");
+                                                    pst.setInt(1, hostid);
+                                                    rs = pst.executeQuery();
+                                                    while (rs.next()) {
+                                                %>
+                                                <li>
+                                                    <a href="hostDetails.jsp?id=<%=rs.getInt("hostid")%>">
+                                                        <span class="handle">
+                                                            <i class="fa fa-map-marker"></i>
+                                                        </span>
+                                                        <span class="text"><%=rs.getString("hostname")%></span>
+                                                        <div class="tools">
+                                                            <i class="fa fa-external-link"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <%}%>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

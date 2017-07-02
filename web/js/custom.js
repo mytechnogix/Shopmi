@@ -320,7 +320,13 @@ function submitReview()
     }
     var enqid = $("#id").val();
     var type = $("#type").val();
-    var review = $("#txtAreaReview").val();
+    var review = $("#txtAreaReview").val().trim();
+    
+    if(review=="" || review==null)
+    {
+     $("#txtAreaReview").focus();
+     return;
+    }
     
     var url="submitReviewCheck.jsp";
     url=url+"?id="+enqid+"&type="+type+"&review="+review;
@@ -496,7 +502,7 @@ function checkOfferLoginOutput(){
 var xmlHttp;
 function getOffer(oid, sid){
     
-    alert(oid+" - "+sid);
+   // alert(oid+" - "+sid);
     if(oid==undefined || oid==null || sid==undefined || sid==null)
     {
         return;
@@ -829,6 +835,49 @@ function checkAmenitiesOutput()
         }
     }
 }
+
+
+//ajax - user forgot password
+var xmlHttp
+function forgetCheck(){
+    var x = $("#fEmail").val().trim();
+    //alert(x);
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        $("#fEmail").focus();
+        $("#forgetError").text("Invalid email address");
+        $("#forgetError").show();
+        return;
+    }
+    
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    $("#forgetError").hide();
+    var url="forgetCheck.jsp?id="+x;
+    xmlHttp.onreadystatechange = forgetCheckOutput;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+function forgetCheckOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="1")
+        {
+            alert("Email sent");
+        }
+    }
+}
+
+
 var xmlhttp;
 function contacted()
 {

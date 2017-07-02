@@ -1,17 +1,45 @@
 <html>
     <head>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/storeDetails.css">
+        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script>
             function check(){
-            var uri = "test.asp?name=ståle&car=saab";
-            var uri_enc = encodeURIComponent(uri);
+                var uri = "test.asp?name=ståle&car=saab";
+                var uri_enc = encodeURIComponent(uri);
             
-            window.location=uri_enc;
+                window.location=uri_enc;
             }
         </script>
 
     </head>
     <body>
-        <a href="JavaScript:check()">Click No One</a>
-    </body>
+        <div class="hidden-sm hidden-md">hidden-sm hidden-md</div>
+        <div class="hidden-sm hidden-lg">hidden-sm hidden-lg</div>
+        <div class="hidden-md hidden-lg">hidden-md hidden-lg</div>
+        <div>Theoretical equivalent using visible</div>
+        <div class="visible-lg">hidden-sm hidden-md</div>
+        <div class="visible-md">hidden-sm hidden-lg</div>
+        <div class="visible-sm">hidden-md hidden-lg</div>
+
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="plugins/fastclick/fastclick.js"></script>
+        <script src="dist/js/app.min.js"></script>
+        <script src="dist/js/pages/dashboard.js"></script>
+        <script src="dist/js/demo.js"></script>
+        <script src="js/jquery.newsTicker.min.js"></script> 
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6XvLNwRfIt-b_F1X3QPta6yAK5Yh0mj4"></script>
+        <script src="js/custom.js"></script>
+    <jsp:include page="modals.jsp"/>
+</body>
 </html>

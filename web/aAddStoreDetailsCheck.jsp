@@ -12,8 +12,6 @@
     am = request.getParameter("txtAM");
     pm = request.getParameter("txtPM");
 
-    url = request.getParameter("txtOfferURL");
-
     if (storeAreaDdl.equalsIgnoreCase("Other")) {
         storeArea = storeAreaTxt;
     } else {
@@ -23,11 +21,6 @@
         storeCat = storeCatTxt;
     } else {
         storeCat = storeCatDdl;
-    }
-    if (url.equalsIgnoreCase(null) || url.equals("")) {
-        storeURL = "NA";
-    } else {
-        storeURL = url;
     }
     ManageDAO objDAO = new ManageDAO();
     ManageStoreBO objBO = new ManageStoreBO();
@@ -39,7 +32,7 @@
     objBO.setStoreArea(storeArea);
     objBO.setStoreCat(storeCat);
     objBO.setCity(request.getParameter("txtOfferCity"));
-    objBO.setUrl(storeURL);
+    objBO.setUrl(request.getParameter("txtOfferURL"));
     objBO.setSubs(request.getParameter("ddlOfferSubs"));
     objBO.setWorkingHours(request.getParameter("txtOfferOpenAt") + " " + am + " to " + request.getParameter("txtOfferCloseAt") + " " + pm);
     objBO.setEmail(request.getParameter("txtOfferEmail"));

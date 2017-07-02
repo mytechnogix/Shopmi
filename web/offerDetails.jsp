@@ -13,9 +13,9 @@
     Connection con;
     ResultSet rs;
     String storeName = "", discount = "", discountOn = "", offerImg = "", tc = "", mapLocation = "", storeId = "";
-    String storeArea = "", rating = "", city = "";
-    int oid = 0;
-    ManageDAO objDAO = new ManageDAO();
+    String storeArea = "", ratingStr = "", city = "", reviewCount = "";
+    int oid = 0, ratingCount = 1;
+    double ratingDbl = 0.0;
     try {
         oid = Integer.parseInt(request.getParameter("id"));
         Class.forName("com.mysql.jdbc.Driver");
@@ -32,9 +32,26 @@
             tc = rs.getString("termsandcondition");
             offerImg = rs.getString("offerimg");
             mapLocation = rs.getString("maplocation");
-            rating = String.format("%.1f", Double.parseDouble(rs.getString("rating")));
+            ratingStr = String.format("%.1f", Double.parseDouble(rs.getString("rating")));
             city = rs.getString("city");
             storeArea = rs.getString("storearea");
+            reviewCount = rs.getString("reviewcount");
+        }
+        ratingDbl = Math.ceil(Double.parseDouble(ratingStr));
+        if (ratingDbl > 5.0) {
+            ratingDbl = 5.0;
+        }
+        if (ratingDbl < 1) {
+            ratingDbl = 3.5;
+        }
+        pst = con.prepareStatement("select count(*) as total from reviewstore where storeid=?");
+        pst.setString(1, storeId);
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            ratingCount = Integer.parseInt(rs.getString("total"));
+            if (ratingCount < 1) {
+                ratingCount = 1;
+            }
         }
     } catch (Exception ex) {
         out.print(ex);
@@ -65,6 +82,13 @@
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
+                <section class="content-header" style="background-color: #fff; padding-bottom: 3px">
+                    <h1> <i class="glyphicon glyphicon-gift"></i> Offer Details</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
+                        <li class="active">Offer Details</li>
+                    </ol>
+                </section>   
                 <section class="content">
                     <div class="row">
                         <div class="col-lg-4">
@@ -73,21 +97,21 @@
                                 <input type="hidden" id="sid" value="<%=storeId%>">
                                 <img src="images/offerphotos/<%=offerImg%>" style="width: 300px; height: 250px">
                             </div>
+                            <img src="images/banner_party.gif" class="hidden-xs hidden-sm" style="width: 100%;">
                         </div>
                         <div class="col-lg-6">
                             <div class="box box-primary" style="padding: 10px">
                                 <h3><span class="text-red"><%=discount%>% Off</span> on <%=discountOn%></h3>
-                                <h4 class="text-blue"><a href="storeDetails.jsp?id=<%=storeId%>">  <%=storeName%>, <%=storeArea%>, <%=city%></a></h4>
-                                <small><i class="fa fa-star bg-green-active" style="padding: 3px;">  <%=rating%></i>  118 Ratings and 90 Reviews</small>
-
-                                <h4 style="color: darkslategray">Terms and Conditions</h4>
+                                <h4 class="text-blue"><a href="storeDetails.jsp?id=<%=storeId%>" target="_blank">  <%=storeName%>, <%=storeArea%>, <%=city%>
+                                        <i class="fa fa-external-link"></i>
+                                    </a></h4>
+                                <small><i class="fa fa-star bg-green-active" style="padding: 3px;">  <%=ratingDbl%></i>  <%=ratingCount%> People Rated and <%=reviewCount%> Reviewed</small>
+                                <br><br>
+                                <h4 style="color: #000; font-weight: bold">Terms and Conditions</h4>
                                 <p><%=tc%></p>
-
-                                <input type="checkbox" name="chbTc" id="chbTc">
-                                <span>  <a href="#">Accept T&C</a></span><br><br>
-                                <button id="btnGetOffer" class="btn-lg btn-success" style="width: 200px" onclick="checkLogin('offer')">Get Offer</button>
-                                <button id="btnWishList" class="btn-lg btn-success" style="width: 200px">Add to Favorite</button>
-
+                                <button id="btnGetOffer" class="btn-lg btn-success col-sm-6" onclick="checkLogin('offer')">Get Offer</button>
+                                <button id="btnWishList" class="btn-lg btn-success col-sm-6">Add to Favorite</button>
+                                <br><br><br>
                             </div>
                             <div class="box box-danger">
                                 <div class="box-header with-border box-title">
@@ -103,10 +127,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <div class="box box-primary text-center" id="temp">
-                                <img src="images/ads.PNG">
-                            </div>
+                        <div class="col-lg-2 hidden-xs hidden-sm">
+                            <img src="images/ads.PNG">
                         </div>
                     </div>
                 </section>

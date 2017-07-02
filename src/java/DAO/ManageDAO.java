@@ -908,11 +908,11 @@ public class ManageDAO {
                 objBO.setRating(rs.getString("rating"));
                 objBO.setContact(rs.getString("contact"));
                 objBO.setVisitCount(rs.getString("visitcount"));
+                objBO.setReviewCount(rs.getString("reviewcount"));
                 objBO.setAddress(rs.getString("address"));
                 objBO.setEmail(rs.getString("email"));
                 photoSm = rs.getString("photo");
                 photoLg = photoSm;
-                System.out.println(">>>>>>> Photo: " + photo);
                 if (photoSm.contains("default")) {
                     photoSm = "shopIcon_sm.png";
                     photoLg = "shopIcon_lg.png";

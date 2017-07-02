@@ -13,7 +13,7 @@
     Connection con;
     ResultSet rs;
     String storeName = "", discount = "", discountOn = "", img = "", tc = "", mapLocation = "", storeId = "";
-    String storeArea = "", city = "", sDate = "", eDate = "", advTitle = "", advDesc = "";
+    String storeArea = "", city = "", advTitle = "", advDesc = "";
 
     int aid = 0;
     ManageDAO objDAO = new ManageDAO();
@@ -62,52 +62,68 @@
         </style>
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed"  onload="initMap()">
+        <jsp:include page="header.jsp"/>
         <div class="wrapper">
-            <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="box box-primary text-center">
-                                <input type="hidden" id="oid" value="<%=aid%>">
-                                <input type="hidden" id="sid" value="<%=storeId%>">
-                                <img src="images/advphotos/<%=img%>" alt="" width="100%" style="height: 240px">
-                            </div>
+                        <div class="col-lg-12">
+                            <input type="hidden" id="oid" value="<%=aid%>">
+                            <input type="hidden" id="sid" value="<%=storeId%>">
+                            <img src="images/advphotos/<%=img%>" class="advMobImg" alt="" width="100%" style="height: 450px">
                         </div>
-                        <div class="col-lg-6">
-                            <div class="box box-primary" style="padding: 10px">
-                                <h3><span class="text-red"><%=advTitle%></span></h3>
-                                <h4 class="text-blue"><a href="storeDetails.jsp?id=<%=storeId%>">  <%=storeName%>, <%=storeArea%>, <%=city%></a></h4>
-                                <small><i class="fa fa-star bg-green-active" style="padding: 3px;">  0</i>  118 Ratings and 90 Reviews</small>
-                                <br><br>
-                                <h4 style="color: darkslategray">Description</h4>
-                                <h5><span><%=advDesc%></span></h5>
-                                <br>
-                                <h4 style="color: darkslategray">Terms and Conditions</h4>
-                                <p style="text-align: justify"><%=tc%></p>
-
-                                <!--                                <button id="btnGetOffer" class="btn-lg btn-success" style="width: 200px" onclick="checkLogin('adv')">Get Offer</button>
-                                                                <button id="btnWishList" class="btn-lg btn-success" style="width: 200px">Add to Favorite</button>-->
-
-                            </div>
-                            <div class="box box-danger">
-                                <div class="box-header with-border box-title">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
-                                        <span class="input-group-btn">
-                                            <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
-                                        </span>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="box box-primary" style="padding: 10px">
+                                        <h3><span class="text-red"><%=advTitle%></span></h3>
+                                        <h4 class="text-blue"><a href="storeDetails.jsp?id=<%=storeId%>">  <%=storeName%>, <%=storeArea%>, <%=city%></a></h4>
+                                        <br>
                                     </div>
-                                    <span class="label label-danger" id="lblDistance"></span>
                                 </div>
-                                <div class="box-body no-padding" id="map">
+                                <div class="col-lg-5">
+                                    <div class="box box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Description</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <span style="text-align: justify"><%=advDesc%></span>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border box-title">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
+                                                <span class="input-group-btn">
+                                                    <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
+                                                </span>
+                                            </div>
+                                            <span class="label label-danger" id="lblDistance"></span>
+                                        </div>
+                                        <div class="box-body no-padding" id="map">
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="col-lg-5">
+                                    <div class="box box-primary" style="min-height: 410px">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Terms and Conditions</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <span style="text-align: justify"><%=tc%></span>
+                                        </div>
+                                    </div>
+                                </div>   
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <div class="box box-primary text-center" id="temp">
-                                <img src="images/ads.PNG">
-                            </div>
+                        <div class="col-lg-2 hidden-xs">
+                            <img src="images/ads.PNG">
                         </div>
                     </div>
                 </section>
@@ -126,11 +142,9 @@
         <script src="js/jquery.newsTicker.min.js"></script> 
         <script src="js/custom.js"></script> 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6XvLNwRfIt-b_F1X3QPta6yAK5Yh0mj4"></script>
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
         <link href="css/autocomplete.css" rel="stylesheet" />
         <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
         <!--         getOffer success modal-->
-
         <div id="couponModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content" style="border: solid blue">

@@ -57,8 +57,8 @@
             }
             .manageHeightMin
             {
-                min-height: 300px;
-                max-height: 300px;
+                min-height: 200px;
+                max-height: 200px;
             }
             .changeColor
             {
@@ -71,232 +71,247 @@
             <jsp:include page="header.jsp"/>
             <input type="hidden" id="uid" value="<%=uid%>">
             <div class="content-wrapper">
+                <section class="content-header" style="background-color: #fff; padding-bottom: 3px">
+                    <h1> <img src="images/restoIcon.png" style="width: 30px;">  Mes Details</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
+                        <li class="active">Mes Details</li>
+                    </ol>
+                </section>  
                 <section class="content">
                     <div class="row">
                         <div class="col-md-10">
-                            <div class="col-md-7">
-                                <div class="box box-widget widget-user-2">
-                                    <div class="widget-user-header bg-aqua">
-                                        <div class="widget-user-image">
-                                            <img class="img-circle" src="images/mesphotos/<%=objBO.getPhoto()%>" alt="Mes Logo">
-                                        </div>
-                                        <h3 class="widget-user-username"><b><%=objBO.getMesName()%></b></h3>
-                                        <h5 class="widget-user-desc"><%=objBO.getMesArea()%></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="hidden" id="type" value="mes">
-                                <input type="hidden" id="id" value="<%=objBO.getMesId()%>">
-                                <div class="box box-primary">
-                                    <div class="box-body text-center">
-                                        <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('enq')">
-                                            <i class="fa fa-envelope-o" id="enquiredMes"></i> Enquire
-                                        </a>
-                                        <a class="btn btn-app bg-aqua">
-                                            <i class="fa fa-shopping-cart"></i> Offers
-                                        </a>
-                                        <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('rate')">
-                                            <i class="fa fa-star-o" id="rated"></i> Rate it
-                                        </a>
-                                        <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('fav')">
-                                            <i class="fa fa-heart-o" id="addFav"></i> 
-                                            <span id="txtFav"> Add to favorite</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="nav-tabs-custom" id="sliderSection">
-                                    <div class="tab-content no-padding">
-                                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                            <ol class="carousel-indicators">
-                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                            </ol>
-                                            <div class="carousel-inner" role="listbox">
-                                                <div class="item active" >
-                                                    <img src="images/mesphotos/<%=objBO.getPhotoLg()%>" alt="Mes Photos" width="100%" style="height: 400px">
-                                                </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="box box-widget widget-user-2">
+                                        <div class="widget-user-header bg-aqua">
+                                            <div class="widget-user-image">
+                                                <img class="img-circle" src="images/mesphotos/<%=objBO.getPhoto()%>" alt="Mes Logo">
                                             </div>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="box box-primary" style="min-height: 400px">
-                                    <div class="box-header with-border">
-                                        <i class="ion ion-clipboard"></i>
-                                        <h3 class="box-title">Full Details</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <table style="font-size: 16px">
-                                            <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
-                                            <tr><td>Locality </td><td> <%=objBO.getMesArea()%></td></tr>
-                                            <tr><td>Contact</td><td> <%=objBO.getContact()%></td></tr>
-                                            <tr><td>Services</td><td> <%=objBO.getServices()%></td></tr>
-                                            <tr><td>Home Delivery</td><td> <%=objBO.getHomeDelivery()%></td></tr>
-                                            <tr><td>Lunch Time</td><td> <%=objBO.getLunchTime()%></td></tr>
-                                            <tr><td>Dinner Time</td><td> <%=objBO.getDinnerTime()%></td></tr>
-                                            <tr><td>Closed On</td><td> <%=objBO.getClosedOn()%></td></tr>
-                                            <tr><td>Service Area</td><td> <%=objBO.getServiceArea()%></td></tr>
-                                            <tr><td>Email</td><td> <%=objBO.getEmail()%></td></tr>
-                                            <tr><td>Website URL</td><td> <%=objBO.getUrl()%></td></tr>
-                                            <tr><td></td><td></td></tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="box box-primary" id="recentlyJoined">
-                                    <div class="box-header with-border box-title">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
-                                            <span class="input-group-btn">
-                                                <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
-                                            </span>
+                                            <h3 class="widget-user-username"><b><%=objBO.getMesName()%></b></h3>
+                                            <h5 class="widget-user-desc"><%=objBO.getMesArea()%></h5>
                                         </div>
-                                        <span class="label label-danger" id="lblDistance"></span>
-                                    </div>
-                                    <div class="box-body no-padding" id="map">
                                     </div>
                                 </div>
-                                <%
-                                    String review = "";
-                                    pst = con.prepareStatement("select review from reviewmes where mesid=? and uid=?");
-                                    pst.setInt(1, mesid);
-                                    pst.setString(2, uid);
-                                    rs = pst.executeQuery();
-                                    while (rs.next()) {
-                                        review = rs.getString("review");
-                                    }
-                                %>
-                                <div class="nav-tabs-custom">
-                                    <ul class="nav nav-tabs">
-                                        <li class="active"><a href="#settings" data-toggle="tab">Write a Review</a></li>
-                                        <li><a href="#activity" data-toggle="tab">Shop Reviews</a></li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="active tab-pane" id="settings" style="min-height: 300px">
-                                            <div id="settingsTabRev">
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                            <textarea class="form-control" cols="70" rows="10" id="txtAreaReview" placeholder="Write a review about this Mes"><%if (!review.equals("NA")) {%><%=review%><%}%></textarea>
-                                                        </div>
+                                <div class="col-md-5">
+                                    <input type="hidden" id="type" value="mes">
+                                    <input type="hidden" id="id" value="<%=objBO.getMesId()%>">
+                                    <div class="box box-primary">
+                                        <div class="box-body text-center">
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('enq')">
+                                                <i class="fa fa-envelope-o" id="enquiredMes"></i> Enquire
+                                            </a>
+                                            <a class="btn btn-app bg-aqua">
+                                                <i class="fa fa-shopping-cart"></i> Offers
+                                            </a>
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('rate')">
+                                                <i class="fa fa-star-o" id="rated"></i> Rate it
+                                            </a>
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('fav')">
+                                                <i class="fa fa-heart-o" id="addFav"></i> 
+                                                <span id="txtFav"> Add to favorite</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="nav-tabs-custom" id="sliderSection">
+                                        <div class="tab-content no-padding">
+                                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                </ol>
+                                                <div class="carousel-inner" role="listbox">
+                                                    <div class="item active" >
+                                                        <img src="images/mesphotos/<%=objBO.getPhotoLg()%>" class="serviceMobImg" alt="Mes Photos" width="100%" style="height: 400px">
                                                     </div>
                                                 </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-10">
-                                                            <button type="button" onclick="submitReview()" id="btnPostReview" class="btn btn-danger" disabled>Post</button>
-                                                            <br>  
-                                                            <span id="loginFirstMsg" style="font-size: 12px">Login first to post a review</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="successReviewMsg" class="text-center" style="font-size: 16px"> <br>
-                                                <span>Post submitted successfully <br> Thank you.</span>
-                                                <br><br>
-                                            </div>
-                                            <div id="editReviewMsg" class="text-center" style="font-size: 16px"> <br>
-                                                <span>You have already posted a review. <br> Do you want to edit it. 
-                                                    <a href="javascript:RepostReview()"> Click here</a></span>
-                                                <br><br>
-                                            </div>
+                                            </div>  
                                         </div>
-                                        <div class="tab-pane pre-scrollable" style="min-height: 500px" id="activity">
-                                            <%
-                                                pst = con.prepareStatement("select * from view_reviewmes where mesid=? order by reviewdate desc");
-                                                pst.setInt(1, mesid);
-                                                rs = pst.executeQuery();
-                                                while (rs.next()) {
-                                                    if (!(rs.getString("review")).equals("NA")) {
-                                            %>
-                                            <div class="post">
-                                                <div class="user-block">
-                                                    <img class="img-circle img-bordered-sm" src="images/mesphotos/shopIcon_sm.png" alt="Mes image">
-                                                    <span class="username">
-                                                        <a href="javascript:;"><%=rs.getString("fnm")%> <%=rs.getString("lnm")%></a>
-                                                    </span>
-                                                    <span class="description"><%=rs.getString("reviewdate")%></span>
-                                                </div>
-                                                <span style="margin-left: 9%">
-                                                    <%=rs.getString("review")%>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="box box-primary" style="min-height: 400px">
+                                        <div class="box-header with-border">
+                                            <i class="ion ion-clipboard"></i>
+                                            <h3 class="box-title">Full Details</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <table style="font-size: 16px">
+                                                <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
+                                                <tr><td>Locality </td><td> <%=objBO.getMesArea()%></td></tr>
+                                                <tr><td>Contact</td><td> <%=objBO.getContact()%></td></tr>
+                                                <tr><td>Services</td><td> <%=objBO.getServices()%></td></tr>
+                                                <tr><td>Home Delivery</td><td> <%=objBO.getHomeDelivery()%></td></tr>
+                                                <tr><td>Lunch Time</td><td> <%=objBO.getLunchTime()%></td></tr>
+                                                <tr><td>Dinner Time</td><td> <%=objBO.getDinnerTime()%></td></tr>
+                                                <tr><td>Closed On</td><td> <%=objBO.getClosedOn()%></td></tr>
+                                                <tr><td>Service Area</td><td> <%=objBO.getServiceArea()%></td></tr>
+                                                <tr><td>Email</td><td> <%=objBO.getEmail()%></td></tr>
+                                                <tr><td>Website URL</td><td> <%=objBO.getUrl()%></td></tr>
+                                                <tr><td></td><td></td></tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="box box-primary" id="recentlyJoined">
+                                        <div class="box-header with-border box-title">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
+                                                <span class="input-group-btn">
+                                                    <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
                                                 </span>
                                             </div>
-                                            <%}
-                                                }%>
+                                            <span class="label label-danger" id="lblDistance"></span>
+                                        </div>
+                                        <div class="box-body no-padding" id="map">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="box box-solid" id="directionPanel" style="max-height: 400px; min-height: 427px;">
-                                    <div class="box-header">
-                                        <i class="fa fa-map-marker"></i>
-                                        <h3 class="box-title">Direction to Store</h3>
-                                    </div>
-                                    <div class="box-body border-radius-none"id="right-panel">
-                                    </div>
-                                </div>
-                                <div class="box box-widget widget-user">
-                                    <div class="widget-user-header bg-aqua-active text-center">
-                                        <h3 class="widget-user-username"><%=objBO.getMesName()%></h3>
-                                    </div>
-                                    <div class="widget-user-image">
-                                        <img class="img-circle" src="images/mesphotos/<%=objBO.getPhoto()%>" alt="User Avatar">
-                                    </div>
-                                    <div class="box-footer">
-                                        <div class="row">
-                                            <div class="col-sm-4 border-right">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getVisitCount()%></h5>
-                                                    <span class="description-text">Visits</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 border-right">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getRating()%></h5>
-                                                    <span class="description-text">Rating</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getReviewCount()%></h5>
-                                                    <span class="description-text">Reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="box box-primary manageHeightMax" id="similarSearches">
-                                    <div class="box-header">
-                                        <i class="fa fa-search"></i>
-                                        <h3 class="box-title">Similar Searches</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <ul class="todo-list">
-                                            <%
-                                                pst = con.prepareStatement("select mesname, mesid from mes where mesid!=? order by mesname limit 10");
-                                                pst.setInt(1, mesid);
-                                                rs = pst.executeQuery();
-                                                while (rs.next()) {
-                                            %>
-                                            <li>
-                                                <a href="mesDetails.jsp?id=<%=rs.getInt("mesid")%>">
-                                                    <span class="handle">
-                                                        <i class="fa fa-map-marker"></i>
-                                                    </span>
-                                                    <span class="text"><%=rs.getString("mesname")%></span>
-                                                    <div class="tools">
-                                                        <i class="fa fa-external-link"></i>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <%}%>
+                                    <%
+                                        String review = "";
+                                        pst = con.prepareStatement("select review from reviewmes where mesid=? and uid=?");
+                                        pst.setInt(1, mesid);
+                                        pst.setString(2, uid);
+                                        rs = pst.executeQuery();
+                                        while (rs.next()) {
+                                            review = rs.getString("review");
+                                        }
+                                    %>
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#settings" data-toggle="tab">
+                                                    <i class="fa fa-edit"></i> Write a Review</a></li>
+                                            <li><a href="#activity" data-toggle="tab">
+                                                    <i class="fa fa-comments-o"></i> Shop Reviews</a></li>
                                         </ul>
+                                        <div class="tab-content">
+                                            <div class="active tab-pane" id="settings" style="min-height: 300px">
+                                                <div id="settingsTabRev">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <textarea class="form-control" cols="70" rows="10" id="txtAreaReview" placeholder="Write a review about this Mes"><%if (!review.equals("NA")) {%><%=review%><%}%></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-10">
+                                                                <button type="button" onclick="submitReview()" id="btnPostReview" class="btn btn-danger" disabled>Post</button>
+                                                                <br>  
+                                                                <span id="loginFirstMsg" style="font-size: 12px">Login first to post a review</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="successReviewMsg" class="text-center" style="font-size: 16px"> <br>
+                                                    <span>Post submitted successfully <br> Thank you.</span>
+                                                    <br><br>
+                                                </div>
+                                                <div id="editReviewMsg" class="text-center" style="font-size: 16px"> <br>
+                                                    <span>You have already posted a review. <br> Do you want to edit it. 
+                                                        <a href="javascript:RepostReview()"> Click here</a></span>
+                                                    <br><br>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane pre-scrollable" style="min-height: 300px" id="activity">
+                                                <%
+                                                    pst = con.prepareStatement("select * from view_reviewmes where mesid=? order by reviewdate desc");
+                                                    pst.setInt(1, mesid);
+                                                    rs = pst.executeQuery();
+                                                    while (rs.next()) {
+                                                        if (!(rs.getString("review")).equals("NA")) {
+                                                %>
+                                                <div class="post">
+                                                    <div class="user-block">
+                                                        <img class="img-circle img-bordered-sm" src="images/mesphotos/shopIcon_sm.png" alt="Mes image">
+                                                        <span class="username">
+                                                            <a href="javascript:;"><%=rs.getString("fnm")%> <%=rs.getString("lnm")%></a>
+                                                        </span>
+                                                        <span class="description"><%=rs.getString("reviewdate")%></span>
+                                                    </div>
+                                                    <span style="margin-left: 9%">
+                                                        <%=rs.getString("review")%>
+                                                    </span>
+                                                </div>
+                                                <%}
+                                                    }%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="box box-solid hidden-xs" id="directionPanel" style="max-height: 400px; min-height: 427px;">
+                                        <div class="box-header">
+                                            <i class="fa fa-map-marker"></i>
+                                            <h3 class="box-title">Direction to Store</h3>
+                                        </div>
+                                        <div class="box-body border-radius-none"id="right-panel">
+                                        </div>
+                                    </div>
+                                    <div class="box box-widget widget-user">
+                                        <div class="widget-user-header bg-aqua-active text-center">
+                                            <h3 class="widget-user-username">Mes Insights</h3>
+                                        </div>
+                                        <div class="widget-user-image">
+                                            <img class="img-circle" src="images/mesphotos/<%=objBO.getPhoto()%>" alt="User Avatar">
+                                        </div>
+                                        <div class="box-footer">
+                                            <div class="row">
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getVisitCount()%></h5>
+                                                        <span class="description-text">Visits</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getRating()%></h5>
+                                                        <span class="description-text">Rating</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getReviewCount()%></h5>
+                                                        <span class="description-text">Reviews</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box box-primary manageHeightMax" id="similarSearches">
+                                        <div class="box-header">
+                                            <i class="fa fa-search"></i>
+                                            <h3 class="box-title">Similar Searches</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <ul class="todo-list">
+                                                <%
+                                                    pst = con.prepareStatement("select mesname, mesid from mes where mesid!=? order by mesname limit 10");
+                                                    pst.setInt(1, mesid);
+                                                    rs = pst.executeQuery();
+                                                    while (rs.next()) {
+                                                %>
+                                                <li>
+                                                    <a href="mesDetails.jsp?id=<%=rs.getInt("mesid")%>">
+                                                        <span class="handle">
+                                                            <i class="fa fa-map-marker"></i>
+                                                        </span>
+                                                        <span class="text"><%=rs.getString("mesname")%></span>
+                                                        <div class="tools">
+                                                            <i class="fa fa-external-link"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <%}%>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -339,6 +354,7 @@
         //        alert(userId);
         if(userId!="null")
         {
+            $("#txtAreaReview").removeAttr("disabled");
             $("#btnPostReview").removeAttr("disabled");
             $("#loginFirstMsg").hide();
             $("#successReviewMsg").hide();
@@ -348,6 +364,7 @@
         }
         else
         {
+            $("#txtAreaReview").attr("disabled","disabled");
             $("#btnPostReview").attr("disabled","disabled");
             $("#loginFirstMsg").show();
             $("#editReviewMsg").hide();
@@ -406,7 +423,8 @@
                 if (status === 'OK') {
                     $("#directionPanel").show();
                     $("#similarSearches").removeClass("manageHeightMax")
-                    $("#similarSearches").addClass("manageHeightMin pre-scrollable")
+                    $("#similarSearches").addClass("manageHeightMin")
+                    $("#similarSearches .box-body").addClass("manageHeightMin pre-scrollable")
                     directionsDisplay.setDirections(response);
                     
                 } else {

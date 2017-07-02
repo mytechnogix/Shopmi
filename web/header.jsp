@@ -1,3 +1,8 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="com.quickc.pack.DBConnector"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.PreparedStatement"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <noscript>
 <meta http-equiv="refresh" content="0; url=nojs.jsp" />
@@ -5,7 +10,15 @@
 <link href="css/autocomplete.css" rel="stylesheet" />
 <link href="css/responsive.css" rel="stylesheet" />
 <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+<link rel="icon" href="images/shopIcon_sm.png" type="image/png" sizes="16x16">
 <style>
+    .back-to-top {
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display:none;
+    }
     #flipkart-navbar {
         background-color: #605ca8;
         color: #000;
@@ -234,17 +247,22 @@
     }
 </style>
 <%
-    int cnt = 0, total = 0;
-//            PreparedStatement pst;
-//            Connection con;
-//            ResultSet rs;
-//            Class.forName("com.mysql.jdbc.Driver");
-//            DBConnector dbc = new DBConnector();
-//            con = DriverManager.getConnection(dbc.getConstr());
+    String total = "0";
+    PreparedStatement pst;
+    Connection con;
+    ResultSet rs;
+    Class.forName("com.mysql.jdbc.Driver");
+    DBConnector dbc = new DBConnector();
+    con = DriverManager.getConnection(dbc.getConstr());
 
     String fnm = String.valueOf(session.getAttribute("fnm"));
     String uid = String.valueOf(session.getAttribute("uid"));
-
+    pst = con.prepareStatement("select count(*) as total from claimedoffers where uid=? and couponstatus!='Expired'");
+    pst.setString(1, uid);
+    rs = pst.executeQuery();
+    while (rs.next()) {
+        total = rs.getString("total");
+    }
 %>
 <div class="navbar-custom-menu">
     <div class="main-header">
@@ -312,59 +330,89 @@
             </div>
         </nav>
     </div>
-    <br><br><br>
-    <script type="text/javascript" src="js/jquery.autocomplete.js"></script>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "70%";
-            // document.getElementById("flipkart-navbar").style.width = "50%";
-            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+</div>
+<br><br><br>
+<script type="text/javascript" src="js/jquery.autocomplete.js"></script>
+<script>
+    var previousScroll = 0;
+    $(window).scroll(function(event){
+        var scroll = $(this).scrollTop();
+        if (scroll > previousScroll){
+            jQuery('.row1').fadeOut();  
+        } else {
+            jQuery('.row1').fadeIn();
         }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.body.style.backgroundColor = "rgba(0,0,0,0)";
-        }
-    </script>
-    <script type="text/javascript">
-        var query;
-        var id;
-        var type;
-        $("#autocomplete").autocomplete({
-            //lookup: countries,
-            appendTo : ".smallsearch",
-            serviceUrl:'Auto', //tell the script where to send requests
-            width: 450, //set width
-            delay: 500,
-            //callback just to show it's working
-            onSelect: function (suggestion) {
-                //$('#selection').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
-                query = suggestion.value;
-                var strarray = suggestion.data.split(',');
-                id=strarray[0].trim();
-                type=strarray[1].trim();
-                if(type=="store")
-                    window.location="storeDetails.jsp?id="+id;
-                else if(type=="hall")
-                    window.location="hallDetails.jsp?id="+id;
-                else if(type=="hostel")
-                    window.location="hostDetails.jsp?id="+id;
-                else if(type=="mes")
-                    window.location="mesDetails.jsp?id="+id;
-                
-            },
-            showNoSuggestionNotice: true
-            //noSuggestionNotice: 'Sorry, no matching results
-        });
-            
-        function search()
-        {
-            var q=$("#autocomplete").val();
-            q = q.trim();
-            //alert(q);
-            if(q==undefined || q==null || q==""){
-                return;
+        previousScroll = scroll;
+    });
+    $(document).ready(function(){
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
             }
-            window.location="search.jsp?search="+q;
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+        
+        $('#back-to-top').tooltip('show');
+
+    });
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "70%";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.body.style.backgroundColor = "rgba(0,0,0,0)";
+    }
+</script>
+<script type="text/javascript">
+    var query;
+    var id;
+    var type;
+    $("#autocomplete").autocomplete({
+        //lookup: countries,
+        appendTo : ".smallsearch",
+        serviceUrl:'Auto', //tell the script where to send requests
+        width: 450, //set width
+        delay: 500,
+        //callback just to show it's working
+        onSelect: function (suggestion) {
+            //$('#selection').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            query = suggestion.value;
+            var strarray = suggestion.data.split(',');
+            id=strarray[0].trim();
+            type=strarray[1].trim();
+            if(type=="store")
+                window.location="storeDetails.jsp?id="+id;
+            else if(type=="hall")
+                window.location="hallDetails.jsp?id="+id;
+            else if(type=="hostel")
+                window.location="hostDetails.jsp?id="+id;
+            else if(type=="mes")
+                window.location="mesDetails.jsp?id="+id;
+                
+        },
+        showNoSuggestionNotice: true
+        //noSuggestionNotice: 'Sorry, no matching results
+    });
+            
+    function search()
+    {
+        var q=$("#autocomplete").val();
+        q = q.trim();
+        //alert(q);
+        if(q==undefined || q==null || q==""){
+            return;
         }
-    </script>
+        window.location="search.jsp?search="+q;
+    }
+</script>

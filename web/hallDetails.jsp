@@ -69,8 +69,8 @@
             }
             .manageHeightMin
             {
-                min-height: 300px;
-                max-height: 300px;
+                min-height: 200px;
+                max-height: 200px;
             }
             .changeColor
             {
@@ -82,229 +82,244 @@
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
+                <section class="content-header" style="background-color: #fff; padding-bottom: 3px">
+                    <h1><img src="images/partyHallIcon.png" style="width: 30px"> Party Hall Details</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
+                        <li class="active">Party Hall Details</li>
+                    </ol>
+                </section> 
                 <section class="content">
                     <div class="row">
                         <div class="col-md-10">
-                            <div class="col-md-7">
-                                <div class="box box-widget widget-user-2">
-                                    <div class="widget-user-header bg-aqua">
-                                        <div class="widget-user-image">
-                                            <img class="img-circle" src="images/hallphotos/<%=objBO.getPhoto()%>" alt="Hall Logo">
-                                        </div>
-                                        <h3 class="widget-user-username"><b><%=objBO.getHallName()%></b></h3>
-                                        <h5 class="widget-user-desc"><%=objBO.getHallArea()%></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="hidden" id="type" value="hall">
-                                <input type="hidden" id="id" value="<%=objBO.getHallId()%>">
-                                <div class="box box-primary">
-                                    <div class="box-body text-center">
-                                        <a class="btn btn-app bg-aqua" href="javascript:;" data-toggle="modal" data-target="#bookCalendarModal">
-                                            <i class="fa fa-calendar-o"></i> Check Dates
-                                        </a>
-                                        <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('enq')">
-                                            <i class="fa fa-envelope-o" id="enquiredHall"></i> Enquire
-                                        </a>
-                                        <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('rate')">
-                                            <i class="fa fa-star-o" id="rated"></i> Rate it
-                                        </a>
-                                        <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('fav')">
-                                            <i class="fa fa-heart-o" id="addFav"></i> 
-                                            <span id="txtFav"> Add to favorite</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="nav-tabs-custom" id="sliderSection">
-                                    <div class="tab-content no-padding">
-                                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                            <ol class="carousel-indicators">
-                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                            </ol>
-                                            <div class="carousel-inner" role="listbox">
-                                                <div class="item active" >
-                                                    <img src="images/hallphotos/<%=objBO.getPhotoLg()%>" alt="Store Photos" width="100%" style="height: 400px">
-                                                </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="box box-widget widget-user-2">
+                                        <div class="widget-user-header bg-aqua">
+                                            <div class="widget-user-image">
+                                                <img class="img-circle" src="images/hallphotos/<%=objBO.getPhoto()%>" alt="Hall Logo">
                                             </div>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="hidden" id="sid" value="<%=objBO.getHallId()%>">
-                            <div class="col-md-5">
-                                <div class="box box-primary" style="min-height: 400px">
-                                    <div class="box-header with-border">
-                                        <i class="ion ion-clipboard"></i>
-                                        <h3 class="box-title">Full Details</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <table style="font-size: 15px">
-                                            <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
-                                            <tr><td>Locality </td><td> <%=objBO.getHallArea()%></td></tr>
-                                            <tr><td>Contact</td><td> <%=objBO.getContact()%></td></tr>
-                                            <tr><td>Services</td><td> <%=objBO.getHallServices()%></td></tr>
-                                            <tr><td>Area (in Sq.Ft.)</td><td> <%=objBO.getHallAreaSqft()%></td></tr>
-                                            <tr><td>Email Address</td><td> <%=objBO.getEmail()%></td></tr>
-                                            <tr><td>Website URL</td><td> <%=objBO.getUrl()%></td></tr>
-                                            <tr><td></td><td></td></tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="box box-primary" id="recentlyJoined">
-                                    <div class="box-header with-border box-title">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
-                                            <span class="input-group-btn">
-                                                <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
-                                            </span>
+                                            <h3 class="widget-user-username"><b><%=objBO.getHallName()%></b></h3>
+                                            <h5 class="widget-user-desc"><%=objBO.getHallArea()%></h5>
                                         </div>
-                                        <span class="label label-danger" id="lblDistance"></span>
-                                    </div>
-                                    <div class="box-body no-padding" id="map">
                                     </div>
                                 </div>
-                                <%
-                                    String review = "";
-                                    pst = con.prepareStatement("select review from reviewhall where hallid=? and uid=?");
-                                    pst.setInt(1, hallid);
-                                    pst.setString(2, uid);
-                                    rs = pst.executeQuery();
-                                    while (rs.next()) {
-                                        review = rs.getString("review");
-                                    }
-                                %>
-                                <div class="nav-tabs-custom">
-                                    <ul class="nav nav-tabs">
-                                        <li class="active"><a href="#settings" data-toggle="tab">Write a Review</a></li>
-                                        <li><a href="#activity" data-toggle="tab">Hall Reviews</a></li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="active tab-pane" id="settings" style="min-height: 300px">
-                                            <div id="settingsTabRev">
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                            <textarea class="form-control" cols="70" rows="10" id="txtAreaReview" placeholder="Write a review about this store"><%if (!review.equals("NA")) {%><%=review%><%}%></textarea>
-                                                        </div>
+                                <div class="col-md-5">
+                                    <input type="hidden" id="type" value="hall">
+                                    <input type="hidden" id="id" value="<%=objBO.getHallId()%>">
+                                    <div class="box box-primary">
+                                        <div class="box-body text-center">
+                                            <a class="btn btn-app bg-aqua" href="javascript:;" data-toggle="modal" data-target="#bookCalendarModal">
+                                                <i class="fa fa-calendar-o"></i> Check Dates
+                                            </a>
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('enq')">
+                                                <i class="fa fa-envelope-o" id="enquiredHall"></i> Enquire
+                                            </a>
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('rate')">
+                                                <i class="fa fa-star-o" id="rated"></i> Rate it
+                                            </a>
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('fav')">
+                                                <i class="fa fa-heart-o" id="addFav"></i> 
+                                                <span id="txtFav"> Add to favorite</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="nav-tabs-custom" id="sliderSection">
+                                        <div class="tab-content no-padding">
+                                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    <!--                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+                                                </ol>
+                                                <div class="carousel-inner" role="listbox">
+                                                    <div class="item active" >
+                                                        <img src="images/hallphotos/<%=objBO.getPhotoLg()%>" class="serviceMobImg" alt="Store Photos" width="100%" style="height: 400px">
                                                     </div>
                                                 </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-10">
-                                                            <button type="button" onclick="submitReview()" id="btnPostReview" class="btn btn-danger" disabled>Post</button>
-                                                            <br>  
-                                                            <span id="loginFirstMsg" style="font-size: 12px">Login first to post a review</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="successReviewMsg" class="text-center" style="font-size: 16px"> <br>
-                                                <span>Post submitted successfully <br> Thank you.</span>
-                                                <br><br>
-                                            </div>
-                                            <div id="editReviewMsg" class="text-center" style="font-size: 16px"> <br>
-                                                <span>You have already posted a review. <br> Do you want to edit it. 
-                                                    <a href="javascript:RepostReview()"> Click here</a></span>
-                                                <br><br>
-                                            </div>
+                                            </div>  
                                         </div>
-                                        <div class="tab-pane pre-scrollable" style="min-height: 500px" id="activity">
-                                            <%
-                                                pst = con.prepareStatement("select * from view_reviewhall where hallid=? order by reviewdate desc");
-                                                pst.setInt(1, hallid);
-                                                rs = pst.executeQuery();
-                                                while (rs.next()) {
-                                                    if (!(rs.getString("review")).equals("NA")) {
-                                            %>
-                                            <div class="post">
-                                                <div class="user-block">
-                                                    <img class="img-circle img-bordered-sm" src="images/storephotos/shopIcon_sm.png" alt="user image">
-                                                    <span class="username">
-                                                        <a href="javascript:;"><%=rs.getString("fnm")%> <%=rs.getString("lnm")%></a>
-                                                    </span>
-                                                    <span class="description"><%=rs.getString("reviewdate")%></span>
-                                                </div>
-                                                <span style="margin-left: 9%">
-                                                    <%=rs.getString("review")%>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="sid" value="<%=objBO.getHallId()%>">
+                                <div class="col-md-5">
+                                    <div class="box box-primary" style="min-height: 400px">
+                                        <div class="box-header with-border">
+                                            <i class="ion ion-clipboard"></i>
+                                            <h3 class="box-title">Full Details</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <table style="font-size: 15px">
+                                                <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
+                                                <tr><td>Locality </td><td> <%=objBO.getHallArea()%></td></tr>
+                                                <tr><td>Contact</td><td> <%=objBO.getContact()%></td></tr>
+                                                <tr><td>Services</td><td> <%=objBO.getHallServices()%></td></tr>
+                                                <tr><td>Area (in Sq.Ft.)</td><td> <%=objBO.getHallAreaSqft()%></td></tr>
+                                                <tr><td>Email Address</td><td> <%=objBO.getEmail()%></td></tr>
+                                                <tr><td>Website URL</td><td> <%=objBO.getUrl()%></td></tr>
+                                                <tr><td></td><td></td></tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="box box-primary" id="recentlyJoined">
+                                        <div class="box-header with-border box-title">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="origin" placeholder="Enter your current location">
+                                                <span class="input-group-btn">
+                                                    <button type="button" onclick="initMap()" id="btnGetDirection" class="btn btn-info btn-flat">Get Direction</button>
                                                 </span>
                                             </div>
-                                            <%}
-                                                }%>
+                                            <span class="label label-danger" id="lblDistance"></span>
+                                        </div>
+                                        <div class="box-body no-padding" id="map">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="box box-solid" id="directionPanel" style="max-height: 400px; min-height: 427px;">
-                                    <div class="box-header">
-                                        <i class="fa fa-map-marker"></i>
-                                        <h3 class="box-title">Direction to Store</h3>
-                                    </div>
-                                    <div class="box-body border-radius-none"id="right-panel">
-                                    </div>
-                                </div>
-                                <div class="box box-widget widget-user">
-                                    <div class="widget-user-header bg-aqua-active text-center">
-                                        <h3 class="widget-user-username"><%=objBO.getHallName()%></h3>
-                                    </div>
-                                    <div class="widget-user-image">
-                                        <img class="img-circle" src="images/hallphotos/<%=objBO.getPhoto()%>" alt="Hall Photo">
-                                    </div>
-                                    <div class="box-footer">
-                                        <div class="row">
-                                            <div class="col-sm-4 border-right">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getVisitCount()%></h5>
-                                                    <span class="description-text">Visits</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 border-right">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getRating()%></h5>
-                                                    <span class="description-text">Rating</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="description-block">
-                                                    <h5 class="description-header"><%=objBO.getReviewCount()%></h5>
-                                                    <span class="description-text">Reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="box box-primary manageHeightMax" id="similarSearches">
-                                    <div class="box-header">
-                                        <i class="fa fa-search"></i>
-                                        <h3 class="box-title">Similar Searches</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <ul class="todo-list">
-                                            <%
-                                                pst = con.prepareStatement("select hallname, hallid from halls where hallid!=? order by hallname limit 10");
-                                                pst.setInt(1, hallid);
-                                                rs = pst.executeQuery();
-                                                while (rs.next()) {
-                                            %>
-                                            <li>
-                                                <a href="hallDetails.jsp?id=<%=rs.getInt("hallid")%>">
-                                                    <span class="handle">
-                                                        <i class="fa fa-map-marker"></i>
-                                                    </span>
-                                                    <span class="text"><%=rs.getString("hallname")%></span>
-                                                    <div class="tools">
-                                                        <i class="fa fa-external-link"></i>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <%}%>
+                                    <%
+                                        String review = "";
+                                        pst = con.prepareStatement("select review from reviewhall where hallid=? and uid=?");
+                                        pst.setInt(1, hallid);
+                                        pst.setString(2, uid);
+                                        rs = pst.executeQuery();
+                                        while (rs.next()) {
+                                            review = rs.getString("review");
+                                        }
+                                    %>
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#settings" data-toggle="tab">
+                                                    <i class="fa fa-edit"></i> Write a Review</a></li>
+                                            <li><a href="#activity" data-toggle="tab">
+                                                    <i class="fa fa-comments-o"></i> Hall Reviews</a></li>
                                         </ul>
+                                        <div class="tab-content">
+                                            <div class="active tab-pane" id="settings" style="min-height: 300px">
+                                                <div id="settingsTabRev">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <textarea class="form-control" cols="70" rows="10" id="txtAreaReview" placeholder="Write a review about this store"><%if (!review.equals("NA")) {%><%=review%><%}%></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-10">
+                                                                <button type="button" onclick="submitReview()" id="btnPostReview" class="btn btn-danger" disabled>Post</button>
+                                                                <br>  
+                                                                <span id="loginFirstMsg" style="font-size: 12px">Login first to post a review</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="successReviewMsg" class="text-center" style="font-size: 16px"> <br>
+                                                    <span>Post submitted successfully <br> Thank you.</span>
+                                                    <br><br>
+                                                </div>
+                                                <div id="editReviewMsg" class="text-center" style="font-size: 16px"> <br>
+                                                    <span>You have already posted a review. <br> Do you want to edit it. 
+                                                        <a href="javascript:RepostReview()"> Click here</a></span>
+                                                    <br><br>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane pre-scrollable" style="min-height: 300px" id="activity">
+                                                <%
+                                                    pst = con.prepareStatement("select * from view_reviewhall where hallid=? order by reviewdate desc");
+                                                    pst.setInt(1, hallid);
+                                                    rs = pst.executeQuery();
+                                                    while (rs.next()) {
+                                                        if (!(rs.getString("review")).equals("NA")) {
+                                                %>
+                                                <div class="post">
+                                                    <div class="user-block">
+                                                        <img class="img-circle img-bordered-sm" src="images/storephotos/shopIcon_sm.png" alt="user image">
+                                                        <span class="username">
+                                                            <a href="javascript:;"><%=rs.getString("fnm")%> <%=rs.getString("lnm")%></a>
+                                                        </span>
+                                                        <span class="description"><%=rs.getString("reviewdate")%></span>
+                                                    </div>
+                                                    <span style="margin-left: 9%">
+                                                        <%=rs.getString("review")%>
+                                                    </span>
+                                                </div>
+                                                <%}
+                                                }%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="box box-solid" id="directionPanel" style="max-height: 400px; min-height: 427px;">
+                                        <div class="box-header">
+                                            <i class="fa fa-map-marker"></i>
+                                            <h3 class="box-title">Direction to Store</h3>
+                                        </div>
+                                        <div class="box-body border-radius-none"id="right-panel">
+                                        </div>
+                                    </div>
+                                    <div class="box box-widget widget-user">
+                                        <div class="widget-user-header bg-aqua-active text-center">
+                                            <h3 class="widget-user-username"><%=objBO.getHallName()%></h3>
+                                        </div>
+                                        <div class="widget-user-image">
+                                            <img class="img-circle" src="images/hallphotos/<%=objBO.getPhoto()%>" alt="Hall Photo">
+                                        </div>
+                                        <div class="box-footer">
+                                            <div class="row">
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getVisitCount()%></h5>
+                                                        <span class="description-text">Visits</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getRating()%></h5>
+                                                        <span class="description-text">Rating</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header"><%=objBO.getReviewCount()%></h5>
+                                                        <span class="description-text">Reviews</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box box-primary manageHeightMax" id="similarSearches">
+                                        <div class="box-header">
+                                            <i class="fa fa-search"></i>
+                                            <h3 class="box-title">Similar Searches</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <ul class="todo-list">
+                                                <%
+                                                    pst = con.prepareStatement("select hallname, hallid from halls where hallid!=? order by hallname limit 10");
+                                                    pst.setInt(1, hallid);
+                                                    rs = pst.executeQuery();
+                                                    while (rs.next()) {
+                                                %>
+                                                <li>
+                                                    <a href="hallDetails.jsp?id=<%=rs.getInt("hallid")%>">
+                                                        <span class="handle">
+                                                            <i class="fa fa-map-marker"></i>
+                                                        </span>
+                                                        <span class="text"><%=rs.getString("hallname")%></span>
+                                                        <div class="tools">
+                                                            <i class="fa fa-external-link"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <%}%>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -348,6 +363,7 @@
         if(userId!="null")
         {
             $("#btnPostReview").removeAttr("disabled");
+            $("#txtAreaReview").removeAttr("disabled");
             $("#loginFirstMsg").hide();
             $("#successReviewMsg").hide();
             $("#editReviewMsg").hide();
@@ -357,6 +373,7 @@
         else
         {
             $("#btnPostReview").attr("disabled","disabled");
+            $("#txtAreaReview").attr("disabled","disabled");
             $("#loginFirstMsg").show();
             $("#editReviewMsg").hide();
             $("#successReviewMsg").hide();

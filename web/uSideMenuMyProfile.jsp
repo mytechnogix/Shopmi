@@ -97,7 +97,7 @@
 %>
 <div class="profile-sidebar">
     <div class="profile-userpic">
-        <img src="images/logoFinal.png" style="width: 100px; height: 100px" class="img-responsive" alt="">
+        <img src="images/default.jpg" style="width: 100px; height: 100px" class="img-responsive" alt="">
     </div>
     <div class="profile-usertitle">
         <div class="profile-usertitle-name">
@@ -108,34 +108,35 @@
         </div>
     </div>
     <div class="profile-userbuttons">
-        <button type="button" class="btn btn-primary btn-sm">Edit Profile</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="showWebPart('md')">Edit Profile</button>
         <button type="button" class="btn btn-warning btn-sm">Change Picture</button>
     </div>
     <div class="profile-usermenu">
         <ul class="nav">
             <li class="active">
                 <a href="javascript:showWebPart('mo')" class="mo">
-                    <i class="glyphicon glyphicon-home"></i>
-                    My Offers </a>
+                    <i class="glyphicon glyphicon-gift"></i>
+                    My Offers 
+                </a>
             </li>
             <li>
                 <a href="javascript:showWebPart('mf')" class="mf">
-                    <i class="glyphicon glyphicon-user"></i>
-                    My Favorites </a>
+                    <i class="fa fa-thumbs-o-up"></i>
+                    Favorites </a>
             </li>
             <li>
                 <a href="javascript:showWebPart('mr')" class="mr">
-                    <i class="glyphicon glyphicon-ok"></i>
-                    My Reviews </a>
+                    <i class="fa fa-comments-o"></i>
+                     Reviews </a>
             </li>
             <li>
                 <a href="javascript:showWebPart('enq')" class="enq">
-                    <i class="glyphicon glyphicon-flag"></i>
+                    <i class="fa fa-envelope-o"></i>
                     Enquiries </a>
             </li>
             <li>
                 <a href="javascript:showWebPart('md')" class="md">
-                    <i class="glyphicon glyphicon-flag"></i>
+                    <i class="fa fa-edit"></i>
                     My Details </a>
             </li>
         </ul>

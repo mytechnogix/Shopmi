@@ -12,17 +12,10 @@
     amDinner = request.getParameter("txtDinnerAM");
     pmDinner = request.getParameter("txtDinnerAM");
 
-    url = request.getParameter("txtMesURL");
-
     if (mesAreaDdl.equalsIgnoreCase("Other")) {
         mesArea = mesAreaTxt;
     } else {
         mesArea = mesAreaDdl;
-    }
-    if (url.equalsIgnoreCase(null) || url.equals("")) {
-        mesURL = "NA";
-    } else {
-        mesURL = url;
     }
     ManageDAO objDAO = new ManageDAO();
     ManageMesBO objBO = new ManageMesBO();
@@ -34,7 +27,7 @@
     objBO.setCity(request.getParameter("txtMesCity"));
     objBO.setMetadata(request.getParameter("txtMesMetadata"));
     objBO.setHomeDelivery(request.getParameter("ddlMesHomeDelivery"));
-    objBO.setUrl(mesURL);
+    objBO.setUrl(request.getParameter("txtMesURL"));
     objBO.setSubType(request.getParameter("ddlMesSubs"));
     objBO.setLunchTime(request.getParameter("txtMesLunchStart") + " " + amLunch + " to " + request.getParameter("txtMesLunchEnd") + " " + pmLunch);
     objBO.setDinnerTime(request.getParameter("txtMesDinnerStart") + " " + amDinner + " to " + request.getParameter("txtMesDinnerEnd") + " " + pmDinner);

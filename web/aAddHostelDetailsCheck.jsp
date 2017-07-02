@@ -8,17 +8,10 @@
     hostAreaDdl = request.getParameter("ddlHostArea");
     hostAreaTxt = request.getParameter("txtHostArea");
 
-    url = request.getParameter("txtHostURL");
-
     if (hostAreaDdl.equalsIgnoreCase("Other")) {
         hostArea = hostAreaTxt;
     } else {
         hostArea = hostAreaDdl;
-    }
-    if (url.equalsIgnoreCase(null) || url.equals("")) {
-        hostURL = "NA";
-    } else {
-        hostURL = url;
     }
     ManageDAO objDAO = new ManageDAO();
     ManageHostelBO objBO = new ManageHostelBO();
@@ -34,7 +27,7 @@
     objBO.setBedrooms(request.getParameter("txtHostBedrooms"));
     objBO.setBeds(request.getParameter("txtHostBeds"));
     objBO.setDescription(request.getParameter("txtHostDesc"));
-    objBO.setWebsiteUrl(hostURL);
+    objBO.setWebsiteUrl(request.getParameter("txtHostURL"));
     objBO.setAddedBy(aid);
     //objBO.setSubs(request.getParameter("ddlOfferSubs"));
     objBO.setPossession(request.getParameter("ddlHostPossession"));
