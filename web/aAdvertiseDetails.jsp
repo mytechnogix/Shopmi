@@ -18,7 +18,6 @@
         pst.setInt(1, storeId);
         pst.setInt(2, aid);
         rs = pst.executeQuery();
-
     %>
     <head>
         <meta charset="utf-8">
@@ -68,7 +67,9 @@
                                                 %>
                                                 <option value='<%=rs1.getString("storename")%>'><%=rs1.getString("storename")%></option>
                                                 <%}
-                                                    }%>
+                                                    }
+                                                    con.close();
+                                                %>
                                             </select>
                                         </div>
                                         <label>Advertise Duration</label>

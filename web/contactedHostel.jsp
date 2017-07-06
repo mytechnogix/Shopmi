@@ -13,6 +13,7 @@
             pst.setString(1, hostid);
             pst.executeUpdate();
         }
+        con.close();
     } catch (Exception ex) {
     }
 %>

@@ -1,4 +1,3 @@
-<%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.util.*,java.text.*,java.sql.*" %>
 <link rel="stylesheet" href="css/rating.min.css">
 <%
@@ -8,8 +7,6 @@
     // alert("after login");
     $(".login-before-div").hide();
     $(".login-after-div").show();
-    
-    //document.getElementById("user_name").innerHTML="Ankush Nistane";
 </script>
 <%    } else {
 %>
@@ -367,26 +364,17 @@
     (function() {
         'use strict';
         var shop = document.querySelector('#shop');
-        //  var userId=$("#uid").val();
-        // alert(userId);
-        //        if(userId!="null")
-        //        {
-        //            getUserRatedCount();
-        //        }
-        //alert($("#ratingScore").val());
         var data = [
             {
                 rating: 5
             }
         ];
-        // INITIALIZE
         (function init() {
             for (var i = 0; i < data.length; i++) {
                 addRatingWidget(buildShopItem(data[i]), data[i]);
             }
         })();
 
-        // BUILD SHOP ITEM
         function buildShopItem(data) {
             var shopItem = document.createElement('div');
 
@@ -399,7 +387,6 @@
 
             return shopItem;
         }
-        // ADD RATING WIDGET
         var rateVal=0;
         function addRatingWidget(shopItem, data) {
             var ratingElement = shopItem.querySelector('.c-rating');
@@ -409,10 +396,7 @@
                 
                 rateVal=rating;
                 toggleRating(rateVal);
-                //                $("#rateMsg").text("You have rated "+rating + " stars to this shop");
-                //                $("#rateMsg").show();    
             };
-           
             var r = rating(ratingElement, currentRating, maxRating, callback);
         }
     })();

@@ -25,6 +25,7 @@
         } else {
             res = "2";
         }
+        con.close();
     } else {
         session.removeAttribute("flag");
         session.removeAttribute("fnm");

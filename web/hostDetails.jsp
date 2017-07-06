@@ -346,8 +346,8 @@
                                     %>
                                     <div class="nav-tabs-custom">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#settings" data-toggle="tab">Write a Review</a></li>
-                                            <li><a href="#activity" data-toggle="tab">Property Reviews</a></li>
+                                            <li class="active"><a href="#settings" data-toggle="tab"><i class="fa fa-edit"></i> Write a Review</a></li>
+                                            <li><a href="#activity" data-toggle="tab"><i class="fa fa-comments-o"></i> Property Reviews</a></li>
                                         </ul>
                                         <div class="tab-content">
                                             <div class="active tab-pane" id="settings" style="min-height: 300px">
@@ -478,7 +478,9 @@
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <%}%>
+                                                <%}
+                                                    con.close();
+                                                %>
                                             </ul>
                                         </div>
                                     </div>
@@ -651,6 +653,7 @@
         if(userId!="null")
         {
             $("#btnPostReview").removeAttr("disabled");
+            $("#txtAreaReview").removeAttr("disabled");
             $("#loginFirstMsg").hide();
             $("#successReviewMsg").hide();
             $("#editReviewMsg").hide();
@@ -660,6 +663,7 @@
         else
         {
             $("#btnPostReview").attr("disabled","disabled");
+            $("#txtAreaReview").attr("disabled","disabled");
             $("#loginFirstMsg").show();
             $("#editReviewMsg").hide();
             $("#successReviewMsg").hide();
@@ -716,8 +720,7 @@
             }, function(response, status) {
                 if (status === 'OK') {
                     $("#directionPanel").show();
-                    $("#similarSearches").removeClass("manageHeightMax")
-                    $("#similarSearches").addClass("manageHeightMin pre-scrollable")
+                    $("#similarSearches").hide();
                     directionsDisplay.setDirections(response);
                     
                 } else {

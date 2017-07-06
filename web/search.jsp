@@ -61,7 +61,6 @@
                 width: 20px;
                 height: 20px;
                 content: '\2713';
-                display: block;
             }
             .option-input.radio { border-radius: 50%; }
 
@@ -71,8 +70,6 @@
                 font-size: 18px;
                 float: right;
                 clear: none;
-                display: block;
-                padding: 2px 0 0 0;
             }
             .radioLabel2
             {
@@ -134,7 +131,7 @@
                                         <li>
                                             <a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>" target="_blank">
                                                 <span class="handle">
-                                                    <i class="fa fa-tag"></i>
+                                                    <i class="fa fa-map-marker"></i>
                                                 </span>
                                                 <span class="text"><%=rs.getString("storename")%></span>
                                                 <div class="tools">
@@ -307,7 +304,9 @@
                                                         if (rs1.next()) {
                                                     %>
                                                     See all <%=rs1.getInt("total")%> Shops
-                                                    <%}%>
+                                                    <%}
+                                                        con.close();
+                                                    %>
                                                 </span>
                                             </div>
                                         </li>

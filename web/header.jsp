@@ -270,8 +270,8 @@
             <div class="container">
                 <div class="row row3">
                     <div class="col-sm-3">
-                        <h2 style="margin:0px; color: white; font-family: forte"><a href="javascript:;" style="color: #fff"><span class="smallnav menu" onclick="openNav()"><img src="images/menu-icon.png" style="width: 40px; height: 25px;"> MyShejari</span></a></h2>
-                        <h1 style="margin:0px; color: white; font-family: forte"><a href="index.jsp" style="color: #fff"><span class="largenav" style="margin-top: 10px"><img src="images/logoFinal.png" style="width: 90px; height: 70px">MyShejari</span></a></h1>
+                        <h2 style="margin:0px; color: white; font-family: forte"><a href="javascript:;" style="color: #fff"><span class="smallnav menu" onclick="openNav()"><img src="images/menu-icon.png" style="width: 40px; height: 25px;"> <img src="images/myshejari_font.PNG" style="width: 35%; height: 40px"></span></a></h2>
+                        <h1 style="margin:0px; color: white; font-family: forte"><a href="index.jsp" style="color: #fff"><span class="largenav" style="margin-top: 10px"><img src="images/logoFinal.png" style="width: 75px; height: 60px; padding-bottom: 5px"><img src="images/myshejari_font.PNG" style="width: 60%; height: 50px"></span></a></h1>
                     </div>
                     <div class="flipkart-navbar-search smallsearch col-sm-7 col-xs-10" style="margin-top: 20px">
                         <div class="row searchMob">

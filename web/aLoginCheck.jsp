@@ -93,7 +93,6 @@
         </table>
         <%                    }
                 }
-
                 con.close();
             } catch (Exception e) {
                 out.print("Error Occured !!" + e);

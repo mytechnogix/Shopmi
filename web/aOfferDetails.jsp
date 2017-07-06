@@ -116,14 +116,14 @@
                             </div>
                         </div>
                     </div> 
-                    <%}%>
+                    <%}
+                        con.close();
+                    %>
                 </section>
             </div>
             <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
             <script>
-                // $('#bothdates').daterangepicker();
-                
                 $("#btnUpdate").hide();
                 $("#bothdates").attr("Readonly","readonly");
                 $("#offerOn").attr("Readonly","readonly");

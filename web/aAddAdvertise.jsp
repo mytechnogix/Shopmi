@@ -53,6 +53,7 @@
                                                 <option value="<%=rs.getString("storeid")%>"><%=rs.getString("storename")%></option>
                                                 <%
                                                     }
+                                                    con.close();
                                                 %>
                                             </select>
                                         </div>

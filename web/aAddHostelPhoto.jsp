@@ -1,8 +1,3 @@
-<%@page import="java.sql.DriverManager"%>
-<%@page import="com.quickc.pack.DBConnector"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
 <!DOCTYPE html>
 <html>
     <head>

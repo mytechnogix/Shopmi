@@ -8,7 +8,6 @@
 <%@page import="BO.ManageStoreBO"%>
 <%@page import="DAO.ManageDAO"%>
 <%@ page import="java.io.*,java.sql.*,java.util.zip.*,org.apache.commons.io.FilenameUtils" %>
-<%@page import="com.quickc.pack.DBConnector" %>
 <%
     String saveFile = "", imgName = "";
     int aid = 0;

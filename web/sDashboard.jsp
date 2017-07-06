@@ -13,7 +13,7 @@
         <jsp:include page="aHeadFiles.jsp"/>
     </head>
     <%
-        String visits = "", rating = "", reviews = "", enq="";
+        String visits = "", rating = "", reviews = "", enq = "";
         int cnt = 0;
         PreparedStatement pst;
         ResultSet rs;
@@ -46,6 +46,7 @@
                         reviews = rs.getString("reviewscount");
                         enq = rs.getString("enquirycount");
                     }
+                    con.close();
                 %>
                 <section class="content">
                     <div class="row">

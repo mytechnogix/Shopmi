@@ -53,6 +53,7 @@
                 ratingCount = 1;
             }
         }
+        con.close();
     } catch (Exception ex) {
         out.print(ex);
     }

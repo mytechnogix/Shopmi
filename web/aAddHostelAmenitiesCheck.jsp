@@ -12,6 +12,7 @@
     pst.setString(1, amenities);
     pst.setInt(2, hostid);
     cnt = pst.executeUpdate();
+    con.close();
     if (cnt > 0) {
         out.print("1");
     } else {

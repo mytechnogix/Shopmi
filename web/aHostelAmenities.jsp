@@ -149,7 +149,9 @@
                     </div> 
                 </section>
             </div>
-            <%}%>
+            <%}
+                con.close();
+            %>
             <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
             <script>
@@ -217,7 +219,7 @@
                 {
                     $("#internet").attr('checked', true);
                 }
-                 if(strarray[15]=="1")
+                if(strarray[15]=="1")
                 {
                     $("#parking").attr('checked', true);
                 }

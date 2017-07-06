@@ -48,6 +48,7 @@
                         reviews = rs.getString("reviewscount");
                         enq = rs.getString("enquirycount");
                     }
+                    con.close();
                 %>
                 <section class="content">
                     <div class="row">

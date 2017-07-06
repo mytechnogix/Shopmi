@@ -63,7 +63,6 @@
     }
 
     .profile-usermenu ul li a {
-        color: #93a3b5;
         font-size: 14px;
         font-weight: 400;
     }

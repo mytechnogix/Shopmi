@@ -47,6 +47,7 @@
                         members = rs.getString("members");
                         categories = rs.getString("categories");
                     }
+                    con.close();
                 %>
                 <section class="content">
                     <div class="row">

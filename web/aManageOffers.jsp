@@ -112,7 +112,9 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <%}%>
+                                            <%}
+                                                con.close();
+                                            %>
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -186,15 +188,6 @@
                 $(".imgDetails").show();
                 $(".imgDetails1").show();
             });
-//            $("table tr td:nth-child(6)").click(function () {
-//                $("#offerDetails").addClass("col-lg-8");
-//                $(".imgPreview").show();
-//                var td6 = $(this).text();
-//                $("#picPath").attr("href","aAddOfferPhoto.jsp?oid="+sid);
-//                $(".setImage").html("<img src='images/offerphotos/"+td6+"' class='preview'>");
-//                $("#imgPreviewName").text(td6);
-//                //alert(td2);
-//            });
             $("table tr").on("click","td:nth-child(6)",function () {
                 var oid = $(this).siblings(":nth-child(1)").text();
                 oid=oid.trim();

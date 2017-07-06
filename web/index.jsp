@@ -29,7 +29,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Welcome to MyShejari.com</title>
+        <title>Welcome to MyShejari.com - Amravati's Best Local Search Engine</title>
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
@@ -54,7 +54,7 @@
                 z-index: 99999;
                 position: fixed;
             }
-            
+
             #example1
             {
                 font-size: 15px;
@@ -111,7 +111,22 @@
                 top: -3px;
                 position: relative
             }
+            #tawkchat-minified-container
+            {
+                background-color: #72afd2!important;
+            }
         </style>
+        <script type="text/javascript">
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/595d183850fd5105d0c841ac/default';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+            })();
+        </script>
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed">
         <div class="hameid-loader-overlay"></div>
@@ -665,29 +680,32 @@
                                     %>
                                     <div class="box box-primary" id="recentlyJoined">
                                         <div class="box-body text-center">
-                                            <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="900ms">
-                                                <i class="fa fa-desktop" style="font-size: 40px"></i>                    
-                                                <h3><%=rs.getInt("visits")%></h3>
-                                                <p>Visits</p>
-                                            </div>   
                                             <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="300ms">
                                                 <i class="fa fa-shopping-cart" style="font-size: 40px"></i>
                                                 <h3 class="timer"><%=rs.getInt("stores")%></h3>
                                                 <p>Stores Registered</p>
                                             </div>
-                                            <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="500ms">
-                                                <i class="fa fa-users" style="font-size: 40px"></i>
-                                                <h3 class="timer"><%=rs.getInt("members")%></h3>                    
-                                                <p>Members</p>
-                                            </div> 
+                                            <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="900ms">
+                                                <i class="fa fa-desktop" style="font-size: 40px"></i>                    
+                                                <h3><%=rs.getInt("visits")%></h3>
+                                                <p>Visits</p>
+                                            </div>   
                                             <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="700ms">
                                                 <i class="fa fa-tags" style="font-size: 40px"></i>
                                                 <h3 class="timer"><%=rs.getInt("categories")%></h3>                    
                                                 <p>Categories</p>
                                             </div> 
+                                            <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="500ms">
+                                                <i class="fa fa-users" style="font-size: 40px"></i>
+                                                <h3 class="timer"><%=rs.getInt("members")%></h3>                    
+                                                <p>Members</p>
+                                            </div> 
+
                                         </div>
                                     </div>
-                                    <%}%>
+                                    <%}
+                                        con.close();
+                                    %>
                                 </section>
                             </div>
                             </section>
@@ -709,12 +727,8 @@
                     <script src="js/crypto-js.js"></script>
                     <jsp:include page="modals.jsp"/>
                     <script src="js/custom.js"></script>
-                    <%
-                        //session.setAttribute("RANDKEY", objDAO.generateSecret());
-%>
                     <script>
                         $("#autocomplete").on("focus", function(){
-                            //alert("");
                             $('html, body').animate({
                                 scrollTop: 0
                             }, 'slow', function () {
@@ -723,54 +737,6 @@
                         $('input[type="radio"].flat-red').on("change",function(){
                             getSuggestions();
                         });
-            
-                        //$("#crossDiv").hide();
-                        //                        $("#crossIcon").hide();
-                        //                        $('#crossIcon').click(function(){
-                        //                            $("#searchResults").hide();
-                        //                            $("#filterWP").hide();
-                        //                            $("#similarResultsWP").hide();
-                        //                            $("#sliderSection").show();
-                        //                            $("#offerWP").show();
-                        //                            $("#partnersWP").show();
-                        //                            $("#recentlyWP").show();
-                        //                            $("#siteCounters").show();
-                        //                            $("#searchQuery").val("");
-                        //                            $("#crossIcon").hide();
-                        //                            $("#searchIcon").show();
-                        //                            $("#resFor").text("");
-                        //                        });
-                        //
-                        //                        $("#searchQuery").keyup(function(){
-                        //                            query = $("#searchQuery").val().trim();
-                        //                            if(query.length>0 && query!=null && query!=" "){
-                        //                                getSuggestions();
-                        //                                $("#crossIcon").show();
-                        //                                $("#searchIcon").hide();
-                        //                                $("#sliderSection").hide();
-                        //                                $("#offerWP").hide();
-                        //                                $("#recentlyWP").hide();
-                        //                                $("#partnersWP").hide();
-                        //                                $("#siteCounters").hide();
-                        //                                $("#searchResults").show();
-                        //                                $("#filterWP").show();
-                        //                                $("#similarResultsWP").show();
-                        //                            }
-                        //                            else
-                        //                            {
-                        //                                $("#filterWP").hide();
-                        //                                $("#searchResults").hide();
-                        //                                $("#similarResultsWP").hide();
-                        //                                $("#sliderSection").show();
-                        //                                $("#recentlyWP").show();
-                        //                                $("#offerWP").show();
-                        //                                $("#partnersWP").show();
-                        //                                $("#siteCounters").show();
-                        //                                $("#siteCounters").show();
-                        //                                $("#crossIcon").hide();
-                        //                                $("#searchIcon").show();
-                        //                            }
-                        //                        });
                     </script>
                     </body>
                     </html>

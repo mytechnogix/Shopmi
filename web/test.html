@@ -21,16 +21,24 @@
 
     </head>
     <body>
-        <div class="hidden-sm hidden-md">hidden-sm hidden-md</div>
-        <div class="hidden-sm hidden-lg">hidden-sm hidden-lg</div>
-        <div class="hidden-md hidden-lg">hidden-md hidden-lg</div>
-        <div>Theoretical equivalent using visible</div>
-        <div class="visible-lg">hidden-sm hidden-md</div>
-        <div class="visible-md">hidden-sm hidden-lg</div>
-        <div class="visible-sm">hidden-md hidden-lg</div>
+        <table id='example2' style="width: 50%" class='table table-bordered table-striped products-list product-list-in-box'>
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <span id='showCount'>0</span> shop(s) found related to 
+                        <span id='resFor' style='color: green; font-weight: bold'></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style='text-align:left' class='item boxr' style='margin-bottom:10px'><div class='product-img'><img  src='images/storephotos" + photo + "' style="width: 200px; height: 150px" alt='Shop Image'></div></td><td><a href='storeDetails.jsp?id=" + storeId + "' style="font-size: 20px" class='product-title' target='_blank'>" + storeName + " - " + storeNameHindi + "</a><br><span><i class="fa fa-road"></i>" + address + "</span><br><span><i class="fa fa-road"></i>" + contact + "</span><div class=bottom><span><i class="fa fa-road"></i>" + services + "</span><br><span><i class="fa fa-road"></i> " + sundayStatus + "</span><br></div><div class='text-center' style="background: darkgray"><a href='storeDetails.jsp?id=" + storeId + "' target='_blank'>See More Details</a></div> </td></tr>
+            
+            
+            
+            </tbody>
+        </table>
 
         <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
         <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <script src="plugins/fastclick/fastclick.js"></script>
@@ -38,7 +46,6 @@
         <script src="dist/js/pages/dashboard.js"></script>
         <script src="dist/js/demo.js"></script>
         <script src="js/jquery.newsTicker.min.js"></script> 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6XvLNwRfIt-b_F1X3QPta6yAK5Yh0mj4"></script>
         <script src="js/custom.js"></script>
     <jsp:include page="modals.jsp"/>
 </body>

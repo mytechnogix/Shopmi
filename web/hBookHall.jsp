@@ -128,6 +128,7 @@
                                             while (rs.next()) {
                                                 arr.add(rs.getInt("dd"));
                                             }
+                                            con.close();
                                             Collections.sort(arr);
                                             String[] months = {
                                                 "January", "February", "March", "April",

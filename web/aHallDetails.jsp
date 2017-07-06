@@ -103,7 +103,9 @@
                                                         %>
                                                         <option value='<%=rs1.getString("hall_area")%>'><%=rs1.getString("hall_area")%></option>
                                                         <%}
-                                                            }%>
+                                                            }
+                                                            con.close();
+                                                        %>
                                                         <option value="Other">Other</option>
                                                     </select>
                                                 </div>

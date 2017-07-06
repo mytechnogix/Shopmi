@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -201,6 +203,7 @@ public class ManageDAO {
             if (cnt > 0) {
                 objBO.setAddFlag(true);
             }
+            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -277,6 +280,7 @@ public class ManageDAO {
                 objBO.setStorePhotoLg(photoLg);
 
             }
+            con.close();
         } catch (Exception ex) {
             Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -313,6 +317,7 @@ public class ManageDAO {
                 counter++;
 
             }
+            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -361,11 +366,15 @@ public class ManageDAO {
 
     public void getOffer(ManageOfferBO objBO) {
         try {
-            String coupon = "abcccdd";
+            String coupon = "";
+            String a[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+            String A[] = {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"};
+            String no[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
 
-            //coupon code logic here
-
-
+            Random random = new Random();
+            int n1 = (Math.abs(random.nextInt()) % 25) + 1;
+            int n2 = (Math.abs(random.nextInt()) % 9) + 1;
+            coupon = "MSC@" + shuffle(a[n1] + A[n1] + objBO.getStoreId().substring(0, 1) + no[n2] + objBO.getUid().substring(0, 1));
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
@@ -394,9 +403,21 @@ public class ManageDAO {
         }
     }
 
+    public String shuffle(String input) {
+        List<Character> characters = new ArrayList<Character>();
+        for (char c : input.toCharArray()) {
+            characters.add(c);
+        }
+        StringBuilder output = new StringBuilder(input.length());
+        while (!characters.isEmpty()) {
+            int randPicker = (int) (Math.random() * characters.size());
+            output.append(characters.remove(randPicker));
+        }
+        return output.toString();
+    }
+
     public void addAdvertiseDetails(ManageAdvBO objBO) {
         try {
-
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
@@ -609,6 +630,7 @@ public class ManageDAO {
                 //objBO.setStorePhotoLg(rs.getString("photo"));
                 myclass.add(objBO);
             }
+            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -754,6 +776,7 @@ public class ManageDAO {
                 objBO.setPhoto(photoSm);
                 objBO.setPhotoLg(photoLg);
             }
+            con.close();
         } catch (Exception ex) {
             Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -921,6 +944,7 @@ public class ManageDAO {
                 objBO.setPhotoLg(photoLg);
 
             }
+            con.close();
         } catch (Exception ex) {
             Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1094,6 +1118,7 @@ public class ManageDAO {
                 objBO.setPhoto(photoSm);
                 objBO.setPhotoLg(photoLg);
             }
+            con.close();
         } catch (Exception ex) {
             Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1146,11 +1171,13 @@ public class ManageDAO {
             DBConnector dbc = new DBConnector();
             Connection con = DriverManager.getConnection(dbc.getConstr());
             if (con != null) {
-                pst = con.prepareStatement("Select * from search where area LIKE ? or nm LIKE ? or metadata LIKE ?");
-                pst.setString(1, "%" + id + "%");
+                pst = con.prepareStatement("Select * from search where area LIKE ? or area Like ? or nm LIKE ? or nm LIKE ? or metadata LIKE ? or metadata LIKE ?");
+                pst.setString(1, "%" + id.toLowerCase() + "%");
                 pst.setString(2, "%" + id + "%");
-                pst.setString(3, "%" + id + "%");
-
+                pst.setString(3, "%" + id.toLowerCase() + "%");
+                pst.setString(4, "%" + id + "%");
+                pst.setString(5, "%" + id.toLowerCase() + "%");
+                pst.setString(6, "%" + id + "%");
                 rs = pst.executeQuery();
                 while (rs.next()) {
                     area = rs.getString("area");
@@ -1161,6 +1188,7 @@ public class ManageDAO {
                     data.add(c);
                 }
             }
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

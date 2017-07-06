@@ -247,7 +247,9 @@
                                                 <td><%=rs.getString("reviewdate")%></td>
                                                 <td><%=rs.getString("reviewstatus")%></td>
                                             </tr>
-                                            <%}%>
+                                            <%}
+                                                con.close();
+                                            %>
                                         </tbody>
                                     </table>
                                 </div>

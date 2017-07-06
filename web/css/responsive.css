@@ -69,4 +69,19 @@
     {
         min-height: 300px!important;
     }
+    .radioLabel2
+    {
+        font-size: 14px;
+    }
+    .option-input
+    {
+        width: 15px;
+        height: 15px;
+    }
+    .option-input.radio::after { border-radius: 50%; border: none}
+    .option-input:checked::before
+    {
+        width: 10px;
+        height: 10px;
+    }
 }

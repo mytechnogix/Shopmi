@@ -16,7 +16,6 @@
     String storeArea = "", city = "", advTitle = "", advDesc = "";
 
     int aid = 0;
-    ManageDAO objDAO = new ManageDAO();
     try {
         aid = Integer.parseInt(request.getParameter("aid"));
         Class.forName("com.mysql.jdbc.Driver");
@@ -36,6 +35,7 @@
             city = rs.getString("city");
             storeArea = rs.getString("storearea");
         }
+        con.close();
     } catch (Exception ex) {
         out.print(ex);
     }

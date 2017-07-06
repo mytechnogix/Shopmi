@@ -36,6 +36,7 @@
                 out.print("0");
             }
         }
+        con.close();
     } catch (Exception ex) {
         out.print(ex);
     }%>

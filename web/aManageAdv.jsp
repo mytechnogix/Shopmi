@@ -115,7 +115,9 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <%}%>
+                                            <%}
+                                                con.close();
+                                            %>
                                         </tbody>
                                         <tfoot>
                                             <tr>

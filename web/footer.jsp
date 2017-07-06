@@ -6,7 +6,6 @@
                     <h2>Policy Info</h2>
                     <ul class="tag_nav">
                         <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Use</a></li>
                         <li><a href="#">Terms and Condition</a></li>
                         <li><a href="#">Cookie Policy</a></li>
                         <li><a href="#">Report Abuse and Takedown</a></li>
@@ -19,7 +18,6 @@
                     <ul class="tag_nav">
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Sitemap</a></li>
                         <li><a href="#">Core Values</a></li>
                         <li><a href="#">FAQ</a></li>
 

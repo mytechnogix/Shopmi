@@ -127,7 +127,9 @@
                                                 </td>
                                                 <%}%>
                                             </tr>
-                                            <%}%>
+                                            <%}
+                                                con.close();
+                                            %>
                                         </tbody>
                                     </table>
                                 </div>

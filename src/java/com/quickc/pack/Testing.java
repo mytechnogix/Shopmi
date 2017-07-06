@@ -41,6 +41,7 @@ public class Testing extends TimerTask {
                     }
                 }
             }
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -86,6 +87,8 @@ public class Testing extends TimerTask {
                 pst = con.prepareStatement("update events set notify='true' where id=?");
                 pst.setInt(1, id);
                 pst.executeUpdate();
+                
+                con.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

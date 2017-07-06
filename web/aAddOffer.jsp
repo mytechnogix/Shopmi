@@ -12,7 +12,7 @@
         <title>Add Offer</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
-        
+
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -53,6 +53,7 @@
                                                 <option value="<%=rs.getString("storeid")%>"><%=rs.getString("storename")%></option>
                                                 <%
                                                     }
+                                                    con.close();
                                                 %>
                                             </select>
                                         </div>
