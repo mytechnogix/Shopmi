@@ -331,9 +331,9 @@
         <script src="dist/js/pages/dashboard.js"></script>
         <script src="dist/js/demo.js"></script>
         <script src="js/jquery.newsTicker.min.js"></script> 
-        <script src="js/aes.js"></script>
-        <script src="js/crypto-js.js"></script>
         <script src="js/custom.js"></script>
+        <script src="https://apis.google.com/js/platform.js"></script>
+        <script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleCallback" async defer></script>
         <jsp:include page="modals.jsp"/>
         <script>
             $('input[name=filterChk]').change(function(){

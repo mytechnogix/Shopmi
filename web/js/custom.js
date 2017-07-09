@@ -324,8 +324,8 @@ function submitReview()
     
     if(review=="" || review==null)
     {
-     $("#txtAreaReview").focus();
-     return;
+        $("#txtAreaReview").focus();
+        return;
     }
     
     var url="submitReviewCheck.jsp";
@@ -502,7 +502,7 @@ function checkOfferLoginOutput(){
 var xmlHttp;
 function getOffer(oid, sid){
     
-   // alert(oid+" - "+sid);
+    // alert(oid+" - "+sid);
     if(oid==undefined || oid==null || sid==undefined || sid==null)
     {
         return;
@@ -688,7 +688,7 @@ function registerUser(){
     {
         //alert("submitted");
         var url="registerCheck.jsp";
-        url +="?email="+id.value+"&fnm="+fnm.value+"&lnm="+lnm.value+"&pass="+pass.value;
+        url +="?email="+id.value+"&fnm="+fnm.value+"&lnm="+lnm.value+"&pass="+pass.value+"&img=default.jpg";
         xmlHttp.onreadystatechange=registerUserOutput;
         xmlHttp.open("GET",url,true);
         xmlHttp.send(null);
@@ -836,7 +836,6 @@ function checkAmenitiesOutput()
     }
 }
 
-
 //ajax - user forgot password
 var xmlHttp
 function forgetCheck(){
@@ -869,7 +868,7 @@ function forgetCheck(){
 }
 function forgetCheckOutput(){
     if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
-        alert(xmlHttp.responseText);
+        //alert(xmlHttp.responseText);
         if(xmlHttp.responseText=="1")
         {
             alert("Email sent");
@@ -877,7 +876,44 @@ function forgetCheckOutput(){
     }
 }
 
-
+//ajax - redirect to offer page of particular store
+var xmlHttp
+function redirectToOffer(){
+    var id = $("#id").val();
+    //alert(id);
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var url="redirectToOffer.jsp?id="+id;
+    xmlHttp.onreadystatechange = redirectToOfferOutput;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+function redirectToOfferOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="0")
+        {
+            //alert("No offer available for this shop");
+            $("#modalImg_offer").attr("src","images/wrongIcon.png");
+            $("#modalMsg_offer").text("No offer available for this shop");
+            $('.modal-footer').show();     
+            $('#offerModal').modal('show');       
+            return;
+        }
+        if(xmlHttp.responseText!="0")
+        {
+            window.location="offerDetails.jsp?id="+xmlHttp.responseText;
+        }
+    }
+}
 var xmlhttp;
 function contacted()
 {

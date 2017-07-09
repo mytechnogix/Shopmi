@@ -74,8 +74,18 @@
                                     <span id="loginError" class="response_error text-red" style="font-weight: bolder; display: none">
                                         Login failed, Invalid username or password
                                     </span>
-                                    <div class="clearfix"></div>
+                                    <br>
+                                    -- OR --
                                     <div class="login-modal-footer">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <img id="googleSignIn" src="images/sign-in-button_google.png" style="cursor: pointer; width: 100%;">
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <img id="facebookSignIn" src="images/signin-with-facebook.png" style="cursor: pointer; width: 100%;">
+                                            </div>
+                                        </div>
+                                        <br>
                                         <div class="row">
                                             <div class="col-xs-8 col-sm-8 col-md-8">
                                                 <i class="fa fa-lock"></i>
@@ -356,6 +366,39 @@
     <script>
         $('select option[value=<%=mm%>]').attr('selected','selected');
     </script>
+</div>
+<div id="loginSuccess" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content login-modal">
+            <div class="modal-header login-modal-header">
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                <h4 class="modal-title text-center" id="loginModalLabel">
+                    <i class="fa fa-check bg-green-active" style="color: white; border-radius: 50%; padding: 7px"></i> Login Successful!</h4>
+            </div>
+            <div class="modal-body text-center">
+                <h4>Set Password for the first time<br></h4>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active text-center" id="home">
+                        <br>
+                        <div class="clearfix"></div>
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                    <input type="password" class="form-control" id="passGoogle" placeholder="Enter Password">
+                                </div>
+                            </div>
+                            <button type="button" id="login_setPass" onclick="googleCheck()" class="btn btn-block bt-login" data-loading-text="Signing In....">Set Password</button>
+                            <br>
+                            <span class="help-block has-error" style="color: red" id="password-error-google"></span>
+                            <br>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <input type="hidden" name="ratingScore" id="ratingScore" value="">
 

@@ -7,7 +7,16 @@ public class ManageUsersBO {
     private String _lnm;
     private String _pass;
     private String _newsFrom;
+    private String _photo;
     private int _Flag;
+
+    public String getPhoto() {
+        return _photo;
+    }
+
+    public void setPhoto(String _photo) {
+        this._photo = _photo;
+    }
 
     public String getEmail() {
         return _email;

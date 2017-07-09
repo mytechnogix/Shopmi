@@ -25,11 +25,33 @@
     pst = con.prepareStatement("update log_counters set visits=visits+1 where counterid=1");
     pst.executeUpdate();
 %>
-<html>
+<html lang="en-US">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Welcome to MyShejari.com - Amravati's Best Local Search Engine</title>
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="38073448623-gp7csemfcamsndl5l9450420ftrasdl4.apps.googleusercontent.com">
+        <title>MyShejari.com - Amravati's best local business search tool</title>
+        <meta name="Description" content="MyShejari.com is a secure ,fast and dedicated local business search tool for Amravati, Maharashtra. Find shops,restaurants,party halls,hostels,mess,caterers,tutors,flower decorators,real estate, event managers, saloons, beauty parlours  or any business in Amravati with map locations. Download MyShejari app now. Post your ad for online marketing.">
+        <meta name="Author" content="Technogix Group">
+        <link rel="Canonical" href="https://www.myshejari.com/index.jsp">
+        <meta name="Robots" content="index, follow">
+        <meta name="keywords" content="Amravati's  Local Search tool, Search Engine for Amravati,Amravati Local Website,Amravati Business search engine,,Hotels,Restaurant,events,Discounts in Amravati, local classifieds,Online Marketing for Amravati,Online Marketing in Amravati,Website creation in amravati, software projects,web application experts in amravati, buy software projects,event management in amravati,event managers in amravati,start a business in amravati,software consultancy in amravati,internship in amravati " />
+
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="MyShejari.com - Amravati's best local business search too ">
+        <meta property="og:description" content="MyShejari.com is a secure ,fast and dedicated local business search tool for Amravati, Maharashtra. Find shops,restaurants,party halls,hostels,mess,caterers,tutors,flower decorators,real estate, event managers, saloons, beauty parlours  or any business in Amravati with map locations. Download MyShejari app now. Post your ad for online marketing.">
+        <meta property="og:url" content="https://www.myshejari.com">
+        <meta property="og:image" content="https://www.myshejari.com/images/logoFinal.png">
+        <meta property="fb:app_id" content="1582343271797514">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="MyShejari.com - Amravati's best local business search tool">
+        <meta name="twitter:description" content="MyShejari.com is a secure ,fast and dedicated local business search tool for Amravati, Maharashtra. Find shops,restaurants,party halls,hostels,mess,caterers,tutors,flower decorators,real estate, event managers, saloons, beauty parlours  or any business in Amravati with map locations. Download MyShejari app now. Post your ad for online marketing.">
+        <meta name="twitter:image" content="https://www.myshejari.com/images/logoFinal.png">
+        <meta name="twitter:image:alt" content="MyShejari Logo">
+
+        <link rel="publisher" href="https://plus.google.com/107618781316510236523">
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
@@ -727,6 +749,8 @@
                     <script src="js/crypto-js.js"></script>
                     <jsp:include page="modals.jsp"/>
                     <script src="js/custom.js"></script>
+                    <script src="https://apis.google.com/js/platform.js"></script>
+                    <script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleCallback" async defer></script>
                     <script>
                         $("#autocomplete").on("focus", function(){
                             $('html, body').animate({

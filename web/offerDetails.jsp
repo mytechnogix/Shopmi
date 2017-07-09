@@ -199,6 +199,7 @@
                 else{
                     //  $("#directionPanel").hide();
                     alert("Enter your location");
+                    return;
                 }
             });
         </script>

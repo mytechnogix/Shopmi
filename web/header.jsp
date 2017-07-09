@@ -11,6 +11,7 @@
 <link href="css/responsive.css" rel="stylesheet" />
 <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
 <link rel="icon" href="images/shopIcon_sm.png" type="image/png" sizes="16x16">
+<meta name="google-signin-client_id" content="38073448623-gp7csemfcamsndl5l9450420ftrasdl4.apps.googleusercontent.com">
 <style>
     .back-to-top {
         cursor: pointer;
@@ -414,5 +415,118 @@
             return;
         }
         window.location="search.jsp?search="+q;
+    }
+    
+    var gFnm, gLnm, gImg, gEmail;
+    function onLoadGoogleCallback(){
+        gapi.load('auth2', function() {
+            auth2 = gapi.auth2.init({
+                client_id: '38073448623-gp7csemfcamsndl5l9450420ftrasdl4.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile'
+            });
+
+            auth2.attachClickHandler(element, {},
+            function(googleUser) {
+                $('#loginModal').modal('hide');
+                //document.getElementById('data').innerHTML='Signed in: ' + googleUser.getBasicProfile().getName();
+                var profile = googleUser.getBasicProfile();
+                gFnm=profile.getGivenName();
+                gLnm=profile.getFamilyName();
+                gImg=profile.getImageUrl();
+                gEmail=profile.getEmail();
+                
+                isExistingUser(gEmail);
+                // $('#loginSuccess').modal('show');
+                //googleCheck(profile.getGivenName(),profile.getFamilyName(),profile.getImageUrl(),profile.getEmail());
+            }, function(error) {
+                alert('Sign-in error', error);
+            }
+        );
+        });
+
+        element = document.getElementById('googleSignIn');
+    }
+    var xmlHttp
+    function isExistingUser(str){
+        if (typeof XMLHttpRequest != "undefined"){
+            xmlHttp= new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject){
+            xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (xmlHttp==null){
+            alert("Browser does not support XMLHTTP Request")
+            return;
+        }
+        var url="isExistingUser.jsp?email="+str;
+        xmlHttp.onreadystatechange = isExistingUserOutput;
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send(null);
+    }
+    function isExistingUserOutput(){
+        if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+            alert(xmlHttp.responseText);
+            if(xmlHttp.responseText=="0")
+            {
+                $('#loginSuccess').modal('show');
+            }
+            if(xmlHttp.responseText=="1")
+            {
+                $('#loginSuccess').modal('hide');
+                window.location.reload();
+            }
+        }
+    }
+    var xmlHttp
+    function googleCheck(){
+        var gPass=$("#passGoogle").val().trim();
+        if(gPass.length<5 || gPass>10)
+        {
+            $("#password-error-google").text("Password length should be between 5 to 10");
+            return;
+        }
+        if (typeof XMLHttpRequest != "undefined"){
+            xmlHttp= new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject){
+            xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (xmlHttp==null){
+            alert("Browser does not support XMLHTTP Request")
+            return;
+        }
+        alert(gFnm+gLnm+gEmail+gPass+gImg);
+        var url="loginCheckSocial.jsp?fnm="+gFnm+"&lnm="+gLnm+"&img="+gImg+"&email="+gEmail+"&pass="+gPass;
+        xmlHttp.onreadystatechange = googleCheckOutput;
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send(null);
+    }
+    function googleCheckOutput(){
+        if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+            $('#loginSuccess').modal('hide');
+            alert(xmlHttp.responseText);
+            if(xmlHttp.responseText=="0")
+            {
+                alert("Failed");
+                return;
+            }
+            if(xmlHttp.responseText=="1")
+            {
+                window.location.reload();
+            }
+        }
+    }
+    function GetXmlHttpObject()
+    {
+        if (window.XMLHttpRequest)
+        {
+            return new XMLHttpRequest();
+        }
+        if (window.ActiveXObject)
+        {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return null;
     }
 </script>

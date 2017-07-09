@@ -104,7 +104,7 @@
                                             <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('enq')">
                                                 <i class="fa fa-envelope-o" id="enquiredStore"></i> Enquire
                                             </a>
-                                            <a class="btn btn-app bg-aqua">
+                                            <a class="btn btn-app bg-aqua" href="JavaScript:redirectToOffer()">
                                                 <i class="fa fa-shopping-cart"></i> Offers
                                             </a>
                                             <a class="btn btn-app bg-aqua" href="JavaScript:checkLogin('rate')">
