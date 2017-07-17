@@ -37,6 +37,76 @@ public class ManageDAO {
     PreparedStatement pst, pst1;
     ResultSet rs;
 
+    public int updatePhotos(String id, String type, String imgName, String imgCount) {
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            if (type.equals("store")) {
+                if (imgCount.equals("1")) {
+                    pst = con.prepareStatement("update storedetails set photo=? where storeid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("2")) {
+                    pst = con.prepareStatement("update storedetails set photo2=? where storeid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("3")) {
+                    pst = con.prepareStatement("update storedetails set photo3=? where storeid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                }
+            } else if (type.equals("mes")) {
+                if (imgCount.equals("1")) {
+                    pst = con.prepareStatement("update mes set photo=? where mesid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("2")) {
+                    pst = con.prepareStatement("update mes set photo2=? where mesid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("3")) {
+                    pst = con.prepareStatement("update mes set photo3=? where mesid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                }
+            } else if (type.equals("hall")) {
+                if (imgCount.equals("1")) {
+                    pst = con.prepareStatement("update halls set photo=? where hallid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("2")) {
+                    pst = con.prepareStatement("update halls set photo2=? where hallid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("3")) {
+                    pst = con.prepareStatement("update halls set photo3=? where hallid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                }
+            } else if (type.equals("hostel")) {
+                if (imgCount.equals("1")) {
+                    pst = con.prepareStatement("update hostel set photo=? where hostid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("2")) {
+                    pst = con.prepareStatement("update hostel set photo2=? where hostid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("3")) {
+                    pst = con.prepareStatement("update hostel set photo3=? where hostid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                }
+            }
+            cnt = pst.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return cnt;
+    }
+
     public void addStoreDetails(ManageStoreBO objBO) throws SQLException {
         int cnt = 0;
         String storeid = "";
@@ -129,6 +199,97 @@ public class ManageDAO {
                 objBO.setAddFlag(true);
             }
             con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void addBusinessDetails(ManageStoreBO objBO) throws SQLException {
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            pst = con.prepareStatement("select storename from businessrequest where email=?");
+            pst.setString(1, objBO.getEmail());
+            rs = pst.executeQuery();
+
+            if (!rs.next()) {
+                if (objBO.getStoreCat().equals("store")) {
+                    pst = con.prepareStatement("insert into storedetails(storename, category, services, storearea, email, contact, phone, websiteurl, fulladdress, city, pass) values(?,?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1, objBO.getStoreName());
+                    pst.setString(2, objBO.getStoreCat());
+                    pst.setString(3, objBO.getServices());
+                    pst.setString(4, objBO.getStoreArea());
+                    pst.setString(5, objBO.getEmail());
+                    pst.setString(6, objBO.getContact());
+                    pst.setString(7, objBO.getPhone());
+                    pst.setString(8, objBO.getUrl());
+                    pst.setString(9, objBO.getAddress());
+                    pst.setString(10, objBO.getCity());
+                    pst.setString(11, objBO.getContact());
+                    cnt = pst.executeUpdate();
+                } else if (objBO.getStoreCat().equals("hall")) {
+                    pst = con.prepareStatement("insert into halls(hallname, services, hall_area, email, contact, phone, websiteurl, fulladdress, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1, objBO.getStoreName());
+                    pst.setString(2, objBO.getServices());
+                    pst.setString(3, objBO.getStoreArea());
+                    pst.setString(4, objBO.getEmail());
+                    pst.setString(5, objBO.getContact());
+                    pst.setString(6, objBO.getPhone());
+                    pst.setString(7, objBO.getUrl());
+                    pst.setString(8, objBO.getAddress());
+                    pst.setString(9, objBO.getCity());
+                    pst.setString(10, objBO.getContact());
+                    cnt = pst.executeUpdate();
+                } else if (objBO.getStoreCat().equals("mes")) {
+                    pst = con.prepareStatement("insert into mes(mesname, services, mesarea, email, contact, phone, websiteurl, address, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1, objBO.getStoreName());
+                    pst.setString(2, objBO.getServices());
+                    pst.setString(3, objBO.getStoreArea());
+                    pst.setString(4, objBO.getEmail());
+                    pst.setString(5, objBO.getContact());
+                    pst.setString(6, objBO.getPhone());
+                    pst.setString(7, objBO.getUrl());
+                    pst.setString(8, objBO.getAddress());
+                    pst.setString(9, objBO.getCity());
+                    pst.setString(10, objBO.getContact());
+                    cnt = pst.executeUpdate();
+                } else if (objBO.getStoreCat().equals("hostel")) {
+                    pst = con.prepareStatement("insert into hostel(hostname, description, hostarea, email, contact, phone, websiteurl, address, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1, objBO.getStoreName());
+                    pst.setString(2, objBO.getServices());
+                    pst.setString(3, objBO.getStoreArea());
+                    pst.setString(4, objBO.getEmail());
+                    pst.setString(5, objBO.getContact());
+                    pst.setString(6, objBO.getPhone());
+                    pst.setString(7, objBO.getUrl());
+                    pst.setString(8, objBO.getAddress());
+                    pst.setString(9, objBO.getCity());
+                    pst.setString(10, objBO.getContact());
+                    cnt = pst.executeUpdate();
+                }
+
+                if (cnt > 0) {
+                    String body = "Dear Customer,\n";
+                    body += "\nBusiness Details Added - MyShejari.com\n\n";
+                    body += "Your " + objBO.getStoreName() + "  business is now part of MyShejari.com\n";
+                    body += "Team MyShejari.com will connect to you soon\n";
+                    body += "Your Business ID and Password is as follows : \n";
+                    body += "Business ID : " + objBO.getEmail() + "\n";
+                    body += "Password : " + objBO.getContact() + "\n\n";
+                    body += "Thanks and Regards";
+
+                    Email e = new Email();
+                    String a[] = {objBO.getEmail()};
+                    // e.sendFromGMail("team@myshejari.com", "Ankush@02", a, "MyShejari.com - Business Added Successfully", body);
+                    objBO.setStoreId("1");
+                } else {
+                }
+                con.close();
+            } else {
+                objBO.setStoreId("2");
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -242,9 +403,9 @@ public class ManageDAO {
 
     public void getAllStoreDetails(ManageStoreBO objBO) {
         try {
-            String photo = "", photoSm = "", photoLg = "";
+            String photo = "", photoSm = "", photoLg = "", photo2 = "", photo3 = "";
             int cnt = 0;
-
+            objBO.setAddFlag(false);
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             Connection con = DriverManager.getConnection(dbc.getConstr());
@@ -252,6 +413,7 @@ public class ManageDAO {
             ResultSet rs = stmt.executeQuery("Select * from storedetails where storeid=" + objBO.getStoreId() + "");
 
             while (rs.next()) {
+                objBO.setAddFlag(true);
                 objBO.setStoreName(rs.getString("storename"));
                 objBO.setStoreArea(rs.getString("storearea"));
                 objBO.setContact(rs.getString("contact"));
@@ -270,12 +432,22 @@ public class ManageDAO {
                 objBO.setAddress(rs.getString("fulladdress"));
                 objBO.setEmail(rs.getString("email"));
                 photoSm = rs.getString("photo");
+                photo2 = rs.getString("photo2");
+                photo3 = rs.getString("photo3");
+
                 photoLg = photoSm;
-                System.out.println(">>>>>>> Photo: " + photo);
                 if (photoSm.contains("default")) {
                     photoSm = "shopIcon_sm.png";
                     photoLg = "shopIcon_lg.png";
                 }
+                if (photo2.contains("default")) {
+                    photo2 = "shopIcon_lg.png";
+                }
+                if (photo3.contains("default")) {
+                    photo3 = "shopIcon_lg.png";
+                }
+                objBO.setStorePhoto2(photo2);
+                objBO.setStorePhoto3(photo3);
                 objBO.setStorePhoto(photoSm);
                 objBO.setStorePhotoLg(photoLg);
 
@@ -746,7 +918,8 @@ public class ManageDAO {
 
     public void getAllHallDetails(ManageHallBO objBO) {
         try {
-            String photo = "", photoSm, photoLg;
+            objBO.setAddFlag(false);
+            String photo2 = "", photoSm, photoLg, photo3 = "";
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
@@ -754,6 +927,7 @@ public class ManageDAO {
             rs = stmt.executeQuery("Select * from halls where hallid=" + objBO.getHallId() + "");
 
             while (rs.next()) {
+                objBO.setAddFlag(true);
                 objBO.setHallName(rs.getString("hallname"));
                 objBO.setHallArea(rs.getString("hall_area"));
                 objBO.setContact(rs.getString("contact"));
@@ -768,13 +942,23 @@ public class ManageDAO {
                 objBO.setAddress(rs.getString("fulladdress"));
                 objBO.setEmail(rs.getString("email"));
                 photoSm = rs.getString("photo");
+                photo2 = rs.getString("photo2");
+                photo3 = rs.getString("photo3");
                 photoLg = photoSm;
                 if (photoSm.contains("default")) {
                     photoSm = "shopIcon_sm.png";
                     photoLg = "shopIcon_lg.png";
                 }
+                if (photo2.contains("default")) {
+                    photo2 = "shopIcon_lg.png";
+                }
+                if (photo3.contains("default")) {
+                    photo3 = "shopIcon_lg.png";
+                }
                 objBO.setPhoto(photoSm);
                 objBO.setPhotoLg(photoLg);
+                objBO.setPhoto2(photo2);
+                objBO.setPhoto3(photo3);
             }
             con.close();
         } catch (Exception ex) {
@@ -906,7 +1090,8 @@ public class ManageDAO {
 
     public void getAllMesDetails(ManageMesBO objBO) {
         try {
-            String photo = "", photoSm = "", photoLg = "";
+            objBO.setAddFlag(false);
+            String photo2 = "", photo3 = "", photoSm = "", photoLg = "";
             int cnt = 0;
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -916,6 +1101,7 @@ public class ManageDAO {
             ResultSet rs = stmt.executeQuery("Select * from mes where mesid=" + objBO.getMesId() + "");
 
             while (rs.next()) {
+                objBO.setAddFlag(true);
                 objBO.setMesName(rs.getString("mesname"));
                 objBO.setMesArea(rs.getString("mesarea"));
                 objBO.setContact(rs.getString("contact"));
@@ -935,14 +1121,23 @@ public class ManageDAO {
                 objBO.setAddress(rs.getString("address"));
                 objBO.setEmail(rs.getString("email"));
                 photoSm = rs.getString("photo");
+                photo2 = rs.getString("photo2");
+                photo3 = rs.getString("photo3");
                 photoLg = photoSm;
                 if (photoSm.contains("default")) {
                     photoSm = "shopIcon_sm.png";
                     photoLg = "shopIcon_lg.png";
                 }
+                if (photo2.contains("default")) {
+                    photo2 = "shopIcon_lg.png";
+                }
+                if (photo3.contains("default")) {
+                    photo3 = "shopIcon_lg.png";
+                }
                 objBO.setPhoto(photoSm);
                 objBO.setPhotoLg(photoLg);
-
+                objBO.setPhoto2(photo2);
+                objBO.setPhoto3(photo3);
             }
             con.close();
         } catch (Exception ex) {
@@ -1080,7 +1275,8 @@ public class ManageDAO {
 
     public void getAllHostelDetails(ManageHostelBO objBO) {
         try {
-            String photo = "", photoSm, photoLg;
+            objBO.setAddFlag(false);
+            String photo2 = "", photo3 = "", photoSm, photoLg;
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
@@ -1088,6 +1284,7 @@ public class ManageDAO {
             rs = stmt.executeQuery("Select * from hostel where hostid=" + objBO.getHostId() + "");
 
             while (rs.next()) {
+                objBO.setAddFlag(true);
                 objBO.setHostName(rs.getString("hostname"));
                 objBO.setHostArea(rs.getString("hostarea"));
                 objBO.setContact(rs.getString("contact"));
@@ -1102,6 +1299,8 @@ public class ManageDAO {
                 objBO.setAddress(rs.getString("address"));
                 objBO.setEmail(rs.getString("email"));
                 photoSm = rs.getString("photo");
+                photo2 = rs.getString("photo2");
+                photo3 = rs.getString("photo3");
                 objBO.setRent(rs.getString("rent"));
                 objBO.setDeposit(rs.getString("deposit"));
                 objBO.setForWhom(rs.getString("forwhom"));
@@ -1115,8 +1314,16 @@ public class ManageDAO {
                     photoSm = "shopIcon_sm.png";
                     photoLg = "shopIcon_lg.png";
                 }
+                if (photo2.contains("default")) {
+                    photo2 = "shopIcon_lg.png";
+                }
+                if (photo3.contains("default")) {
+                    photo3 = "shopIcon_lg.png";
+                }
                 objBO.setPhoto(photoSm);
                 objBO.setPhotoLg(photoLg);
+                objBO.setPhoto2(photo2);
+                objBO.setPhoto3(photo3);
             }
             con.close();
         } catch (Exception ex) {

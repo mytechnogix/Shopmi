@@ -12,6 +12,7 @@ public class ManageStoreBO {
     private String _serviceArea;
     private String _closedOn;
     private String _contact;
+    private String _phone;
     private String _url;
     private String _email;
     private String _subs;
@@ -26,6 +27,32 @@ public class ManageStoreBO {
     private String _reviewCount;
     private String _storePhotoLg;
     private String _metadata;
+    private String _storePhoto2;
+    private String _storePhoto3;
+
+    public String getStorePhoto2() {
+        return _storePhoto2;
+    }
+
+    public void setStorePhoto2(String _storePhoto2) {
+        this._storePhoto2 = _storePhoto2;
+    }
+
+    public String getStorePhoto3() {
+        return _storePhoto3;
+    }
+
+    public void setStorePhoto3(String _storePhoto3) {
+        this._storePhoto3 = _storePhoto3;
+    }
+
+    public String getPhone() {
+        return _phone;
+    }
+
+    public void setPhone(String _phone) {
+        this._phone = _phone;
+    }
 
     public String getMetadata() {
         return _metadata;

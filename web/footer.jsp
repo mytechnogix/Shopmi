@@ -5,10 +5,9 @@
                 <div class="footer_widget wow fadeInLeftBig">
                     <h2>Policy Info</h2>
                     <ul class="tag_nav">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms and Condition</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">Report Abuse and Takedown</a></li>
+                        <li><a href="privacypolicy.jsp" target="_blank">Privacy Policy</a></li>
+                        <li><a href="termsandconditions.jsp" target="_blank">Terms and Condition</a></li>
+                        <li><a href="abuseandtakedown.jsp" target="_blank">Report Abuse and Takedown</a></li>
                     </ul>
                 </div>
             </div>
@@ -16,11 +15,9 @@
                 <div class="footer_widget wow fadeInDown">
                     <h2>Company</h2>
                     <ul class="tag_nav">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Core Values</a></li>
+                        <li><a  href="javascript:;" data-toggle="modal" data-target="#aboutModal">About Us</a></li>
+                        <li><a href="corevalues.jsp" target="_blank">Core Values</a></li>
                         <li><a href="#">FAQ</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -48,6 +45,7 @@
                 </div>
             </div>
         </div>
+        <br>
     </div>
     <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
     <div class="footer_bottom">

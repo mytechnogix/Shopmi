@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Add Marriage Halls</title>
+        <title>Update Location</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -99,25 +99,21 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Add Marriage Halls
-                        <small>( Step 1 of 3 )</small>
+                        Update Location
                     </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Manage Store</li>
-                        <li class="active">Add Marriage Halls</li>
-                    </ol>
                 </section>
                 <section class="content">
                     <div class="row" >
                         <div class="col-md-12">
                             <div class="box box-primary">
-                                <form role="form" action="aAddStoreLocationCheck.jsp" onsubmit="return validateAddStore();">
+                                <form role="form" action="aUpdateLocationCheck.jsp" onsubmit="return validateAddStore();">
+                                    <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
+                                    <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Search Store Location</label>
+                                                    <label>Search Location</label>
                                                     <div class="input-group margin">
                                                         <input type="text" id="txtLocation" onkeyup="getStoreLocation()" class="form-control" placeholder="Enter store area and city to locate" >
                                                         <span class="input-group-btn">
@@ -147,7 +143,7 @@
                                     </div>
                                     <div class="box-footer">
                                         <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
-                                        <button type="submit" class="btn btn-primary">Next</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
                                         <input type="reset" value="Reset" class="btn btn-primary">
                                     </div>
                                 </form>

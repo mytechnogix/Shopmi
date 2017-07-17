@@ -25,6 +25,14 @@
     {
         margin-bottom: 8px;   
     }
+     #carousalDiv
+    {
+        height: 200px!important;
+    }
+    .serviceMobImg
+    {
+        height: 200px!important;
+    }
 }
 
 @media (max-width: 750px) {
@@ -50,9 +58,13 @@
     {
         height: 20%!important;
     }
+    #carousalDiv
+    {
+        height: 250px!important;
+    }
     .serviceMobImg
     {
-        height: 10%!important;
+        height: 250px!important;
     }
     #carousel-example > div > div > div > div
     {
@@ -83,5 +95,21 @@
     {
         width: 10px;
         height: 10px;
+    }
+    #marqueePad
+    {
+        padding: 15px!important;
+    }
+    #marqeePad1
+    {
+        height: auto!important;
+    }
+    #serviceTitle
+    {
+        margin-top: 20px;
+    }
+    #contactUsImg
+    {
+        display: none;
     }
 }

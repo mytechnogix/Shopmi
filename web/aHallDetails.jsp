@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
     <%
-        String openAt = "", closeAt = "";
         int hallid = Integer.parseInt(request.getParameter("hid"));
         PreparedStatement pst;
         ResultSet rs, rs1;
@@ -51,7 +50,16 @@
                                 <form role="form" action="aAddHallDetailsCheck.jsp" method="post">
                                     <input type="hidden" name="opType" value="update"/>
                                     <input type="hidden" name="hallid" value="<%=hallid%>"/>
-
+                                    <div class="box-header">
+                                        <div style="float: right">
+                                            <i class="fa fa-image"></i><a href="aUpdatePhotosDetails.jsp?type=hall&sid=<%=hallid%>">  Update Photos</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <i class="fa fa-map-marker"></i><a href="aUpdateLocation.jsp?type=hall&id=<%=hallid%>">  Update Location</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <i class="fa fa-edit"></i><a href="aUpdateMetadata.jsp?type=hall&id=<%=hallid%>">  Update Metadata</a>
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-lg-4">
@@ -104,7 +112,6 @@
                                                         <option value='<%=rs1.getString("hall_area")%>'><%=rs1.getString("hall_area")%></option>
                                                         <%}
                                                             }
-                                                            con.close();
                                                         %>
                                                         <option value="Other">Other</option>
                                                     </select>
@@ -148,7 +155,7 @@
                                                 <div class="form-group">
                                                     <label>Email Address</label>
                                                     <div class="input-group">
-                                                        <input type="email" class="form-control" id="txtHallEmail" name="txtHallEmail" value="<%=rs.getString("email")%>" >
+                                                        <input type="email" class="form-control" id="txtHallEmail" name="txtHallEmail" value="<%=rs.getString("email")%>" required >
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-envelope"></i>
                                                         </div>
@@ -192,10 +199,10 @@
                                         </div>
                                     </div>
                                     <div class="box-footer">
+                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                         <div id="btnEdit" class="btn btn-primary">Edit</div>
                                         <button type="submit" id="btnUpdate" class="btn btn-primary">Update</button>
                                         <input type="reset" id="btnReset" value="Reset" class="btn btn-primary">
-                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                     </div>
                                 </form> 
                                 <%}%>
@@ -206,6 +213,9 @@
             </div>
             <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
+            <%
+                con.close();
+            %>
             <script>
                 $('#bothdates').daterangepicker();
                 $('#timezone1').click(function(){

@@ -82,3 +82,9 @@
 .developer a{color:#222}
 .catgArchive{border:medium none; color:#fff; display:inline; float:left; font-weight:bold; padding:10px 15px; width:100%; margin-top:15px}
 .catgArchive option{background-color:#fff; font-weight:normal; padding:5px; color:#d083cf}
+
+
+.aboutText li
+{
+    padding: 5px;
+}

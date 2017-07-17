@@ -306,13 +306,12 @@
                                 <%=fnm%></a>
                             <ul class="dropdown-menu">
                                 <li class="profile-li"><a class="profile-links" href="myProfile.jsp">My Profile</a></li>
-                                <li class="profile-li"><a class="profile-links" href="settings.jsp">Settings</a></li>
                                 <li class="profile-li"><a class="profile-links" href="logout.jsp">Logout</a></li>
                             </ul>
                         </li>
                         <li class="upper-links"><a class="links login-before-div" href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                        <li class="upper-links"><a class="links" href="#">Start a business</a></li>
-                        <li class="upper-links"><a class="links" href="javascript:;" data-toggle="modal" data-target="#contactModal">Contact</a></li>
+                        <li class="upper-links"><a class="links" href="registerBusiness.jsp">Register your business</a></li>
+                        <li class="upper-links"><a class="links" href="javascript:;" data-toggle="modal" data-target="#contactModal">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -322,18 +321,19 @@
                 <a href="mycart.jsp" class="login-after-div" id="userNameMob"><i class="fa fa-user"></i> <%=fnm%></a>
                 <a href="index.jsp" ><i class="fa fa-home"></i> Home</a>
                 <a href="javascript:checkLogin('uLogin')" class="login-before-div"><i class="glyphicon glyphicon-gift"></i> Login</a>
-                <a href="javascript:checkLogin('uLogin')"><i class="glyphicon glyphicon-gift"></i> My Offers</a>
-                <a href="javascript:checkLogin('uLogin')"><i class="fa fa-thumbs-o-up"></i> Favorites</a>
-                <a href="javascript:checkLogin('uLogin')"><i class="fa fa-comments-o"></i> Reviews</a>
-                <a href="javascript:checkLogin('uLogin')"><i class="fa fa-envelope-o"></i> Enquiries</a>
+                <a href="registerBusiness.jsp" class="login-before-div"><i class="glyphicon glyphicon-gift"></i> Add Business</a>
+                <a href="javascript:checkLogin('uLogin')"><i class="glyphicon glyphicon-gift"></i> My Profile</a>
+                <a href="javascript:;" data-toggle="modal" data-target="#contactModal"><i class="fa fa-envelope-o"></i> Contact Us</a>
                 <a href="faq.jsp"><i class="glyphicon glyphicon-question-sign"></i> FAQ</a>
                 <a href="logout.jsp" class="login-after-div" id="userLogoutMob"><i class="fa fa-sign-out"></i> Logout</a>
             </div>
         </nav>
     </div>
 </div>
-<br><br><br>
+<br><br>
 <script type="text/javascript" src="js/jquery.autocomplete.js"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleCallback" async defer></script>
 <script>
     var previousScroll = 0;
     $(window).scroll(function(event){

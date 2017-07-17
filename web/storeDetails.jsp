@@ -15,7 +15,10 @@
 
     objBO.setStoreId(storeid);
     objDAO.getAllStoreDetails(objBO);
-
+    if (!objBO.isAddFlag()) {
+%>
+<jsp:forward page="index.jsp"/>
+<%    }
     PreparedStatement pst;
     Connection con;
     ResultSet rs;
@@ -72,9 +75,11 @@
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="initMap()">
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
+            <span id="tooltipMap" style="float: right; padding: 20px;" data-toggle="tooltip" data-placement="bottom" title="Scroll down to see Map">
+            </span>
             <input type="hidden" id="uid" value="<%=uid%>">
             <div class="content-wrapper">
-                <section class="content-header" style="background-color: #fff; padding-bottom: 3px">
+                <section class="content-header" id="serviceTitle" style="background-color: #fff; padding-bottom: 3px">
                     <h1> <i class="fa fa-shopping-cart"></i> Shop Details</h1>
                     <ol class="breadcrumb">
                         <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
@@ -123,11 +128,44 @@
                                     <div class="nav-tabs-custom" id="sliderSection">
                                         <div class="tab-content no-padding">
                                             <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                                <div class="carousel-inner" role="listbox">
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                    <%
+                                                        if (!objBO.getStorePhoto2().contains("shopIcon")) {
+                                                    %>
+                                                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                                                    <%}
+                                                        if (!objBO.getStorePhoto3().contains("shopIcon")) {
+                                                    %>
+                                                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                                                    <%}%>
+                                                </ol>
+                                                <div class="carousel-inner" role="listbox" id="carousalDiv" style="height: 400px">
                                                     <div class="item active" >
-                                                        <img src="images/storephotos/<%=objBO.getStorePhotoLg()%>" alt="Store Photos" width="100%" style="height: 400px" class="serviceMobImg">
+                                                        <img src="images/storephotos/<%=objBO.getStorePhotoLg()%>" alt="Store Photos 1" width="100%" style="height: 400px" class="serviceMobImg">
                                                     </div>
+                                                    <%
+                                                        if (!objBO.getStorePhoto2().contains("shopIcon")) {
+                                                    %>
+                                                    <div class="item" >
+                                                        <img src="images/storephotos/<%=objBO.getStorePhoto2()%>" alt="Store Photos 2" width="100%" style="height: 400px" class="serviceMobImg">
+                                                    </div>
+                                                    <%}
+                                                        if (!objBO.getStorePhoto3().contains("shopIcon")) {
+                                                    %>
+                                                    <div class="item" >
+                                                        <img src="images/storephotos/<%=objBO.getStorePhoto3()%>" alt="Store Photos 3" width="100%" style="height: 400px" class="serviceMobImg"> 
+                                                    </div>
+                                                    <%}%>
                                                 </div>
+                                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
                                             </div>  
                                         </div>
                                     </div>
@@ -399,7 +437,14 @@
                 map: map
             }); 
             getReverseGeocode(la, ln);
-            origin = document.getElementById("origin").value;
+            origin = $("#origin").val().trim();
+            
+            if(origin!=""){
+                if (origin.indexOf("amravati")==-1) {
+                    origin+=" amravati";
+                    //alert(origin);
+                }
+            }
             if(origin!="" && origin.length!=0){
                 var directionsDisplay = new google.maps.DirectionsRenderer;
                 var directionsService = new google.maps.DirectionsService;

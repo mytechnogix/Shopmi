@@ -34,6 +34,12 @@
                     <li><a href="aManageHostels.jsp"><i class="fa fa-circle-o"></i> Manage Hostels</a></li>
                 </ul>
             </li>
+             <li>
+                <a href="aBusinessRequests.jsp">
+                    <i class="fa fa-files-o"></i>
+                    <span>Business Requests</span>
+                </a>
+            </li>
             <li>
                 <a href="aManageOffers.jsp">
                     <i class="fa fa-files-o"></i>

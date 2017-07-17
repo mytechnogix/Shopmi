@@ -16,13 +16,25 @@
         Class.forName("com.mysql.jdbc.Driver");
         DBConnector dbc = new DBConnector();
         con = DriverManager.getConnection(dbc.getConstr());
+        pst = con.prepareStatement("select * from storedetails where storeid=?");
+        pst.setInt(1, storeId);
+        rs = pst.executeQuery();
+        if (rs.next()) {
     %>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Add Store</title>
+        <title><%=rs.getString("storename")%></title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
+        <style>
+            @media (max-width: 750px) {
+                #tooltipMap
+                {
+                    margin-top: 10px!important;
+                }
+            }
+        </style>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -31,8 +43,7 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Add Store
-                        <small>( Step 2 of 3 )</small>
+                        <%=rs.getString("storename")%>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -41,19 +52,22 @@
                     </ol>
                 </section>
                 <section class="content">
-                    <div class="row" >
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="box box-primary">
-                                <%
-                                    pst = con.prepareStatement("select * from storedetails where storeid=?");
-                                    pst.setInt(1, storeId);
-                                    rs = pst.executeQuery();
-                                    if (rs.next()) {
-                                %>
                                 <form role="form" action="aAddStoreDetailsCheck.jsp" method="post">
                                     <input type="hidden" name="opType" value="update"/>
                                     <input type="hidden" name="storeid" value="<%=storeId%>"/>
-
+                                    <div class="box-header">
+                                        <div style="float: right">
+                                            <i class="fa fa-image"></i><a href="aUpdatePhotosDetails.jsp?type=store&sid=<%=storeId%>">  Update Store Photos</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <i class="fa fa-map-marker"></i><a href="aUpdateLocation.jsp?type=store&id=<%=storeId%>">  Update Store Location</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <i class="fa fa-edit"></i><a href="aUpdateMetadata.jsp?type=store&id=<%=storeId%>">  Update Metadata</a>
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-lg-4">
@@ -134,7 +148,6 @@
                                                         <option value='<%=rs1.getString("category")%>'><%=rs1.getString("category")%></option>
                                                         <%}
                                                             }
-                                                            con.close();
                                                         %> 
                                                         <option value="Other">Other</option>
                                                     </select>
@@ -268,10 +281,10 @@
                                         </div>
                                     </div>
                                     <div class="box-footer">
+                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                         <div id="btnEdit" class="btn btn-primary">Edit</div>
                                         <button type="submit" id="btnUpdate" class="btn btn-primary">Update</button>
                                         <input type="reset" id="btnReset" value="Reset" class="btn btn-primary">
-                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                     </div>
                                 </form> 
                                 <%}%>
@@ -349,5 +362,8 @@
                 });
             </script>   
         </div>
+        <%
+            con.close();
+        %>
     </body>
 </html>

@@ -33,7 +33,7 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        <%=rs.getString("hostname")%> - Amenities
+                        <%=rs.getString("hostname")%> - Amenities 
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -140,8 +140,8 @@
                                         </div>
                                     </div>
                                     <div class="box-footer">
-                                        <input type="button" onclick="checkAmenities('update')" value="Next" class="btn btn-primary">
                                         <input type="button" onclick="history.back()" value="Back" class="btn btn-primary">
+                                        <input type="button" onclick="checkAmenities('update')" value="Update" class="btn btn-primary">
                                     </div>
                                 </form>                    
                             </div>
@@ -150,13 +150,12 @@
                 </section>
             </div>
             <%}
-                con.close();
             %>
             <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
             <script>
                 var amenities="<%=rs.getString("amenities")%>";
-                // alert(amenities);
+                //alert(amenities);
                 var strarray = amenities.split(',');
                 //alert(strarray[1]);
                 if(strarray[0]=="1")
@@ -225,5 +224,8 @@
                 }
             </script>
         </div>
+        <%
+            con.close();
+        %>
     </body>
 </html>

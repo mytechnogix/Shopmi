@@ -78,9 +78,9 @@
                                         </div>
                                     </div>
                                     <div class="box-footer">
+                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                         <button type="submit" class="btn btn-primary">Add</button>
                                         <input type="reset" value="Reset" class="btn btn-primary">
-                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                     </div>
                                 </form>
                             </div>

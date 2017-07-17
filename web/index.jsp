@@ -31,7 +31,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="38073448623-gp7csemfcamsndl5l9450420ftrasdl4.apps.googleusercontent.com">
-        <title>MyShejari.com - Amravati's best local business search tool</title>
+        <title>MyShejari.com - Amravati's local business search tool</title>
         <meta name="Description" content="MyShejari.com is a secure ,fast and dedicated local business search tool for Amravati, Maharashtra. Find shops,restaurants,party halls,hostels,mess,caterers,tutors,flower decorators,real estate, event managers, saloons, beauty parlours  or any business in Amravati with map locations. Download MyShejari app now. Post your ad for online marketing.">
         <meta name="Author" content="Technogix Group">
         <link rel="Canonical" href="https://www.myshejari.com/index.jsp">
@@ -154,15 +154,16 @@
         <div class="hameid-loader-overlay"></div>
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
+            <br>
             <div class="content-wrapper">
-                <section class="content">
-                    <div class="row" style="background-color: lightgray">
+                <section class="content" id="marqueePad" style="padding: 5px">
+                    <div class="row" style="background-color: lightgray; height: 20px" id="marqeePad1">
                         <div class="col-sm-2 text-center">
                             <span style="background-color: black; color: white; padding: 5px">All Categories
                             </span>
                         </div>
                         <div class="col-md-10">
-                            <marquee width="100%"  onMouseOver="this.stop()" onMouseOut="this.start()">
+                            <marquee width="100%" onMouseOver="this.stop()" onMouseOut="this.start()">
                                 <%  int lCnt = 0;
                                     String[] lbl = {"label-info", "label-primary", "label-warning", "label-success"};
                                     pst = con.prepareStatement("select distinct category from storedetails");
@@ -173,7 +174,7 @@
                                             lCnt = 0;
                                         }
                                 %>
-                                <a href="search.jsp?search=<%=rs.getString("category")%>" style="margin-left: 3px" class="label <%=lbl[lCnt]%>"> <%=rs.getString("category")%> </a>
+                                <a href="search.jsp?search=<%=rs.getString("category")%>" style="margin-left: 3px; font-size: 14px;" class="label <%=lbl[lCnt]%>"> <%=rs.getString("category")%> </a>
                                 <%
                                         lCnt++;
                                     }%>
@@ -749,8 +750,6 @@
                     <script src="js/crypto-js.js"></script>
                     <jsp:include page="modals.jsp"/>
                     <script src="js/custom.js"></script>
-                    <script src="https://apis.google.com/js/platform.js"></script>
-                    <script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleCallback" async defer></script>
                     <script>
                         $("#autocomplete").on("focus", function(){
                             $('html, body').animate({

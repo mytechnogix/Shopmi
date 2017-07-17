@@ -34,7 +34,6 @@
                 <section class="content-header">
                     <h1>
                         <%=rs.getString("hostname")%><br>
-                        <small><a href="aHostelAmenities.jsp?id=<%=hostid%>">Update Amenities</a></small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -50,6 +49,17 @@
                                     <input type="hidden" name="opType" value="update"/>
                                     <input type="hidden" name="hostid" value="<%=hostid%>"/>
                                     <div class="box-body">
+                                        <div class="box-header">
+                                            <div style="float: right">
+                                                <i class="fa fa-star"></i><a href="aHostelAmenities.jsp?id=<%=hostid%>">   Update Amenities</a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="fa fa-image"></i><a href="aUpdatePhotosDetails.jsp?type=hostel&sid=<%=hostid%>">  Update Photos</a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="fa fa-map-marker"></i><a href="aUpdateLocation.jsp?type=hostel&id=<%=hostid%>">  Update Location</a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="fa fa-edit"></i><a href="aUpdateMetadata.jsp?type=hostel&id=<%=hostid%>">  Update Metadata</a>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="form-group">
@@ -101,7 +111,6 @@
                                                         <option value='<%=rs1.getString("hostarea")%>'><%=rs1.getString("hostarea")%></option>
                                                         <%}
                                                             }
-                                                            con.close();
                                                         %>
                                                         <option value="Other">Other</option>
                                                     </select>
@@ -247,10 +256,10 @@
                                         </div>
                                     </div>
                                     <div class="box-footer">
-                                        <div id="btnEdit" class="btn btn-primary">Edit</div>
+                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
+                                        <button id="btnEdit" class="btn btn-primary">Edit</button>
                                         <button type="submit" id="btnUpdate" class="btn btn-primary">Update</button>
                                         <input type="reset" id="btnReset" value="Reset" class="btn btn-primary">
-                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                     </div>
                                 </form> 
                                 <%}%>
@@ -261,6 +270,9 @@
             </div>
             <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
+            <%
+                con.close();
+            %>
             <script>
                 $("#btnUpdate").hide();
                 $("#txtHostCity").attr("disabled", "disabled");

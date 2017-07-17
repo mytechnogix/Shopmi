@@ -50,7 +50,15 @@
                                 <form role="form" action="aAddMesDetailsCheck.jsp" method="post">
                                     <input type="hidden" name="opType" value="update"/>
                                     <input type="hidden" name="mesid" value="<%=mesid%>"/>
-
+                                    <div class="box-header">
+                                        <div style="float: right">
+                                            <i class="fa fa-image"></i><a href="aUpdatePhotosDetails.jsp?type=mes&sid=<%=mesid%>">  Update Photos</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <i class="fa fa-map-marker"></i><a href="aUpdateLocation.jsp?type=mes&id=<%=mesid%>">  Update Location</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <i class="fa fa-edit"></i><a href="aUpdateMetadata.jsp?type=mes&id=<%=mesid%>">  Update Metadata</a>
+                                        </div>
+                                    </div>
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-lg-4">
@@ -103,7 +111,6 @@
                                                         <option value='<%=rs1.getString("mesarea")%>'><%=rs1.getString("mesarea")%></option>
                                                         <%}
                                                             }
-                                                            con.close();
                                                         %>
                                                         <option value="Other">Other</option>
                                                     </select>
@@ -289,10 +296,10 @@
                                         </div>
                                     </div>
                                     <div class="box-footer">
+                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                         <div id="btnEdit" class="btn btn-primary">Edit</div>
                                         <button type="submit" id="btnUpdate" class="btn btn-primary">Update</button>
                                         <input type="reset" id="btnReset" value="Reset" class="btn btn-primary">
-                                        <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
                                     </div>
                                 </form> 
                                 <%}%>
@@ -303,6 +310,9 @@
             </div>
             <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
+            <%
+                con.close();
+            %>
             <script>
                 $('#bothdates').daterangepicker();
                 $('#timezone1').click(function(){

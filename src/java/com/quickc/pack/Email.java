@@ -13,15 +13,15 @@ public class Email {
 
     public static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
 
-        System.out.println("Body **********  : \n" + body);
-
         Properties props = System.getProperties();
         String host = "mail.myshejari.com";
         props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", from);
         props.put("mail.smtp.password", pass);
-        props.put("mail.smtp.port", "25");
+        props.put("mail.smtp.port", "465");
         props.put("mail.smtp.auth", "true");
 
         Session session = Session.getDefaultInstance(props);
@@ -46,7 +46,6 @@ public class Email {
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-            System.out.println("********** Forget Email Sent");
         } catch (AddressException ae) {
             ae.printStackTrace();
         } catch (MessagingException me) {

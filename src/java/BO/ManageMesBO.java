@@ -26,10 +26,28 @@ public class ManageMesBO {
     private String _rating;
     private String _reviewCount;
     private String _photo;
+    private String _photo2;
+    private String _photo3;
     private String _photoLg;
     private String _serviceArea;
     private String _metadata;
 
+    public String getPhoto2() {
+        return _photo2;
+    }
+
+    public void setPhoto2(String _photo2) {
+        this._photo2 = _photo2;
+    }
+
+    public String getPhoto3() {
+        return _photo3;
+    }
+
+    public void setPhoto3(String _photo3) {
+        this._photo3 = _photo3;
+    }
+    
     public String getMetadata() {
         return _metadata;
     }

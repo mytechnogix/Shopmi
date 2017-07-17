@@ -16,6 +16,10 @@
     objBO.setHallId(hallid);
     objDAO.getAllHallDetails(objBO);
 
+    if (!objBO.isAddFlag()) {
+%>
+<jsp:forward page="index.jsp"/>
+<%    }
     PreparedStatement pst;
     Connection con;
     ResultSet rs;
@@ -48,9 +52,7 @@
         <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="css/storeDetails.css">
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-
         <style>
             .booked
             {
@@ -76,13 +78,81 @@
             {
                 color: red;
             }
+            table{
+                width: 100%;
+            }
+            td{
+                padding-top: 8px;
+            }
+            #map {
+                height: 350px;
+                width: 100%;
+            }
+            #right-panel {
+                font-family: 'Roboto','sans-serif';
+                line-height: 15px;
+                padding-left: 10px;
+            }
+
+            #right-panel select, #right-panel input {
+                font-size: 15px;
+            }
+
+            #right-panel select {
+                width: 100%;
+            }
+
+            #right-panel i {
+                font-size: 10px;
+            }
+            #right-panel {
+                height: 370px;
+                width: 100%;
+                overflow: auto;
+            }
+            div.stars {
+                text-align: center;
+                display: inline-block;
+            }
+
+            input.star { display: none; }
+
+            label.star {
+                float: right;
+                padding: 10px;
+                font-size: 20px;
+                color: #444;
+                transition: all .2s;
+            }
+
+            input.star:checked ~ label.star:before {
+                content: '\f005';
+                color: #FD4;
+                transition: all .25s;
+            }
+
+            input.star-5:checked ~ label.star:before {
+                color: #FE7;
+                text-shadow: 0 0 20px #952;
+            }
+
+            input.star-1:checked ~ label.star:before { color: #F62; }
+
+            label.star:hover { transform: rotate(-15deg) scale(1.3); }
+
+            label.star:before {
+                content: '\f006';
+                font-family: FontAwesome;
+            }
         </style>
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="initMap()">
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
+            <span id="tooltipMap" style="float: right; padding: 30px;" data-toggle="tooltip" data-placement="bottom" title="Scroll down to see Map">
+            </span>
             <div class="content-wrapper">
-                <section class="content-header" style="background-color: #fff; padding-bottom: 3px">
+                <section class="content-header" id="serviceTitle" style="background-color: #fff; padding-bottom: 3px">
                     <h1><img src="images/partyHallIcon.png" style="width: 30px"> Party Hall Details</h1>
                     <ol class="breadcrumb">
                         <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
@@ -132,13 +202,43 @@
                                         <div class="tab-content no-padding">
                                             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
-                                                    <!--                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+                                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                    <%
+                                                        if (!objBO.getPhoto2().contains("shopIcon")) {
+                                                    %>
+                                                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                                                    <%}
+                                                        if (!objBO.getPhoto3().contains("shopIcon")) {
+                                                    %>
+                                                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                                                    <%}%>
                                                 </ol>
-                                                <div class="carousel-inner" role="listbox">
+                                                <div class="carousel-inner" role="listbox" id="carousalDiv" style="height: 400px">
                                                     <div class="item active" >
-                                                        <img src="images/hallphotos/<%=objBO.getPhotoLg()%>" class="serviceMobImg" alt="Store Photos" width="100%" style="height: 400px">
+                                                        <img src="images/hallphotos/<%=objBO.getPhotoLg()%>" alt="Party Hall Photo 1" width="100%" style="height: 400px" class="serviceMobImg">
                                                     </div>
+                                                    <%
+                                                        if (!objBO.getPhoto2().contains("shopIcon")) {
+                                                    %>
+                                                    <div class="item" >
+                                                        <img src="images/hallphotos/<%=objBO.getPhoto2()%>" alt="Party Hall Photo 2" width="100%" style="height: 400px" class="serviceMobImg">
+                                                    </div>
+                                                    <%}
+                                                        if (!objBO.getPhoto3().contains("shopIcon")) {
+                                                    %>
+                                                    <div class="item" >
+                                                        <img src="images/hallphotos/<%=objBO.getPhoto3()%>" alt="Party Hall Photo 3" width="100%" style="height: 400px" class="serviceMobImg"> 
+                                                    </div>
+                                                    <%}%>
                                                 </div>
+                                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
                                             </div>  
                                         </div>
                                     </div>
@@ -152,14 +252,14 @@
                                         </div>
                                         <div class="box-body">
                                             <table style="font-size: 15px">
-                                                <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
-                                                <tr><td>Locality </td><td> <%=objBO.getHallArea()%></td></tr>
-                                                <tr><td>Contact</td><td> <%=objBO.getContact()%></td></tr>
-                                                <tr><td>Services</td><td> <%=objBO.getHallServices()%></td></tr>
-                                                <tr><td>Area (in Sq.Ft.)</td><td> <%=objBO.getHallAreaSqft()%></td></tr>
-                                                <tr><td>Email Address</td><td> <%=objBO.getEmail()%></td></tr>
-                                                <tr><td>Website URL</td><td> <%=objBO.getUrl()%></td></tr>
-                                                <tr><td></td><td></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%">Full Address </td><td> <%=objBO.getAddress()%></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%">Locality </td><td> <%=objBO.getHallArea()%></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%">Contact</td><td> <%=objBO.getContact()%></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%">Services</td><td> <%=objBO.getHallServices()%></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%">Area (in Sq.Ft.)</td><td> <%=objBO.getHallAreaSqft()%></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%">Email Address</td><td> <%=objBO.getEmail()%></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%">Website URL</td><td> <%=objBO.getUrl()%></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%"></td><td></td></tr>
                                             </table>
                                         </div>
                                     </div>
@@ -442,7 +542,15 @@
                 map: map
             }); 
             getReverseGeocode(la, ln);
-            origin = document.getElementById("origin").value;
+            
+            origin = $("#origin").val().trim();
+            if(origin!=""){
+                if (origin.indexOf("amravati")==-1) {
+                    origin+=" amravati";
+                    //alert(origin);
+                }
+            }
+            
             if(origin!="" && origin.length!=0){
                 var directionsDisplay = new google.maps.DirectionsRenderer;
                 var directionsService = new google.maps.DirectionsService;

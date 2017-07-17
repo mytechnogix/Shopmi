@@ -3,6 +3,26 @@ $(document).on('click','.product-info', function() {
     $parent_box.siblings().find('.bottom').slideUp();
     $parent_box.find('.bottom').slideToggle(1000, 'swing');
 });
+
+$('#tooltipMap').tooltip().eq(0).tooltip('show').tooltip('disable').one('mouseout', function() {
+    $(this).tooltip('enable');
+});
+
+setTimeout(function() {
+    $('#tooltipMap').tooltip().eq(0).tooltip('hide').tooltip('enable');
+}, 5000);
+
+$(window).scroll(function() {
+
+    if ($(this).scrollTop()>0)
+    {
+        $('#tooltipMap').tooltip('hide');
+    }
+    else
+    {
+    }
+});
+ 
 //ajax -get suggestions
 var xmlHttp
 var searchQuery;
@@ -723,6 +743,7 @@ var amenities="";
 var opType="";
 function checkAmenities(str)
 {
+    alert("");
     opType=str;
     amenities="";
     if($("#lift").is(':checked')){
@@ -1013,6 +1034,3 @@ function setSearchCat(str)
 {
     window.location = "search.jsp?search="+str;
 }
-
-
-

@@ -82,8 +82,10 @@
     <body class="hold-transition skin-blue layout-top-nav fixed"  onload="initMap()">
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
+            <span id="tooltipMap" style="float: right; padding: 30px;" data-toggle="tooltip" data-placement="bottom" title="Scroll down to see Map">
+            </span>
             <div class="content-wrapper">
-                <section class="content-header" style="background-color: #fff; padding-bottom: 3px">
+                <section class="content-header" id="serviceTitle" style="background-color: #fff; padding-bottom: 3px">
                     <h1> <i class="glyphicon glyphicon-gift"></i> Offer Details</h1>
                     <ol class="breadcrumb">
                         <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
@@ -110,8 +112,7 @@
                                 <br><br>
                                 <h4 style="color: #000; font-weight: bold">Terms and Conditions</h4>
                                 <p><%=tc%></p>
-                                <button id="btnGetOffer" class="btn-lg btn-success col-sm-6" onclick="checkLogin('offer')">Get Offer</button>
-                                <button id="btnWishList" class="btn-lg btn-success col-sm-6">Add to Favorite</button>
+                                <button id="btnGetOffer" class="btn-lg btn-success col-sm-8" onclick="checkLogin('offer')">Get Offer</button>
                                 <br><br><br>
                             </div>
                             <div class="box box-danger">
@@ -227,7 +228,13 @@
                     map: map
                 }); 
                 getReverseGeocode(la, ln);
-                origin = document.getElementById("origin").value;
+                origin = $("#origin").val().trim();
+                if(origin!=""){
+                    if (origin.indexOf("amravati")==-1) {
+                        origin+=" amravati";
+                        //alert(origin);
+                    }
+                }
                 if(origin!="" && origin.length!=0){
                     var directionsDisplay = new google.maps.DirectionsRenderer;
                     var directionsService = new google.maps.DirectionsService;

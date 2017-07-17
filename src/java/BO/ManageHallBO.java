@@ -17,12 +17,30 @@ public class ManageHallBO {
     private String _contact;
     private String _addedBy;
     private String _photo;
+    private String _photo2;
+    private String _photo3;
     private String _photoLg;
     private boolean _addFlag;
     private int _visitCount;
     private int _reviewCount;
     private String _rating;
     private String _metadata;
+
+    public String getPhoto2() {
+        return _photo2;
+    }
+
+    public void setPhoto2(String _photo2) {
+        this._photo2 = _photo2;
+    }
+
+    public String getPhoto3() {
+        return _photo3;
+    }
+
+    public void setPhoto3(String _photo3) {
+        this._photo3 = _photo3;
+    }
 
     public String getMetadata() {
         return _metadata;

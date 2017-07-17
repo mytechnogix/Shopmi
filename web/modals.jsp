@@ -78,11 +78,8 @@
                                     -- OR --
                                     <div class="login-modal-footer">
                                         <div class="row">
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <img id="googleSignIn" src="images/sign-in-button_google.png" style="cursor: pointer; width: 100%;">
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <img id="facebookSignIn" src="images/signin-with-facebook.png" style="cursor: pointer; width: 100%;">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <img id="googleSignIn" src="images/sign-in-button_google.png" style="cursor: pointer; width: 100%; height: 50px">
                                             </div>
                                         </div>
                                         <br>
@@ -303,14 +300,69 @@
 </div>
 <div id="contactModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" style="background-color:#605ca8 ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color: #fff">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" style="color: #fff">Contact us</h4>
+            </div>
             <div class="modal-body">
-                <div class="login-box-body text-center"  style="background-color: #605ca8">
-                    <h3 id="modalMsg_offer" style="color: white">Contact Details here</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="images/contactus.jpg" id="contactUsImg" style="width: 100%">
+                    </div>
+                    <div class="col-md-6" style="color: #fff; font-size: 16px">
+                        MyShejari.com is a Amravati's dedicated and fast search tool.<br>
+                        For any queries kindly contact us.
+                        <br><br>
+                        Email : <a href="mailto:team@myshejari.com" style="color: #fff">team@myshejari.com</a>
+                        <br><br>
+                        Contact No. 1 : <a href="tel:+917709588509" style="color: #fff"> +917709588509</a>, <br>
+                        Contact No. 2 : <a href="tel:919049469246" style="color: #fff"> +919049469246</a>
+                        <br>
+                        <br>
+                        Thank You
+
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="aboutModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:#605ca8 ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color: #fff">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" style="color: #fff">About us</h4>
+            </div>
+            <div class="modal-body">
+                <div style="color: #fff; font-size: 16px; text-align: justify">
+                    <ul class="aboutText">
+                        <li>
+                            MyShejari.com is a proprietary business search portal developed by Technogix group.
+                        </li>
+                        <li>
+                            Technogix group was established in 2016 to form a consortium of Amravati based software engineers in order to take up technical ventures in the region. 
+                        </li>
+                        <li>
+                            Creating an online platform for all small and medium size businesses so as to expand their reach to customers in order to increase their revenue is our goal.
+                        </li>
+                        <li>
+                            MyShejari.com strives to create win-win situation for both consumers and business owners. 
+                        </li>
+                        <li>
+                            MyShejari.com provides a unique,safe and rapid platform for business owners to showcase their product,services and specialities whereas customers get access to huge amount of information like contact details, map locations, offers etc. 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
     </div>
@@ -371,7 +423,7 @@
     <div class="modal-dialog">
         <div class="modal-content login-modal">
             <div class="modal-header login-modal-header">
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
                 <h4 class="modal-title text-center" id="loginModalLabel">
                     <i class="fa fa-check bg-green-active" style="color: white; border-radius: 50%; padding: 7px"></i> Login Successful!</h4>
             </div>
