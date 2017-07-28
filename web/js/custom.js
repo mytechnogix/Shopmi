@@ -217,10 +217,9 @@ function saveEnquiryOutput()
 {
     if (xmlhttp.readyState==4)
     {
-        alert(xmlhttp.responseText);
-
+        //alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1"){
-            alert(eType);
+          //  alert(eType);
             if(eType=="store"){
                 $('#enquiryModalShop').modal('hide');   
                 $('#enquiryModalSuccess').modal('show'); 
@@ -743,7 +742,7 @@ var amenities="";
 var opType="";
 function checkAmenities(str)
 {
-    alert("");
+    //alert("");
     opType=str;
     amenities="";
     if($("#lift").is(':checked')){

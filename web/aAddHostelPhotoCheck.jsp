@@ -9,12 +9,12 @@
 <%@ page import="java.io.*,java.sql.*,java.util.zip.*,org.apache.commons.io.FilenameUtils" %>
 <%
     String saveFile = "", imgName = "";
-    int hostid = 0;
+    String hostid = null;
     String relativeWebPath = "/images/hostelphotos/";
     ManageDAO objDAO = new ManageDAO();
     ManageHostelBO objBO = new ManageHostelBO();
     if (session.getAttribute("hostidAdd") != null) {
-        hostid = Integer.parseInt(String.valueOf(session.getAttribute("hostidAdd")));
+        hostid = String.valueOf(session.getAttribute("hostidAdd"));
         try {
             String contentType = request.getContentType();
             if ((contentType != null) && (contentType.indexOf("multipart/form-data") >= 0)) {

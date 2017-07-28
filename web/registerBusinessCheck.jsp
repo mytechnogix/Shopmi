@@ -17,7 +17,7 @@
     objBO.setAddress(request.getParameter("address"));
 
     objDAO.addBusinessDetails(objBO);
-    if (objBO.getStoreId() != null && (objBO.getStoreId().equals("1"))) {
+    if (objBO.getStoreId().equals("1")) {
         response.sendRedirect("registerBusinessSuccess.jsp");
     } else if (objBO.getStoreId().equals("2")) {
         out.print("Store already registered with this email id");

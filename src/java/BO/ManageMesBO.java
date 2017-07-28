@@ -20,7 +20,7 @@ public class ManageMesBO {
     private String _closedOn;
     private String _addedBy;
     private boolean _addFlag;
-    private int _mesId;
+    private String _mesId;
     private String _regDate;
     private String _visitCount;
     private String _rating;
@@ -31,6 +31,14 @@ public class ManageMesBO {
     private String _photoLg;
     private String _serviceArea;
     private String _metadata;
+
+    public String getMesId() {
+        return _mesId;
+    }
+
+    public void setMesId(String _mesId) {
+        this._mesId = _mesId;
+    }
 
     public String getPhoto2() {
         return _photo2;
@@ -222,14 +230,6 @@ public class ManageMesBO {
 
     public void setAddFlag(boolean _addFlag) {
         this._addFlag = _addFlag;
-    }
-
-    public int getMesId() {
-        return _mesId;
-    }
-
-    public void setMesId(int _mesId) {
-        this._mesId = _mesId;
     }
 
     public String getRegDate() {

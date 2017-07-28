@@ -6,6 +6,63 @@
         <title>Add Store</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
+        <script>
+            var photoFlag=0;
+            function formSubmitCheck()
+            {
+                if(photoFlag==1){
+                    return true;
+                }
+                else{
+                    alert("Upload proper image")
+                    return false;
+                }
+            }
+
+            function fileCheck(obj) {
+                var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+                if(photoFlag==1){
+                    if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1){
+                        alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
+                        photoFlag=0;
+                    }
+                    else{
+                        photoFlag=1;
+                    }
+                }
+                else
+                {
+                        
+                }
+            }
+            function checkDimension(obj){
+                var fileUpload = document.getElementById("fileUpload");
+                if (typeof (fileUpload.files) != "undefined") {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(fileUpload.files[0]);
+                    reader.onload = function (e) {
+                        var image = new Image();
+                        image.src = e.target.result;
+                        image.onload = function () {
+                            var height = this.height;
+                            var width = this.width;
+                            //alert(width+" - "+height);
+                            if (width<300 || height<250) {
+                                alert("Width should be greater than 300px and Height should be greater than 250px");
+                                photoFlag = 0;
+                            }
+                            else{
+                                // alert("Uploaded image has valid Height and Width.");
+                                photoFlag = 1;
+                                fileCheck(obj);
+                            }
+                        };
+                    }
+                } else {
+                    alert("This browser does not support HTML5.");
+                }
+            }
+        </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -34,11 +91,11 @@
                                             session.setAttribute("storeidAdd", sid);
                                         }
                                     %>
-                                    <form role="form" ENCTYPE="multipart/form-data" onsubmit="return submitCheck()" action="aAddStorePhotoCheck.jsp" method="post">
+                                    <form role="form" ENCTYPE="multipart/form-data" onsubmit="return formSubmitCheck()" action="aAddStorePhotoCheck.jsp" method="post">
                                         <div class="box-body">
                                             <div class="form-group">
                                                 <label> Select Store Photo</label>
-                                                <input type="file" name="file" id="file" onchange="fileCheck(this)" required>
+                                                <input type="file" name="file" id="fileUpload" onchange="checkDimension(this)" required>
                                             </div>
                                         </div>
                                         <div class="box-footer">

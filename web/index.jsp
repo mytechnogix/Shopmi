@@ -600,7 +600,7 @@
                                         <div class="box-body">
                                             <ul class="products-list product-list-in-box">
                                                 <li class="item">
-                                                    <a href="hostDetails.jsp" target="_blank">
+                                                    <a href="tProjGuidance.jsp" target="_blank">
                                                         <div class="product-img">
                                                             <img src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Icon">
                                                         </div>
@@ -612,7 +612,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <a href="hostDetails.jsp" target="_blank">
+                                                    <a href="tTechSeminar.jsp" target="_blank">
                                                         <div class="product-img">
                                                             <img src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Icon">
                                                         </div>
@@ -624,7 +624,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <a href="hostDetails.jsp" target="_blank">
+                                                    <a href="tIdeaIncubator.jsp" target="_blank">
                                                         <div class="product-img">
                                                             <img src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Icon">
                                                         </div>
@@ -636,7 +636,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <a href="hostDetails.jsp" target="_blank">
+                                                    <a href="javascript:;" data-toggle="modal" data-target="#careerModal">
                                                         <div class="product-img">
                                                             <img src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Icon">
                                                         </div>

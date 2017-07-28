@@ -168,6 +168,84 @@
                                                 <%}%>
                                             </tr>
                                             <%}
+                                                pst = con.prepareStatement("select * from mes where messtatus='Pending'");
+                                                rs = pst.executeQuery();
+                                                while (rs.next()) {
+                                                    cnt++;
+                                                    storeid = rs.getInt("mesid");
+                                                    storeName = rs.getString("mesname");
+                                                    location = rs.getString("mesarea");
+                                                    city = rs.getString("city");
+                                                    storeStatus = rs.getString("messtatus");
+                                                    regDate = rs.getString("regdate");
+                                                    img = rs.getString("photo");
+                                            %>
+                                            <tr>
+                                                <td><%=storeid%></td>
+                                                <%
+                                                    if (adminRole.equalsIgnoreCase("platinum") || adminRole.equalsIgnoreCase("gold")) {
+                                                %>
+                                                <td class="text-blue" style="cursor: pointer"><a href="aMesDetails.jsp?mid=<%=storeid%>"><%=storeName%></a></td>
+                                                <%
+                                                } else {
+                                                %>
+                                                <td><%=storeName%></td>
+                                                <%}%>                                            
+                                                <td>mes</td>
+                                                <td><%=location%>, <%=city%></td>
+                                                <td><a href="JavaScript:changeStatus('<%=storeid%>','<%=storeStatus%>','mes')"><%=storeStatus%></a></td>
+                                                <td class="text-blue"><%=img%></td>
+                                                <td><%=regDate%></td>
+                                                <%
+                                                    if (adminRole.equalsIgnoreCase("platinum")) {
+                                                %>
+                                                <td>
+                                                    <a href="JavaScript:del('<%=storeid%>','mes')" style="margin-left: 7px">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </td>
+                                                <%}%>
+                                            </tr>
+                                            <%}
+                                                pst = con.prepareStatement("select * from hostel where hoststatus='Pending'");
+                                                rs = pst.executeQuery();
+                                                while (rs.next()) {
+                                                    cnt++;
+                                                    storeid = rs.getInt("hostid");
+                                                    storeName = rs.getString("hostname");
+                                                    location = rs.getString("hostarea");
+                                                    city = rs.getString("city");
+                                                    storeStatus = rs.getString("hoststatus");
+                                                    regDate = rs.getString("regdate");
+                                                    img = rs.getString("photo");
+                                            %>
+                                            <tr>
+                                                <td><%=storeid%></td>
+                                                <%
+                                                    if (adminRole.equalsIgnoreCase("platinum") || adminRole.equalsIgnoreCase("gold")) {
+                                                %>
+                                                <td class="text-blue" style="cursor: pointer"><a href="aHostelDetails.jsp?hostid=<%=storeid%>"><%=storeName%></a></td>
+                                                <%
+                                                } else {
+                                                %>
+                                                <td><%=storeName%></td>
+                                                <%}%>                                            
+                                                <td>Property</td>
+                                                <td><%=location%>, <%=city%></td>
+                                                <td><a href="JavaScript:changeStatus('<%=storeid%>','<%=storeStatus%>','hostel')"><%=storeStatus%></a></td>
+                                                <td class="text-blue"><%=img%></td>
+                                                <td><%=regDate%></td>
+                                                <%
+                                                    if (adminRole.equalsIgnoreCase("platinum")) {
+                                                %>
+                                                <td>
+                                                    <a href="JavaScript:del('<%=storeid%>','hostel')" style="margin-left: 7px">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </td>
+                                                <%}%>
+                                            </tr>
+                                            <%}
                                                 con.close();%>
                                         </tbody>
                                     </table>

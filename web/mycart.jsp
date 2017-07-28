@@ -62,6 +62,7 @@
     <body class="hold-transition skin-blue layout-top-nav fixed">
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
+            <br>
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">

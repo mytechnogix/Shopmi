@@ -112,4 +112,15 @@
     {
         display: none;
     }
+    .developer{
+        margin-right: 5px!important;
+    }
+    #regBus
+    {
+        text-align: center
+    }
+    #regBus1
+    {
+        padding-top: 30px;
+    }
 }

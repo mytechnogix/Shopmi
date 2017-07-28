@@ -41,14 +41,14 @@
     if (request.getParameter("opType").equals("add")) {
         objBO.setMapLocation(lat + "," + longi);
         objDAO.addMesDetails(objBO);
-        if (objBO.getMesId() != 0) {
+        if (objBO.getMesId() != null) {
             session.setAttribute("mesidAdd", objBO.getMesId());
             response.sendRedirect("aAddMesPhoto.jsp");
         } else {
             out.print("Failed to add mes details");
         }
     } else {
-        objBO.setMesId(Integer.parseInt(request.getParameter("mesid")));
+        objBO.setMesId(request.getParameter("mesid"));
         objBO.setAddFlag(false);
         objDAO.updateMesDetails(objBO);
         if (objBO.isAddFlag()) {

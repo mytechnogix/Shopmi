@@ -206,16 +206,17 @@ public class ManageDAO {
 
     public void addBusinessDetails(ManageStoreBO objBO) throws SQLException {
         int cnt = 0;
+        String res = "0";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("select storename from businessrequest where email=?");
-            pst.setString(1, objBO.getEmail());
-            rs = pst.executeQuery();
 
-            if (!rs.next()) {
-                if (objBO.getStoreCat().equals("store")) {
+            if (objBO.getStoreCat().equals("store")) {
+                pst = con.prepareStatement("select storename from storedetails where email=?");
+                pst.setString(1, objBO.getEmail());
+                rs = pst.executeQuery();
+                if (!rs.next()) {
                     pst = con.prepareStatement("insert into storedetails(storename, category, services, storearea, email, contact, phone, websiteurl, fulladdress, city, pass) values(?,?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1, objBO.getStoreName());
                     pst.setString(2, objBO.getStoreCat());
@@ -229,7 +230,14 @@ public class ManageDAO {
                     pst.setString(10, objBO.getCity());
                     pst.setString(11, objBO.getContact());
                     cnt = pst.executeUpdate();
-                } else if (objBO.getStoreCat().equals("hall")) {
+                } else {
+                    cnt = 2;
+                }
+            } else if (objBO.getStoreCat().equals("hall")) {
+                pst = con.prepareStatement("select hallname from halls where email=?");
+                pst.setString(1, objBO.getEmail());
+                rs = pst.executeQuery();
+                if (!rs.next()) {
                     pst = con.prepareStatement("insert into halls(hallname, services, hall_area, email, contact, phone, websiteurl, fulladdress, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1, objBO.getStoreName());
                     pst.setString(2, objBO.getServices());
@@ -242,7 +250,14 @@ public class ManageDAO {
                     pst.setString(9, objBO.getCity());
                     pst.setString(10, objBO.getContact());
                     cnt = pst.executeUpdate();
-                } else if (objBO.getStoreCat().equals("mes")) {
+                } else {
+                    cnt = 2;
+                }
+            } else if (objBO.getStoreCat().equals("mes")) {
+                pst = con.prepareStatement("select mesname from mes where email=?");
+                pst.setString(1, objBO.getEmail());
+                rs = pst.executeQuery();
+                if (!rs.next()) {
                     pst = con.prepareStatement("insert into mes(mesname, services, mesarea, email, contact, phone, websiteurl, address, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1, objBO.getStoreName());
                     pst.setString(2, objBO.getServices());
@@ -255,7 +270,14 @@ public class ManageDAO {
                     pst.setString(9, objBO.getCity());
                     pst.setString(10, objBO.getContact());
                     cnt = pst.executeUpdate();
-                } else if (objBO.getStoreCat().equals("hostel")) {
+                } else {
+                    cnt = 2;
+                }
+            } else if (objBO.getStoreCat().equals("hostel")) {
+                pst = con.prepareStatement("select hostname from hostel where email=?");
+                pst.setString(1, objBO.getEmail());
+                rs = pst.executeQuery();
+                if (!rs.next()) {
                     pst = con.prepareStatement("insert into hostel(hostname, description, hostarea, email, contact, phone, websiteurl, address, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1, objBO.getStoreName());
                     pst.setString(2, objBO.getServices());
@@ -268,28 +290,32 @@ public class ManageDAO {
                     pst.setString(9, objBO.getCity());
                     pst.setString(10, objBO.getContact());
                     cnt = pst.executeUpdate();
-                }
-
-                if (cnt > 0) {
-                    String body = "Dear Customer,\n";
-                    body += "\nBusiness Details Added - MyShejari.com\n\n";
-                    body += "Your " + objBO.getStoreName() + "  business is now part of MyShejari.com\n";
-                    body += "Team MyShejari.com will connect to you soon\n";
-                    body += "Your Business ID and Password is as follows : \n";
-                    body += "Business ID : " + objBO.getEmail() + "\n";
-                    body += "Password : " + objBO.getContact() + "\n\n";
-                    body += "Thanks and Regards";
-
-                    Email e = new Email();
-                    String a[] = {objBO.getEmail()};
-                    // e.sendFromGMail("team@myshejari.com", "Ankush@02", a, "MyShejari.com - Business Added Successfully", body);
-                    objBO.setStoreId("1");
                 } else {
+                    cnt = 2;
                 }
-                con.close();
-            } else {
-                objBO.setStoreId("2");
             }
+
+            if (cnt == 1) {
+                String body = "Dear Customer,\n";
+                body += "\nBusiness Details Added - MyShejari.com\n\n";
+                body += "Your " + objBO.getStoreName() + "  business is now part of MyShejari.com\n";
+                body += "Team MyShejari.com will connect to you soon\n";
+                body += "Your Business ID and Password is as follows : \n";
+                body += "Business ID : " + objBO.getEmail() + "\n";
+                body += "Password : " + objBO.getContact() + "\n\n";
+                body += "Thanks and Regards";
+
+                Email e = new Email();
+                String a[] = {objBO.getEmail()};
+                // e.sendFromGMail("team@myshejari.com", "Ankush@02", a, "MyShejari.com - Business Added Successfully", body);
+                objBO.setStoreId("1");
+            } else if (cnt == 2) {
+                objBO.setStoreId("2");
+            } else {
+                objBO.setStoreId("0");
+            }
+            System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<< business output : "+objBO.getStoreId()+", "+cnt);
+            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -316,10 +342,16 @@ public class ManageDAO {
             stmt.execute();
             objBO.setOid(stmt.getInt("_oid"));
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -344,10 +376,16 @@ public class ManageDAO {
             stmt.execute();
             objBO.setOid(stmt.getInt("_oid"));
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -453,8 +491,13 @@ public class ManageDAO {
 
             }
             con.close();
+
+
+
+
         } catch (Exception ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -568,10 +611,16 @@ public class ManageDAO {
                 objBO.setCoupon("3");
             }
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -607,10 +656,16 @@ public class ManageDAO {
             stmt.executeQuery();
             objBO.setAid(stmt.getInt("_aid"));
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -633,10 +688,16 @@ public class ManageDAO {
             stmt.executeQuery();
             objBO.setAid(stmt.getInt("_aid"));
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -662,10 +723,16 @@ public class ManageDAO {
                 objBO.setAddFlag(true);
             }
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -767,10 +834,16 @@ public class ManageDAO {
             stmt.executeQuery();
             objBO.setFlag(stmt.getInt("_flag"));
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -834,12 +907,14 @@ public class ManageDAO {
             stmt.setInt(16, 0);
             stmt.setString(17, "1");
             stmt.execute();
-            objBO.setHallId(stmt.getInt("_hid"));
+            objBO.setHallId(String.valueOf(stmt.getInt("_hid")));
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -865,17 +940,23 @@ public class ManageDAO {
             stmt.setString(13, objBO.getAddedBy());
             stmt.setString(14, objBO.getPhoto());
             stmt.setString(15, objBO.getMetadata());
-            stmt.setInt(16, objBO.getHallId());
+            stmt.setString(16, objBO.getHallId());
             stmt.setString(17, "2");
             stmt.execute();
             if (stmt.getInt("_hid") == 1) {
                 objBO.setAddFlag(true);
             }
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -901,7 +982,7 @@ public class ManageDAO {
             stmt.setString(13, objBO.getAddedBy());
             stmt.setString(14, objBO.getPhoto());
             stmt.setString(15, objBO.getMetadata());
-            stmt.setInt(16, objBO.getHallId());
+            stmt.setString(16, objBO.getHallId());
             stmt.setString(17, "3");
             stmt.execute();
 
@@ -909,10 +990,16 @@ public class ManageDAO {
                 objBO.setAddFlag(true);
             }
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -961,8 +1048,13 @@ public class ManageDAO {
                 objBO.setPhoto3(photo3);
             }
             con.close();
+
+
+
+
         } catch (Exception ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -993,15 +1085,21 @@ public class ManageDAO {
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getMetadata());
-            stmt.setInt(21, objBO.getMesId());
+            stmt.setString(21, objBO.getMesId());
             stmt.setString(22, "1");
             stmt.execute();
-            objBO.setMesId(stmt.getInt("_mesid"));
+            objBO.setMesId(String.valueOf(stmt.getInt("_mesid")));
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1032,17 +1130,23 @@ public class ManageDAO {
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getMetadata());
-            stmt.setInt(21, objBO.getMesId());
+            stmt.setString(21, objBO.getMesId());
             stmt.setString(22, "2");
             stmt.execute();
             if (stmt.getInt("_mesid") > 0) {
                 objBO.setAddFlag(true);
             }
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1073,7 +1177,7 @@ public class ManageDAO {
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getMetadata());
-            stmt.setInt(21, objBO.getMesId());
+            stmt.setString(21, objBO.getMesId());
             stmt.setString(22, "3");
             stmt.execute();
 
@@ -1081,10 +1185,16 @@ public class ManageDAO {
                 objBO.setAddFlag(true);
             }
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1140,8 +1250,13 @@ public class ManageDAO {
                 objBO.setPhoto3(photo3);
             }
             con.close();
+
+
+
+
         } catch (Exception ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1161,7 +1276,7 @@ public class ManageDAO {
             stmt.setString(7, objBO.getWebsiteUrl());
             stmt.setString(8, objBO.getEmail());
             stmt.setString(9, objBO.getForWhom());
-            stmt.setString(10, "");
+            stmt.setString(10, "0");
             stmt.setString(11, objBO.getBedrooms());
             stmt.setString(12, objBO.getBeds());
             stmt.setString(13, objBO.getRent());
@@ -1177,12 +1292,18 @@ public class ManageDAO {
             stmt.setInt(23, 0);
             stmt.setString(24, "1");
             stmt.execute();
-            objBO.setHostId(stmt.getInt("_hostid"));
+            objBO.setHostId(String.valueOf(stmt.getInt("_hostid")));
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1215,17 +1336,23 @@ public class ManageDAO {
             stmt.setString(20, objBO.getFurnished());
             stmt.setString(21, objBO.getPossession());
             stmt.setString(22, objBO.getMetadata());
-            stmt.setInt(23, objBO.getHostId());
+            stmt.setString(23, objBO.getHostId());
             stmt.setString(24, "2");
             stmt.execute();
             if (stmt.getInt("_hostid") == 1) {
                 objBO.setAddFlag(true);
             }
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1258,7 +1385,7 @@ public class ManageDAO {
             stmt.setString(20, objBO.getFurnished());
             stmt.setString(21, objBO.getPossession());
             stmt.setString(22, objBO.getMetadata());
-            stmt.setInt(23, objBO.getHostId());
+            stmt.setString(23, objBO.getHostId());
             stmt.setString(24, "3");
             stmt.execute();
 
@@ -1266,10 +1393,16 @@ public class ManageDAO {
                 objBO.setAddFlag(true);
             }
             con.close();
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1326,8 +1459,13 @@ public class ManageDAO {
                 objBO.setPhoto3(photo3);
             }
             con.close();
+
+
+
+
         } catch (Exception ex) {
-            Logger.getLogger(ManageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

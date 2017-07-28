@@ -95,9 +95,6 @@
     String lnm = String.valueOf(session.getAttribute("lnm"));
 %>
 <div class="profile-sidebar">
-    <div class="profile-userpic">
-        <img src="images/default.jpg" style="width: 100px; height: 100px" class="img-responsive" alt="">
-    </div>
     <div class="profile-usertitle">
         <div class="profile-usertitle-name">
             <%=fnm%> <%=lnm%>
@@ -108,7 +105,7 @@
     </div>
     <div class="profile-userbuttons">
         <button type="button" class="btn btn-primary btn-sm" onclick="showWebPart('md')">Edit Profile</button>
-        <button type="button" class="btn btn-warning btn-sm">Change Picture</button>
+        <button type="button" class="btn btn-warning btn-sm">Change Password</button>
     </div>
     <div class="profile-usermenu">
         <ul class="nav">
@@ -126,7 +123,7 @@
             <li>
                 <a href="javascript:showWebPart('mr')" class="mr">
                     <i class="fa fa-comments-o"></i>
-                     Reviews </a>
+                    Reviews </a>
             </li>
             <li>
                 <a href="javascript:showWebPart('enq')" class="enq">

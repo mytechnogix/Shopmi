@@ -27,7 +27,7 @@ public class ManageHostelBO {
     private String _forWhom;
     private String _postedOn;
     private boolean _addFlag;
-    private int _hostId;
+    private String _hostId;
     private String _review;
     private String _enquiry;
     private String _addedBy;
@@ -38,6 +38,14 @@ public class ManageHostelBO {
     private String _possession;
     private String _furnished;
     private String _metadata;
+
+    public String getHostId() {
+        return _hostId;
+    }
+
+    public void setHostId(String _hostId) {
+        this._hostId = _hostId;
+    }
 
     public String getPhoto2() {
         return _photo2;
@@ -301,14 +309,6 @@ public class ManageHostelBO {
 
     public void setAddFlag(boolean _addFlag) {
         this._addFlag = _addFlag;
-    }
-
-    public int getHostId() {
-        return _hostId;
-    }
-
-    public void setHostId(int _hostId) {
-        this._hostId = _hostId;
     }
 
     public String getReview() {

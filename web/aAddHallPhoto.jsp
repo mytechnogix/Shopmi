@@ -38,24 +38,18 @@
             }
             function checkDimension(obj){
                 var fileUpload = document.getElementById("fileUpload");
-                //Check whether HTML5 is supported.
                 if (typeof (fileUpload.files) != "undefined") {
-                    //Initiate the FileReader object.
                     var reader = new FileReader();
-                    //Read the contents of Image File.
                     reader.readAsDataURL(fileUpload.files[0]);
                     reader.onload = function (e) {
-                        //Initiate the JavaScript Image object.
                         var image = new Image();
-                        //Set the Base64 string return from FileReader as source.
                         image.src = e.target.result;
                         image.onload = function () {
-                            //Determine the Height and Width.
                             var height = this.height;
                             var width = this.width;
                             //alert(width+" - "+height);
-                            if (width!=300 || height!=250) {
-                                alert("Width should be 300px and Height should be 250px");
+                            if (width<300 || height<250) {
+                                alert("Width should be greater than 300px and Height should be greater than 250px");
                                 photoFlag = 0;
                             }
                             else{

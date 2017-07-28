@@ -298,6 +298,19 @@
         </div>
     </div>
 </div>
+<div id="careerModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center" style="background-color: #605ca8">
+                <img id="modalImg_offer" src="images/wrongIcon.png" style="width: 100px; height: 100px; border-radius: 50%">
+                <h3 id="modalMsgEnq" style="color: white">No Vacancies</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="contactModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color:#605ca8 ">

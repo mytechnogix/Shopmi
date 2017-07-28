@@ -279,7 +279,7 @@
                             <button class="flipkart-mapmarker col-xs-1">
                                 <img src="images/storephotos/shopIcon_sm.png" width="23px" height="25px">
                             </button>
-                            <input class="flipkart-navbar-input col-xs-9" type="search" placeholder="Search by Name or Category" name="autocomplete" id="autocomplete">
+                            <input class="flipkart-navbar-input col-xs-9" type="search" placeholder="Search by Name or Category" name="autocomplete" maxlength="100" id="autocomplete">
                             <button class="flipkart-navbar-button col-xs-1" id="searchIcon" onclick="search()">
                                 <svg width="15px" height="15px">
                                 <path d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
@@ -293,7 +293,7 @@
                             <svg class="" width="16px" height="14px" style="overflow: visible;">
                             <path d="M8.037 17.546c1.487 0 2.417-.93 2.417-2.417H5.62c0 1.486.93 2.415 2.417 2.415m5.315-6.463v-2.97h-.005c-.044-3.266-1.67-5.46-4.337-5.98v-.81C9.01.622 8.436.05 7.735.05 7.033.05 6.46.624 6.46 1.325v.808c-2.667.52-4.294 2.716-4.338 5.98h-.005v2.972l-1.843 1.42v1.376h14.92v-1.375l-1.842-1.42z" fill="#fff"></path>
                             </svg>
-                            My Cart
+                            My Offers
                             <span class="item-number "><%=total%></span>
                         </a>
                     </div>
@@ -311,6 +311,16 @@
                         </li>
                         <li class="upper-links"><a class="links login-before-div" href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
                         <li class="upper-links"><a class="links" href="registerBusiness.jsp">Register your business</a></li>
+                        <li class="upper-links dropdown" style="color: white">
+                            <a class="links" href="javascript:;">                       
+                                Business Login</a>
+                            <ul class="dropdown-menu">
+                                <li class="profile-li"><a class="profile-links" href="storeLogin.jsp">Local Shop</a></li>
+                                <li class="profile-li"><a class="profile-links" href="hallLogin.jsp">Party Hall</a></li>
+                                <li class="profile-li"><a class="profile-links" href="#">Mes Service</a></li>
+                                <li class="profile-li"><a class="profile-links" href="#">Property</a></li>
+                            </ul>
+                        </li>
                         <li class="upper-links"><a class="links" href="javascript:;" data-toggle="modal" data-target="#contactModal">Contact Us</a></li>
                     </ul>
                 </div>

@@ -10,12 +10,12 @@
 <%@ page import="java.io.*,java.sql.*,java.util.zip.*,org.apache.commons.io.FilenameUtils" %>
 <%
     String saveFile = "", imgName = "";
-    int mesid = 0;
+    String mesid = null;
     String relativeWebPath = "/images/mesphotos/";
     ManageDAO objDAO = new ManageDAO();
     ManageMesBO objBO = new ManageMesBO();
     if (session.getAttribute("mesidAdd") != null) {
-        mesid = Integer.parseInt(String.valueOf(session.getAttribute("mesidAdd")));
+        mesid = String.valueOf(session.getAttribute("mesidAdd"));
         try {
             String contentType = request.getContentType();
             if ((contentType != null) && (contentType.indexOf("multipart/form-data") >= 0)) {

@@ -23,6 +23,10 @@
                 display: none;
             }
             #success_message{ display: none;}
+            .regBus li
+            {
+                line-height: 2
+            }
         </style>
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed">
@@ -30,7 +34,7 @@
             <jsp:include page="header.jsp"/>
             <div class="content-wrapper">
                 <section class="content" style="padding-top:0px">
-                    <h3 style="margin-left: 4%"><img src="images/shopIcon_sm.png" style="width: 40px">   Register Your Business on MyShejari.com</h3>
+                    <h3 style="margin-left: 4%; margin-top: 30px" id="regBus"><img src="images/shopIcon_sm.png" style="width: 30px;margin-top: 5px"><span id="regBus1"> Register Your Business on MyShejari.com</span></h3>
                     <div class="row">
                         <div class="col-md-8">
                             <div class="box box-primary">
@@ -162,23 +166,15 @@
                                                             <input type="checkbox" name=""> I am authorised to advertise the business above and have read and agree to the privacy policy and terms and conditions
                                                         </label>
                                                     </div>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="checkbox" name=""> I am authorised to advertise the business above and have read and agree to the privacy policy and terms and conditions
-                                                        </label>
-                                                    </div>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="checkbox" name=""> I am authorised to advertise the business above and have read and agree to the privacy policy and terms and conditions
-                                                        </label>
-                                                    </div>
                                                 </div>
                                             </div>  
                                             <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
                                             <div class="form-group">
                                                 <label class="col-md-3 col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-primary" >Submit <span class="glyphicon glyphicon-send"></span></button>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                    <button type="reset" class="btn btn-primary">Reset</button>
+                                                    <div class="btn btn-primary" onclick="history.back()">Back</div>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -189,21 +185,40 @@
                         <div class="col-md-4">
                             <div class="box box-primary">
                                 <div class="box-header  bg-blue">
-                                    <h3 class="box-title">Why to join MyShejari.com</h3>
+                                    <h3 class="box-title text-center">Promote your business on MyShejari.com</h3>
                                 </div>
-                                <div class="box-body">
-                                    <ul>
+                                <div class="box-body" style="font-size: 16px">
+                                    <ul style="list-style-type: square" class="regBus">
                                         <li>
-                                            Display your business in most popular online business directory of Amravati region
+                                            Fast and Secure dedicated business portal
                                         </li>
                                         <li>
-                                            Improve Visibility in Google searches
+                                            Advertisement focused to targeted customers
                                         </li>
                                         <li>
-                                            Business Leads with Instant SMS & Email Enquiries
+                                            Thousands of website and app users in Amravati
                                         </li>
                                         <li>
-                                            Display your variety of Products & Services by posting pictures and videos
+                                            Optimum customer reach due to Accurate map location
+                                        </li>
+                                        <li>
+                                            Post your offers, Discounts, Sale etc at one click
+                                        </li>
+                                        <li>
+                                            Get ratings and reviews to improve your services
+                                        </li>
+                                        <li>
+                                            Get customer statistics to improve your business campaigning
+                                        </li>
+                                        <li>
+                                            Attractive interface and multiple options to create Ad
+                                        </li>
+                                        <li>
+                                            Get top search results on google for your business
+                                        </li>
+                                        <li>
+                                            Social network marketing also available
+
                                         </li>
                                     </ul>
                                 </div>

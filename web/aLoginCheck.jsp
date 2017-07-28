@@ -70,16 +70,15 @@
         </table>
         <%                    }
         } else if (type.equals("store")) {
-            pst = con.prepareStatement("select storename, photo from storedetails where storeid=? and pass=? and storestatus='Active';");
+            pst = con.prepareStatement("select storeid, storename, photo from storedetails where email=? and pass=? and storestatus='Active';");
             pst.setString(1, id);
             pst.setString(2, pass);
             rs = pst.executeQuery();
-
             if (rs.next()) {
                 session.setAttribute("storeFlag", "1");
-                session.setAttribute("storeid", id);
-                session.setAttribute("storePhoto", rs.getString("photo"));
-                session.setAttribute("storeName", rs.getString("storename"));
+                session.setAttribute("sStoreid", rs.getString("storeid"));
+                session.setAttribute("sStorePhoto", rs.getString("photo"));
+                session.setAttribute("sStoreName", rs.getString("storename"));
                 response.sendRedirect("sDashboard.jsp");
             } else {
         %>

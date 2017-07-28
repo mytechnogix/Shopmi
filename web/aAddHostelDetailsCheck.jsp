@@ -41,14 +41,14 @@
     if (request.getParameter("opType").equals("add")) {
         objBO.setMaplocation(lat + "," + longi);
         objDAO.addHostelDetails(objBO);
-        if (objBO.getHostId() != 0) {
+        if (objBO.getHostId() != null) {
             session.setAttribute("hostidAdd", objBO.getHostId());
             response.sendRedirect("aAddHostelAmenities.jsp");
         } else {
             out.print("Failed to add host details");
         }
     } else {
-        objBO.setHostId(Integer.parseInt(request.getParameter("hostid")));
+        objBO.setHostId(request.getParameter("hostid"));
         objBO.setAddFlag(false);
         objDAO.updateHostelDetails(objBO);
         if (objBO.isAddFlag()) {

@@ -8,7 +8,7 @@
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.sql.*"%>
 <%
-    int mesid = Integer.parseInt(request.getParameter("id"));
+    String mesid = request.getParameter("id");
     String uid = String.valueOf(session.getAttribute("uid"));
     ManageMesBO objBO = new ManageMesBO();
     ManageDAO objDAO = new ManageDAO();
@@ -36,7 +36,7 @@
 //    pst.executeUpdate();
 
     pst = con.prepareStatement("update mes set visitcount=visitcount+1 where mesid=?");
-    pst.setInt(1, mesid);
+    pst.setString(1, mesid);
     pst.executeUpdate();
 %>
 <!DOCTYPE html>
@@ -211,7 +211,7 @@
                                     <%
                                         String review = "";
                                         pst = con.prepareStatement("select review from reviewmes where mesid=? and uid=?");
-                                        pst.setInt(1, mesid);
+                                        pst.setString(1, mesid);
                                         pst.setString(2, uid);
                                         rs = pst.executeQuery();
                                         while (rs.next()) {
@@ -259,7 +259,7 @@
                                             <div class="tab-pane pre-scrollable" style="min-height: 300px" id="activity">
                                                 <%
                                                     pst = con.prepareStatement("select * from view_reviewmes where mesid=? order by reviewdate desc");
-                                                    pst.setInt(1, mesid);
+                                                    pst.setString(1, mesid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
@@ -330,7 +330,7 @@
                                             <ul class="todo-list">
                                                 <%
                                                     pst = con.prepareStatement("select mesname, mesid from mes where mesid!=? order by mesname limit 10");
-                                                    pst.setInt(1, mesid);
+                                                    pst.setString(1, mesid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                 %>

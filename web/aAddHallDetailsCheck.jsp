@@ -34,14 +34,14 @@
     if (request.getParameter("opType").equals("add")) {
         objBO.setMapLocation(lat + "," + longi);
         objDAO.addHallDetails(objBO);
-        if (objBO.getHallId() != 0) {
+        if (objBO.getHallId()!= null) {
             session.setAttribute("hallidAdd", objBO.getHallId());
             response.sendRedirect("aAddHallPhoto.jsp");
         } else {
             out.print("Failed to add hall details");
         }
     } else {
-        objBO.setHallId(Integer.parseInt(request.getParameter("hallid")));
+        objBO.setHallId(request.getParameter("hallid"));
         objBO.setAddFlag(false);
         objDAO.updateHallDetails(objBO);
         if (objBO.isAddFlag()) {

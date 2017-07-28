@@ -2,7 +2,7 @@ package BO;
 
 public class ManageHallBO {
 
-    private int _hallId;
+    private String _hallId;
     private String _hallName;
     private String _hallNameHindi;
     private String _hallArea;
@@ -25,6 +25,14 @@ public class ManageHallBO {
     private int _reviewCount;
     private String _rating;
     private String _metadata;
+
+    public String getHallId() {
+        return _hallId;
+    }
+
+    public void setHallId(String _hallId) {
+        this._hallId = _hallId;
+    }
 
     public String getPhoto2() {
         return _photo2;
@@ -112,14 +120,6 @@ public class ManageHallBO {
 
     public void setContact(String _contact) {
         this._contact = _contact;
-    }
-
-    public int getHallId() {
-        return _hallId;
-    }
-
-    public void setHallId(int _hallId) {
-        this._hallId = _hallId;
     }
 
     public String getHallName() {

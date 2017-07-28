@@ -257,7 +257,7 @@
                                     </div>
                                     <div class="box-footer">
                                         <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
-                                        <button id="btnEdit" class="btn btn-primary">Edit</button>
+                                        <div id="btnEdit" class="btn btn-primary">Edit</div>
                                         <button type="submit" id="btnUpdate" class="btn btn-primary">Update</button>
                                         <input type="reset" id="btnReset" value="Reset" class="btn btn-primary">
                                     </div>

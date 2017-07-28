@@ -10,12 +10,12 @@
 <%@ page import="java.io.*,java.sql.*,java.util.zip.*,org.apache.commons.io.FilenameUtils" %>
 <%
     String saveFile = "", imgName = "";
-    int hid = 0;
+    String hid = null;
     String relativeWebPath = "/images/hallphotos/";
     ManageDAO objDAO = new ManageDAO();
     ManageHallBO objBO = new ManageHallBO();
     if (session.getAttribute("hallidAdd") != null) {
-        hid = Integer.parseInt(String.valueOf(session.getAttribute("hallidAdd")));
+        hid = String.valueOf(session.getAttribute("hallidAdd"));
         try {
             String contentType = request.getContentType();
             if ((contentType != null) && (contentType.indexOf("multipart/form-data") >= 0)) {

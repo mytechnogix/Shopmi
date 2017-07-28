@@ -89,25 +89,27 @@
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="getSuggestionsAjax('<%=query%>')">
         <div class="wrapper">
             <jsp:include page="header.jsp"/>
+            <br>
             <div class="content-wrapper">
-                <section class="content">
-                    <div class="row" style="background-color: lightgray">
+                <section class="content"  id="marqueePad" style="padding: 5px">
+                    <div class="row" style="background-color: lightgray; height: 20px" id="marqeePad1">
                         <div class="col-sm-2 text-center">
                             <span style="background-color: black; color: white; padding: 5px">All Categories
                             </span>
                         </div>
                         <div class="col-md-10">
-                            <marquee width="100%"  onMouseOver="this.stop()" onMouseOut="this.start()">
+                            <marquee width="100%" onMouseOver="this.stop()" onMouseOut="this.start()">
                                 <%  int lCnt = 0;
                                     String[] lbl = {"label-info", "label-primary", "label-warning", "label-success"};
                                     pst = con.prepareStatement("select distinct category from storedetails");
                                     rs = pst.executeQuery();
                                     while (rs.next()) {
+
                                         if (lCnt == 4) {
                                             lCnt = 0;
                                         }
                                 %>
-                                <a href="search.jsp?search=<%=rs.getString("category")%>" style="margin-left: 3px" class="label <%=lbl[lCnt]%>"> <%=rs.getString("category")%> </a>
+                                <a href="search.jsp?search=<%=rs.getString("category")%>" style="margin-left: 3px; font-size: 14px;" class="label <%=lbl[lCnt]%>"> <%=rs.getString("category")%> </a>
                                 <%
                                         lCnt++;
                                     }%>

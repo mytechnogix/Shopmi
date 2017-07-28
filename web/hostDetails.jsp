@@ -9,7 +9,7 @@
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.sql.*"%>
 <%
-    int hostid = Integer.parseInt(request.getParameter("id"));
+    String hostid = request.getParameter("id");
     String uid = String.valueOf(session.getAttribute("uid"));
     ManageHostelBO objBO = new ManageHostelBO();
     ManageDAO objDAO = new ManageDAO();
@@ -37,7 +37,7 @@
 //    pst.executeUpdate();
 
     pst = con.prepareStatement("update hostel set visitcount=visitcount+1 where hostid=?");
-    pst.setInt(1, hostid);
+    pst.setString(1, hostid);
     pst.executeUpdate();
 %>
 <!DOCTYPE html>
@@ -107,7 +107,7 @@
             </span>
             <div class="content-wrapper">
                 <section class="content-header" id="serviceTitle" style="background-color: #fff; padding-bottom: 3px">
-                    <h1><i class="fa fa-building"></i> Property Details</h1>
+                    <h1><i class="fa fa-building"></i> Property Details </h1>
                     <ol class="breadcrumb">
                         <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
                         <li class="active">Property Details</li>
@@ -373,7 +373,7 @@
                                     <%
                                         String review = "";
                                         pst = con.prepareStatement("select review from reviewhost where hostid=? and uid=?");
-                                        pst.setInt(1, hostid);
+                                        pst.setString(1, hostid);
                                         pst.setString(2, uid);
                                         rs = pst.executeQuery();
                                         while (rs.next()) {
@@ -419,7 +419,7 @@
                                             <div class="tab-pane pre-scrollable" style="min-height: 300px" id="activity">
                                                 <%
                                                     pst = con.prepareStatement("select * from view_reviewhost where hostid=? order by reviewdate desc");
-                                                    pst.setInt(1, hostid);
+                                                    pst.setString(1, hostid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
@@ -499,7 +499,7 @@
                                             <ul class="todo-list">
                                                 <%
                                                     pst = con.prepareStatement("select hostname, hostid from hostel where hostid!=? order by hostname limit 10");
-                                                    pst.setInt(1, hostid);
+                                                    pst.setString(1, hostid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                 %>
@@ -515,7 +515,6 @@
                                                     </a>
                                                 </li>
                                                 <%}
-                                                    con.close();
                                                 %>
                                             </ul>
                                         </div>
@@ -588,7 +587,7 @@
 
     <script>
         var amenities="<%=objBO.getAmenities()%>";
-        //alert(amenities);
+        //  alert(amenities);
         var strarray = amenities.split(',');
         //alert(strarray[1]);
         if(strarray[0]=="1")
@@ -815,5 +814,8 @@
             });
         }
     </script>
+    <%
+        con.close();
+    %>
 </body>
 </html>
