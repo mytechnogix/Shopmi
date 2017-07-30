@@ -314,7 +314,7 @@ public class ManageDAO {
             } else {
                 objBO.setStoreId("0");
             }
-            System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<< business output : "+objBO.getStoreId()+", "+cnt);
+            System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<< business output : " + objBO.getStoreId() + ", " + cnt);
             con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -326,26 +326,33 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_offers(?,?,?,?,?,?,?,?,?,?)}");
-            // pst = con.prepareStatement("insert into offers(storeid, discount, discounton, totalcoupons, sDate, eDate, termsandcondition) values(?,?,?,?,?,?,?)");
-            stmt.registerOutParameter(10, Types.INTEGER);
-            stmt.setString(1, objBO.getStoreId());
-            stmt.setString(2, objBO.getDiscount());
-            stmt.setString(3, objBO.getDiscountOn());
-            stmt.setInt(4, Integer.parseInt(objBO.getTotalCoupons()));
-            stmt.setString(5, objBO.getStartOffer());
-            stmt.setString(6, objBO.getEndOffer());
-            stmt.setString(7, objBO.getTc());
-            stmt.setString(8, "");
-            stmt.setString(9, "1");
-            stmt.setInt(10, 0);
-            stmt.execute();
-            objBO.setOid(stmt.getInt("_oid"));
-            con.close();
 
-
-
-
+            pst = con.prepareStatement("select * from offers where storeid=? and offerstatus='Active' or storeid=? and offerstatus='Pending'");
+            pst.setString(1, objBO.getStoreId());
+            pst.setString(2, objBO.getStoreId());
+            rs = pst.executeQuery();
+            if (!rs.next()) {
+                CallableStatement stmt = con.prepareCall("{call sp_offers(?,?,?,?,?,?,?,?,?,?)}");
+                // pst = con.prepareStatement("insert into offers(storeid, discount, discounton, totalcoupons, sDate, eDate, termsandcondition) values(?,?,?,?,?,?,?)");
+                stmt.registerOutParameter(10, Types.INTEGER);
+                stmt.setString(1, objBO.getStoreId());
+                stmt.setString(2, objBO.getDiscount());
+                stmt.setString(3, objBO.getDiscountOn());
+                stmt.setInt(4, Integer.parseInt(objBO.getTotalCoupons()));
+                stmt.setString(5, objBO.getStartOffer());
+                stmt.setString(6, objBO.getEndOffer());
+                stmt.setString(7, objBO.getTc());
+                stmt.setString(8, "");
+                stmt.setString(9, "1");
+                stmt.setInt(10, 0);
+                stmt.execute();
+                if (stmt.getInt("_oid") > 0) {
+                    objBO.setOid(1);
+                }
+                con.close();
+            } else {
+                objBO.setOid(2);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -431,6 +438,25 @@ public class ManageDAO {
             stmt.execute();
             cnt = stmt.getInt("_oid");
             if (cnt == 1) {
+                objBO.setAddFlag(true);
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void sUpdateOfferPhoto(ManageOfferBO objBO) {
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            pst = con.prepareStatement("update offers set offerimg=?, offerstatus='Pending' where storeid=?");
+            pst.setString(1, objBO.getOfferPhoto());
+            pst.setString(2, objBO.getStoreId());
+            cnt = pst.executeUpdate();
+            if (cnt > 0) {
                 objBO.setAddFlag(true);
             }
             con.close();
@@ -642,8 +668,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_adv(?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(9, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_adv(?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(10, Types.INTEGER);
             stmt.setString(1, objBO.getStoreId());
             stmt.setString(2, objBO.getAdvTitle());
             stmt.setString(3, objBO.getAdvDesc());
@@ -651,15 +677,12 @@ public class ManageDAO {
             stmt.setString(5, objBO.getEndAdv());
             stmt.setString(6, objBO.getTc());
             stmt.setString(7, "");
-            stmt.setString(8, "1");
-            stmt.setInt(9, 0);
+            stmt.setString(8, objBO.getSubType());
+            stmt.setString(9, "1");
+            stmt.setInt(10, 0);
             stmt.executeQuery();
             objBO.setAid(stmt.getInt("_aid"));
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -674,8 +697,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_adv(?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(9, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_adv(?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(10, Types.INTEGER);
             stmt.setString(1, objBO.getStoreId());
             stmt.setString(2, objBO.getAdvTitle());
             stmt.setString(3, objBO.getAdvDesc());
@@ -683,15 +706,12 @@ public class ManageDAO {
             stmt.setString(5, objBO.getEndAdv());
             stmt.setString(6, objBO.getTc());
             stmt.setString(7, "");
-            stmt.setString(8, "2");
-            stmt.setInt(9, objBO.getAid());
+            stmt.setString(8, objBO.getSubType());
+            stmt.setString(9, "2");
+            stmt.setInt(10, objBO.getAid());
             stmt.executeQuery();
             objBO.setAid(stmt.getInt("_aid"));
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -706,8 +726,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_adv(?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(9, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_adv(?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(10, Types.INTEGER);
             stmt.setString(1, "");
             stmt.setString(2, "");
             stmt.setString(3, "");
@@ -715,8 +735,9 @@ public class ManageDAO {
             stmt.setString(5, "");
             stmt.setString(6, "");
             stmt.setString(7, objBO.getAdvPhoto());
-            stmt.setString(8, "3");
-            stmt.setInt(9, objBO.getAid());
+            stmt.setString(8, "");
+            stmt.setString(9, "3");
+            stmt.setInt(10, objBO.getAid());
             stmt.executeQuery();
 
             if (stmt.getInt("_aid") == 1) {

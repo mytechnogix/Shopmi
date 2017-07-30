@@ -85,8 +85,8 @@
             <span id="tooltipMap" style="float: right; padding: 30px;" data-toggle="tooltip" data-placement="bottom" title="Scroll down to see Map">
             </span>
             <div class="content-wrapper">
-                <section class="content-header" id="serviceTitle" style="background-color: #fff; padding-bottom: 3px">
-                    <h1> <i class="glyphicon glyphicon-gift"></i> Offer Details</h1>
+                <section class="content-header" id="serviceTitle" style="background-color: #fff; padding-bottom: 3px;">
+                    <h1 style="padding-top: 4px;"> <img src="images/offerIcon.png" style="width: 30px;"> Offer Details</h1>
                     <ol class="breadcrumb">
                         <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
                         <li class="active">Offer Details</li>
@@ -130,7 +130,7 @@
                             </div>
                         </div>
                         <div class="col-lg-2 hidden-xs hidden-sm">
-                            <img src="images/ads.PNG">
+                            <img src="images/ad_myshejari.jpg">
                         </div>
                     </div>
                 </section>

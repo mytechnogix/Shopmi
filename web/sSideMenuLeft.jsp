@@ -14,25 +14,25 @@
                 </a>
             </li>
             <li>
-                <a href="hAddAdvertise.jsp">
+                <a href="sAdvertiseDetails.jsp">
                     <i class="fa fa-files-o"></i>
-                    <span>Add Advertise</span>
+                    <span>Manage Advertise</span>
                 </a>
             </li>
             <li>
-                <a href="hEnquiries.jsp">
+                <a href="sInquiries.jsp">
                     <i class="fa fa-files-o"></i>
                     <span>Inquiries</span>
                 </a>
             </li>
             <li>
-                <a href="hReviews.jsp">
+                <a href="sReviews.jsp">
                     <i class="fa fa-files-o"></i>
                     <span>Reviews</span>
                 </a>
             </li>
             <li>
-                <a href="hRaiseRequest.jsp">
+                <a href="#">
                     <i class="fa fa-files-o"></i>
                     <span>Get Help</span>
                 </a>

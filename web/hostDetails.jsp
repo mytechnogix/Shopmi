@@ -106,8 +106,8 @@
             <span id="tooltipMap" style="float: right; padding: 30px;" data-toggle="tooltip" data-placement="bottom" title="Scroll down to see Map">
             </span>
             <div class="content-wrapper">
-                <section class="content-header" id="serviceTitle" style="background-color: #fff; padding-bottom: 3px">
-                    <h1><i class="fa fa-building"></i> Property Details </h1>
+                <section class="content-header" id="serviceTitle" style="background-color: #fff; padding-bottom: 3px;">
+                    <h1><i class="fa fa-building" style="padding-top: 5px"></i> Property Details </h1>
                     <ol class="breadcrumb">
                         <li><a href="index.jsp"><i class="fa fa-home"></i> Home</a></li>
                         <li class="active">Property Details</li>
@@ -523,8 +523,8 @@
                             </div>
                         </div>
                         <div class="col-md-2 hidden-xs">
-                            <img src="images/ads.PNG"><br><br>
-                            <img src="images/ads.PNG">
+                            <img src="images/ad_myshejari.jpg"><br><br>
+                            <img src="images/ad_myshejari.jpg">
                         </div>
                     </div>
                 </section>

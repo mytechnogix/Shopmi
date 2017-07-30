@@ -15,8 +15,8 @@
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-            <jsp:include page="aHeader.jsp"/>
-            <jsp:include page="aSideMenuLeft.jsp"/>  
+            <jsp:include page="sHeader.jsp"/>
+            <jsp:include page="sSideMenuLeft.jsp"/>  
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
@@ -33,30 +33,10 @@
                         <div class="col-md-8">
                             <div class="box box-primary">
                                 <form role="form" action="aAddAdvertiseCheck.jsp" method="post">
-                                    <input type="hidden" name="type" value="add">
+                                    <input type="hidden" name="type" value="sAdd">
                                     <div class="box-body">
-                                        <div class="form-group">
-                                            <label>Select Store</label>
-                                            <select class="form-control" name="advStoreId" id="advStoreId" required>
-                                                <option value="">-- Select Store --</option>
-                                                <%
-                                                    PreparedStatement pst;
-                                                    ResultSet rs;
-                                                    Connection con;
-                                                    Class.forName("com.mysql.jdbc.Driver");
-                                                    DBConnector dbc = new DBConnector();
-                                                    con = DriverManager.getConnection(dbc.getConstr());
-                                                    pst = con.prepareStatement("select storeid, storename from storedetails where storestatus='Active'");
-                                                    rs = pst.executeQuery();
-                                                    while (rs.next()) {
-                                                %>
-                                                <option value="<%=rs.getString("storeid")%>"><%=rs.getString("storename")%></option>
-                                                <%
-                                                    }
-                                                    con.close();
-                                                %>
-                                            </select>
-                                        </div>
+                                        <%String storeid = String.valueOf(session.getAttribute("sStoreid"));%>
+                                        <input type="hidden" value="<%=storeid%>" name="advStoreId">
                                         <label>Advertise Duration</label>
                                         <div class="form-group">
                                             <div class="input-group">
@@ -99,7 +79,6 @@
                     </div> 
                 </section>
             </div>
-            <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
             <script>
                 $('#bothdates').daterangepicker();

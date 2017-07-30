@@ -4,17 +4,11 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <!DOCTYPE html>
-<%
-    String oid = request.getParameter("oid");
-    if (oid == "" || oid == null) {
-        response.sendRedirect("sDashboard.jsp");
-    }
-%>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Claim Coupon</title>
+        <title>Customer Enquiries</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -31,68 +25,58 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Claimed Coupon
+                        Inquiries
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Manage Offers</a></li>
-                        <li class="active">Claimed Coupon</li>
+                        <li class="active">Inquiries</li>
                     </ol>
                 </section>
                 <section class="content">
                     <div class="row">
-                        <div class="col-md-12" id="offerDetails">
+                        <div class="col-md-12" id="advDetails">
                             <div class="box box-primary">
-                                <div class="box-body pre-scrollable">
-                                    <table id="example1" class="table table-bordered table-striped ">
+                                <div class="box-header">
+                                    <h3 class="box-title">Customer Inquiries</h3>
+                                </div>
+                                <div class="box-body">
+                                    <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>Sr. No.</th>
-                                                <th>User ID</th>
-                                                <th>Coupon code</th>
-                                                <th>Coupon status</th>
-                                                <th>Apply date</th>
-                                                <th>Claim Date</th>
-                                                <th>Use Coupon</th>
+                                                <th>Customer ID</th>
+                                                <th>Inquiry Subject</th>
+                                                <th>Inquiry</th>
+                                                <th>Date - Time</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <%
-                                                String uid = "", coupon = "", applyDate = "", couponStatus = "", claimDate = "";
-                                                int cnt = 0;
+                                                String timedate = "", uid = "", enquiry = "", enquirySub = "";
                                                 String storeid = String.valueOf(session.getAttribute("sStoreid"));
+                                                int cnt = 0;
                                                 PreparedStatement pst;
                                                 ResultSet rs;
                                                 Connection con;
                                                 Class.forName("com.mysql.jdbc.Driver");
                                                 DBConnector dbc = new DBConnector();
                                                 con = DriverManager.getConnection(dbc.getConstr());
-                                                pst = con.prepareStatement("select * from claimedoffers where storeid=? and oid=?");
+                                                pst = con.prepareStatement("select * from reviewstore where storeid=? and enquiry!='NA'");
                                                 pst.setString(1, storeid);
-                                                pst.setString(2, oid);
                                                 rs = pst.executeQuery();
                                                 while (rs.next()) {
                                                     cnt++;
-                                                    coupon = rs.getString("coupon");
                                                     uid = rs.getString("uid");
-                                                    applyDate = rs.getString("claimdate");
-                                                    claimDate = rs.getString("redeemdate");
-                                                    couponStatus = rs.getString("couponstatus");
+                                                    enquirySub = rs.getString("reviewsub");
+                                                    enquiry = rs.getString("enquiry");
+                                                    timedate = rs.getString("reviewdate");
                                             %>
                                             <tr>
                                                 <td><%=cnt%></td>
                                                 <td><%=uid%></td>
-                                                <td><%=coupon%></td>
-                                                <td><%=couponStatus%></a></td>
-                                                <td><%=applyDate%></td>
-                                                <td><%=claimDate%></td>
-                                                <%
-                                                    if (claimDate.equals("Not Available")) {
-                                                %>
-                                                <td><a href="javascript:useCoupon('<%=rs.getString("cid")%>')" class="btn btn-block btn-primary">Apply</a></td>
-                                                <%} else {%>
-                                                <td><button type="button" class="btn btn-block btn-primary disabled">Apply</button></td>
-                                                <%}%>
+                                                <td><%=enquirySub%></td>
+                                                <td><%=enquiry%></td>
+                                                <td><%=timedate%></td>
                                             </tr>
                                             <%}
                                                 con.close();
@@ -101,12 +85,10 @@
                                         <tfoot>
                                             <tr>
                                                 <th>Sr. No.</th>
-                                                <th>User ID</th>
-                                                <th>Coupon code</th>
-                                                <th>Coupon status</th>
-                                                <th>Apply date</th>
-                                                <th>Claim Date</th>
-                                                <th>Use Coupon</th>
+                                                <th>Customer ID</th>
+                                                <th>Inquiry Subject</th>
+                                                <th>Inquiry</th>
+                                                <th>Date - Time</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -126,6 +108,7 @@
         <script src="dist/js/app.min.js"></script>
         <script src="dist/js/demo.js"></script>
         <script src="js/custom.js"></script>
+
         <script>
             $(function () {
                 $("#example1").DataTable();
@@ -137,6 +120,26 @@
                     "info": true,
                     "autoWidth": false
                 });
+            });
+        </script>
+        <script>
+            $("#btnAdd").click(function(){
+                $(".imgDetails").hide();
+                $(".imgDetails1").hide();
+            });
+            $("#btnCancel").click(function(){
+                $(".imgUpload").hide();
+                $(".imgDetails").show();
+                $(".imgDetails1").show();
+            });
+            $("table tr").on("click","td:nth-child(7)",function () {
+                var aid = $(this).siblings(":nth-child(1)").text();
+                var td6 = $(this).text();
+                $("#advDetails").addClass("col-lg-8");
+                $("#picPath").attr("href","aAddAdvPhoto.jsp?aid="+aid);
+                $(".setImage").html("<img src='images/advphotos/"+td6+"' class='preview'>");
+                $("#imgPreviewName").text(td6);
+                $(".imgPreview").show();
             });
         </script>
     </body>

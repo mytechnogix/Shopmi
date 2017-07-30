@@ -15,7 +15,16 @@ public class ManageAdvBO {
     private String _advPhoto;
     private String _timedateAdv;
     private String _statusAdv;
+    private String _subType;
     private boolean _addFlag;
+
+    public String getSubType() {
+        return _subType;
+    }
+
+    public void setSubType(String _subType) {
+        this._subType = _subType;
+    }
 
     public boolean isAddFlag() {
         return _addFlag;

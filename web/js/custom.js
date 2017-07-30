@@ -91,6 +91,7 @@ var xmlhttp;
 var optype="";
 function aAddOffer(str)
 {
+    //alert(str);
     optype=str;
     var dates=document.getElementById("bothdates").value;
     var offerOn=document.getElementById("offerOn").value;
@@ -115,19 +116,26 @@ function aAddOffer(str)
 }
 function aAddOffer_output()
 {
-    //alert();
     if (xmlhttp.readyState==4)
     {
         //alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1"){
-            alert("Offer Added successfully");
-            window.location="aAddOfferPhoto.jsp";
+            if(optype=="000"){
+                alert("Offer Added successfully");
+                window.location="aAddOfferPhoto.jsp";
+            }
+            if(optype=="222")
+            {
+                alert("Offer details added successfully");
+                window.location="sStoreOfferDetails.jsp";
+            }
+        }
+        else if(xmlhttp.responseText=="2"){
+            alert("Offer already exist");
         }
         else{
             alert("Failed to add offer");
         }
-    //        if(xmlhttp.responseText=="0" && xmlhttp.responseText!="2" && xmlhttp.responseText!="1"){
-    //        }
     }
 }
 //ajax -1
@@ -219,7 +227,7 @@ function saveEnquiryOutput()
     {
         //alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1"){
-          //  alert(eType);
+            //  alert(eType);
             if(eType=="store"){
                 $('#enquiryModalShop').modal('hide');   
                 $('#enquiryModalSuccess').modal('show'); 
@@ -934,6 +942,48 @@ function redirectToOfferOutput(){
         }
     }
 }
+
+//ajax - use coupons
+var xmlHttp
+function useCoupon(str){
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    
+    var r=confirm("Do you really want to use this coupon?");
+    if (r==true)
+    {
+        var url="useCoupon.jsp?cid="+str;
+        xmlHttp.onreadystatechange = useCouponOutput;
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send(null);
+    }
+    else
+    {
+        return;
+    }
+}
+function useCouponOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="1")
+        {
+            window.location.reload();
+        }
+        if(xmlHttp.responseText=="0")
+        {
+            alert("Failed to apply coupon");
+        }
+    }
+}
+
 var xmlhttp;
 function contacted()
 {

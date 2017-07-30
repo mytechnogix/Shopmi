@@ -7,7 +7,6 @@
     totalCoupons = request.getParameter("offerCoupons");
     tc = request.getParameter("offerTC");
     oid = request.getParameter("type");
-    // System.out.println("<<<<<<<< Type : " + oid);
     dates = request.getParameter("bothdates");
     String[] strArray = dates.split(Pattern.quote("-"));
 //    String[] sDate = strArray[0].split(Pattern.quote("/"));
@@ -29,12 +28,26 @@
     objBO.setEndOffer(end);
     objBO.setTc(tc);
 
-    if (oid.equalsIgnoreCase("000")) {
+    //from storeLogin
+    if (oid.equalsIgnoreCase("222")) {
         objBO.setStoreId(storeId);
         objDAO.addOfferDetails(objBO);
-        if (objBO.getOid() != 0) {
+        if (objBO.getOid() == 1) {
+            session.setAttribute("sOidAddOffer", objBO.getOid());
+            out.print("1");
+        } else if (objBO.getOid() == 2) {
+            out.print("2");
+        } else {
+            out.print("0");
+        }
+    } else if (oid.equalsIgnoreCase("000")) {
+        objBO.setStoreId(storeId);
+        objDAO.addOfferDetails(objBO);
+        if (objBO.getOid() == 1) {
             session.setAttribute("oidAddOffer", objBO.getOid());
             out.print("1");
+        } else if (objBO.getOid() == 2) {
+            out.print("2");
         } else {
             out.print("0");
         }

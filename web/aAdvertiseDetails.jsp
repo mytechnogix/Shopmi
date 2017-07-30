@@ -8,6 +8,7 @@
     <%
         int storeId = Integer.parseInt(request.getParameter("sid"));
         int aid = Integer.parseInt(request.getParameter("aid"));
+        String img = "";
         PreparedStatement pst;
         ResultSet rs, rs1;
         Connection con;
@@ -44,10 +45,14 @@
                 </section>
                 <%
                     if (rs.next()) {
+                        img = rs.getString("advimg");
+                        if (img.equals("default.jpg")) {
+                            img = "shopIcon_lg.png";
+                        }
                 %>
                 <section class="content">
                     <div class="row imgUpload" >
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <div class="box box-primary">
                                 <form role="form" action="aAddAdvertiseCheck.jsp" method="post">
                                     <input type="hidden" name="type" value="update">
@@ -68,7 +73,6 @@
                                                 <option value='<%=rs1.getString("storename")%>'><%=rs1.getString("storename")%></option>
                                                 <%}
                                                     }
-                                                    con.close();
                                                 %>
                                             </select>
                                         </div>
@@ -91,6 +95,26 @@
                                         <div class="form-group date">
                                             <textarea class="form-control" id="advTC" name="advTC" rows="4" cols="100" required><%=rs.getString("advtc")%></textarea>
                                         </div>
+                                        <label>Subscription Type</label>
+                                        <div class="form-group date">
+                                            <select class="form-control" name="advSubtype" id="advSubtype" required>
+                                                <option value='<%=rs.getString("subtype")%>' selected><%=rs.getString("subtype")%></option>
+                                                <option value="MSADM6">For 6 Months - 5 Rs/Day (MSADM6)</option>
+                                                <option value="MSADM3">For 3 Months - 7 Rs/Day (MSADM3)</option>
+                                                <option value="MSADM1">For 1 Month - 10 Rs/Day (MSADM1)</option>
+                                                <option value="MSADW2">For 2 Weeks - 12 Rs/Day (MSADW2 - Ad banner creation not included)</option>
+                                                <option value="MSADW1">For 1 Week - 14 Rs/Day (MSADW1 - Ad banner creation not included)</option>
+                                            </select>
+                                        </div>
+                                        <label>Note: 
+                                            <%
+                                                if (rs.getString("subtype").equals("MSADW1") || rs.getString("subtype").equals("MSADW2")) {
+                                            %>
+                                            <span style="color: red">Ad Banner Creation Not Included</span>
+                                            <%} else {%>
+                                            <span style="color: green; font-weight: bold">Ad Banner Creation Included</span>
+                                            <%}%>
+                                        </label>
                                     </div>
                                     <div class="box-footer">
                                         <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
@@ -101,7 +125,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-md-6    ">
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Image Preview</h3>
@@ -110,13 +134,10 @@
                                 <div class="box-body">
                                     <div class="row">
                                         <div class="col-md-4 setImage">
-                                            <img src="images/advphotos/<%=rs.getString("advimg")%>" style="width: 300px; height: 300px"/>
+                                            <img src="images/advphotos/<%=img%>" style="width: 500px; height: 270px"/>
                                         </div>
                                     </div>
                                 </div>   
-                                <div class="box-footer clearfix no-border">
-                                    <span><%=rs.getString("advimg")%></span>
-                                </div>
                             </div>
                         </div>
                     </div> 
@@ -134,6 +155,7 @@
                 $("#advTitle").attr("disabled","disabled");
                 $("#advDesc").attr("disabled","disabled");
                 $("#advTC").attr("disabled","disabled");
+                $("#advSubtype").attr("disabled","disabled");
                 
                 $("#btnEdit").click(function(){
                     $("#btnUpdate").show();
@@ -143,6 +165,7 @@
                     $("#advTitle").removeAttr("disabled");
                     $("#advDesc").removeAttr("disabled");
                     $("#advTC").removeAttr("disabled");
+                    $("#advSubtype").removeAttr("disabled");
                     $('#bothdates').daterangepicker();
                 });
                 $("#btnReset").click(function(){
@@ -153,8 +176,10 @@
                     $("#advTitle").attr("disabled","disabled");
                     $("#advDesc").attr("disabled","disabled");
                     $("#advTC").attr("disabled","disabled");
+                    $("#advSubtype").attr("disabled","disabled");
                 });
             </script>
         </div>
+        <%  con.close();%>
     </body>
 </html>

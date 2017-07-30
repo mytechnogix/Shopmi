@@ -356,8 +356,8 @@
                             </div>
                         </div>
                         <div class="col-md-2 hidden-xs">
-                            <img src="images/ads.PNG"><br><br>
-                            <img src="images/ads.PNG">
+                            <img src="images/ad_myshejari.jpg"><br><br>
+                            <img src="images/ad_myshejari.jpg">
                         </div>
                     </div>
                 </section>

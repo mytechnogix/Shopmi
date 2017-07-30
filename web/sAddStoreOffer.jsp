@@ -16,8 +16,8 @@
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-            <jsp:include page="aHeader.jsp"/>
-            <jsp:include page="aSideMenuLeft.jsp"/>  
+            <jsp:include page="sHeader.jsp"/>
+            <jsp:include page="sSideMenuLeft.jsp"/>  
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
@@ -33,30 +33,12 @@
                     <div class="row imgUpload" >
                         <div class="col-md-8">
                             <div class="box box-primary">
-                                <form role="form" action="javascript:aAddOffer('000')">
+                                <form action="javascript:aAddOffer('222');">
+                                    <%
+                                        String storeid = String.valueOf(session.getAttribute("sStoreid"));
+                                    %>
+                                    <input type="hidden" id="offerStoreId" value="<%=storeid%>">
                                     <div class="box-body">
-                                        <div class="form-group">
-                                            <label>Select Store</label>
-                                            <select class="form-control" id="offerStoreId" required>
-                                                <option value="">-- Select Store --</option>
-                                                <%
-                                                    PreparedStatement pst;
-                                                    ResultSet rs;
-                                                    Connection con;
-                                                    Class.forName("com.mysql.jdbc.Driver");
-                                                    DBConnector dbc = new DBConnector();
-                                                    con = DriverManager.getConnection(dbc.getConstr());
-                                                    pst = con.prepareStatement("select storeid, storename from storedetails where storestatus='Active'");
-                                                    rs = pst.executeQuery();
-                                                    while (rs.next()) {
-                                                %>
-                                                <option value="<%=rs.getString("storeid")%>"><%=rs.getString("storename")%></option>
-                                                <%
-                                                    }
-                                                    con.close();
-                                                %>
-                                            </select>
-                                        </div>
                                         <label>Offer Duration</label>
                                         <div class="form-group">
                                             <div class="input-group">

@@ -227,11 +227,6 @@
                                 Offer Duration : <%=rs.getString("sDate")%> to <%=rs.getString("eDate")%>
                                 <br>
                                 <br>  
-                                <b>Terms and Conditions</b>
-                                <br>
-                                <p>
-                                    <%=rs.getString("termsandcondition")%>
-                                </p>
                                 <%
                                 } else {
                                 %>

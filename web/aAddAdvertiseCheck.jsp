@@ -1,13 +1,14 @@
 <%@page import="BO.ManageAdvBO"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="DAO.ManageDAO"%><%
-    String storeId, advDesc, advTitle, tc = "", dates, start = "", end = "", type = "";
+    String storeId, advDesc, advTitle, tc = "", dates, start = "", end = "", type = "", subtype="";
     storeId = request.getParameter("advStoreId");
     advTitle = request.getParameter("advTitle");
     advDesc = request.getParameter("advDesc");
     tc = request.getParameter("advTC");
     type = request.getParameter("type");
     dates = request.getParameter("bothdates");
+    subtype = request.getParameter("advSubtype");
     String[] strArray = dates.split(Pattern.quote("-"));
     //String[] sDate = strArray[0].split(Pattern.quote("/"));
     //String[] eDate = strArray[1].split(Pattern.quote("/"));
@@ -25,8 +26,16 @@
     objBO.setEndAdv(end);
     objBO.setAdvTitle(advTitle);
     objBO.setAdvDesc(advDesc);
+    objBO.setSubType(subtype);
     objBO.setTc(tc);
-    if (type.equals("add")) {
+    if (type.equals("sAdd")) {
+        objDAO.addAdvertiseDetails(objBO);
+        if (objBO.getAid() != 0) {
+            response.sendRedirect("sAdvertiseDetails.jsp");
+        } else {
+            out.print("Failed to add advertise details");
+        }
+    } else if (type.equals("add")) {
         objDAO.addAdvertiseDetails(objBO);
         if (objBO.getAid() != 0) {
             session.setAttribute("aidPhoto", objBO.getAid());

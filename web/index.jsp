@@ -241,61 +241,6 @@
                                     </div>  
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="box box-primary hidden-xs" id="similarResultsWP">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title"><i class="fa fa-search"></i> Popular Stores</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <ul class="todo-list">
-                                            <%
-                                                pst = con.prepareStatement("select storename, count(*) as frequency from log_popular group by category order by count(*) desc limit 10;");
-                                                rs = pst.executeQuery();
-                                                while (rs.next()) {
-                                            %>
-                                            <li>
-                                                <a href="search.jsp?search=<%=rs.getString("storename")%>">
-                                                    <span class="handle">
-                                                        <i class="fa fa-tag"></i>
-                                                    </span>
-                                                    <span class="text"><%=rs.getString("storename")%></span>
-                                                    <div class="tools">
-                                                        <i class="fa fa-external-link"></i>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <%}%>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="row" id="filterWP">
-                                    <div class="col-lg-12 box text-center" style="padding: 0px">
-                                        <div class="box-body text-center">
-                                            <span class="col-lg-3 label label-info" style="font-size: 16px">Sort By</span>
-                                            <span class="col-lg-3">
-                                                <input type="radio" class="flat-red option-input radio" value="visitcount" name="filterChk" id="chkPopular" checked>
-                                                <span class="radioLabel1"> Popularity</span>
-                                            </span>
-                                            <span class="col-lg-3">
-                                                <input type="radio" class="flat-red option-input radio" value="rating" name="filterChk" id="chkRating">
-                                                <span class="radioLabel1"> Shop Rating</span>
-                                            </span>
-                                            <span class="col-lg-3">
-                                                <input type="radio" class="flat-red option-input radio" value="storename" name="filterChk" id="chkReview">
-                                                <span class="radioLabel1"> Reviews</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 box box-primary" id="searchResults">
-                                        <div class="box-body" id="showData" style="min-height: 410px">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="box box-primary">
@@ -312,7 +257,7 @@
                                         %>
                                         <li class="item">
                                             <div class="product-img">
-                                                <img src="images/catsPopularIcon.png" alt="Category Icon">
+                                                <img src="images/catsPopularIcon.png" alt="Shop Icon">
                                             </div>
                                             <div class="product-info">
                                                 <a href="JavaScript:setSearchCat('<%=rs.getString("cat1")%>')" class="product-title"><%=rs.getString("cat1")%>
@@ -331,7 +276,7 @@
                                         </li>
                                         <li class="item">
                                             <div class="product-img">
-                                                <img src="images/catsPopularIcon.png" alt="Category Icon">
+                                                <img src="images/catsPopularIcon.png" alt="Shop Icon">
                                             </div>
                                             <div class="product-info">
                                                 <a href="JavaScript:setSearchCat('<%=rs.getString("cat2")%>')" class="product-title"><%=rs.getString("cat2")%>
@@ -416,7 +361,7 @@
                             <div class="box box-primary">
                                 <div class="box-header">
                                     <h3 class="box-title">
-                                        <i class="fa fa-shopping-cart"></i> Offers for you!
+                                        <img src="images/offerIcon.png" style="width: 25px"> Offers for you!
                                     </h3>
                                     <div class="controls pull-right">
                                         <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example"
@@ -430,8 +375,11 @@
                                         <div class="carousel-inner">
                                             <%
                                                 int i = 0;
-                                                int size = (myclass.size() / 4) * 4;
-                                                for (i = 0; i < size; i++) {
+                                                int remSize = (myclass.size() % 4);
+                                                if (remSize != 0) {
+                                                    remSize = 4 - remSize;
+                                                }
+                                                for (i = 0; i < myclass.size(); i++) {
 
                                                     if (i == 0) {
                                             %>
@@ -469,6 +417,35 @@
                                                                 </a>
                                                             </div>
                                                             <%
+                                                                if (i == myclass.size() - 1) {
+                                                                    for (int j = 0; j < remSize; j++) {
+                                                            %>
+                                                            <div class="col-sm-3">
+                                                                <a href="offerDetails.jsp?id=0">
+                                                                    <div class="col-item" style="background-color:lightgoldenrodyellow;">
+                                                                        <div class="photo">
+                                                                            <img src="images/offerphotos/shopIcon_lg.png" class="img-responsive" alt="temp"/>
+                                                                        </div>
+                                                                        <div class="info">
+                                                                            <div class="row">
+                                                                                <div class="price col-md-6">
+                                                                                    <h5>Offer On</h5>
+                                                                                    <h5 class="price-text-color">
+                                                                                        Storename
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div class="rating hidden-sm col-md-6 text-red">
+                                                                                    Flat 0% Off
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="clearfix">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                            <%                                                                }
+                                                                }
                                                                 if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19) {
                                                             %>
                                                         </div>
@@ -487,7 +464,7 @@
                                     <div class="box box-primary">
                                         <div class="box-header">
                                             <h3 class="box-title">
-                                                <i class="fa fa-shopping-cart"></i>  मंगल कार्यालय
+                                                <img src="images/partyHallIcon.png" style="width: 25px">  मंगल कार्यालय
                                             </h3>
                                         </div>
                                         <div class="box-body">
@@ -496,11 +473,15 @@
                                                     pst = con.prepareStatement("select hallid, hallname, hallnamehindi, hall_area, photo, city from halls where status='Active' order by visitcount desc limit 4;");
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
+                                                        String img = rs.getString("photo");
+                                                        if (img.equals("default.jpg")) {
+                                                            img = "shopIcon_sm.png";
+                                                        }
                                                 %>
                                                 <li class="item">
                                                     <a href="hallDetails.jsp?id=<%=rs.getString("hallid")%>" target="_blank">
                                                         <div class="product-img">
-                                                            <img src="images/hallphotos/<%=rs.getString("photo")%>" alt="Category Icon">
+                                                            <img src="images/hallphotos/<%=img%>" alt="Hall Icon">
                                                         </div>
                                                         <div class="product-info">
                                                             <%=rs.getString("hallnamehindi")%>
@@ -519,7 +500,7 @@
                                     <div class="box box-primary">
                                         <div class="box-header">
                                             <h3 class="box-title">
-                                                <i class="fa fa-shopping-cart"></i>  मेस 
+                                                <img src="images/restoIcon.png" style="width: 25px"> मेस 
                                             </h3>
                                         </div>
                                         <div class="box-body">
@@ -556,7 +537,7 @@
                                     <div class="box box-primary">
                                         <div class="box-header">
                                             <h3 class="box-title">
-                                                <i class="fa fa-shopping-cart"></i>  हॉस्टेल 
+                                                <i class="fa fa-building"></i>  हॉस्टेल 
                                             </h3>
                                         </div>
 
@@ -594,7 +575,7 @@
                                     <div class="box box-primary">
                                         <div class="box-header">
                                             <h3 class="box-title">
-                                                <i class="fa fa-shopping-cart"></i>  TechnoGix Corner 
+                                                <img src="images/technogixIcon.png" style="width: 24px">  TechnoGix Corner 
                                             </h3>
                                         </div>
                                         <div class="box-body">
@@ -602,7 +583,7 @@
                                                 <li class="item">
                                                     <a href="tProjGuidance.jsp" target="_blank">
                                                         <div class="product-img">
-                                                            <img src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Icon">
+                                                            <img src="images/technogix_guidance.png" alt="Technogix Guidance">
                                                         </div>
                                                         <div class="product-info" style="font-size: 16px;">
                                                             Project Guidance
@@ -614,7 +595,7 @@
                                                 <li class="item">
                                                     <a href="tTechSeminar.jsp" target="_blank">
                                                         <div class="product-img">
-                                                            <img src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Icon">
+                                                            <img src="images/technogix_seminar.png" alt="Technogix Seminar">
                                                         </div>
                                                         <div class="product-info" style="font-size: 16px;">
                                                             Technical Seminars
@@ -626,7 +607,7 @@
                                                 <li class="item">
                                                     <a href="tIdeaIncubator.jsp" target="_blank">
                                                         <div class="product-img">
-                                                            <img src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Icon">
+                                                            <img src="images/technogix_idea.png" alt="Technogix Idea">
                                                         </div>
                                                         <div class="product-info" style="font-size: 16px;">
                                                             Idea Incubator
@@ -638,7 +619,7 @@
                                                 <li class="item">
                                                     <a href="javascript:;" data-toggle="modal" data-target="#careerModal">
                                                         <div class="product-img">
-                                                            <img src="images/hostelphotos/shopIcon_sm.png" alt="Hostel Icon">
+                                                            <img src="images/technogix_career.png" alt="Technogix Career">
                                                         </div>
                                                         <div class="product-info" style="font-size: 16px;">
                                                             Careers
@@ -653,10 +634,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row hidden-xs">
+                                <div class="col-md-12">
+                                    <a href="storeDetails.jsp?id=44" target="_blank"><img src="images/ad_hashtag.jpg" style="width: 100%"></a>
+                                </div>
+                            </div>
+                            <br>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="box box-primary">
-                                        <div class="box-header">
+                                        <div class="box-header">    
                                             <h3 class="box-title">
                                                 <i class="fa fa-shopping-cart"></i> Recently Added Shops
                                             </h3>
@@ -672,7 +659,7 @@
                                                     <%}%>
                                                     <li class="item">
                                                         <div class="product-img">
-                                                            <img src="images/storephotos/<%=recentStores.get(i).getStorePhoto()%>" alt="Category Icon">
+                                                            <img src="images/storephotos/<%=recentStores.get(i).getStorePhoto()%>" alt="Shop Icon">
                                                         </div>
                                                         <div class="product-info">
                                                             <a href="storeDetails.jsp?id=<%=recentStores.get(i).getStoreId()%>" target="_blank" class="product-title">
