@@ -3,7 +3,7 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="active treeview">
-                <a href="aDashboard.jsp">
+                <a href="hDashboard.jsp">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
@@ -14,19 +14,7 @@
                 </a>
             </li>
             <li>
-                <a href="hAddOffer.jsp">
-                    <i class="fa fa-files-o"></i>
-                    <span>Add Offers</span>
-                </a>
-            </li>
-            <li>
-                <a href="hAddAdvertise.jsp">
-                    <i class="fa fa-files-o"></i>
-                    <span>Add Advertise</span>
-                </a>
-            </li>
-            <li>
-                <a href="hEnquiries.jsp">
+                <a href="hInquiries.jsp">
                     <i class="fa fa-files-o"></i>
                     <span>Inquiries</span>
                 </a>
@@ -38,7 +26,7 @@
                 </a>
             </li>
             <li>
-                <a href="hRaiseRequest.jsp">
+                <a href="#">
                     <i class="fa fa-files-o"></i>
                     <span>Get Help</span>
                 </a>

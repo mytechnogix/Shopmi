@@ -63,6 +63,7 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed"  onload="initMap()">
         <jsp:include page="header.jsp"/>
+        <br>
         <div class="wrapper">
             <div class="content-wrapper">
                 <section class="content">
@@ -123,7 +124,7 @@
                             </div>
                         </div>
                         <div class="col-lg-2 hidden-xs">
-                            <img src="images/ads.PNG">
+                            <img src="images/ad_myshejari.jpg">
                         </div>
                     </div>
                 </section>

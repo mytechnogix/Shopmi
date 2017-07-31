@@ -47,16 +47,15 @@
         </table>
         <%            }
         } else if (type.equals("hall")) {
-            pst = con.prepareStatement("select hallname, photo from halls where hallid=? and pass=? and status='Active';");
+            pst = con.prepareStatement("select hallid, hallname, photo from halls where email=? and pass=? and status='Active';");
             pst.setString(1, id);
             pst.setString(2, pass);
             rs = pst.executeQuery();
-
             if (rs.next()) {
                 session.setAttribute("hallFlag", "1");
-                session.setAttribute("hallid", id);
-                session.setAttribute("hallPhoto", rs.getString("photo"));
-                session.setAttribute("hallName", rs.getString("hallname"));
+                session.setAttribute("hHallid", rs.getInt("hallid"));
+                session.setAttribute("hHallPhoto", rs.getString("photo"));
+                session.setAttribute("hHallName", rs.getString("hallname"));
                 response.sendRedirect("hDashboard.jsp");
             } else {
         %>

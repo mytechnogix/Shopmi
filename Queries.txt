@@ -437,3 +437,20 @@ commit;
 END $$
 
 DELIMITER ;
+
+
+//encrypt function
+
+DELIMITER $$
+CREATE FUNCTION `fn_enctest`(a int) RETURNS varchar(100) CHARSET latin1
+    DETERMINISTIC
+begin
+declare enc_start varchar(100);
+declare enc_end varchar(100);
+set enc_start = LEFT(MD5(NOW()),6);
+set enc_end = LEFT(MD5(NOW()),6);
+
+return (concat(enc_start,conv(a,10,3),enc_end));
+end$$
+DELIMITER ;
+

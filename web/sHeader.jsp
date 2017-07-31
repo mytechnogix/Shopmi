@@ -1,7 +1,7 @@
 <%
     if (!String.valueOf(session.getAttribute("storeFlag")).equals("1")) {
 %>
-<jsp:forward page="storeLogin.jsp"/>
+<jsp:forward page="businessLogin.jsp"/>
 <%    }
 
     String name = String.valueOf(session.getAttribute("sStoreName"));

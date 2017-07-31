@@ -2,7 +2,7 @@
     PreparedStatement pst;
     Connection con;
     int cnt = 0;
-    int hallid = Integer.parseInt(String.valueOf(session.getAttribute("hallid")));
+    int hallid = Integer.parseInt(String.valueOf(session.getAttribute("hHallid")));
     String type = request.getParameter("type");
     int dd = Integer.parseInt(request.getParameter("dd"));
     int mm = Integer.parseInt(request.getParameter("mm"));

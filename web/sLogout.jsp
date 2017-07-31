@@ -1,4 +1,4 @@
 <%
     session.invalidate();
-    response.sendRedirect("storeLogin.jsp");
+    response.sendRedirect("businessLogin.jsp");
 %>

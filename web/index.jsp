@@ -56,7 +56,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
         <link rel="stylesheet" href="dist/css/AdminLTE.min.css"/>
-        <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
         <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css"/>
         <link rel="stylesheet" href="css/carousalOffers.css"/>
         <link rel="stylesheet" href="css/index.css"/>
@@ -628,7 +627,6 @@
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li class="text-center"><a href="#">See More</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -733,8 +731,6 @@
                     <script src="dist/js/pages/dashboard.js"></script>
                     <script src="dist/js/demo.js"></script>
                     <script src="js/jquery.newsTicker.min.js"></script> 
-                    <script src="js/aes.js"></script>
-                    <script src="js/crypto-js.js"></script>
                     <jsp:include page="modals.jsp"/>
                     <script src="js/custom.js"></script>
                     <script>

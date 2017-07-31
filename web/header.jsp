@@ -311,17 +311,9 @@
                         </li>
                         <li class="upper-links"><a class="links login-before-div" href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
                         <li class="upper-links"><a class="links" href="registerBusiness.jsp">Register your business</a></li>
-                        <li class="upper-links dropdown" style="color: white">
-                            <a class="links" href="javascript:;">                       
-                                Business Login</a>
-                            <ul class="dropdown-menu">
-                                <li class="profile-li"><a class="profile-links" href="storeLogin.jsp">Local Shop</a></li>
-                                <li class="profile-li"><a class="profile-links" href="hallLogin.jsp">Party Hall</a></li>
-                                <li class="profile-li"><a class="profile-links" href="#">Mes Service</a></li>
-                                <li class="profile-li"><a class="profile-links" href="#">Property</a></li>
-                            </ul>
+                        <li class="upper-links"><a class="links" href="businessLogin.jsp">Business Login</a>
                         </li>
-                        <li class="upper-links"><a class="links" href="javascript:;" data-toggle="modal" data-target="#contactModal">Contact Us</a></li>
+                        <li class="upper-links"><a class="links" href="contactus.jsp" target="_blank">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -332,8 +324,9 @@
                 <a href="index.jsp" ><i class="fa fa-home"></i> Home</a>
                 <a href="javascript:checkLogin('uLogin')" class="login-before-div"><i class="glyphicon glyphicon-gift"></i> Login</a>
                 <a href="registerBusiness.jsp" class="login-before-div"><i class="glyphicon glyphicon-gift"></i> Add Business</a>
+                <a href="businessLogin.jsp" class="login-before-div"><i class="fa fa-sign-in"></i> Business Login</a>
                 <a href="javascript:checkLogin('uLogin')"><i class="glyphicon glyphicon-gift"></i> My Profile</a>
-                <a href="javascript:;" data-toggle="modal" data-target="#contactModal"><i class="fa fa-envelope-o"></i> Contact Us</a>
+                <a href="contactus.jsp" target="_blank"a><i class="fa fa-envelope-o"></i> Contact Us</a>
                 <a href="faq.jsp"><i class="glyphicon glyphicon-question-sign"></i> FAQ</a>
                 <a href="logout.jsp" class="login-after-div" id="userLogoutMob"><i class="fa fa-sign-out"></i> Logout</a>
             </div>

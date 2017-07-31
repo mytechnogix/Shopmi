@@ -4,27 +4,28 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
+<%
+    String visits = "", rating = "", reviews = "", enq = "";
+    String hallname = String.valueOf(session.getAttribute("hHallName"));
+    String hallid = String.valueOf(session.getAttribute("hHallid"));
+    int cnt = 0;
+    PreparedStatement pst;
+    ResultSet rs;
+    Connection con;
+    Class.forName("com.mysql.jdbc.Driver");
+    DBConnector dbc = new DBConnector();
+    con = DriverManager.getConnection(dbc.getConstr());
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Marriage Hall Home</title>
+        <title><%=hallname%></title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
     </head>
-    <%
-        String visits = "", rating = "", reviews = "", enq = "";
-        String hallname = String.valueOf(session.getAttribute("hallName"));
-        int cnt = 0;
-        PreparedStatement pst;
-        ResultSet rs;
-        Connection con;
-        Class.forName("com.mysql.jdbc.Driver");
-        DBConnector dbc = new DBConnector();
-        con = DriverManager.getConnection(dbc.getConstr());
-
-    %>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
             <jsp:include page="hHeader.jsp"/>
@@ -35,12 +36,12 @@
                         <%=hallname%>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Dashboard</li>
+                        <li class="active">Home</li>
                     </ol>
                 </section>
                 <%
-                    pst = con.prepareStatement("select * from halls");
+                    pst = con.prepareStatement("select * from halls where hallid=?");
+                    pst.setString(1, hallid);
                     rs = pst.executeQuery();
                     while (rs.next()) {
                         visits = rs.getString("visitcount");
@@ -48,7 +49,6 @@
                         reviews = rs.getString("reviewscount");
                         enq = rs.getString("enquirycount");
                     }
-                    con.close();
                 %>
                 <section class="content">
                     <div class="row">
@@ -250,8 +250,8 @@
                     </div>
                 </section>
             </div>
-            <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
         </div>
+        <%con.close();%>
     </body>
 </html>

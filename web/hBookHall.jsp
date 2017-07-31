@@ -14,7 +14,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Marriage Hall Home</title>
+        <title>Book Hall</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -92,7 +92,7 @@
                                         int yy = 0, mm = 0;
                                         String yyString = "";
                                         String mmString = "";
-                                        int hallid = Integer.parseInt(String.valueOf(session.getAttribute("hallid")));
+                                        int hallid = Integer.parseInt(String.valueOf(session.getAttribute("hHallid")));
                                         try {
                                             Class.forName("com.mysql.jdbc.Driver");
                                             DBConnector dbc = new DBConnector();
@@ -199,7 +199,6 @@
                     </div>
                 </section>
             </div>
-            <jsp:include page="aSideMenuRight.jsp"/>
             <jsp:include page="aFooterFiles.jsp"/>
         </div>
         <script>
