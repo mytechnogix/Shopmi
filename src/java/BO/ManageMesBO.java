@@ -5,6 +5,7 @@ public class ManageMesBO {
     private String _mesName;
     private String _mesNameHindi;
     private String _contact;
+    private String _phone;
     private String _address;
     private String _mesArea;
     private String _email;
@@ -31,6 +32,14 @@ public class ManageMesBO {
     private String _photoLg;
     private String _serviceArea;
     private String _metadata;
+
+    public String getPhone() {
+        return _phone;
+    }
+
+    public void setPhone(String _phone) {
+        this._phone = _phone;
+    }
 
     public String getMesId() {
         return _mesId;

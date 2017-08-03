@@ -74,15 +74,7 @@
                                     <span id="loginError" class="response_error text-red" style="font-weight: bolder; display: none">
                                         Login failed, Invalid username or password
                                     </span>
-                                    <br>
-                                    -- OR --
                                     <div class="login-modal-footer">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <img id="googleSignIn" src="images/sign-in-button_google.png" style="cursor: pointer; width: 100%; height: 50px">
-                                            </div>
-                                        </div>
-                                        <br>
                                         <div class="row">
                                             <div class="col-xs-8 col-sm-8 col-md-8">
                                                 <i class="fa fa-lock"></i>

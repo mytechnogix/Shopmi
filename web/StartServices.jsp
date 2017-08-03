@@ -2,6 +2,6 @@
 <%
     ScheduleTimers obj = new ScheduleTimers();
     obj.PopularCats();
-    obj.CalcAvgRating();
+    //obj.CalcAvgRating();
     obj.updateClaimedOfferStatusJob();
 %>

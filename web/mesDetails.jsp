@@ -178,7 +178,9 @@
                                             <table style="font-size: 16px">
                                                 <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
                                                 <tr><td>Locality </td><td> <%=objBO.getMesArea()%></td></tr>
-                                                <tr><td>Contact</td><td> <%=objBO.getContact()%></td></tr>
+                                                <tr><td>Contact</td><td> <%=objBO.getContact()%>
+                                                    <%if (!objBO.getPhone().equals("Not Available")) {%>, <%=objBO.getPhone()%><%}%>
+                                                    </td></tr>
                                                 <tr><td>Services</td><td> <%=objBO.getServices()%></td></tr>
                                                 <tr><td>Home Delivery</td><td> <%=objBO.getHomeDelivery()%></td></tr>
                                                 <tr><td>Lunch Time</td><td> <%=objBO.getLunchTime()%></td></tr>

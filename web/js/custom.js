@@ -365,10 +365,13 @@ function submitReviewOutput()
 {
     if (xmlhttp.readyState==4)
     {
-        //alert(xmlhttp.responseText);
+        alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1"){
             $("#settingsTabRev").hide();
             $("#successReviewMsg").show();
+            alert("Your review posted successfully");
+            window.location.reload();
+            
         }
     }
 }
@@ -377,6 +380,7 @@ var xmlhttp;
 var rateVal;
 function toggleRating(str)
 {
+   // alert(str);
     rateVal=str;
     xmlhttp=GetXmlHttpObject();
     if (xmlhttp==null)
@@ -397,7 +401,7 @@ function toggleRatingOutput()
 {
     if (xmlhttp.readyState==4)
     {
-        // alert(xmlhttp.responseText);
+       // alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1"){
             $("#shop").hide();  
             $("#rateMsg").text("You have rated "+rateVal + " stars to this shop");

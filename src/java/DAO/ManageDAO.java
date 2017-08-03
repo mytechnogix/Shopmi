@@ -491,6 +491,7 @@ public class ManageDAO {
                 objBO.setMapLocation(rs.getString("maplocation"));
                 objBO.setRating(rs.getString("rating"));
                 objBO.setContact(rs.getString("contact"));
+                objBO.setPhone(rs.getString("phone"));
                 objBO.setVisitCount(rs.getString("visitcount"));
                 objBO.setReviewCount(rs.getString("reviewcount"));
                 objBO.setAddress(rs.getString("fulladdress"));
@@ -1046,9 +1047,11 @@ public class ManageDAO {
                 objBO.setMapLocation(rs.getString("maplocation"));
                 objBO.setRating(rs.getString("rating"));
                 objBO.setContact(rs.getString("contact"));
+                objBO.setPhone(rs.getString("phone"));
                 objBO.setVisitCount(rs.getInt("visitcount"));
                 objBO.setAddress(rs.getString("fulladdress"));
                 objBO.setEmail(rs.getString("email"));
+                objBO.setReviewCount(Integer.parseInt(rs.getString("reviewscount")));
                 photoSm = rs.getString("photo");
                 photo2 = rs.getString("photo2");
                 photo3 = rs.getString("photo3");
@@ -1247,6 +1250,7 @@ public class ManageDAO {
                 objBO.setMapLocation(rs.getString("maplocation"));
                 objBO.setRating(rs.getString("rating"));
                 objBO.setContact(rs.getString("contact"));
+                objBO.setPhone(rs.getString("phone"));
                 objBO.setVisitCount(rs.getString("visitcount"));
                 objBO.setReviewCount(rs.getString("reviewcount"));
                 objBO.setAddress(rs.getString("address"));
@@ -1459,10 +1463,12 @@ public class ManageDAO {
                 objBO.setDeposit(rs.getString("deposit"));
                 objBO.setForWhom(rs.getString("forwhom"));
                 objBO.setBedrooms(rs.getString("bedrooms"));
+                objBO.setBeds(rs.getString("beds"));
                 objBO.setDescription(rs.getString("description"));
                 objBO.setAmenities(rs.getString("amenities"));
                 objBO.setFurnished(rs.getString("furnished"));
                 objBO.setPossession(rs.getString("possession"));
+                objBO.setPostedOn(rs.getString("regdate"));
                 photoLg = photoSm;
                 if (photoSm.contains("default")) {
                     photoSm = "shopIcon_sm.png";
@@ -1561,4 +1567,28 @@ public class ManageDAO {
         }
         return data;
     }
+//
+//    public void getStoreCounters(ManageStoreBO objBO) throws SQLException {
+//        int cnt = 0;
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            DBConnector dbc = new DBConnector();
+//            con = DriverManager.getConnection(dbc.getConstr());
+//            pst = con.prepareStatement("SELECT avg(rating) avgrating FROM reviewstore where storeid=?");
+//            pst.setString(1, objBO.getStoreId());
+//            rs = pst.executeQuery();
+//            while (rs.next()) {
+//                objBO.setRating(String.format("%.1f", Double.parseDouble(rs.getString("avgrating"))));
+//            }
+//
+//            pst = con.prepareStatement("update claimedoffers set couponstatus=? where cid=?");
+//            pst.setString(1, remTime);
+//            pst.setString(2, rs.getString("cid"));
+//            pst.executeUpdate();
+//
+//            con.close();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 }

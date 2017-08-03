@@ -208,7 +208,7 @@
                                                             <img src="images/amenities/bedrooms.png" style="width: 30px; height: 30px">
                                                         </div>
                                                         <div class="product-info">
-                                                            3 Bedrooms
+                                                            <%=objBO.getBedrooms()%> Bedrooms
                                                             <span class="product-description" >
                                                                 No. of Bedrooms  
                                                             </span>
@@ -219,7 +219,7 @@
                                                             <img src="images/amenities/possession.png" style="width: 30px; height: 30px">
                                                         </div>
                                                         <div class="product-info">
-                                                            Immediately
+                                                            <%=objBO.getPossession()%>
                                                             <span class="product-description">
                                                                 Possession
                                                             </span>
@@ -230,7 +230,7 @@
                                                             <img src="images/amenities/furnished.png" style="width: 30px; height: 30px">
                                                         </div>
                                                         <div class="product-info">
-                                                            Fully
+                                                            <%=objBO.getFurnished()%>
                                                             <span class="product-description">
                                                                 Furnished
                                                             </span>
@@ -245,7 +245,7 @@
                                                             <img src="images/amenities/beds.png" style="width: 30px; height: 30px">
                                                         </div>
                                                         <div class="product-info">
-                                                            4 Beds
+                                                            <%=objBO.getBeds() %> Beds
                                                             <span class="product-description" >
                                                                 No. of Beds
                                                             </span>
@@ -256,7 +256,7 @@
                                                             <img src="images/amenities/tenants.png" style="width: 30px; height: 30px">
                                                         </div>
                                                         <div class="product-info">
-                                                            Family
+                                                           <%=objBO.getForWhom() %>
                                                             <span class="product-description" >
                                                                 Preferred Tenants
                                                             </span>

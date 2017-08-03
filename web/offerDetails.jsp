@@ -158,14 +158,14 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">
                             <b><i class="fa fa-check"></i> 
-                                Congratulations!
+                                Congratulations! You have grabbed coupon
                             </b>
                         </h4>
                     </div>
                     <div class="modal-body">
                         <div class="row text-center">
                             <div class="col-md-2">
-                                <img id="modalImg" src="images/shejari.com.png" style="width: 150px; height: 100px">
+                                <img id="modalImg" src="images/logoFinal.png" style="width: 150px; height:  130px">
                             </div>
                             <div class="col-md-8">
                                 <div class="row">
@@ -182,7 +182,7 @@
                         <div class="row text-center">
                             <hr>
                             <div class="col-xs-12">
-                                <span>Note: Take this coupon to the shop to avail discount</span>
+                                <span>Note: Take this coupon code to the shop to avail discount</span>
                             </div>
                         </div>
                     </div>

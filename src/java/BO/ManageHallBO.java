@@ -15,6 +15,7 @@ public class ManageHallBO {
     private String _address;
     private String _mapLocation;
     private String _contact;
+    private String _phone;
     private String _addedBy;
     private String _photo;
     private String _photo2;
@@ -26,6 +27,15 @@ public class ManageHallBO {
     private String _rating;
     private String _metadata;
 
+    public String getPhone() {
+        return _phone;
+    }
+
+    public void setPhone(String _phone) {
+        this._phone = _phone;
+    }
+
+    
     public String getHallId() {
         return _hallId;
     }

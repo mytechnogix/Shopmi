@@ -48,7 +48,7 @@
                                         <b>Email us at <a href="mailto:care@myshejari.com">care@myshejari.com</a></b><br><br>
                                         <b>OR</b><br><br>
                                         <b>Call us (10 am to 10 pm) <br>
-                                            Bhagyesh - 8149783802,<br> Ankush - 8421705748
+                                            <i class="fa fa-phone"></i> 8149783802<br><i class="fa fa-phone"></i> 8421705748
                                         </b>
                                     </div>
                                 </div>

@@ -48,8 +48,61 @@
         <br>
     </div>
     <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+    <style>
+        .social-icons ul li
+        {
+            display: inline;
+            padding-left: 5%;
+        }
+        .social-icons ul li .google
+        {
+            color: #fff;
+            border-radius: 5px;
+            font-size: 20px;
+            padding: 6px 10px 6px 10px;
+            background-color: red;
+        }
+        .social-icons ul li .facebook
+        {
+            color: #fff;
+            border-radius: 5px;
+            font-size: 24px;
+            padding: 2px 14px 5px 14px;
+            background-color: #3b5999;
+        }
+        .social-icons ul li .instagram
+        {
+            color: #fff;
+            border-radius: 5px;
+            font-size: 24px;
+            padding: 2px 10px 5px 10px;
+            background-color: #d82f8a;
+        }
+        .social-icons ul li .pinterest
+        {
+            color: #fff;
+            border-radius: 5px;
+            font-size: 24px;
+            padding: 2px 10px 5px 10px;
+            background-color: #cb2027;
+        }
+    </style>
     <div class="footer_bottom">
-        <p class="copyright">Copyright &copy; 2017</p>
-        <p class="developer" style="color: white;">Designed by TechnoGix</p>
+        <div class="col-lg-3">
+            <p class="copyright">Copyright &copy; 2017</p>
+        </div>
+        <div class="col-lg-6 text-center hidden-xs">
+            <div class="social-icons">
+                <ul>
+                    <li><a class="google" href="mailto:tejasmohod@gmail.com" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a class="facebook" href="https://www.facebook.com/Tejasmohodphotography/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="instagram" href="https://www.instagram.com/tejastjs/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                    <li><a class="pinterest " href="https://in.pinterest.com/tejasmohod/" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <p class="developer" style="color: white;">Designed by TechnoGix</p>
+        </div>
     </div>
 </footer>

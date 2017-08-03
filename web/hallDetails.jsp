@@ -254,7 +254,9 @@
                                             <table style="font-size: 15px">
                                                 <tr><td style="font-weight: bold; width: 30%">Full Address </td><td> <%=objBO.getAddress()%></td></tr>
                                                 <tr><td style="font-weight: bold; width: 30%">Locality </td><td> <%=objBO.getHallArea()%></td></tr>
-                                                <tr><td style="font-weight: bold; width: 30%">Contact</td><td> <%=objBO.getContact()%></td></tr>
+                                                <tr><td style="font-weight: bold; width: 30%">Contact</td><td> <%=objBO.getContact()%>
+                                                    <%if (!objBO.getPhone().equals("Not Available")) {%>,  <%=objBO.getPhone()%><%}%>
+                                                    </td></tr>
                                                 <tr><td style="font-weight: bold; width: 30%">Services</td><td> <%=objBO.getHallServices()%></td></tr>
                                                 <tr><td style="font-weight: bold; width: 30%">Area (in Sq.Ft.)</td><td> <%=objBO.getHallAreaSqft()%></td></tr>
                                                 <tr><td style="font-weight: bold; width: 30%">Email Address</td><td> <%=objBO.getEmail()%></td></tr>
@@ -442,7 +444,6 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="plugins/fastclick/fastclick.js"></script>
     <script src="dist/js/app.min.js"></script>
-    <script src="dist/js/pages/dashboard.js"></script>
     <script src="dist/js/demo.js"></script>
     <script src="js/jquery.newsTicker.min.js"></script> 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6XvLNwRfIt-b_F1X3QPta6yAK5Yh0mj4"></script>

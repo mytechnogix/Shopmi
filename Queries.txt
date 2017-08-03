@@ -454,3 +454,150 @@ return (concat(enc_start,conv(a,10,3),enc_end));
 end$$
 DELIMITER ;
 
+//trigger after insert - to update store counters
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateStoreCounter
+AFTER insert ON reviewstore for each row
+begin
+UPDATE storedetails SET rating = (SELECT avg(rating) FROM reviewstore where rating!=0 and storeid=new.storeid)
+WHERE storeid = new.storeid;
+
+UPDATE storedetails SET reviewcount = (SELECT count(review) FROM reviewstore where review!='NA' and storeid=new.storeid)
+WHERE storeid = new.storeid;
+
+END $$
+
+DELIMITER
+
+
+//trigger after update - to update store counters
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateStoreCounter1
+AFTER update ON reviewstore for each row
+begin
+IF NEW.rating <> OLD.rating THEN
+UPDATE storedetails SET rating = (SELECT avg(rating) FROM reviewstore where rating!=0 and storeid=new.storeid)
+WHERE storeid = new.storeid;
+end if;
+
+IF NEW.review <> OLD.review THEN
+UPDATE storedetails SET review = (SELECT count(review) FROM reviewstore where review!='NA' and storeid=new.storeid)
+WHERE storeid = new.storeid;
+end if;
+
+END $$
+
+DELIMITER
+
+//trigger after insert - to update hall counters
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateHallCounter
+AFTER insert ON reviewhall for each row
+begin
+UPDATE halls SET rating = (SELECT avg(rating) FROM reviewhall where rating!=0 and hallid=new.hallid)
+WHERE hallid = new.hallid;
+
+UPDATE halls SET reviewscount = (SELECT count(review) FROM reviewhall where review!='NA' and hallid=new.hallid)
+WHERE hallid = new.hallid;
+
+END $$
+
+DELIMITER
+
+//trigger after update - to update hall counters
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateHallCounter1
+AFTER update ON reviewhall for each row
+begin
+IF NEW.rating <> OLD.rating THEN
+UPDATE halls SET rating = (SELECT avg(rating) FROM reviewhall where rating!=0 and hallid=new.hallid)
+WHERE hallid = new.hallid;
+end if;
+
+IF NEW.review <> OLD.review THEN
+UPDATE halls SET reviewscount = (SELECT count(review) FROM reviewhall where review!='NA' and hallid=new.hallid)
+WHERE hallid = new.hallid;
+end if;
+
+END $$
+
+DELIMITER
+
+//trigger after insert - to update mes counters
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateMesCounter
+AFTER insert ON reviewmes for each row
+begin
+UPDATE mes SET rating = (SELECT avg(rating) FROM reviewmes where rating!=0 and mesid=new.mesid)
+WHERE mesid = new.mesid;
+
+UPDATE mes SET reviewcount = (SELECT count(review) FROM reviewmes where review!='NA' and mesid=new.mesid)
+WHERE mesid = new.mesid;
+
+END $$
+
+DELIMITER
+
+//trigger after update - to update mes counters
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateMesCounter1
+AFTER update ON reviewmes for each row
+begin
+IF NEW.rating <> OLD.rating THEN
+UPDATE mes SET rating = (SELECT avg(rating) FROM reviewmes where rating!=0 and mesid=new.mesid)
+WHERE mesid = new.mesid;
+end if;
+
+IF NEW.review <> OLD.review THEN
+UPDATE mes SET reviewcount = (SELECT count(review) FROM reviewmes where review!='NA' and mesid=new.mesid)
+WHERE mesid = new.mesid;
+end if;
+
+END $$
+
+DELIMITER
+
+//trigger after insert - to update hostel counters
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateHostelCounter
+AFTER insert ON reviewhost for each row
+begin
+
+UPDATE hostel SET reviewcount = (SELECT count(review) FROM reviewhost where review!='NA' and hostid=new.hostid)
+WHERE hostid = new.hostid;
+
+END $$
+
+DELIMITER
+
+//trigger after update - to update hostel counters
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateHostelCounter1
+AFTER update ON reviewhost for each row
+begin
+
+IF NEW.review <> OLD.review THEN
+UPDATE hostel SET reviewcount = (SELECT count(review) FROM reviewhost where review!='NA' and hostid=new.hostid)
+WHERE hostid = new.hostid;
+end if;
+
+END $$
+
+DELIMITER
+

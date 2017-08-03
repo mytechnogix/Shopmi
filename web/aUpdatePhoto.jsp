@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Update Photo</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <jsp:include page="aHeadFiles.jsp"/>
         <script>
             var photoFlag=0;
@@ -14,7 +15,7 @@
                     return true;
                 }
                 else{
-                    alert("Upload proper image")
+                    alert("Upload proper image");
                     return false;
                 }
             }
@@ -97,7 +98,7 @@
                                         <div class="box-body">
                                             <div class="form-group">
                                                 <label> Select Photo</label>
-                                                <input type="file" name="file" id="file" onchange="checkDimension(this)" required>
+                                                <input type="file" name="file" id="fileUpload" onchange="checkDimension(this)" required>
                                             </div>
                                         </div>
                                         <div class="box-footer">
