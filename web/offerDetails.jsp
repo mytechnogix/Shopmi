@@ -14,15 +14,15 @@
     ResultSet rs;
     String storeName = "", discount = "", discountOn = "", offerImg = "", tc = "", mapLocation = "", storeId = "";
     String storeArea = "", ratingStr = "", city = "", reviewCount = "";
-    int oid = 0, ratingCount = 1;
+    int ratingCount = 1;
+    String oid = request.getParameter("id");
     double ratingDbl = 0.0;
     try {
-        oid = Integer.parseInt(request.getParameter("id"));
         Class.forName("com.mysql.jdbc.Driver");
         DBConnector dbc = new DBConnector();
         con = DriverManager.getConnection(dbc.getConstr());
         pst = con.prepareStatement("select * from view_offers_details where oid=?");
-        pst.setInt(1, oid);
+        pst.setString(1, oid);
         rs = pst.executeQuery();
         if (rs.next()) {
             storeName = rs.getString("storename");
@@ -36,7 +36,10 @@
             city = rs.getString("city");
             storeArea = rs.getString("storearea");
             reviewCount = rs.getString("reviewcount");
-        }
+        } else {
+%>
+<jsp:forward page="index.jsp"/>
+<%        }
         ratingDbl = Math.ceil(Double.parseDouble(ratingStr));
         if (ratingDbl > 5.0) {
             ratingDbl = 5.0;
@@ -72,6 +75,16 @@
         <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="css/index.css">
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-104138274-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
         <style>
             #map {
                 height: 350px;

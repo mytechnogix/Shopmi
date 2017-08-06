@@ -178,8 +178,10 @@
                                             <table style="font-size: 16px">
                                                 <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
                                                 <tr><td>Locality </td><td> <%=objBO.getMesArea()%></td></tr>
-                                                <tr><td>Contact</td><td> <%=objBO.getContact()%>
-                                                    <%if (!objBO.getPhone().equals("Not Available")) {%>, <%=objBO.getPhone()%><%}%>
+                                                <tr><td>Contact</td><td>
+                                                        <a href="tel:<%=objBO.getContact()%>" style="color: #000"><%=objBO.getContact()%></a>
+                                                        <%if (!objBO.getPhone().equals("Not Available")) {%>,  
+                                                        <a href="tel:<%=objBO.getPhone()%>" style="color: #000"><%=objBO.getPhone()%></a><%}%>
                                                     </td></tr>
                                                 <tr><td>Services</td><td> <%=objBO.getServices()%></td></tr>
                                                 <tr><td>Home Delivery</td><td> <%=objBO.getHomeDelivery()%></td></tr>
@@ -188,7 +190,13 @@
                                                 <tr><td>Closed On</td><td> <%=objBO.getClosedOn()%></td></tr>
                                                 <tr><td>Service Area</td><td> <%=objBO.getServiceArea()%></td></tr>
                                                 <tr><td>Email</td><td> <%=objBO.getEmail()%></td></tr>
-                                                <tr><td>Website URL</td><td> <%=objBO.getUrl()%></td></tr>
+                                                <tr><td>Website URL</td><td> 
+                                                        <%if (!objBO.getUrl().equals("Not Available")) {%>
+                                                        <a href="<%=objBO.getUrl()%>" target="_blank"><%=objBO.getUrl()%></a><%} else {
+                                                        %>
+                                                        Not Available
+                                                        <%}%>
+                                                    </td></tr>
                                                 <tr><td></td><td></td></tr>
                                             </table>
                                         </div>
@@ -391,7 +399,7 @@
             $("#successReviewMsg").hide();
         }
         var userId="<%=uid%>";
-        //        alert(userId);
+        // alert(userId);
         if(userId!="null")
         {
             $("#txtAreaReview").removeAttr("disabled");

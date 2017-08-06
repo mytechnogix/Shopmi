@@ -25,7 +25,7 @@
             #success_message{ display: none;}
             .regBus li
             {
-                line-height: 2
+                line-height: 3
             }
         </style>
     </head>
@@ -46,7 +46,7 @@
                                                     <label class="col-md-3">City</label>
                                                     <div class="col-md-9 selectContainer">
                                                         <div class="input-group">
-                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                                                             <select name="city" class="form-control selectpicker" >
                                                                 <option>Amravati</option>
                                                             </select>
@@ -98,7 +98,7 @@
                                                     <label class="col-md-3">Location/Area</label>  
                                                     <div class="col-md-9 inputGroupContainer">
                                                         <div class="input-group">
-                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                                            <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
                                                             <input name="area" placeholder="Enter your business location" class="form-control" type="text">
                                                         </div>
                                                     </div>
@@ -142,7 +142,7 @@
                                                     <label class="col-md-3">Website</label>  
                                                     <div class="col-md-9 inputGroupContainer">
                                                         <div class="input-group">
-                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                            <span class="input-group-addon"><i class="fa fa-link"></i></span>
                                                             <input name="website" placeholder="Enter Website URL" class="form-control"  type="url">
                                                         </div>
                                                     </div>
@@ -153,7 +153,7 @@
                                                     <label class="col-md-3">Address</label>
                                                     <div class="col-md-9 inputGroupContainer">
                                                         <div class="input-group">
-                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                            <span class="input-group-addon"><i class="fa fa-map-signs"></i></span>
                                                             <textarea class="form-control" name="address" placeholder="Enter full address"></textarea>
                                                         </div>
                                                     </div>
@@ -190,7 +190,7 @@
                                 <div class="box-body" style="font-size: 16px">
                                     <ul style="list-style-type: square" class="regBus">
                                         <li>
-                                            Fast and Secure dedicated business portal
+                                            Fast, secure and dedicated business portal
                                         </li>
                                         <li>
                                             Advertisement focused to targeted customers
@@ -199,7 +199,7 @@
                                             Thousands of website and app users in Amravati
                                         </li>
                                         <li>
-                                            Optimum customer reach due to Accurate map location
+                                            Optimum customer reach due to accurate map location
                                         </li>
                                         <li>
                                             Post your offers, Discounts, Sale etc at one click
@@ -214,11 +214,10 @@
                                             Attractive interface and multiple options to create Ad
                                         </li>
                                         <li>
-                                            Get top search results on google for your business
+                                            Get top search results on Google for your business
                                         </li>
                                         <li>
-                                            Social network marketing also available
-
+                                            Social networking and marketing is also available
                                         </li>
                                     </ul>
                                 </div>
@@ -328,19 +327,11 @@
                     }
                 })
                 .on('success.form.bv', function(e) {
-                    $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                    $('#success_message').slideDown({ opacity: "show" }, "slow");
                     $('#contact_form').data('bootstrapValidator').resetForm();
-
-                    // Prevent form submission
                     e.preventDefault();
-
-                    // Get the form instance
                     var $form = $(e.target);
-
-                    // Get the BootstrapValidator instance
                     var bv = $form.data('bootstrapValidator');
-
-                    // Use Ajax to submit form data
                     $.post($form.attr('action'), $form.serialize(), function(result) {
                         console.log(result);
                     }, 'json');

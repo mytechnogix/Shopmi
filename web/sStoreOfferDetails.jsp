@@ -23,6 +23,10 @@
                 padding: 10px;
                 font-size: 16px;
             }
+             .tblOffer tr td:first-child
+            {
+                font-weight: bold;
+            }
         </style>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">

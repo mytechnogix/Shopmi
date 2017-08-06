@@ -3,17 +3,25 @@
 <%
     ManageDAO objDAO = new ManageDAO();
     ManageStoreBO objBO = new ManageStoreBO();
-
+    String url = request.getParameter("website").trim();
+    String phone = request.getParameter("phone").trim();
+    if (url.equals("")) {
+        objBO.setUrl("Not Available");
+    } else {
+        objBO.setUrl(url);
+    }
+    if (phone.equals("")) {
+        objBO.setPhone("Not Available");
+    } else {
+        objBO.setPhone(phone);
+    }
     objBO.setCity(request.getParameter("city"));
     objBO.setStoreName(request.getParameter("businessName"));
     objBO.setStoreArea(request.getParameter("area"));
     objBO.setStoreCat(request.getParameter("type"));
     objBO.setServices(request.getParameter("services"));
-
-    objBO.setUrl(request.getParameter("website"));
     objBO.setEmail(request.getParameter("email"));
     objBO.setContact(request.getParameter("mob"));
-    objBO.setPhone(request.getParameter("phone"));
     objBO.setAddress(request.getParameter("address"));
 
     objDAO.addBusinessDetails(objBO);

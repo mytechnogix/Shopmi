@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                            <input type="email" class="form-control" id="emailLog" placeholder="Username">
+                                            <input type="email" class="form-control" id="emailLog" placeholder="Email">
                                         </div>
                                         <span class="help-block has-error" id="email-error"></span>
                                     </div>
@@ -122,8 +122,12 @@
                                             <input type="password" class="form-control" id="cpassReg" name="cpassReg" placeholder="Confirm Password" required>
                                         </div>
                                     </div>
-                                    <button type="button" onclick="registerUser()" id="register_btn" class="btn btn-block bt-login">Register</button>
-
+                                    <div class="col-md-6">
+                                        <button type="button" onclick="registerUser()" id="register_btn" class="btn btn-block bt-login">Register</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="reset" class="btn btn-block bt-login">Reset</button>
+                                    </div>
                                     &nbsp;&nbsp;
                                     <span id="regSuccess" style="display: none; color: green">Registration Successful !  <a href='javascript:;' class='signin-tab'> Login Now</a></span>
                                     <span id="regError" style="display: none; color: red"></span>

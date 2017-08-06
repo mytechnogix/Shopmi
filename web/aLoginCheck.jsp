@@ -69,9 +69,11 @@
         </table>
         <%                    }
         } else if (type.equals("store")) {
-            pst = con.prepareStatement("select storeid, storename, photo from storedetails where email=? and pass=? and storestatus='Active';");
+            pst = con.prepareStatement("select storeid, storename, photo from storedetails where email=? and pass=? and storestatus='Active' or email=? and pass=? and busadd='Active';");
             pst.setString(1, id);
             pst.setString(2, pass);
+            pst.setString(3, id);
+            pst.setString(4, pass);
             rs = pst.executeQuery();
             if (rs.next()) {
                 session.setAttribute("storeFlag", "1");

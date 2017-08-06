@@ -485,7 +485,7 @@ WHERE storeid = new.storeid;
 end if;
 
 IF NEW.review <> OLD.review THEN
-UPDATE storedetails SET review = (SELECT count(review) FROM reviewstore where review!='NA' and storeid=new.storeid)
+UPDATE storedetails SET reviewcount = (SELECT count(review) FROM reviewstore where review!='NA' and storeid=new.storeid)
 WHERE storeid = new.storeid;
 end if;
 

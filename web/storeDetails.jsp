@@ -56,6 +56,16 @@
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/storeDetails.css">
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-104138274-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
         <style>
             .manageHeightMax
             {
@@ -180,15 +190,22 @@
                                             <table style="font-size: 16px">
                                                 <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
                                                 <tr><td>Locality </td><td> <%=objBO.getStoreArea()%></td></tr>
-                                                <tr><td>Contact</td><td> <%=objBO.getContact()%>
-                                                        <%if (!objBO.getPhone().equals("Not Available")) {%>, <%=objBO.getPhone()%><%}%>
+                                                <tr><td>Contact</td><td> 
+                                                        <a href="tel:<%=objBO.getContact()%>" style="color: #000"><%=objBO.getContact()%></a>
+                                                        <%if (!objBO.getPhone().equals("Not Available")) {%>
+                                                        , <a href="tel:<%=objBO.getPhone()%>" style="color: #000"><%=objBO.getPhone()%></a><%}%>
                                                     </td></tr>
                                                 <tr><td>Services</td><td> <%=objBO.getServices()%></td></tr>
                                                 <tr><td>Working Hours</td><td> <%=objBO.getWorkingHours()%></td></tr>
                                                 <tr><td>Closed On</td><td> <%=objBO.getClosedOn()%></td></tr>
                                                 <tr><td>Service Area</td><td> <%=objBO.getServiceArea()%></td></tr>
                                                 <tr><td>Email Address</td><td> <%=objBO.getEmail()%></td></tr>
-                                                <tr><td>Website URL</td><td> <%=objBO.getUrl()%></td></tr>
+                                                <tr><td>Website URL</td><td>
+                                                        <%if (!objBO.getUrl().equals("Not Available")) {%><a href="<%=objBO.getUrl()%>" target="_blank"><%=objBO.getUrl()%></a><%} else {
+                                                        %>
+                                                        Not Available
+                                                        <%}%>
+                                                    </td></tr>
                                                 <tr><td></td><td></td></tr>
                                             </table>
                                         </div>
@@ -210,8 +227,7 @@
                                         <div class="box-body no-padding" id="map">
                                         </div>
                                     </div>
-                                    <%
-                                        String review = "";
+                                    <%                                            String review = "";
                                         pst = con.prepareStatement("select review from reviewstore where storeid=? and uid=?");
                                         pst.setString(1, storeid);
                                         pst.setString(2, uid);

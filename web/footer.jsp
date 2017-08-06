@@ -17,16 +17,17 @@
                     <ul class="tag_nav">
                         <li><a  href="javascript:;" data-toggle="modal" data-target="#aboutModal">About Us</a></li>
                         <li><a href="corevalues.jsp" target="_blank">Core Values</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="faq.jsp">FAQ</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3">
                 <div class="footer_widget wow fadeInRightBig">
                     <h2>Our Mobile App</h2>
-                    <a href="#">
-                        <img src="images/google-play-badge.png">
+                    <a href="https://play.google.com/store/apps/details?id=com.wMyShejari_5409661" target="_blank">
+                        <img src="images/google-play-badge.png" style="width: 170px">
                     </a>
+                    <img src="images/qrcodeApp.png" style="width: 100px">
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3">
@@ -40,7 +41,7 @@
                     </div><br>
                     <p>
                         Subscribe now to get updates on promotions and
-                        coupons. Or <a href="#">Download App</a>
+                        coupons. Or <a href="https://play.google.com/store/apps/details?id=com.wMyShejari_5409661">Download App</a>
                     </p>
                 </div>
             </div>
@@ -94,10 +95,10 @@
         <div class="col-lg-6 text-center hidden-xs">
             <div class="social-icons">
                 <ul>
-                    <li><a class="google" href="mailto:tejasmohod@gmail.com" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a class="facebook" href="https://www.facebook.com/Tejasmohodphotography/" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                    <li><a class="instagram" href="https://www.instagram.com/tejastjs/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                    <li><a class="pinterest " href="https://in.pinterest.com/tejasmohod/" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a class="google" href="mailto:care@myshejari.com" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a class="facebook" href="https://www.facebook.com/myShejari/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="instagram" href="https://www.instagram.com/myshejari/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                    <li><a class="pinterest " href="https://in.pinterest.com/mshejari/" target="_blank"><i class="fa fa-pinterest"></i></a></li>
                 </ul>
             </div>
         </div>

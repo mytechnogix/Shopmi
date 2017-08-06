@@ -11,6 +11,16 @@
         <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
         <link rel="shortcut icon" href="images/logo1_img.png">        
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-104138274-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
     </head>
     <body class="hold-transition login-page" style="background-color: lightseagreen">
         <div class="login-box">

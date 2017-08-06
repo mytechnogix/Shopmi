@@ -9,8 +9,8 @@
 %>
 <header class="main-header">
     <a href="aDashboard.jsp" class="logo">
-        <span class="logo-mini"><b>S</span>
-        <span class="logo-lg"><b>Shejari</b>.com</span>
+        <span class="logo-mini"><b>MS</b></span>
+        <span class="logo-lg"><b>MyShejari</b>.com</span>
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">

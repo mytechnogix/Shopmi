@@ -6,9 +6,12 @@
     String id = request.getParameter("id");
     String temp = request.getParameter("status");
     String type = request.getParameter("type");
-
+    
     if (temp.equals("Active")) {
         status = "Inactive";
+    }
+    if (temp.equals("Data Changed")) {
+        status = "Active";
     }
     if (temp.equals("Inactive") || temp.equals("Pending")) {
         status = "Active";

@@ -380,7 +380,7 @@ var xmlhttp;
 var rateVal;
 function toggleRating(str)
 {
-   // alert(str);
+    // alert(str);
     rateVal=str;
     xmlhttp=GetXmlHttpObject();
     if (xmlhttp==null)
@@ -401,7 +401,7 @@ function toggleRatingOutput()
 {
     if (xmlhttp.readyState==4)
     {
-       // alert(xmlhttp.responseText);
+        alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1"){
             $("#shop").hide();  
             $("#rateMsg").text("You have rated "+rateVal + " stars to this shop");
@@ -987,7 +987,150 @@ function useCouponOutput(){
         }
     }
 }
+//ajax - admin search business
+var xmlHttp
+function aSearchBusiness(){
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var str = $('#searchBus').val().trim();
+    if(str!="" && str!=null){
+        var url="aGetBusSuggestions.jsp?query="+str;
+        xmlHttp.onreadystatechange = aSearchBusinessOutput;
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send(null);
+    }
+    else
+    {
+        return;
+    }
+}
+function aSearchBusinessOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        $("#searchRes").html(xmlHttp.responseText);
+    }
+}
+//ajax - admin search business
+var xmlHttp
+function aSearchAdvertise(){
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var str = $('#searchAdv').val().trim();
+    if(str!="" && str!=null){
+        var url="aGetAdvSuggestions.jsp?query="+str;
+        xmlHttp.onreadystatechange = aSearchAdvertiseOutput;
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send(null);
+    }
+    else
+    {
+        return;
+    }
+}
+function aSearchAdvertiseOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        $("#searchRes").html(xmlHttp.responseText);
+    }
+}
+//ajax - admin start business subscription
+var xmlHttp
+function aStartBusSubscription(){
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var id = $('#busid').val();
+    var type = $('#bustype').val();
+    var date = $('#date').val();
+    
+    if (date.match(/^(?:(0[1-9]|1[012])[\- \/.](0[1-9]|[12][0-9]|3[01])[\- \/.](19|20)[0-9]{2})$/)){
+    }else{
+        $("#date").focus();
+        return false;
+    }
+    
+    var url="aStartSubscription.jsp?id="+id+"&type="+type+"&date="+date;
+    xmlHttp.onreadystatechange = aStartSubscriptionOutput;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+function aStartSubscriptionOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="1"){
+            alert("Subscription Started Successfully");
+            window.location.reload();
+        }
+        else
+        {
+            alert("Failed to start ssubscription");
+        }
+    }
+}
 
+//ajax - admin start advertise subscription
+var xmlHttp
+function aStartAdvSubscription(){
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var id = $('#aid').val();
+    var date = $('#date').val();
+    
+    if (date.match(/^(?:(0[1-9]|1[012])[\- \/.](0[1-9]|[12][0-9]|3[01])[\- \/.](19|20)[0-9]{2})$/)){
+    }else{
+        $("#date").focus();
+        return false;
+    }
+    
+    var url="aStartSubscription.jsp?id="+id+"&type=adv&date="+date;
+    xmlHttp.onreadystatechange = aStartAdvSubscriptionOutput;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+function aStartAdvSubscriptionOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="1"){
+            alert("Subscription Started Successfully");
+            window.location.reload();
+        }
+        else
+        {
+            alert("Failed to start ssubscription");
+        }   
+    }
+}
 var xmlhttp;
 function contacted()
 {
@@ -1017,7 +1160,14 @@ function GetXmlHttpObject()
     }
     return null;
 }
-
+function aRedirectToBusSubPage()
+{
+    window.location = "aSubscription.jsp?id="+$("#txtBusId").val()+"&type="+$("#ddlBusType").val();
+}
+function aRedirectToAdvSubPage()
+{
+    window.location = "aSubscriptionAdv.jsp?id="+$("#txtAdvId").val();
+}
 //add store vaidations
 
 $("#txtOfferStoreArea").attr("disabled", "disabled");

@@ -18,6 +18,16 @@
         <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="css/index.css">
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-104138274-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
         <style>
             li{
                 padding: 10px;
@@ -44,13 +54,13 @@
                                             <b>Customer satisfaction - </b>We at MyShejari.com assume customer satisfaction as our foremost duty. We have cultivated the moral values which will contribute to a healthy professional relationship between users and MyShejari.com.
                                         </li>
                                         <li>
-                                           <b> Honesty- </b>Any professional activity carried out at MyShejari.com is 100% transparent and legal. We are always alert and concerned towards our responsibility to deal with people honestly and transparently. “Honesty is the best policy” is not just a slogan for us but it is in our culture now.   
+                                            <b> Honesty- </b>Any professional activity carried out at MyShejari.com is 100% transparent and legal. We are always alert and concerned towards our responsibility to deal with people honestly and transparently. “Honesty is the best policy” is not just a slogan for us but it is in our culture now.   
                                         </li>
                                         <li>
                                             <b>Creativity and Dynamism-</b> Technologies are getting advanced rapidly and MyShejari.com is always ready to welcome technological advancements not only to fulfill customer needs but also to add something creative in order to make our solutions unique and  very special. 
                                         </li>
                                         <li>
-                                           <b> Expansion with stability- </b>We believe in reaching to more number of people to offer our services and business solution but not at the cost of quality. Expansion is only possible if existing customers are happy and satisfied. We at MyShejari.com aware of providing best value for money solutions to all.
+                                            <b> Expansion with stability- </b>We believe in reaching to more number of people to offer our services and business solution but not at the cost of quality. Expansion is only possible if existing customers are happy and satisfied. We at MyShejari.com aware of providing best value for money solutions to all.
                                         </li>
                                         <li>
                                             <b> responsibility- </b>Though we are an online company but we are also born and brought up in the same society as you. We will be always happy to help any social cause using whatever resources are available with us.<br> Contact <a href="mailto:care@myshejari.com">care@myshejari.com</a> for any social initiative 

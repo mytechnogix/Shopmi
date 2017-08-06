@@ -55,6 +55,16 @@
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/storeDetails.css">
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-104138274-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
         <style>
             .availAmenity
             {
@@ -245,7 +255,7 @@
                                                             <img src="images/amenities/beds.png" style="width: 30px; height: 30px">
                                                         </div>
                                                         <div class="product-info">
-                                                            <%=objBO.getBeds() %> Beds
+                                                            <%=objBO.getBeds()%> Beds
                                                             <span class="product-description" >
                                                                 No. of Beds
                                                             </span>
@@ -256,7 +266,7 @@
                                                             <img src="images/amenities/tenants.png" style="width: 30px; height: 30px">
                                                         </div>
                                                         <div class="product-info">
-                                                           <%=objBO.getForWhom() %>
+                                                            <%=objBO.getForWhom()%>
                                                             <span class="product-description" >
                                                                 Preferred Tenants
                                                             </span>

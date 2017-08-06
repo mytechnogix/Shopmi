@@ -217,7 +217,7 @@ public class ManageDAO {
                 pst.setString(1, objBO.getEmail());
                 rs = pst.executeQuery();
                 if (!rs.next()) {
-                    pst = con.prepareStatement("insert into storedetails(storename, category, services, storearea, email, contact, phone, websiteurl, fulladdress, city, pass) values(?,?,?,?,?,?,?,?,?,?,?)");
+                    pst = con.prepareStatement("insert into storedetails(storename, category, services, storearea, email, contact, phone, websiteurl, fulladdress, city, pass, busadd) values(?,?,?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1, objBO.getStoreName());
                     pst.setString(2, objBO.getStoreCat());
                     pst.setString(3, objBO.getServices());
@@ -229,6 +229,7 @@ public class ManageDAO {
                     pst.setString(9, objBO.getAddress());
                     pst.setString(10, objBO.getCity());
                     pst.setString(11, objBO.getContact());
+                    pst.setString(12, "Active");
                     cnt = pst.executeUpdate();
                 } else {
                     cnt = 2;
@@ -238,7 +239,7 @@ public class ManageDAO {
                 pst.setString(1, objBO.getEmail());
                 rs = pst.executeQuery();
                 if (!rs.next()) {
-                    pst = con.prepareStatement("insert into halls(hallname, services, hall_area, email, contact, phone, websiteurl, fulladdress, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
+                    pst = con.prepareStatement("insert into halls(hallname, services, hall_area, email, contact, phone, websiteurl, fulladdress, city, pass, busadd) values(?,?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1, objBO.getStoreName());
                     pst.setString(2, objBO.getServices());
                     pst.setString(3, objBO.getStoreArea());
@@ -249,6 +250,7 @@ public class ManageDAO {
                     pst.setString(8, objBO.getAddress());
                     pst.setString(9, objBO.getCity());
                     pst.setString(10, objBO.getContact());
+                    pst.setString(11, "Active");
                     cnt = pst.executeUpdate();
                 } else {
                     cnt = 2;
@@ -258,7 +260,7 @@ public class ManageDAO {
                 pst.setString(1, objBO.getEmail());
                 rs = pst.executeQuery();
                 if (!rs.next()) {
-                    pst = con.prepareStatement("insert into mes(mesname, services, mesarea, email, contact, phone, websiteurl, address, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
+                    pst = con.prepareStatement("insert into mes(mesname, services, mesarea, email, contact, phone, websiteurl, address, city, pass, busadd) values(?,?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1, objBO.getStoreName());
                     pst.setString(2, objBO.getServices());
                     pst.setString(3, objBO.getStoreArea());
@@ -269,6 +271,7 @@ public class ManageDAO {
                     pst.setString(8, objBO.getAddress());
                     pst.setString(9, objBO.getCity());
                     pst.setString(10, objBO.getContact());
+                    pst.setString(11, "Active");
                     cnt = pst.executeUpdate();
                 } else {
                     cnt = 2;
@@ -278,7 +281,7 @@ public class ManageDAO {
                 pst.setString(1, objBO.getEmail());
                 rs = pst.executeQuery();
                 if (!rs.next()) {
-                    pst = con.prepareStatement("insert into hostel(hostname, description, hostarea, email, contact, phone, websiteurl, address, city, pass) values(?,?,?,?,?,?,?,?,?,?)");
+                    pst = con.prepareStatement("insert into hostel(hostname, description, hostarea, email, contact, phone, websiteurl, address, city, pass, busadd) values(?,?,?,?,?,?,?,?,?,?,?)");
                     pst.setString(1, objBO.getStoreName());
                     pst.setString(2, objBO.getServices());
                     pst.setString(3, objBO.getStoreArea());
@@ -289,6 +292,7 @@ public class ManageDAO {
                     pst.setString(8, objBO.getAddress());
                     pst.setString(9, objBO.getCity());
                     pst.setString(10, objBO.getContact());
+                    pst.setString(11, "Active");
                     cnt = pst.executeUpdate();
                 } else {
                     cnt = 2;
@@ -299,7 +303,7 @@ public class ManageDAO {
                 String body = "Dear Customer,\n";
                 body += "\nBusiness Details Added - MyShejari.com\n\n";
                 body += "Your " + objBO.getStoreName() + "  business is now part of MyShejari.com\n";
-                body += "Team MyShejari.com will connect to you soon\n";
+                body += "Team MyShejari.com will connect you soon\n";
                 body += "Your Business ID and Password is as follows : \n";
                 body += "Business ID : " + objBO.getEmail() + "\n";
                 body += "Password : " + objBO.getContact() + "\n\n";
@@ -307,14 +311,14 @@ public class ManageDAO {
 
                 Email e = new Email();
                 String a[] = {objBO.getEmail()};
-                // e.sendFromGMail("team@myshejari.com", "Ankush@02", a, "MyShejari.com - Business Added Successfully", body);
+                e.sendFromGMail("team@myshejari.com", "Ankush@02", a, "MyShejari.com - Business Added Successfully", body);
                 objBO.setStoreId("1");
             } else if (cnt == 2) {
                 objBO.setStoreId("2");
             } else {
                 objBO.setStoreId("0");
             }
-            System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<< business output : " + objBO.getStoreId() + ", " + cnt);
+            //System.err.println("<<<<<<<<<<<<<<<<<<<<<<<<<< business output : " + objBO.getStoreId() + ", " + cnt);
             con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1567,28 +1571,36 @@ public class ManageDAO {
         }
         return data;
     }
-//
-//    public void getStoreCounters(ManageStoreBO objBO) throws SQLException {
-//        int cnt = 0;
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            DBConnector dbc = new DBConnector();
-//            con = DriverManager.getConnection(dbc.getConstr());
-//            pst = con.prepareStatement("SELECT avg(rating) avgrating FROM reviewstore where storeid=?");
-//            pst.setString(1, objBO.getStoreId());
-//            rs = pst.executeQuery();
-//            while (rs.next()) {
-//                objBO.setRating(String.format("%.1f", Double.parseDouble(rs.getString("avgrating"))));
-//            }
-//
-//            pst = con.prepareStatement("update claimedoffers set couponstatus=? where cid=?");
-//            pst.setString(1, remTime);
-//            pst.setString(2, rs.getString("cid"));
-//            pst.executeUpdate();
-//
-//            con.close();
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//    }
+
+    public void sUpdateStoreDetails(ManageStoreBO objBO) throws SQLException {
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            pst = con.prepareStatement("update storedetails set storename=?, category=?, storearea=?, city=?, websiteurl=?, services=?, workinghours=?, servicearea=?, closedon=?, subtype=?, contact=?, fulladdress=?, email=?, phone=?, storestatus='Data Changed' where storeid=?");
+            pst.setString(1, objBO.getStoreName());
+            pst.setString(2, objBO.getStoreCat());
+            pst.setString(3, objBO.getStoreArea());
+            pst.setString(4, objBO.getCity());
+            pst.setString(5, objBO.getUrl());
+            pst.setString(6, objBO.getServices());
+            pst.setString(7, objBO.getWorkingHours());
+            pst.setString(8, objBO.getServiceArea());
+            pst.setString(9, objBO.getClosedOn());
+            pst.setString(10, objBO.getSubs());
+            pst.setString(11, objBO.getContact());
+            pst.setString(12, objBO.getAddress());
+            pst.setString(13, objBO.getEmail());
+            pst.setString(14, objBO.getPhone());
+            pst.setString(15, objBO.getStoreId());
+            cnt = pst.executeUpdate();
+            if (cnt > 0) {
+                objBO.setAddFlag(true);
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

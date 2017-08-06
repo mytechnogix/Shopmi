@@ -53,8 +53,9 @@
                 </section>
                 <%
                     String img = "";
-                    pst = con.prepareStatement("select * from storedetails where storeid=? and storestatus='Active'");
+                    pst = con.prepareStatement("select * from storedetails where storeid=? and storestatus='Active' or storeid=? and busadd='Active'");
                     pst.setString(1, storeid);
+                    pst.setString(2, storeid);
                     rs = pst.executeQuery();
                     if (rs.next()) {
                         visits = rs.getString("visitcount");
@@ -141,6 +142,7 @@
                                         <tr><td>Email Address</td><td><%=rs.getString("email")%></td></tr>
                                         <tr><td>Subscription Type</td><td><%=rs.getString("subtype")%></td></tr>
                                         <tr><td>Address</td><td><%=rs.getString("fulladdress")%></td></tr>
+                                        <tr><td>Shop Status</td><td><%=rs.getString("storestatus")%></td></tr>
                                     </table>
                                 </div>
                                 <div class="box-footer">

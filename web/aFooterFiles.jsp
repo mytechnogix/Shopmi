@@ -6,9 +6,6 @@
 </footer>
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script>
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>

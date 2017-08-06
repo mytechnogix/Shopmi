@@ -15,7 +15,6 @@
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
             <li class="active treeview">
                 <a href="aDashboard.jsp">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -34,7 +33,7 @@
                     <li><a href="aManageHostels.jsp"><i class="fa fa-circle-o"></i> Manage Hostels</a></li>
                 </ul>
             </li>
-             <li>
+            <li>
                 <a href="aBusinessRequests.jsp">
                     <i class="fa fa-files-o"></i>
                     <span>Business Requests</span>
@@ -55,6 +54,17 @@
             <%
                 if (adminRole.equalsIgnoreCase("Platinum")) {
             %>
+            <li>
+                <a href="#">
+                    <i class="fa fa-files-o"></i>
+                    <span>Manage Subscriptions</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="aBusinessSub.jsp"><i class="fa fa-circle-o"></i> Business</a></li>
+                    <li><a href="aAdvertiseSub.jsp"><i class="fa fa-circle-o"></i> Advertisements</a></li>
+                </ul>
+            </li>
             <li>
                 <a href="aManageSite.jsp">
                     <i class="fa fa-files-o"></i>

@@ -29,6 +29,15 @@ public class ManageStoreBO {
     private String _metadata;
     private String _storePhoto2;
     private String _storePhoto3;
+    private String _busAdd;
+
+    public String getBusAdd() {
+        return _busAdd;
+    }
+
+    public void setBusAdd(String _busAdd) {
+        this._busAdd = _busAdd;
+    }
 
     public String getStorePhoto2() {
         return _storePhoto2;
