@@ -1,6 +1,5 @@
-<%@page import="BO.ManageHostelBO"%>
-<%@page import="DAO.ManageDAO"%>
-<%
+<%@page import="com.quickc.pack.Email"%>
+<%@page import="BO.ManageHostelBO"%><%@page import="DAO.ManageDAO"%><%
     String hostAreaDdl, hostAreaTxt, hostArea = "", url;
     String lat, longi, hostURL = "";
     String aid = String.valueOf(session.getAttribute("aid"));
@@ -42,12 +41,24 @@
         objBO.setMaplocation(lat + "," + longi);
         objDAO.addHostelDetails(objBO);
         if (objBO.getHostId() != null) {
+            String body = "Dear Team MyShejari\n";
+            body += "\n<b>New Business Added</b>\n\n";
+            body += "Business Name " + objBO.getHostName() + "\n";
+            body += "Business Type : Hostel\n";
+            body += "Business Location : " + objBO.getHostArea() + "\n";
+            body += "Thanks and Regards";
+
+            Email e = new Email();
+            String a[] = {"team@myshejari.com"};
+            e.sendFromGMail("care@myshejari.com", "Ankush@02", a, "New Business Added", body);
+
             session.setAttribute("hostidAdd", objBO.getHostId());
             response.sendRedirect("aAddHostelAmenities.jsp");
         } else {
             out.print("Failed to add host details");
         }
     } else {
+        request.setCharacterEncoding("UTF-8");
         objBO.setHostId(request.getParameter("hostid"));
         objBO.setAddFlag(false);
         objDAO.updateHostelDetails(objBO);
@@ -56,5 +67,4 @@
         } else {
             out.print("Failed to add hostel details");
         }
-    }
-%>
+    }%>

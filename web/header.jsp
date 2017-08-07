@@ -313,12 +313,12 @@
                         <li class="upper-links"><a class="links" href="registerBusiness.jsp">Register your business</a></li>
                         <li class="upper-links"><a class="links" href="businessLogin.jsp">Business Login</a>
                         </li>
-                        <li class="upper-links"><a class="links" href="contactus.jsp" target="_blank">Contact Us</a></li>
+                        <li class="upper-links"><a class="links" href="contactus.jsp">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
             <div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><img src="images/drawerInIcon.png" style="width: 30px"></a>
                 <a href="#" style="margin-top: 10px;"> </a>
                 <a href="mycart.jsp" class="login-after-div" id="userNameMob"><i class="fa fa-user"></i> <%=fnm%></a>
                 <a href="index.jsp" ><i class="fa fa-home"></i> Home</a>
@@ -326,7 +326,7 @@
                 <a href="registerBusiness.jsp" class="login-before-div"><i class="glyphicon glyphicon-gift"></i> Add Business</a>
                 <a href="businessLogin.jsp" class="login-before-div"><i class="fa fa-sign-in"></i> Business Login</a>
                 <a href="javascript:checkLogin('uLogin')"><i class="glyphicon glyphicon-gift"></i> My Profile</a>
-                <a href="contactus.jsp" target="_blank"a><i class="fa fa-envelope-o"></i> Contact Us</a>
+                <a href="contactus.jsp"><i class="fa fa-envelope-o"></i> Contact Us</a>
                 <a href="faq.jsp"><i class="glyphicon glyphicon-question-sign"></i> FAQ</a>
                 <a href="logout.jsp" class="login-after-div" id="userLogoutMob"><i class="fa fa-sign-out"></i> Logout</a>
             </div>

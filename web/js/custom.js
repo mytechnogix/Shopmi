@@ -608,26 +608,34 @@ function loginCheck1(str){
     if(str=="1"){
         var id=document.getElementById("emailLog").value;
         var pass=document.getElementById("passLog").value;
-        // alert(id+" "+pass);
-        if(id!='' && !id.length<=0 )
-        {
-            idFlag=true;
+
+        var atpos = id.indexOf("@");
+        var dotpos = id.lastIndexOf(".");
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=id.length) {
+            $("#emailLog").focus();
+            $("#loginError").text("Invalid email id");
+            $("#loginError").show();
+            return false;
         }
-        else
-        {
-            document.getElementById("emailLog").focus();
+        else{
+            $("#loginError").hide();
+            idFlag=true;
         }
         if(idFlag){
             if(pass!='' && !pass.length<=0 )
             {
+                $("#loginError").hide();
                 passFlag=true;
             }
             else
             {
-                document.getElementById("passLog").focus();
+                $("#passLog").focus();
+                $("#loginError").text("Invalid password");
+                $("#loginError").show();
             }
         }
         if(idFlag && passFlag){
+            $("#loginError").hide();
             var url="loginCheck.jsp";
             url +="?id="+id+"&pass="+pass+"&log=1";
             xmlHttp.onreadystatechange=loginCheckOutput;
@@ -638,6 +646,7 @@ function loginCheck1(str){
 
     else
     {
+        $("#loginError").hide();
         var url="loginCheck.jsp";
         url +="?log=0";
         xmlHttp.onreadystatechange=loginCheckOutput;
@@ -649,10 +658,12 @@ function loginCheckOutput(){
     if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
         // alert(xmlHttp.responseText);
         if(xmlHttp.responseText=="1" || xmlHttp.responseText=="0"){
+            $("#loginError").hide();
             window.location.reload();
         }
         if(xmlHttp.responseText=="2")
         {
+            $("#loginError").text("Login failed, Invalid username or password");
             $("#loginError").show();
         }
     }
@@ -678,36 +689,38 @@ function registerUser(){
     //alert(id+" "+fnm+" "+lnm+" "+pass+" "+cpass);
     //var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
 
-    if(id.value.trim()=='' || id.value.trim().length<=0  )
-    {
+    var atpos = id.value.indexOf("@");
+    var dotpos = id.value.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=id.length) {
         id.focus();
         $("#regSuccess").hide();
-        $("#regError").text("Email address name cannot be empty");
+        $("#regError").text("Invalid email address");
         $("#regError").show();
+        return false;
     }
-    else if(fnm.value.trim()=='' || fnm.value.trim().length<=0 )
+    else if(fnm.value.trim()=='' || fnm.value.trim().length<=1 || !/^[a-zA-Z]*$/g.test(fnm.value.trim()))
     {
         fnm.focus();
         $("#regSuccess").hide();
-        $("#regError").text("First name cannot be empty");
+        $("#regError").text("Enter first name properly");
         $("#regError").show();
     }
-    else if(lnm.value.trim()=='' || lnm.value.trim().length<=0){
+    else if(lnm.value.trim()=='' || lnm.value.trim().length<=1 || !/^[a-zA-Z]*$/g.test(lnm.value.trim())){
         lnm.focus();
         $("#regSuccess").hide();
-        $("#regError").text("Last name cannot be empty");
+        $("#regError").text("Enter last name properly");
         $("#regError").show();
     }
-    else if(pass.value.trim()=='' || pass.value.trim().length<=0){
+    else if(pass.value.trim()=='' || pass.value.trim().length<=5){
         pass.focus();
         $("#regSuccess").hide();
-        $("#regError").text("Password cannot be empty");
+        $("#regError").text("Password length should be minimum 6 characters");
         $("#regError").show();
     }
-    else if(cpass.value.trim()=='' || cpass.value.trim().length<=0){
+    else if(cpass.value.trim()=='' || cpass.value.trim().length<=5){
         cpass.focus();
         $("#regSuccess").hide();
-        $("#regError").text("Confirm password cannot be empty");
+        $("#regError").text("Confirm password length should be minimum 6 characters");
         $("#regError").show();
     }
     else if(pass.value.trim()!=cpass.value.trim()){
@@ -881,7 +894,7 @@ function forgetCheck(){
         $("#forgetError").show();
         return;
     }
-    
+    $("#reset_btn").attr("disabled","disabled");
     if (typeof XMLHttpRequest != "undefined"){
         xmlHttp= new XMLHttpRequest();
     }
@@ -903,11 +916,85 @@ function forgetCheckOutput(){
         //alert(xmlHttp.responseText);
         if(xmlHttp.responseText=="1")
         {
-            alert("Email sent");
+            $("#forgetSuccess").text("New password has sent to your mail id")
+            $("#reset_btn").attr("disabled","disabled");
+            $("#forgetError").hide();
+            $("#forgetSuccess").show();
+        }
+        else if(xmlHttp.responseText=="2")
+        {
+            $("#forgetSuccess").hide();
+            $("#reset_btn").removeAttr("disabled");
+            $("#forgetError").text("User does not exist")
+            $("#forgetError").show();
+        }
+        else
+        {
+            $("#reset_btn").removeAttr("disabled");
+            $("#forgetError").text("Failed to reset password")
+            $("#forgetError").show();
+            $("#forgetSuccess").hide();
         }
     }
 }
 
+//ajax - business forgot password
+var xmlHttp
+function busForgetCheck(){
+    var x = $("#busEmail").val().trim();
+    var type = $("#busType").val().trim();
+    //alert(x);
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        $("#busEmail").focus();
+        $("#forgetError").text("Invalid email address");
+        $("#forgetError").show();
+        return;
+    }
+    $("#reset_btn").attr("disabled","disabled");
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    $("#forgetError").hide();
+    var url="forgetCheckBus.jsp?email="+x+"&type="+type;
+    xmlHttp.onreadystatechange = busForgetCheckOutput;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+function busForgetCheckOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="1")
+        {
+            $("#forgetSuccess").html("<h3>New password has sent to your mail id</h3>");
+            $("#reset_btn").attr("disabled","disabled");
+            $("#forgetError").hide();
+            $("#forgetSuccess").show();
+        }
+        else if(xmlHttp.responseText=="2")
+        {
+            $("#forgetSuccess").hide();
+            $("#reset_btn").removeAttr("disabled");
+            $("#forgetError").text("Business does not exist");
+            $("#forgetError").show();
+        }
+        else
+        {
+            $("#reset_btn").removeAttr("disabled");
+            $("#forgetError").text("Failed to reset password");
+            $("#forgetSuccess").hide();
+            $("#forgetError").show();
+        }
+    }
+}
 //ajax - redirect to offer page of particular store
 var xmlHttp
 function redirectToOffer(){
@@ -987,6 +1074,54 @@ function useCouponOutput(){
         }
     }
 }
+
+//ajax - use coupons
+var xmlHttp
+function subscribePromotions(){
+    var x = $("#txtSubscribe").val().trim();
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        $("#fEmail").focus();
+        $("#promoError").text("Invalid email address");
+        $("#promoError").show();
+        return;
+    }
+    $("#promoError").hide();
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var url="subscribePromotions.jsp?email="+x;
+    xmlHttp.onreadystatechange = subscribePromotionsOutput;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+function subscribePromotionsOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="1")
+        {
+            alert("Your subscription is successful.\nWe will mail you about latest offers/promotions\nThank you for subscribing");
+        }
+        else if(xmlHttp.responseText=="2"){
+            $("#promoError").text("Already subscribed for promotions/offers");
+            $("#promoError").show();
+        }
+        else
+        {
+            $("#promoError").text("Failed to apply for promotions");
+            $("#promoError").show();
+        }
+    }
+}
+
 //ajax - admin search business
 var xmlHttp
 function aSearchBusiness(){
@@ -1131,6 +1266,85 @@ function aStartAdvSubscriptionOutput(){
         }   
     }
 }
+
+//ajax - admin search business
+var xmlHttp
+function uChangePassCheck(type){
+    $("#changeSuccess").hide();
+    $("#changeError").hide();
+    if (typeof XMLHttpRequest != "undefined"){
+        xmlHttp= new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject){
+        xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlHttp==null){
+        alert("Browser does not support XMLHTTP Request")
+        return;
+    }
+    var id = document.getElementById("uEmail");
+    var pass = document.getElementById("uPass");
+    var npass = document.getElementById("uNPass"); 
+    var cpass = document.getElementById("uCPass");
+    //alert(id.value + pass.value + npass.value);
+    if(pass.value.trim()=='' || pass.value.trim().length<=5){
+        pass.focus();
+        $("#changeError").text("Current password length should be minimum 6 characters");
+        $("#changeError").show();
+        return false;
+    }
+    else if(npass.value.trim()=='' || npass.value.trim().length<=5){
+        npass.focus();
+        $("#changeError").text("New password length should be minimum 6 characters");
+        $("#changeError").show();
+        return false;
+    }
+    else if(cpass.value.trim()=='' || cpass.value.trim().length<=5){
+        cpass.focus();
+        $("#changeError").text("Confirm password length should be minimum 6 characters");
+        $("#changeError").show();
+        return false;
+    }
+    else if(npass.value.trim()!=cpass.value.trim()){
+        cpass.focus();
+        $("#changeError").text("Passwords Mismatched!");
+        $("#changeError").show();
+        return false;
+    }
+    else
+    {
+        $("#changeError").hide();
+        var url="changePasswordCheck.jsp?type="+type+"&id="+id.value+"&opass="+pass.value+"&npass="+npass.value;
+        //alert(url);
+        xmlHttp.onreadystatechange = uChangePassCheckOutput;
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send(null);
+    }
+}
+function uChangePassCheckOutput(){
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
+        //alert(xmlHttp.responseText);
+        if(xmlHttp.responseText=="1")
+        {
+            $("#changeSuccess").hide();
+            $("#changeSuccess").html("<h3>Password has changed successfully</h3>");
+            $("#changeSuccess").show();
+            $("#subButton").attr("disabled","disabled");
+        }
+        else if(xmlHttp.responseText=="2")
+        {
+            $("#changeSuccess").hide();
+            $("#changeError").html("Invalid credentials");
+            $("#changeError").show();
+        }
+        else
+        {
+            $("#changeSuccess").hide();
+            $("#changeError").html("Failed to change password");
+            $("#changeError").show();
+        }
+    }
+}
 var xmlhttp;
 function contacted()
 {
@@ -1218,6 +1432,7 @@ function validateAddStore(){
     }  
     return true;
 }
+
 $(document).on('click','.signup-tab',function(e){
     e.preventDefault();
     $('#signup-taba').tab('show');

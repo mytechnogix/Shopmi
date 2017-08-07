@@ -1,3 +1,4 @@
+<%@page import="com.quickc.pack.Email"%>
 <%@page import="DAO.ManageDAO"%>
 <%@page import="BO.ManageStoreBO"%>
 <%
@@ -46,6 +47,16 @@
         objBO.setMapLocation(lat + "," + longi);
         objDAO.addStoreDetails(objBO);
         if (objBO.getStoreId() != null && !(objBO.getStoreId().equals(""))) {
+            String body = "Dear Team MyShejari\n";
+            body += "\n<b>New Business Added</b>\n\n";
+            body += "Business Name " + objBO.getStoreName() + "\n";
+            body += "Business Type : Store\n";
+            body += "Business Location : " + objBO.getStoreArea() + "\n";
+            body += "Thanks and Regards";
+
+            Email e = new Email();
+            String a[] = {"team@myshejari.com"};
+            e.sendFromGMail("care@myshejari.com", "Ankush@02", a, "New Business Added", body);
             session.setAttribute("storeidAdd", objBO.getStoreId());
             response.sendRedirect("aAddStorePhoto.jsp");
         } else {

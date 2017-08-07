@@ -104,8 +104,8 @@
         </div>
     </div>
     <div class="profile-userbuttons">
-        <button type="button" class="btn btn-primary btn-sm" onclick="showWebPart('md')">Edit Profile</button>
-        <button type="button" class="btn btn-warning btn-sm">Change Password</button>
+<!--        <button type="button" class="btn btn-primary btn-sm" onclick="showWebPart('md')">Edit Profile</button>-->
+<!--        <button type="button" class="btn btn-warning btn-sm">Change Password</button>-->
     </div>
     <div class="profile-usermenu">
         <ul class="nav">
@@ -133,7 +133,7 @@
             <li>
                 <a href="javascript:showWebPart('md')" class="md">
                     <i class="fa fa-edit"></i>
-                    My Details </a>
+                    Change Password </a>
             </li>
         </ul>
     </div>

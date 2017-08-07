@@ -30,8 +30,9 @@
                         <div class="col-md-8" style="margin-left: 17%">
                             <div class="box box-primary text-center">
                                 <div class="box-body">
-                                    <h3>Your business is registered successfully with MyShejari.com</h3>
-                                    <h3>Team MyShejari.com will connect to you soon</h3>
+                                    <h3>Your business is registered successfully</h3>
+                                    <h3>Your business login details are sent on your mail</h3>
+                                    <h3>Team MyShejari will connect to you soon</h3>
                                     <h3>Thank you for being part of MyShejari.com</h3>
                                 </div>
                                 <div class="box-footer">

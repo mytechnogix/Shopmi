@@ -50,14 +50,15 @@
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="row">
-                        <div class="col-xs-4 pull-right">
-                            <button type="submit" class="btn btn-primary pull-right">Sign In</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                            <a href="javascript:history.back()" class="btn btn-primary">Back</a>
                         </div>
                     </div>
                 </form>
                 <div class="social-auth-links text-center">
                     <p>- OR -</p>
-                    <a href="#">I forgot my password</a><br>
+                    <a href="busForgotPassword.jsp">I forgot my password</a><br>
                 </div>
             </div>
         </div>

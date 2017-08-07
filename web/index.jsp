@@ -172,7 +172,7 @@
                         </div>
                         <div class="col-md-10">
                             <marquee width="100%" onMouseOver="this.stop()" onMouseOut="this.start()">
-                                <%  int lCnt = 0;
+                                <%  int lCnt = 0, tCnt = 0;
                                     String[] lbl = {"label-info", "label-primary", "label-warning", "label-success"};
                                     pst = con.prepareStatement("select distinct category from storedetails");
                                     rs = pst.executeQuery();
@@ -223,13 +223,13 @@
                                                     if (cnt == 0) {
                                             %>
                                             <div class="item active" >
-                                                <a href="advertise.jsp?aid=<%=rs.getString("aid")%>" target="_blank">
+                                                <a href="advertise.jsp?aid=<%=rs.getString("aid")%>">
                                                     <img src="images/advphotos/<%=rs.getString("advimg")%>" alt="" width="100%" class="advMobImg" style="height: 420px">
                                                 </a>
                                             </div>
                                             <%} else {%>
                                             <div class="item">
-                                                <a href="advertise.jsp?aid=<%=rs.getString("aid")%>" target="_blank">
+                                                <a href="advertise.jsp?aid=<%=rs.getString("aid")%>">
                                                     <img src="images/advphotos/<%=rs.getString("advimg")%>" alt="" width="100%" class="advMobImg" style="height: 420px">
                                                 </a>
                                             </div>
@@ -372,13 +372,13 @@
                                         <img src="images/offerIcon.png" style="width: 25px"> Offers for you!
                                     </h3>
                                     <div class="controls pull-right">
-                                        <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example"
-                                           data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example"
+                                        <a class="left fa fa-chevron-left btn btn-success" href="#offers"
+                                           data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#offers"
                                            data-slide="next"></a>
                                     </div>
                                 </div>
                                 <div class="box-body">
-                                    <div id="carousel-example" class="carousel slide" data-ride="carousel">
+                                    <div id="offers" class="carousel slide" data-ride="carousel">
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner">
                                             <%
@@ -426,24 +426,33 @@
                                                             </div>
                                                             <%
                                                                 if (i == myclass.size() - 1) {
-                                                                    for (int j = 0; j < remSize; j++) {
+                                                                    pst = con.prepareStatement("select * from tempoffers where offerstatus='Active'");
+                                                                    rs1 = pst.executeQuery();
+                                                                    while (rs1.next()) {
+                                                                        if (tCnt < remSize) {
+                                                                            String img = rs1.getString("offerimg");
+                                                                            if (img.equalsIgnoreCase("default.jpg")) {
+                                                                                img = "shopIcon_lg.png";
+                                                                            }
+                                                                            tCnt++;
+                                                                            //for (int j = 0; j < remSize; j++) {
                                                             %>
                                                             <div class="col-sm-3">
-                                                                <a href="offerDetails.jsp?id=0">
+                                                                <a href="offerDetails.jsp?id=<%=rs1.getString("oid")%>">
                                                                     <div class="col-item" style="background-color:lightgoldenrodyellow;">
                                                                         <div class="photo">
-                                                                            <img src="images/offerphotos/shopIcon_lg.png" class="img-responsive" alt="temp"/>
+                                                                            <img src="images/offerphotos/<%=img%>" class="img-responsive" alt="<%=myclass.get(i).getStoreName()%>"/>
                                                                         </div>
                                                                         <div class="info">
                                                                             <div class="row">
                                                                                 <div class="price col-md-6">
-                                                                                    <h5>Offer On</h5>
+                                                                                    <h5><%=rs1.getString("discounton")%></h5>
                                                                                     <h5 class="price-text-color">
-                                                                                        Storename
+                                                                                        <%=rs1.getString("storename")%>
                                                                                     </h5>
                                                                                 </div>
                                                                                 <div class="rating hidden-sm col-md-6 text-red">
-                                                                                    Flat 0% Off
+                                                                                    Flat <%=rs1.getString("discount")%>% Off
                                                                                 </div>
                                                                             </div>
                                                                             <div class="clearfix">
@@ -452,7 +461,9 @@
                                                                     </div>
                                                                 </a>
                                                             </div>
-                                                            <%                                                                }
+                                                            <%
+                                                                        }
+                                                                    }
                                                                 }
                                                                 if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19) {
                                                             %>
@@ -487,7 +498,7 @@
                                                         }
                                                 %>
                                                 <li class="item">
-                                                    <a href="hallDetails.jsp?id=<%=rs.getString("hallid")%>" target="_blank">
+                                                    <a href="hallDetails.jsp?id=<%=rs.getString("hallid")%>">
                                                         <div class="product-img">
                                                             <img src="images/hallphotos/<%=img%>" alt="Hall Icon">
                                                         </div>
@@ -524,7 +535,7 @@
                                                         }
                                                 %>
                                                 <li class="item">
-                                                    <a href="mesDetails.jsp?id=<%=rs.getString("mesid")%>" target="_blank">
+                                                    <a href="mesDetails.jsp?id=<%=rs.getString("mesid")%>">
                                                         <div class="product-img">
                                                             <img src="images/mesphotos/<%=photo%>" alt="Mes Icon">
                                                         </div>
@@ -562,7 +573,7 @@
                                                         }
                                                 %>
                                                 <li class="item">
-                                                    <a href="hostDetails.jsp?id=<%=rs.getString("hostid")%>" target="_blank">
+                                                    <a href="hostDetails.jsp?id=<%=rs.getString("hostid")%>">
                                                         <div class="product-img">
                                                             <img src="images/hostelphotos/<%=photo%>" alt="Hostel Icon">
                                                         </div>
@@ -589,7 +600,7 @@
                                         <div class="box-body">
                                             <ul class="products-list product-list-in-box">
                                                 <li class="item">
-                                                    <a href="tProjGuidance.jsp" target="_blank">
+                                                    <a href="tProjGuidance.jsp">
                                                         <div class="product-img">
                                                             <img src="images/technogix_guidance.png" alt="Technogix Guidance">
                                                         </div>
@@ -601,7 +612,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <a href="tTechSeminar.jsp" target="_blank">
+                                                    <a href="tTechSeminar.jsp">
                                                         <div class="product-img">
                                                             <img src="images/technogix_seminar.png" alt="Technogix Seminar">
                                                         </div>
@@ -613,7 +624,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="item">
-                                                    <a href="tIdeaIncubator.jsp" target="_blank">
+                                                    <a href="tIdeaIncubator.jsp">
                                                         <div class="product-img">
                                                             <img src="images/technogix_idea.png" alt="Technogix Idea">
                                                         </div>
@@ -643,7 +654,7 @@
                             </div>
                             <div class="row hidden-xs">
                                 <div class="col-md-12">
-                                    <a href="storeDetails.jsp?id=44" target="_blank"><img src="images/ad_hashtag.jpg" style="width: 100%"></a>
+                                    <a href="storeDetails.jsp?id=44"><img src="images/ad_hashtag.jpg" style="width: 100%"></a>
                                 </div>
                             </div>
                             <br>
@@ -669,7 +680,7 @@
                                                             <img src="images/storephotos/<%=recentStores.get(i).getStorePhoto()%>" alt="Shop Icon">
                                                         </div>
                                                         <div class="product-info">
-                                                            <a href="storeDetails.jsp?id=<%=recentStores.get(i).getStoreId()%>" target="_blank" class="product-title">
+                                                            <a href="storeDetails.jsp?id=<%=recentStores.get(i).getStoreId()%>" class="product-title">
                                                                 <%=recentStores.get(i).getStoreName()%>
                                                             </a>
                                                             <span class="product-description">

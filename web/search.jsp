@@ -141,7 +141,7 @@
                                             while (rs.next()) {
                                         %>
                                         <li>
-                                            <a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>" target="_blank">
+                                            <a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>">
                                                 <span class="handle">
                                                     <i class="fa fa-map-marker"></i>
                                                 </span>

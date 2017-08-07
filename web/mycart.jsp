@@ -267,9 +267,32 @@
                             </div>
                             <div class="box box-primary showWP" id="md">
                                 <div class="box-header">
-                                    <h3 class="box-title"> My Details</h3>
+                                    <h3 class="box-title"> Change Password</h3>
                                 </div>
                                 <div class="box-body pre-scrollable">
+                                    <div class="col-md-10">
+                                        <div class="form-group has-feedback">
+                                            <input type="email" class="form-control" id="uEmail" name="email" value="<%=uid%>" readonly="readdonly">
+                                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <input type="password" class="form-control" name="psw" id="uPass" placeholder="Current Password" required="required">
+                                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <input type="password" class="form-control" name="npsw" id="uNPass" placeholder="New Password" required="required">
+                                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                        </div>                                        
+                                        <div class="form-group has-feedback">
+                                            <input type="password" class="form-control" name="ncpsw" id="uCPass" placeholder=" Confirm New Password" required="required">
+                                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                        </div>
+                                            <button type="submit" id="subButton" class="btn btn-primary pull-left" onclick="uChangePassCheck('user')">Submit</button>
+                                        <button class="btn btn-primary pull-left" style="margin-left: 5px;" onclick="history.back()">Back</button>
+                                        <br><br>
+                                        <div id="changeError" class="text-red"></div>
+                                        <div id="changeSuccess" class="text-green"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

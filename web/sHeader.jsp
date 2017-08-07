@@ -34,7 +34,7 @@
                         </li>
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Change Password</a>
+                                <a href="sChangePassword.jsp" class="btn btn-default btn-flat">Change Password</a>
                             </div>
                             <div class="pull-right">
                                 <a href="sLogout.jsp" class="btn btn-default btn-flat">Sign out</a>

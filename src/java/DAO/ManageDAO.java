@@ -150,19 +150,6 @@ public class ManageDAO {
 
                     objBO.setStoreId(storeid);
                 }
-//                String body = "Dear Abhishek/Tejas,\n";
-//                body += "\n<b>Event Reminder for you</b>\n\n";
-//                body += "Event Type : " + event + "\n";
-//                body += "Event Date/Duration : " + start + " - " + end + "\n";
-//                body += "Event Location : " + location + "\n";
-//                body += "Client Name : " + name + "\n";
-//                body += "Client Contact No. : " + mob + "\n\n";
-//                body += "Thanks and Regards";
-//
-//                Email e = new Email();
-//                String a[] = {"abkakad7@gmail.com", "tejasmohod@gmail.com"};
-//                e.sendFromGMail("hashtagphotocorp@gmail.com", "#photography", a, "New Event Added :" + event, body);
-//            
             } else {
             }
             con.close();
@@ -387,10 +374,6 @@ public class ManageDAO {
             stmt.execute();
             objBO.setOid(stmt.getInt("_oid"));
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -749,10 +732,6 @@ public class ManageDAO {
                 objBO.setAddFlag(true);
             }
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -860,9 +839,6 @@ public class ManageDAO {
             stmt.executeQuery();
             objBO.setFlag(stmt.getInt("_flag"));
             con.close();
-
-
-
 
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class

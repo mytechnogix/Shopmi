@@ -1,3 +1,5 @@
+<%@page import="com.quickc.pack.DBConnector"%>
+<%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,6 +10,16 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
     </head>
+    <%
+        PreparedStatement pst;
+        Connection con;
+        ResultSet rs;
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+    %>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
             <jsp:include page="aHeader.jsp"/>
@@ -59,12 +71,13 @@
                                                 <div class="form-group">
                                                     <label>Select Existing Area</label>
                                                     <select class="form-control" id="ddlHostArea" name="ddlHostArea" required>
-                                                        <option value="Amravati">Ambapeth</option>
-                                                        <option value="Dastur Nagar">Dastur Nagar</option>
-                                                        <option value="Nawathe">Nawathe</option>
-                                                        <option value="Badnera">Badnera</option>
-                                                        <option value="Panchwati Chowk">Panchwati Chowk</option>
-                                                        <option value="Other">Other</option>
+                                                        <%
+                                                            pst = con.prepareStatement("select distinct hostarea from hostel");
+                                                            rs = pst.executeQuery();
+                                                            while (rs.next()) {
+                                                        %>
+                                                        <option value="<%=rs.getString("hostarea")%>"><%=rs.getString("hostarea")%></option>
+                                                        <%}%>                                                    
                                                     </select>
                                                 </div>
                                             </div>
@@ -166,7 +179,7 @@
                                                 <div class="form-group">
                                                     <label>Email Address</label>
                                                     <div class="input-group">
-                                                        <input type="email" class="form-control" id="txtHostEmail" name="txtHostEmail" placeholder="Enter email address">
+                                                        <input type="email" class="form-control" id="txtHostEmail" name="txtHostEmail" placeholder="Enter email address" required>
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-envelope"></i>
                                                         </div>
@@ -240,5 +253,10 @@
                 });
             </script>
         </div>
+        <%
+                con.close();
+            } catch (Exception ex) {
+            }
+        %>
     </body>
 </html>

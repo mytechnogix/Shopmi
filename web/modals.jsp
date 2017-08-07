@@ -57,7 +57,7 @@
                                 <form>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                            <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
                                             <input type="email" class="form-control" id="emailLog" placeholder="Email">
                                         </div>
                                         <span class="help-block has-error" id="email-error"></span>
@@ -154,12 +154,13 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                        <input type="text" class="form-control" id="fEmail" name="fEmail" placeholder="Enter Email ID" required>
+                                        <input type="text" class="form-control" id="fEmail" name="fEmail" placeholder="Email" required>
                                     </div>
                                     <span class="help-block has-error" data-error='0' id="femail-error"></span>
                                 </div>
                                 <button type="button" onclick="forgetCheck()" id="reset_btn" class="btn btn-block bt-login" data-loading-text="Please wait....">Forget Password</button>
                                 <span id="forgetError" style="display: none; color: red"></span>
+                                <span id="forgetSuccess" style="display: none; color: green"></span>
                                 <div class="clearfix"></div>
                                 <div class="login-modal-footer">
                                     <div class="row">

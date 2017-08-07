@@ -1,3 +1,4 @@
+<%@page import="com.quickc.pack.Email"%>
 <%@page import="DAO.ManageDAO"%>
 <%@page import="BO.ManageHallBO"%>
 <%
@@ -34,7 +35,18 @@
     if (request.getParameter("opType").equals("add")) {
         objBO.setMapLocation(lat + "," + longi);
         objDAO.addHallDetails(objBO);
-        if (objBO.getHallId()!= null) {
+        if (objBO.getHallId() != null) {
+            String body = "Dear Team MyShejari\n";
+            body += "\n<b>New Business Added</b>\n\n";
+            body += "Business Name " + objBO.getHallName() + "\n";
+            body += "Business Type : Hall\n";
+            body += "Business Location : " + objBO.getHallArea() + "\n";
+            body += "Thanks and Regards";
+
+            Email e = new Email();
+            String a[] = {"team@myshejari.com"};
+            e.sendFromGMail("care@myshejari.com", "Ankush@02", a, "New Business Added", body);
+
             session.setAttribute("hallidAdd", objBO.getHallId());
             response.sendRedirect("aAddHallPhoto.jsp");
         } else {

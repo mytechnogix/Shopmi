@@ -1,3 +1,5 @@
+<%@page import="com.quickc.pack.DBConnector"%>
+<%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,6 +10,16 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <jsp:include page="aHeadFiles.jsp"/>
     </head>
+    <%
+        PreparedStatement pst;
+        Connection con;
+        ResultSet rs;
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+    %>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
             <jsp:include page="aHeader.jsp"/>
@@ -59,12 +71,13 @@
                                                 <div class="form-group">
                                                     <label>Select Existing Area</label>
                                                     <select class="form-control" id="ddlHallArea" name="ddlHallArea" required>
-                                                        <option value="Amravati">Ambapeth</option>
-                                                        <option value="Dastur Nagar">Dastur Nagar</option>
-                                                        <option value="Nawathe">Nawathe</option>
-                                                        <option value="Badnera">Badnera</option>
-                                                        <option value="Panchwati Chowk">Panchwati Chowk</option>
-                                                        <option value="Other">Other</option>
+                                                        <%
+                                                            pst = con.prepareStatement("select distinct hall_area from halls");
+                                                            rs = pst.executeQuery();
+                                                            while (rs.next()) {
+                                                        %>
+                                                        <option value="<%=rs.getString("hall_area")%>"><%=rs.getString("hall_area")%></option>
+                                                        <%}%>                                                    
                                                     </select>
                                                 </div>
                                             </div>
@@ -196,4 +209,9 @@
         </script>
     </div>
 </body>
+<%
+        con.close();
+    } catch (Exception ex) {
+    }
+%>
 </html>

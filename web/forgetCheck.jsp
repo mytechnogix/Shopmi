@@ -9,7 +9,6 @@
         String A[] = {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"};
         String no[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
         email = request.getParameter("id");
-        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" + email);
         Class.forName("com.mysql.jdbc.Driver");
         DBConnector dbc = new DBConnector();
         con = DriverManager.getConnection(dbc.getConstr());
@@ -22,8 +21,6 @@
             int n2 = (Math.abs(random.nextInt()) % 9) + 1;
             nps = ("MS@" + a[n1] + A[n1] + no[n2]);
 
-
-
             String body = "Dear Customer,\n\n";
             body += "Your password recovery is successful\n\n";
             body += "Your new temporary password is : " + nps + "\n\n";
@@ -32,7 +29,7 @@
 
             Email e = new Email();
             String receiver[] = {email};
-            e.sendFromGMail("service@myshejari.com", "MyShejari@123", receiver, "Password Recovery Successful!", body);
+            e.sendFromGMail("care@myshejari.com", "Ankush@02", receiver, "Password Recovery Successful!", body);
 
             pst = con.prepareStatement("update users set pass=? where email=?;");
             pst.setString(1, nps);
@@ -44,7 +41,7 @@
             res = "2";
         }
         con.close();
-        out.print(res);
     } catch (Exception e) {
         res = "0";
-    }%>
+    }
+    out.print(res);%>

@@ -1,3 +1,4 @@
+<%@page import="com.quickc.pack.Email"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%><%@page import="java.util.regex.Pattern"%><%@page import="DAO.ManageDAO"%><%@page import="BO.ManageOfferBO"%><%
     String storeId, offerOn, discount, totalCoupons, tc = "", dates, oid = "", start = "", end = "";
     request.setCharacterEncoding("UTF-8");
@@ -33,6 +34,15 @@
         objBO.setStoreId(storeId);
         objDAO.addOfferDetails(objBO);
         if (objBO.getOid() == 1) {
+            String body = "Dear Team MyShejari\n";
+            body += "\n<b>New Business Added</b>\n\n";
+            body += "Business Name " + objBO.getStoreName() + "\n";
+            body += "Offer Title : " + objBO.getDiscount() + "% off on "+objBO.getDiscountOn()+"\n";
+            body += "Thanks and Regards";
+
+            Email e = new Email();
+            String a[] = {"team@myshejari.com"};
+            e.sendFromGMail("care@myshejari.com", "Ankush@02", a, "New Offer Added", body);
             session.setAttribute("sOidAddOffer", objBO.getOid());
             out.print("1");
         } else if (objBO.getOid() == 2) {

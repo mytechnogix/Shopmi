@@ -163,7 +163,7 @@
                                                 <div class="col-md-12">
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="checkbox" name=""> I am authorised to advertise the business above and have read and agree to the privacy policy and terms and conditions
+                                                            <input type="checkbox" name="terms"> I am authorised to advertise the business above and have read and agree to the privacy policy and terms and conditions
                                                         </label>
                                                     </div>
                                                 </div>
@@ -321,6 +321,13 @@
                                 },
                                 notEmpty: {
                                     message: 'Please enter adress of your business'
+                                }
+                            }
+                        },
+                        terms: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'To continue you must Accept the Terms.'
                                 }
                             }
                         }

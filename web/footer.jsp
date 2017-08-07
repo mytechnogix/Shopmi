@@ -36,12 +36,14 @@
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control" name="txtSubscribe" id="txtSubscribe" placeholder="Enter Your Email Address" required>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-info btn-flat">Subscribe</button>
+                            <button type="button" class="btn btn-info btn-flat" onclick="subscribePromotions()" >Subscribe</button>
                         </span>
-                    </div><br>
+                    </div>                        
+                    <div id="promoError" style="color: red"></div>
+                    <br>
                     <p>
                         Subscribe now to get updates on promotions and
-                        coupons. Or <a href="https://play.google.com/store/apps/details?id=com.wMyShejari_5409661">Download App</a>
+                        coupons. Or <a href="https://play.google.com/store/apps/details?id=com.wMyShejari_5409661" target="_blank">Download App</a>
                     </p>
                 </div>
             </div>

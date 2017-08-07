@@ -1,7 +1,8 @@
+<%@page import="com.quickc.pack.Email"%>
 <%@page import="BO.ManageAdvBO"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="DAO.ManageDAO"%><%
-    String storeId, advDesc, advTitle, tc = "", dates, start = "", end = "", type = "", subtype="";
+    String storeId, advDesc, advTitle, tc = "", dates, start = "", end = "", type = "", subtype = "";
     storeId = request.getParameter("advStoreId");
     advTitle = request.getParameter("advTitle");
     advDesc = request.getParameter("advDesc");
@@ -31,6 +32,16 @@
     if (type.equals("sAdd")) {
         objDAO.addAdvertiseDetails(objBO);
         if (objBO.getAid() != 0) {
+            String body = "Dear Team MyShejari\n";
+            body += "\n<b>New Advertise Added</b>\n\n";
+            body += "Business Name " + objBO.getStoreName() + "\n";
+            body += "Advertise Title : " + objBO.getAdvTitle() + "\n";
+            body += "Thanks and Regards";
+
+            Email e = new Email();
+            String a[] = {"team@myshejari.com"};
+            e.sendFromGMail("care@myshejari.com", "Ankush@02", a, "New Advertise Added", body);
+
             response.sendRedirect("sAdvertiseDetails.jsp");
         } else {
             out.print("Failed to add advertise details");

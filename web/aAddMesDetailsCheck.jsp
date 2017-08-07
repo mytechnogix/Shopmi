@@ -1,3 +1,4 @@
+<%@page import="com.quickc.pack.Email"%>
 <%@page import="DAO.ManageDAO"%>
 <%@page import="BO.ManageMesBO"%>
 <%
@@ -42,6 +43,17 @@
         objBO.setMapLocation(lat + "," + longi);
         objDAO.addMesDetails(objBO);
         if (objBO.getMesId() != null) {
+            String body = "Dear Team MyShejari\n";
+            body += "\n<b>New Business Added</b>\n\n";
+            body += "Business Name " + objBO.getMesName() + "\n";
+            body += "Business Type : Store\n";
+            body += "Business Location : " + objBO.getMesArea() + "\n";
+            body += "Thanks and Regards";
+
+            Email e = new Email();
+            String a[] = {"team@myshejari.com"};
+            e.sendFromGMail("care@myshejari.com", "Ankush@02", a, "New Business Added", body);
+
             session.setAttribute("mesidAdd", objBO.getMesId());
             response.sendRedirect("aAddMesPhoto.jsp");
         } else {
