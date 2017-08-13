@@ -270,6 +270,8 @@
                     $('#lblPM').text($('#lblPM').text() == 'PM' ? 'AM' : 'PM');
                     $('#txtPM').val($('#lblPM').text());
                 });
+                
+                $("#ddlOfferSubs").attr("disabled","disabled");
             </script>   
         </div>
         <%

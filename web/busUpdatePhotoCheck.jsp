@@ -45,16 +45,16 @@
 
                 if (type.equals("store")) {
                     relativeWebPath = "/images/storephotos/";
-                    redirect = "aUpdatePhotosDetails.jsp?sid=" + storeid + "&type=" + type;
+                    redirect = "sUpdatePhotosDetails.jsp";
                 } else if (type.equals("hall")) {
                     relativeWebPath = "/images/hallphotos/";
-                    redirect = "aUpdatePhotosDetails.jsp?sid=" + storeid + "&type=" + type;
+                    redirect = "hallUpdatePhotosDetails.jsp";
                 } else if (type.equals("mes")) {
                     relativeWebPath = "/images/mesphotos/";
-                    redirect = "aUpdatePhotosDetails.jsp?sid=" + storeid + "&type=" + type;
+                    redirect = "mUpdatePhotosDetails.jsp";
                 } else if (type.equals("hostel")) {
                     relativeWebPath = "/images/hostelphotos/";
-                    redirect = "aUpdatePhotosDetails.jsp?sid=" + storeid + "&type=" + type;
+                    redirect = "hostUpdatePhotosDetails.jsp";
                 }
                 String absoluteDiskPath = getServletContext().getRealPath(relativeWebPath);
                 String extension = FilenameUtils.getExtension(saveFile);
@@ -73,9 +73,8 @@
 
                 int res = 0;
                 ManageDAO objDAO = new ManageDAO();
-                res = objDAO.updatePhotos(storeid, type, imgName, imgCount);
+                res = objDAO.busUpdatePhotos(storeid, type, imgName, imgCount);
                 if (res > 0) {
-                    //System.out.println(">>>>>>>>> redict path : " + redirect);
                     response.sendRedirect(redirect);
                 } else {
                     out.print("Failed to update photos");

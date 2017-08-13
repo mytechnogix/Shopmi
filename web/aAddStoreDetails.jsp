@@ -49,7 +49,6 @@
                                                     <label>Select City</label>
                                                     <select class="form-control" id="txtOfferCity" name="txtOfferCity" required>
                                                         <option value="Amravati">Amravati</option>
-                                                        <option value="Akola">Akola</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -78,6 +77,7 @@
                                                         %>
                                                         <option value="<%=rs.getString("storearea")%>"><%=rs.getString("storearea")%></option>
                                                         <%}%>
+                                                        <option value="Other">Other</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -100,6 +100,7 @@
                                                         %>
                                                         <option value="<%=rs.getString("category")%>"><%=rs.getString("category")%></option>
                                                         <%}%>
+                                                        <option value="Other">Other</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -160,22 +161,10 @@
                                                         <option value="Thursday">Thursday</option>
                                                         <option value="Friday">Friday</option>
                                                         <option value="Saturday">Saturday</option>
+                                                        <option value="Never">Never</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <label>Contact Number</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="txtOfferContact" name="txtOfferContact" placeholder="Enter 10 digit contact number" required>
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-phone"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <label>Website URL</label>
@@ -187,25 +176,49 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label>Contact Number 1</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtOfferContact" name="txtOfferContact" placeholder="Enter contact number 1" required>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label>Contact Number 2</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtOfferContact2" name="txtOfferPhone" placeholder="Enter contact number 2">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <label>Email Address</label>
                                                     <div class="input-group">
-                                                        <input type="email" class="form-control" id="txtOfferEmail" name="txtOfferEmail" placeholder="Enter email address">
+                                                        <input type="email" class="form-control" id="txtOfferEmail" name="txtOfferEmail" placeholder="Enter email address" required>
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-envelope"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6" id="otherDiv">
+                                            <div class="col-lg-3" id="otherDiv">
                                                 <div class="form-group">
                                                     <label>Subscription Type</label>
                                                     <select class="form-control" id="ddlOfferSubs" name="ddlOfferSubs" required>
-                                                        <option value="free">Initial - Free for 3 Months</option>
-                                                        <option value="3">3 Months</option>
-                                                        <option value="6">6 Months</option>
-                                                        <option value="12">1 Year</option>
+                                                        <option value="MSPM3">For 90 Days @1.66 Rs/Day - MSPM3</option>
+                                                        <option value="MSPM6">For 180 Days @1.38 Rs/Day - MSPM6</option>
+                                                        <option value="MSPY1">For 365 Days @0.95 Rs/Day - MSPY1</option>
+                                                        <option value="carousal">Included in carousal</option>
                                                     </select>
                                                 </div>
                                             </div>

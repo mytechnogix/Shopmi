@@ -89,8 +89,9 @@
                             <div class="row">
                                 <div class="col-lg-7">
                                     <div class="box box-primary" style="padding: 10px">
+                                        <a href="storeDetails.jsp?id=<%=storeId%>"> 
                                         <h3><span class="text-red"><%=advTitle%></span></h3>
-                                        <h4 class="text-blue"><a href="storeDetails.jsp?id=<%=storeId%>">  <%=storeName%>, <%=storeArea%>, <%=city%></a></h4>
+                                        <h4 class="text-blue"> <%=storeName%>, <%=storeArea%>, <%=city%></a></h4>
                                         <br>
                                     </div>
                                 </div>
@@ -100,7 +101,7 @@
                                             <h3 class="box-title">Description</h3>
                                         </div>
                                         <div class="box-body">
-                                            <span style="text-align: justify"><%=advDesc%></span>
+                                            <span style="text-align: justify; font-size: 16px"><%=advDesc%></span>
                                         </div>
                                     </div>
                                 </div>   
@@ -127,7 +128,7 @@
                                             <h3 class="box-title">Terms and Conditions</h3>
                                         </div>
                                         <div class="box-body">
-                                            <span style="text-align: justify"><%=tc%></span>
+                                            <span style="text-align: justify; font-size: 16px"><%=tc%></span>
                                         </div>
                                     </div>
                                 </div>   

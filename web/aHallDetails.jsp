@@ -132,15 +132,13 @@
                                                     <input type="text" id="txtHallServices" name="txtHallServices" class="form-control" value="<%=rs.getString("services")%>" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6" id="otherDiv">
+                                            <div class="col-lg-3" id="otherDiv">
                                                 <div class="form-group">
                                                     <label>Hall Area in Square Feet</label>
                                                     <input type="text" id="txtHallAreaSqft" name="txtHallAreaSqft" class="form-control" value="<%=rs.getString("areasqft")%>" required>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <label>Website URL</label>
                                                     <div class="input-group">
@@ -151,7 +149,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Email Address</label>
                                                     <div class="input-group">
@@ -162,11 +163,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label>Contact Number</label>
+                                                    <label>Contact Number 1</label>
                                                     <div class="input-group">
                                                         <input type="text" class="form-control" id="txtHallContact" name="txtHallContact" value="<%=rs.getString("contact")%>" required>
                                                         <div class="input-group-addon">
@@ -175,17 +174,40 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Contact Number 2</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtHallContact2" name="txtHallPhone" value="<%=rs.getString("phone")%>">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-lg-3" id="otherDiv">
                                                 <div class="form-group">
                                                     <label>Subscription Type</label>
                                                     <select class="form-control" id="ddlHallSubs" name="ddlHallSubs" required>
                                                         <option value='<%=rs.getString("substype")%>' selected><%=rs.getString("substype")%></option>
-                                                        <option value="Initial - Free for 3 Months">Initial - Free for 3 Months</option>
-                                                        <option value="3 Months"> 3 Months</option>
-                                                        <option value="6 Months"> 6 Months</option>
-                                                        <option value="1 Year"> 1 Year</option>
-                                                        <option value="Lifetime"> Lifetime</option>
+                                                        <option value="MSPM3">For 90 Days @1.66 Rs/Day - MSPM3</option>
+                                                        <option value="MSPM6">For 180 Days @1.38 Rs/Day - MSPM6</option>
+                                                        <option value="MSPY1">For 365 Days @0.95 Rs/Day - MSPY1</option>
+                                                        <option value="carousal">Included in carousal</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label>Password</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtHallPass" name="txtHallPass" value="<%=rs.getString("pass")%>">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6" id="otherDiv">
@@ -238,11 +260,13 @@
                 $("#txtHallCloseAt").attr("disabled", "disabled");
                 $("#ddlHallClosedOn").attr("disabled", "disabled");
                 $("#txtHallContact").attr("disabled", "disabled");
+                $("#txtHallContact2").attr("disabled", "disabled");
                 $("#txtHallURL").attr("disabled", "disabled");
                 $("#txtHallEmail").attr("disabled", "disabled");
                 $("#ddlHallSubs").attr("disabled", "disabled");
                 $("#txtHallFullAddress").attr("disabled", "disabled");
                 $("#txtHallArea").attr("disabled", "disabled");
+                $("#txtHallPass").attr("disabled", "disabled");
                 
                 $("#btnEdit").click(function(){
                     $("#btnUpdate").show();
@@ -258,10 +282,12 @@
                     $("#txtHallCloseAt").removeAttr("disabled");
                     $("#ddlHallClosedOn").removeAttr("disabled");
                     $("#txtHallContact").removeAttr("disabled");
+                    $("#txtHallContact2").removeAttr("disabled");
                     $("#txtHallURL").removeAttr("disabled");
                     $("#txtHallEmail").removeAttr("disabled");
                     $("#ddlHallSubs").removeAttr("disabled");
                     $("#txtHallFullAddress").removeAttr("disabled");
+                    $("#txtHallPass").removeAttr("disabled");
                 });
                 $("#btnReset").click(function(){
                     $("#btnUpdate").hide();
@@ -277,10 +303,12 @@
                     $("#txtHallCloseAt").attr("disabled", "disabled");
                     $("#ddlHallClosedOn").attr("disabled", "disabled");
                     $("#txtHallContact").attr("disabled", "disabled");
+                    $("#txtHallContact2").attr("disabled", "disabled");
                     $("#txtHallURL").attr("disabled", "disabled");
                     $("#txtHallEmail").attr("disabled", "disabled");
                     $("#ddlHallSubs").attr("disabled", "disabled");
                     $("#txtHallFullAddress").attr("disabled", "disabled");
+                    $("#txtHallPass").attr("disabled", "disabled");
                 });
                 
                 $("#ddlHallArea").change(function() {

@@ -242,25 +242,24 @@
 
                                             <div class="col-lg-3">
                                                 <div class="form-group">
-                                                    <label>Contact Number</label>
+                                                    <label>Contact Number 1</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="<%=rs.getString("contact")%>" id="txtMesContact" name="txtMesContact" placeholder="Enter 10 digit contact number" required>
+                                                        <input type="text" class="form-control" value="<%=rs.getString("contact")%>" id="txtMesContact" name="txtMesContact" placeholder="Enter contact number 1" required>
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-phone"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3" id="otherDiv">
+                                            <div class="col-lg-3">
                                                 <div class="form-group">
-                                                    <label>Subscription Type</label>
-                                                    <select class="form-control" id="ddlMesSubs" name="ddlMesSubs" required>
-                                                        <option value='<%=rs.getString("subtype")%>' selected><%=rs.getString("subtype")%></option>
-                                                        <option value="Initial - Free for 3 Months">Initial - Free for 3 Months</option>
-                                                        <option value="3 Months">3 Months</option>
-                                                        <option value="6 Months">6 Months</option>
-                                                        <option value="12 Months">1 Year</option>
-                                                    </select>
+                                                    <label>Contact Number 2</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<%=rs.getString("phone")%>" id="txtMesContact2" name="txtMesPhone" placeholder="Enter contact number 2">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -287,6 +286,31 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-3" id="otherDiv">
+                                                <div class="form-group">
+                                                    <label>Subscription Type</label>
+                                                    <select class="form-control" id="ddlMesSubs" name="ddlMesSubs" required>
+                                                        <option value='<%=rs.getString("subtype")%>' selected><%=rs.getString("subtype")%></option>
+                                                        <option value="Initial - Free for 3 Months">Initial - Free for 3 Months</option>
+                                                        <option value="3 Months">3 Months</option>
+                                                        <option value="6 Months">6 Months</option>
+                                                        <option value="12 Months">1 Year</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label>Password</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<%=rs.getString("pass")%>" id="txtMesPass" name="txtMesPass" placeholder="Enter password">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-lg-6">
                                                 <label>Full Address</label>
                                                 <div class="form-group date">
@@ -344,6 +368,7 @@
                 $("#txtMesCloseAt").attr("disabled", "disabled");
                 $("#ddlMesClosedOn").attr("disabled", "disabled");
                 $("#txtMesContact").attr("disabled", "disabled");
+                $("#txtMesContact2").attr("disabled", "disabled");
                 $("#txtMesURL").attr("disabled", "disabled");
                 $("#txtMesEmail").attr("disabled", "disabled");
                 $("#ddlMesSubs").attr("disabled", "disabled");
@@ -354,6 +379,7 @@
                 $("#txtMesDinnerStart").attr("disabled", "disabled");
                 $("#txtMesDinnerEnd").attr("disabled", "disabled");
                 $("#txtMesArea").attr("disabled", "disabled");
+                $("#txtMesPass").attr("disabled", "disabled");
 
                 $("#btnEdit").click(function(){
                     $("#btnUpdate").show();
@@ -379,7 +405,8 @@
                     $("#txtMesLunchEnd").removeAttr("disabled");
                     $("#txtMesDinnerStart").removeAttr("disabled");
                     $("#txtMesDinnerEnd").removeAttr("disabled");
-                    //$("#txtMesArea").removeAttr("disabled");
+                    $("#txtMesContact2").removeAttr("disabled");
+                    $("#txtMesPass").removeAttr("disabled");
                 });
                 $("#btnReset").click(function(){
                     $("#btnUpdate").hide();
@@ -395,6 +422,7 @@
                     $("#txtMesCloseAt").attr("disabled", "disabled");
                     $("#ddlMesClosedOn").attr("disabled", "disabled");
                     $("#txtMesContact").attr("disabled", "disabled");
+                    $("#txtMesContact2").attr("disabled", "disabled");
                     $("#txtMesURL").attr("disabled", "disabled");
                     $("#txtMesEmail").attr("disabled", "disabled");
                     $("#ddlMesSubs").attr("disabled", "disabled");
@@ -405,6 +433,7 @@
                     $("#txtMesDinnerStart").attr("disabled", "disabled");
                     $("#txtMesDinnerEnd").attr("disabled", "disabled");
                     $("#txtMesArea").attr("disabled", "disabled");
+                    $("#txtMesPass").attr("disabled", "disabled");
                 });
                 $("#ddlMesArea").change(function() {
                     var opt = $(this).find('option:selected').val();

@@ -2,7 +2,7 @@
 <%@page import="DAO.ManageDAO"%>
 <%@page import="BO.ManageMesBO"%>
 <%
-    String mesAreaDdl, mesAreaTxt, mesArea = "", url;
+    String mesAreaDdl, mesAreaTxt, mesArea = "", phone;
     String lat, longi, mesURL = "", amLunch, pmLunch, amDinner, pmDinner;
 
     request.setCharacterEncoding("UTF-8");
@@ -20,6 +20,19 @@
     }
     ManageDAO objDAO = new ManageDAO();
     ManageMesBO objBO = new ManageMesBO();
+
+    mesURL = request.getParameter("txtMesURL");
+    phone = request.getParameter("txtMesPhone");
+
+    if (mesURL.equalsIgnoreCase("")) {
+        mesURL = "Not Available";
+    }
+    if (phone.equalsIgnoreCase("")) {
+        phone = "Not Available";
+    }
+    objBO.setPhone(phone);
+    objBO.setUrl(mesURL);
+
     lat = String.valueOf(session.getAttribute("latitude"));
     longi = String.valueOf(session.getAttribute("longitude"));
     objBO.setMesName(request.getParameter("txtMesName"));
@@ -28,7 +41,6 @@
     objBO.setCity(request.getParameter("txtMesCity"));
     objBO.setMetadata(request.getParameter("txtMesMetadata"));
     objBO.setHomeDelivery(request.getParameter("ddlMesHomeDelivery"));
-    objBO.setUrl(request.getParameter("txtMesURL"));
     objBO.setSubType(request.getParameter("ddlMesSubs"));
     objBO.setLunchTime(request.getParameter("txtMesLunchStart") + " " + amLunch + " to " + request.getParameter("txtMesLunchEnd") + " " + pmLunch);
     objBO.setDinnerTime(request.getParameter("txtMesDinnerStart") + " " + amDinner + " to " + request.getParameter("txtMesDinnerEnd") + " " + pmDinner);
@@ -61,6 +73,7 @@
         }
     } else {
         objBO.setMesId(request.getParameter("mesid"));
+        objBO.setPassword(request.getParameter("txtMesPass"));
         objBO.setAddFlag(false);
         objDAO.updateMesDetails(objBO);
         if (objBO.isAddFlag()) {

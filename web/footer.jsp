@@ -5,9 +5,9 @@
                 <div class="footer_widget wow fadeInLeftBig">
                     <h2>Policy Info</h2>
                     <ul class="tag_nav">
-                        <li><a href="privacypolicy.jsp" target="_blank">Privacy Policy</a></li>
-                        <li><a href="termsandconditions.jsp" target="_blank">Terms and Condition</a></li>
-                        <li><a href="abuseandtakedown.jsp" target="_blank">Report Abuse and Takedown</a></li>
+                        <li><a href="privacypolicy.jsp">Privacy Policy</a></li>
+                        <li><a href="termsandconditions.jsp">Terms and Condition</a></li>
+                        <li><a href="abuseandtakedown.jsp">Report Abuse and Takedown</a></li>
                     </ul>
                 </div>
             </div>
@@ -16,7 +16,7 @@
                     <h2>Company</h2>
                     <ul class="tag_nav">
                         <li><a  href="javascript:;" data-toggle="modal" data-target="#aboutModal">About Us</a></li>
-                        <li><a href="corevalues.jsp" target="_blank">Core Values</a></li>
+                        <li><a href="corevalues.jsp">Core Values</a></li>
                         <li><a href="faq.jsp">FAQ</a></li>
                     </ul>
                 </div>

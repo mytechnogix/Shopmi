@@ -24,7 +24,7 @@ $(window).scroll(function() {
 });
  
 //ajax -get suggestions
-var xmlHttp
+var xmlHttp;
 var searchQuery;
 function getSuggestionsAjax(){
     var filter = $('input:radio[name=filterChk]:checked').val();
@@ -349,6 +349,7 @@ function submitReview()
     var type = $("#type").val();
     var review = $("#txtAreaReview").val().trim();
     
+    //alert(enqid+type+review);
     if(review=="" || review==null)
     {
         $("#txtAreaReview").focus();
@@ -365,7 +366,7 @@ function submitReviewOutput()
 {
     if (xmlhttp.readyState==4)
     {
-        alert(xmlhttp.responseText);
+        //alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1"){
             $("#settingsTabRev").hide();
             $("#successReviewMsg").show();
@@ -850,7 +851,7 @@ function checkAmenities(str)
     } else {
         amenities+="0";
     }
-    // alert(amenities);
+    alert(amenities);
     xmlhttp=GetXmlHttpObject();
     if (xmlhttp==null)
     {
@@ -1022,7 +1023,7 @@ function redirectToOfferOutput(){
         {
             //alert("No offer available for this shop");
             $("#modalImg_offer").attr("src","images/wrongIcon.png");
-            $("#modalMsg_offer").text("No offer available for this shop");
+            $("#modalMsg_offer").text("Sorry! Currently there is no offer available for this shop");
             $('.modal-footer').show();     
             $('#offerModal').modal('show');       
             return;

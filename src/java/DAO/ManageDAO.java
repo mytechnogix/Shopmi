@@ -107,6 +107,76 @@ public class ManageDAO {
         return cnt;
     }
 
+    public int busUpdatePhotos(String id, String type, String imgName, String imgCount) {
+        int cnt = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DBConnector dbc = new DBConnector();
+            con = DriverManager.getConnection(dbc.getConstr());
+            if (type.equals("store")) {
+                if (imgCount.equals("1")) {
+                    pst = con.prepareStatement("update storedetails set photo=?, storestatus='Data Changed' where storeid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("2")) {
+                    pst = con.prepareStatement("update storedetails set photo2=?, storestatus='Data Changed'  where storeid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("3")) {
+                    pst = con.prepareStatement("update storedetails set photo3=?, storestatus='Data Changed' where storeid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                }
+            } else if (type.equals("mes")) {
+                if (imgCount.equals("1")) {
+                    pst = con.prepareStatement("update mes set photo=?, messtatus='Data Changed' where mesid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("2")) {
+                    pst = con.prepareStatement("update mes set photo2=?, messtatus='Data Changed' where mesid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("3")) {
+                    pst = con.prepareStatement("update mes set photo3=?, messtatus='Data Changed' where mesid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                }
+            } else if (type.equals("hall")) {
+                if (imgCount.equals("1")) {
+                    pst = con.prepareStatement("update halls set photo=?, status='Data Changed' where hallid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("2")) {
+                    pst = con.prepareStatement("update halls set photo2=?, status='Data Changed' where hallid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("3")) {
+                    pst = con.prepareStatement("update halls set photo3=?, status='Data Changed' where hallid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                }
+            } else if (type.equals("hostel")) {
+                if (imgCount.equals("1")) {
+                    pst = con.prepareStatement("update hostel set photo=?, hoststatus='Data Changed' where hostid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("2")) {
+                    pst = con.prepareStatement("update hostel set photo2=?, hoststatus='Data Changed' where hostid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                } else if (imgCount.equals("3")) {
+                    pst = con.prepareStatement("update hostel set photo3=?, hoststatus='Data Changed' where hostid=?");
+                    pst.setString(1, imgName);
+                    pst.setString(2, id);
+                }
+            }
+            cnt = pst.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return cnt;
+    }
+
     public void addStoreDetails(ManageStoreBO objBO) throws SQLException {
         int cnt = 0;
         String storeid = "";
@@ -114,7 +184,7 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("insert into storedetails(storename, category, storearea, city, websiteurl, services, workinghours, servicearea, closedon, subtype, maplocation, contact, fulladdress, email, addedBy, hindistorename) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst = con.prepareStatement("insert into storedetails(storename, category, storearea, city, websiteurl, services, workinghours, servicearea, closedon, subtype, maplocation, contact, fulladdress, email, addedBy, hindistorename, phone, pass) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objBO.getStoreName());
             pst.setString(2, objBO.getStoreCat());
             pst.setString(3, objBO.getStoreArea());
@@ -131,7 +201,8 @@ public class ManageDAO {
             pst.setString(14, objBO.getEmail());
             pst.setString(15, objBO.getAddedBy());
             pst.setString(16, objBO.getStoreNameHindi());
-
+            pst.setString(17, objBO.getPhone());
+            pst.setString(18, objBO.getContact());
             cnt = pst.executeUpdate();
             if (cnt > 0) {
                 pst = con.prepareStatement("select storeid from storedetails where storename=? and category=?;");
@@ -164,7 +235,7 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("update storedetails set storename=?, category=?, storearea=?, city=?, websiteurl=?, services=?, workinghours=?, servicearea=?, closedon=?, subtype=?, contact=?, fulladdress=?, email=?, hindistorename=? where storeid=?");
+            pst = con.prepareStatement("update storedetails set storename=?, category=?, storearea=?, city=?, websiteurl=?, services=?, workinghours=?, servicearea=?, closedon=?, subtype=?, contact=?, fulladdress=?, email=?, hindistorename=?, phone=?, pass=? where storeid=?");
             pst.setString(1, objBO.getStoreName());
             pst.setString(2, objBO.getStoreCat());
             pst.setString(3, objBO.getStoreArea());
@@ -179,7 +250,9 @@ public class ManageDAO {
             pst.setString(12, objBO.getAddress());
             pst.setString(13, objBO.getEmail());
             pst.setString(14, objBO.getStoreNameHindi());
-            pst.setString(15, objBO.getStoreId());
+            pst.setString(15, objBO.getPhone());
+            pst.setString(16, objBO.getPassword());
+            pst.setString(17, objBO.getStoreId());
 
             cnt = pst.executeUpdate();
             if (cnt > 0) {
@@ -193,7 +266,6 @@ public class ManageDAO {
 
     public void addBusinessDetails(ManageStoreBO objBO) throws SQLException {
         int cnt = 0;
-        String res = "0";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
@@ -858,7 +930,7 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("SELECT storeid,storename, storearea,city, photo FROM storedetails WHERE regDate BETWEEN NOW() - INTERVAL 30 DAY AND NOW() order by regDate desc limit 16");
+            pst = con.prepareStatement("SELECT storeid,storename, storearea,city, photo FROM storedetails WHERE storestatus='Active' and regDate BETWEEN NOW() - INTERVAL 30 DAY AND NOW() order by regDate desc limit 16");
             rs = pst.executeQuery();
             while (rs.next()) {
                 objBO = new ManageStoreBO();
@@ -889,8 +961,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(16, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(18, Types.INTEGER);
             stmt.setString(1, objBO.getHallName());
             stmt.setString(2, objBO.getHallNameHindi());
             stmt.setInt(3, objBO.getHallAreaSqft());
@@ -906,8 +978,10 @@ public class ManageDAO {
             stmt.setString(13, objBO.getAddedBy());
             stmt.setString(14, objBO.getPhoto());
             stmt.setString(15, objBO.getMetadata());
-            stmt.setInt(16, 0);
-            stmt.setString(17, "1");
+            stmt.setString(16, objBO.getPhone());
+            stmt.setString(17, objBO.getPassword());
+            stmt.setInt(18, 0);
+            stmt.setString(19, "1");
             stmt.execute();
             objBO.setHallId(String.valueOf(stmt.getInt("_hid")));
             con.close();
@@ -925,8 +999,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(16, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(18, Types.INTEGER);
             stmt.setString(1, objBO.getHallName());
             stmt.setString(2, objBO.getHallNameHindi());
             stmt.setInt(3, objBO.getHallAreaSqft());
@@ -942,17 +1016,15 @@ public class ManageDAO {
             stmt.setString(13, objBO.getAddedBy());
             stmt.setString(14, objBO.getPhoto());
             stmt.setString(15, objBO.getMetadata());
-            stmt.setString(16, objBO.getHallId());
-            stmt.setString(17, "2");
+            stmt.setString(16, objBO.getPhone());
+            stmt.setString(17, objBO.getPassword());
+            stmt.setString(18, objBO.getHallId());
+            stmt.setString(19, "2");
             stmt.execute();
             if (stmt.getInt("_hid") == 1) {
                 objBO.setAddFlag(true);
             }
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -967,8 +1039,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(16, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_hall(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(18, Types.INTEGER);
             stmt.setString(1, objBO.getHallName());
             stmt.setString(2, objBO.getHallNameHindi());
             stmt.setInt(3, objBO.getHallAreaSqft());
@@ -984,18 +1056,15 @@ public class ManageDAO {
             stmt.setString(13, objBO.getAddedBy());
             stmt.setString(14, objBO.getPhoto());
             stmt.setString(15, objBO.getMetadata());
-            stmt.setString(16, objBO.getHallId());
-            stmt.setString(17, "3");
+            stmt.setString(16, objBO.getPhone());
+            stmt.setString(17, objBO.getPassword());
+            stmt.setString(18, objBO.getHallId());
+            stmt.setString(19, "3");
             stmt.execute();
-
             if (stmt.getInt("_hid") == 1) {
                 objBO.setAddFlag(true);
             }
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1052,10 +1121,6 @@ public class ManageDAO {
                 objBO.setPhoto3(photo3);
             }
             con.close();
-
-
-
-
         } catch (Exception ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1067,8 +1132,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(21, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(23, Types.INTEGER);
             stmt.setString(1, objBO.getMesName());
             stmt.setString(2, objBO.getMesNameHindi());
             stmt.setString(3, objBO.getContact());
@@ -1089,15 +1154,13 @@ public class ManageDAO {
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getMetadata());
-            stmt.setString(21, objBO.getMesId());
-            stmt.setString(22, "1");
+            stmt.setString(21, objBO.getPhone());
+            stmt.setString(22, objBO.getPassword());
+            stmt.setString(23, "0");
+            stmt.setString(24, "1");
             stmt.execute();
             objBO.setMesId(String.valueOf(stmt.getInt("_mesid")));
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1112,8 +1175,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(21, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(23, Types.INTEGER);
             stmt.setString(1, objBO.getMesName());
             stmt.setString(2, objBO.getMesNameHindi());
             stmt.setString(3, objBO.getContact());
@@ -1134,17 +1197,15 @@ public class ManageDAO {
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getMetadata());
-            stmt.setString(21, objBO.getMesId());
-            stmt.setString(22, "2");
+            stmt.setString(21, objBO.getPhone());
+            stmt.setString(22, objBO.getPassword());
+            stmt.setString(23, objBO.getMesId());
+            stmt.setString(24, "2");
             stmt.execute();
             if (stmt.getInt("_mesid") > 0) {
                 objBO.setAddFlag(true);
             }
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1159,8 +1220,8 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(21, Types.INTEGER);
+            CallableStatement stmt = con.prepareCall("{call sp_mes(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            stmt.registerOutParameter(23, Types.INTEGER);
             stmt.setString(1, objBO.getMesName());
             stmt.setString(2, objBO.getMesNameHindi());
             stmt.setString(3, objBO.getContact());
@@ -1181,18 +1242,16 @@ public class ManageDAO {
             stmt.setString(18, objBO.getAddedBy());
             stmt.setString(19, objBO.getPhoto());
             stmt.setString(20, objBO.getMetadata());
-            stmt.setString(21, objBO.getMesId());
-            stmt.setString(22, "3");
+            stmt.setString(21, objBO.getPhone());
+            stmt.setString(22, objBO.getPassword());
+            stmt.setString(23, objBO.getMesId());
+            stmt.setString(24, "3");
             stmt.execute();
 
             if (stmt.getInt("_mesid") == 1) {
                 objBO.setAddFlag(true);
             }
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1255,10 +1314,6 @@ public class ManageDAO {
                 objBO.setPhoto3(photo3);
             }
             con.close();
-
-
-
-
         } catch (Exception ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1267,42 +1322,54 @@ public class ManageDAO {
 
     public void addHostelDetails(ManageHostelBO objBO) {
         try {
+            String hostid = "";
+            int cnt = 0;
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(23, Types.INTEGER);
-            stmt.setString(1, objBO.getHostName());
-            stmt.setString(2, objBO.getHostNameHindi());
-            stmt.setString(3, objBO.getHostAreaSqft());
-            stmt.setString(4, objBO.getHostArea());
-            stmt.setString(5, objBO.getAddress());
-            stmt.setString(6, objBO.getContact());
-            stmt.setString(7, objBO.getWebsiteUrl());
-            stmt.setString(8, objBO.getEmail());
-            stmt.setString(9, objBO.getForWhom());
-            stmt.setString(10, "0");
-            stmt.setString(11, objBO.getBedrooms());
-            stmt.setString(12, objBO.getBeds());
-            stmt.setString(13, objBO.getRent());
-            stmt.setString(14, objBO.getDeposit());
-            stmt.setString(15, objBO.getDescription());
-            stmt.setString(16, objBO.getMaplocation());
-            stmt.setString(17, objBO.getCity());
-            stmt.setString(18, objBO.getAddedBy());
-            stmt.setString(19, objBO.getPhoto());
-            stmt.setString(20, objBO.getFurnished());
-            stmt.setString(21, objBO.getPossession());
-            stmt.setString(22, objBO.getMetadata());
-            stmt.setInt(23, 0);
-            stmt.setString(24, "1");
-            stmt.execute();
-            objBO.setHostId(String.valueOf(stmt.getInt("_hostid")));
+            pst = con.prepareStatement("insert into hostel(hostname, hostnamehindi, hostarea, hostareasqft, address, contact, websiteurl, email, forwhom, bedrooms, beds, rent, deposit, description, maplocation, city, addedby, furnished, possession, phone, pass, substype) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst.setString(1, objBO.getHostName());
+            pst.setString(2, objBO.getHostNameHindi());
+            pst.setString(3, objBO.getHostArea());
+            pst.setString(4, objBO.getHostAreaSqft());
+            pst.setString(5, objBO.getAddress());
+            pst.setString(6, objBO.getContact());
+            pst.setString(7, objBO.getWebsiteUrl());
+            pst.setString(8, objBO.getEmail());
+            pst.setString(9, objBO.getForWhom());
+            pst.setString(10, objBO.getBedrooms());
+            pst.setString(11, objBO.getBeds());
+            pst.setString(12, objBO.getRent());
+            pst.setString(13, objBO.getDeposit());
+            pst.setString(14, objBO.getDescription());
+            pst.setString(15, objBO.getMaplocation());
+            pst.setString(16, objBO.getCity());
+            pst.setString(17, objBO.getAddedBy());
+            pst.setString(18, objBO.getFurnished());
+            pst.setString(19, objBO.getPossession());
+            pst.setString(20, objBO.getPhone());
+            pst.setString(21, objBO.getContact());
+            pst.setString(22, objBO.getSubscription());
+            cnt = pst.executeUpdate();
+
+            if (cnt > 0) {
+                pst = con.prepareStatement("select hostid from hostel where hostname=? and email=?;");
+                pst.setString(1, objBO.getHostName());
+                pst.setString(2, objBO.getEmail());
+                rs = pst.executeQuery();
+                if (rs.next()) {
+                    hostid = rs.getString("hostid");
+                    pst1 = con.prepareStatement("insert into search values(?,?,?,?,?);");
+                    pst1.setInt(1, Integer.parseInt(hostid));
+                    pst1.setString(2, "hostel");
+                    pst1.setString(3, objBO.getHostName());
+                    pst1.setString(4, objBO.getHostArea());
+                    pst1.setString(5, objBO.getMetadata());
+                    pst1.executeUpdate();
+                    objBO.setHostId(hostid);
+                }
+            }
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1314,44 +1381,37 @@ public class ManageDAO {
 
     public void updateHostelDetails(ManageHostelBO objBO) {
         try {
+            int cnt = 0;
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(23, Types.INTEGER);
-            stmt.setString(1, objBO.getHostName());
-            stmt.setString(2, objBO.getHostNameHindi());
-            stmt.setString(3, objBO.getHostAreaSqft());
-            stmt.setString(4, objBO.getHostArea());
-            stmt.setString(5, objBO.getAddress());
-            stmt.setString(6, objBO.getContact());
-            stmt.setString(7, objBO.getWebsiteUrl());
-            stmt.setString(8, objBO.getEmail());
-            stmt.setString(9, objBO.getForWhom());
-            stmt.setString(10, "");
-            stmt.setString(11, objBO.getBedrooms());
-            stmt.setString(12, objBO.getBeds());
-            stmt.setString(13, objBO.getRent());
-            stmt.setString(14, objBO.getDeposit());
-            stmt.setString(15, objBO.getDescription());
-            stmt.setString(16, objBO.getMaplocation());
-            stmt.setString(17, objBO.getCity());
-            stmt.setString(18, objBO.getAddedBy());
-            stmt.setString(19, objBO.getPhoto());
-            stmt.setString(20, objBO.getFurnished());
-            stmt.setString(21, objBO.getPossession());
-            stmt.setString(22, objBO.getMetadata());
-            stmt.setString(23, objBO.getHostId());
-            stmt.setString(24, "2");
-            stmt.execute();
-            if (stmt.getInt("_hostid") == 1) {
+            pst = con.prepareStatement("update hostel set hostname=?, hostnamehindi=?, hostarea=?, hostareasqft=?,address=?, contact=?, websiteurl=?, email=?, forwhom=?, bedrooms=?,beds=?, rent=?, deposit=?, description=?, city=?, furnished=?, possession = ?, phone=?, substype=?, pass=? where hostid=?;");
+            pst.setString(1, objBO.getHostName());
+            pst.setString(2, objBO.getHostNameHindi());
+            pst.setString(3, objBO.getHostArea());
+            pst.setString(4, objBO.getHostAreaSqft());
+            pst.setString(5, objBO.getAddress());
+            pst.setString(6, objBO.getContact());
+            pst.setString(7, objBO.getWebsiteUrl());
+            pst.setString(8, objBO.getEmail());
+            pst.setString(9, objBO.getForWhom());
+            pst.setString(10, objBO.getBedrooms());
+            pst.setString(11, objBO.getBeds());
+            pst.setString(12, objBO.getRent());
+            pst.setString(13, objBO.getDeposit());
+            pst.setString(14, objBO.getDescription());
+            pst.setString(15, objBO.getCity());
+            pst.setString(16, objBO.getFurnished());
+            pst.setString(17, objBO.getPossession());
+            pst.setString(18, objBO.getPhone());
+            pst.setString(19, objBO.getSubscription());
+            pst.setString(20, objBO.getPassword());
+            pst.setString(21, objBO.getHostId());
+            cnt = pst.executeUpdate();
+            if (cnt > 0) {
                 objBO.setAddFlag(true);
             }
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1363,45 +1423,18 @@ public class ManageDAO {
 
     public void updateHostelPhoto(ManageHostelBO objBO) {
         try {
+            int cnt = 0;
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            CallableStatement stmt = con.prepareCall("{call sp_hostel(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            stmt.registerOutParameter(23, Types.INTEGER);
-            stmt.setString(1, objBO.getHostName());
-            stmt.setString(2, objBO.getHostNameHindi());
-            stmt.setString(3, objBO.getHostAreaSqft());
-            stmt.setString(4, objBO.getHostArea());
-            stmt.setString(5, objBO.getAddress());
-            stmt.setString(6, objBO.getContact());
-            stmt.setString(7, objBO.getWebsiteUrl());
-            stmt.setString(8, objBO.getEmail());
-            stmt.setString(9, objBO.getForWhom());
-            stmt.setString(10, "");
-            stmt.setString(11, objBO.getBedrooms());
-            stmt.setString(12, objBO.getBeds());
-            stmt.setString(13, objBO.getRent());
-            stmt.setString(14, objBO.getDeposit());
-            stmt.setString(15, objBO.getDescription());
-            stmt.setString(16, objBO.getMaplocation());
-            stmt.setString(17, objBO.getCity());
-            stmt.setString(18, objBO.getAddedBy());
-            stmt.setString(19, objBO.getPhoto());
-            stmt.setString(20, objBO.getFurnished());
-            stmt.setString(21, objBO.getPossession());
-            stmt.setString(22, objBO.getMetadata());
-            stmt.setString(23, objBO.getHostId());
-            stmt.setString(24, "3");
-            stmt.execute();
-
-            if (stmt.getInt("_hostid") == 1) {
+            pst = con.prepareStatement("update hostel set photo=? where hostid=?;");
+            pst.setString(1, objBO.getPhoto());
+            pst.setString(2, objBO.getHostId());
+            cnt = pst.executeUpdate();
+            if (cnt > 0) {
                 objBO.setAddFlag(true);
             }
             con.close();
-
-
-
-
         } catch (SQLException ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1466,10 +1499,6 @@ public class ManageDAO {
                 objBO.setPhoto3(photo3);
             }
             con.close();
-
-
-
-
         } catch (Exception ex) {
             Logger.getLogger(ManageDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1523,13 +1552,10 @@ public class ManageDAO {
             DBConnector dbc = new DBConnector();
             Connection con = DriverManager.getConnection(dbc.getConstr());
             if (con != null) {
-                pst = con.prepareStatement("Select * from search where area LIKE ? or area Like ? or nm LIKE ? or nm LIKE ? or metadata LIKE ? or metadata LIKE ?");
-                pst.setString(1, "%" + id.toLowerCase() + "%");
+                pst = con.prepareStatement("Select * from search where area LIKE ? and status='Active' or nm LIKE ? and status='Active' or metadata LIKE ? and status='Active'");
+                pst.setString(1, "%" + id + "%");
                 pst.setString(2, "%" + id + "%");
-                pst.setString(3, "%" + id.toLowerCase() + "%");
-                pst.setString(4, "%" + id + "%");
-                pst.setString(5, "%" + id.toLowerCase() + "%");
-                pst.setString(6, "%" + id + "%");
+                pst.setString(3, "%" + id + "%");
                 rs = pst.executeQuery();
                 while (rs.next()) {
                     area = rs.getString("area");

@@ -19,7 +19,7 @@
             table tr td
             {
                 padding: 5px;
-                
+
             }
             table tr td:first-child
             {
@@ -53,17 +53,18 @@
                 </section>
                 <%
                     String img = "";
-                    pst = con.prepareStatement("select * from storedetails where storeid=? and storestatus='Active' or storeid=? and busadd='Active'");
+                    pst = con.prepareStatement("select * from storedetails where storeid=? and storestatus='Active' or storeid=? and storestatus='Data Changed' or storeid=? and busadd='Active'");
                     pst.setString(1, storeid);
                     pst.setString(2, storeid);
+                    pst.setString(3, storeid);
                     rs = pst.executeQuery();
                     if (rs.next()) {
                         visits = rs.getString("visitcount");
                         rating = rs.getString("rating");
                         reviews = rs.getString("reviewcount");
                         enq = rs.getString("enquirycount");
-                        rating = String.format("%.1f", Double.parseDouble(rating));
                         img = rs.getString("photo");
+                        rating = String.format("%.1f", Double.parseDouble(rating));
                         if (img.contains("default.jpg")) {
                             img = "shopIcon_lg.png";
                         }
@@ -155,7 +156,7 @@
                                 <div class="box-header">
                                     <h3 class="box-title">
                                         Store Photos &nbsp;&nbsp;
-                                        <small><a href="sUpdateStorePhotoDetails.jsp">Change Photos</a></small>
+                                        <small><a href="sUpdatePhotosDetails.jsp">Change Photos</a></small>
                                     </h3>
                                 </div>
                                 <div class="box-body">

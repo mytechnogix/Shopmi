@@ -32,6 +32,15 @@ public class ManageMesBO {
     private String _photoLg;
     private String _serviceArea;
     private String _metadata;
+    private String _password;
+
+    public String getPassword() {
+        return _password;
+    }
+
+    public void setPassword(String _password) {
+        this._password = _password;
+    }
 
     public String getPhone() {
         return _phone;

@@ -130,19 +130,19 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Bedrooms</label>
                                                     <input type="text" id="txtHostBedrooms" value="<%=rs.getString("bedrooms")%>" name="txtHostBedrooms" class="form-control" placeholder="Enter New Category" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Beds</label>
                                                     <input type="text" id="txtHostBeds"  value="<%=rs.getString("beds")%>" name="txtHostBeds" class="form-control" placeholder="Enter New Category" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>For</label>
                                                     <select class="form-control" id="ddlHostFor" name="ddlHostFor" required>
@@ -153,7 +153,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Furnished</label>
                                                     <select class="form-control" id="ddlHostFurnished" name="ddlHostFurnished" required>
@@ -164,21 +166,21 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Rent</label>
                                                     <input type="text" class="form-control" value="<%=rs.getString("rent")%>" id="txtHostRent" name="txtHostRent" placeholder="Enter rent in rupees" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Deposit</label>
                                                     <input type="text" class="form-control"  value="<%=rs.getString("deposit")%>"id="txtHostDeposit" name="txtHostDeposit" placeholder="Enter deposit in rupees" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Possession</label>
                                                     <select class="form-control" id="ddlHostPossession" name="ddlHostPossession" required>
@@ -189,11 +191,22 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label>Contact Number</label>
+                                                    <label>Contact Number 1</label>
                                                     <div class="input-group">
                                                         <input type="text" class="form-control" value="<%=rs.getString("contact")%>" id="txtHostContact" name="txtHostContact" placeholder="Enter 10 digit contact number" required>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Contact Number 2</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<%=rs.getString("phone")%>" id="txtHostContact2" name="txtHostPhone" placeholder="Enter 10 digit contact number">
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-phone"></i>
                                                         </div>
@@ -217,7 +230,7 @@
                                                 <div class="form-group">
                                                     <label>Email Address</label>
                                                     <div class="input-group">
-                                                        <input type="email" class="form-control" value="<%=rs.getString("email")%>" id="txtHostEmail" name="txtHostEmail" placeholder="Enter email address">
+                                                        <input type="email" class="form-control" value="<%=rs.getString("email")%>" id="txtHostEmail" name="txtHostEmail" placeholder="Enter email address" required>
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-envelope"></i>
                                                         </div>
@@ -228,16 +241,28 @@
                                                 <div class="form-group">
                                                     <label>Subscription Type</label>
                                                     <select class="form-control" id="ddlHostSubs" name="ddlHostSubs" required>
-                                                        <option value="Initial - Free for 3 Months">Initial - Free for 3 Months</option>
-                                                        <option value="3">3 Months</option>
-                                                        <option value="6">6 Months</option>
-                                                        <option value="12">1 Year</option>
+                                                        <option value='<%=rs.getString("substype")%>'><%=rs.getString("substype")%></option>
+                                                        <option value="MSPM3">For 90 Days @1.66 Rs/Day - MSPM3</option>
+                                                        <option value="MSPM6">For 180 Days @1.38 Rs/Day - MSPM6</option>
+                                                        <option value="MSPY1">For 365 Days @0.95 Rs/Day - MSPY1</option>
+                                                        <option value="carousal">Included in carousal</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-6" id="otherDiv">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Password</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="<%=rs.getString("pass")%>" id="txtHostPass" name="txtHostPass" placeholder="Enter password" required>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4" id="otherDiv">
                                                 <div class="form-group">
                                                     <label>Description</label>
                                                     <div class="form-group date">
@@ -245,7 +270,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6" id="otherDiv">
+                                            <div class="col-lg-4" id="otherDiv">
                                                 <div class="form-group">
                                                     <label>Full Address</label>
                                                     <div class="form-group date">
@@ -280,6 +305,7 @@
                 $("#txtHostNameHindi").attr("disabled", "disabled");
                 $("#ddlHostArea").attr("disabled", "disabled");
                 $("#txtHostContact").attr("disabled", "disabled");
+                $("#txtHostContact2").attr("disabled", "disabled");
                 $("#txtHostURL").attr("disabled", "disabled");
                 $("#txtHostEmail").attr("disabled", "disabled");
                 $("#ddlHostSubs").attr("disabled", "disabled");
@@ -294,6 +320,7 @@
                 $("#txtHostDesc").attr("disabled", "disabled");
                 $("#ddlHostPossession").attr("disabled", "disabled");
                 $("#ddlHostFurnished").attr("disabled", "disabled");
+                $("#txtHostPass").attr("disabled", "disabled");
 
                 $("#btnEdit").click(function(){
                     $("#btnUpdate").show();
@@ -303,6 +330,7 @@
                     $("#txtHostNameHindi").removeAttr("disabled");
                     $("#ddlHostArea").removeAttr("disabled");
                     $("#txtHostContact").removeAttr("disabled");
+                    $("#txtHostContact2").removeAttr("disabled");
                     $("#txtHostURL").removeAttr("disabled");
                     $("#txtHostEmail").removeAttr("disabled");
                     $("#ddlHostSubs").removeAttr("disabled");
@@ -316,6 +344,7 @@
                     $("#txtHostDesc").removeAttr("disabled");
                     $("#ddlHostPossession").removeAttr("disabled");
                     $("#ddlHostFurnished").removeAttr("disabled");
+                    $("#txtHostPass").removeAttr("disabled");
                 });
                 $("#btnReset").click(function(){
                     $("#btnUpdate").hide();
@@ -325,6 +354,7 @@
                     $("#txtHostNameHindi").attr("disabled", "disabled");
                     $("#ddlHostArea").attr("disabled", "disabled");
                     $("#txtHostContact").attr("disabled", "disabled");
+                    $("#txtHostContact2").attr("disabled", "disabled");
                     $("#txtHostURL").attr("disabled", "disabled");
                     $("#txtHostEmail").attr("disabled", "disabled");
                     $("#ddlHostSubs").attr("disabled", "disabled");
@@ -339,6 +369,7 @@
                     $("#txtHostDesc").attr("disabled", "disabled");
                     $("#ddlHostPossession").attr("disabled", "disabled");
                     $("#ddlHostFurnished").attr("disabled", "disabled");
+                    $("#txtHostPass").attr("disabled", "disabled");
                 });
                 
                 

@@ -80,6 +80,11 @@
             {
                 color: red;
             }
+            #separatorInTable tr
+            {
+                border-bottom: 1px solid;
+                border-color: #E1E1E1;
+            }
         </style>
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="initMap()">
@@ -187,7 +192,7 @@
                                             <h3 class="box-title">Full Details</h3>
                                         </div>
                                         <div class="box-body">
-                                            <table style="font-size: 16px">
+                                            <table style="font-size: 16px;" id="separatorInTable">
                                                 <tr><td>Full Address </td><td> <%=objBO.getAddress()%></td></tr>
                                                 <tr><td>Locality </td><td> <%=objBO.getStoreArea()%></td></tr>
                                                 <tr><td>Contact</td><td> 
@@ -206,7 +211,6 @@
                                                         Not Available
                                                         <%}%>
                                                     </td></tr>
-                                                <tr><td></td><td></td></tr>
                                             </table>
                                         </div>
                                     </div>
@@ -227,7 +231,8 @@
                                         <div class="box-body no-padding" id="map">
                                         </div>
                                     </div>
-                                    <%                                            String review = "";
+                                    <%
+                                        String review = "";
                                         pst = con.prepareStatement("select review from reviewstore where storeid=? and uid=?");
                                         pst.setString(1, storeid);
                                         pst.setString(2, uid);
@@ -276,11 +281,13 @@
                                             </div>
                                             <div class="tab-pane pre-scrollable" style="min-height: 300px" id="activity">
                                                 <%
+                                                    int reviewCount = 0;
                                                     pst = con.prepareStatement("select * from view_reviewstore where storeid=? order by reviewdate desc");
                                                     pst.setString(1, storeid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
+                                                            reviewCount++;
                                                 %>
                                                 <div class="post">
                                                     <div class="user-block">
@@ -295,7 +302,12 @@
                                                     </span>
                                                 </div>
                                                 <%}
-                                                    }%>
+                                                    }
+                                                    if (reviewCount == 0) {
+                                                %>
+                                                <br>
+                                                <span style="text-align: center"><a href="#settings" data-toggle="tab" style="font-size: 16px">Be the first to post a review for this shop, click here</a></span>
+                                                <%}%>
                                             </div>
                                         </div>
                                     </div>
@@ -347,11 +359,13 @@
                                         <div class="box-body">
                                             <ul class="todo-list">
                                                 <%
+                                                    int similarCount = 0;
                                                     pst = con.prepareStatement("select storename, storeid from storedetails where storeid!=? and category=? order by storename limit 10");
                                                     pst.setString(1, storeid);
                                                     pst.setString(2, objBO.getStoreCat());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
+                                                        similarCount++;
                                                 %>
                                                 <li>
                                                     <a href="storeDetails.jsp?id=<%=rs.getInt("storeid")%>">
@@ -366,7 +380,10 @@
                                                 </li>
                                                 <%}
                                                     con.close();
+                                                    if (similarCount == 0) {
                                                 %>
+                                                <span style="font-size: 16px">No similar searches found</span>
+                                                <%}%>
                                             </ul>
                                         </div>
                                     </div>

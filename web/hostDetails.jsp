@@ -3,11 +3,17 @@
     Created on : Mar 12, 2017, 9:21:24 PM
     Author     : Ankush
 --%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="BO.ManageHostelBO"%>
 <%@page import="DAO.ManageDAO"%>
 <%@page import="com.quickc.pack.DBConnector"%>
-<%@page import="java.sql.*"%>
+<%@page import="com.quickc.pack.PostedOn"%>
 <%
     String hostid = request.getParameter("id");
     String uid = String.valueOf(session.getAttribute("uid"));
@@ -277,7 +283,21 @@
                                                             <img src="images/amenities/postedon.png" style="width: 30px; height: 30px">
                                                         </div>
                                                         <div class="product-info">
-                                                            2 Days Ago
+                                                            <%
+                                                                Date date1 = new Date();
+                                                                Date date2 = null;
+                                                                pst = con.prepareStatement("SELECT regDate from hostel where hostid=?;");
+                                                                pst.setString(1, hostid);
+                                                                rs = pst.executeQuery();
+                                                                if (rs.next()) {
+                                                                    Timestamp t = rs.getTimestamp("regDate");
+                                                                    long milliseconds = t.getTime() + (t.getNanos() / 1000000);
+                                                                    date2 = new java.util.Date(milliseconds);
+                                                                }
+                                                                PostedOn objPO = new PostedOn();
+                                                                String res = objPO.PostedOnDates(date1, date2);
+                                                            %>
+                                                            <%=res%>
                                                             <span class="product-description" >
                                                                 Posted On
                                                             </span>
@@ -428,11 +448,13 @@
                                             </div>
                                             <div class="tab-pane pre-scrollable" style="min-height: 300px" id="activity">
                                                 <%
+                                                    int reviewCount = 0;
                                                     pst = con.prepareStatement("select * from view_reviewhost where hostid=? order by reviewdate desc");
                                                     pst.setString(1, hostid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
+                                                            reviewCount++;
                                                 %>
                                                 <div class="post">
                                                     <div class="user-block">
@@ -447,7 +469,11 @@
                                                     </span>
                                                 </div>
                                                 <%}
-                                                    }%>
+                                                    }
+                                                    if (reviewCount == 0) {
+                                                %>
+                                                <span style="text-align: center"><a href="#settings" data-toggle="tab" style="font-size: 16px">Be the first to post a review, click here</a></span>
+                                                <%}%>
                                             </div>
                                         </div>
                                     </div>
@@ -508,10 +534,12 @@
                                         <div class="box-body manageHeightMin pre-scrollable">
                                             <ul class="todo-list">
                                                 <%
+                                                    int similarCount = 0;
                                                     pst = con.prepareStatement("select hostname, hostid from hostel where hostid!=? order by hostname limit 10");
                                                     pst.setString(1, hostid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
+                                                        similarCount++;
                                                 %>
                                                 <li>
                                                     <a href="hostDetails.jsp?id=<%=rs.getInt("hostid")%>">
@@ -525,7 +553,10 @@
                                                     </a>
                                                 </li>
                                                 <%}
+                                                    if (similarCount == 0) {
                                                 %>
+                                                <span style="font-size: 16px">No similar searches found</span>
+                                                <%}%>
                                             </ul>
                                         </div>
                                     </div>

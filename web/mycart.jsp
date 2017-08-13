@@ -140,21 +140,18 @@
                                                 <th>Sr. No.</th>
                                                 <th>Store Name</th>
                                                 <th>You have rated</th>
-                                                <th>Your review</th>
-                                                <th>Your favorite</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <%
                                                 String fav = "0", rating = "0", review = "";
                                                 cnt = 0;
-                                                pst = con.prepareStatement("select s.storename, r.storeid, r.rid, r.rating, r.review, r.fav, r.reviewdate from storedetails s, reviewstore r where r.storeid=s.storeid and r.uid=?");
+                                                pst = con.prepareStatement("select s.storename, r.storeid, r.rid, r.rating, r.fav, r.reviewdate from storedetails s, reviewstore r where r.storeid=s.storeid and r.uid=?");
                                                 pst.setString(1, uid);
                                                 rs = pst.executeQuery();
                                                 while (rs.next()) {
                                                     fav = rs.getString("fav");
                                                     rating = rs.getString("rating");
-                                                    review = rs.getString("review");
                                                     if (!fav.equals("1")) {
                                                         fav = "No";
                                                     } else {
@@ -165,17 +162,12 @@
                                                     } else {
                                                         rating = rating + " Stars";
                                                     }
-                                                    if (review.equals("NA")) {
-                                                        review = "Not reviewed";
-                                                    }
                                                     cnt++;
                                             %>
                                             <tr>
                                                 <td><%=rs.getInt("rid")%></td>
                                                 <td><a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>" target="_blank"><%=rs.getString("storename")%></a></td>
                                                 <td><%=rating%></td>
-                                                <td><%=review%></td>
-                                                <td><%=fav%></td>
                                             </tr>
                                             <%}%>
                                         </tbody>

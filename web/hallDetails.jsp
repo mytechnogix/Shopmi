@@ -154,6 +154,11 @@
                 content: '\f006';
                 font-family: FontAwesome;
             }
+            #separatorInTable tr
+            {
+                border-bottom: 1px solid;
+                border-color: #E1E1E1;
+            }
         </style>
     </head>
     <body class="hold-transition skin-blue layout-top-nav fixed" onload="initMap()">
@@ -261,7 +266,7 @@
                                             <h3 class="box-title">Full Details</h3>
                                         </div>
                                         <div class="box-body">
-                                            <table style="font-size: 15px">
+                                            <table style="font-size: 15px" id="separatorInTable">
                                                 <tr><td style="font-weight: bold; width: 30%">Full Address </td><td> <%=objBO.getAddress()%></td></tr>
                                                 <tr><td style="font-weight: bold; width: 30%">Locality </td><td> <%=objBO.getHallArea()%></td></tr>
                                                 <tr><td style="font-weight: bold; width: 30%">Contact</td><td> 
@@ -279,7 +284,6 @@
                                                         Not Available
                                                         <%}%>
                                                     </td></tr>
-                                                <tr><td style="font-weight: bold; width: 30%"></td><td></td></tr>
                                             </table>
                                         </div>
                                     </div>
@@ -350,11 +354,13 @@
                                             </div>
                                             <div class="tab-pane pre-scrollable" style="min-height: 300px" id="activity">
                                                 <%
+                                                    int reviewCount = 0;
                                                     pst = con.prepareStatement("select * from view_reviewhall where hallid=? order by reviewdate desc");
                                                     pst.setString(1, hallid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
+                                                            reviewCount++;
                                                 %>
                                                 <div class="post">
                                                     <div class="user-block">
@@ -369,7 +375,11 @@
                                                     </span>
                                                 </div>
                                                 <%}
-                                                    }%>
+                                                    }
+                                                    if (reviewCount == 0) {
+                                                %>
+                                                <span style="text-align: center"><a href="#settings" data-toggle="tab" style="font-size: 16px">Be the first to post a review, click here</a></span>
+                                                <%}%>
                                             </div>
                                         </div>
                                     </div>
@@ -421,10 +431,13 @@
                                         <div class="box-body">
                                             <ul class="todo-list">
                                                 <%
+                                                    int similarCount = 0;
                                                     pst = con.prepareStatement("select hallname, hallid from halls where hallid!=? order by hallname limit 10");
                                                     pst.setString(1, hallid);
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
+                                                        similarCount++;
+
                                                 %>
                                                 <li>
                                                     <a href="hallDetails.jsp?id=<%=rs.getInt("hallid")%>">
@@ -437,6 +450,10 @@
                                                         </div>
                                                     </a>
                                                 </li>
+                                                <%}
+                                                    if (similarCount == 0) {
+                                                %>
+                                                <span style="font-size: 16px">No similar searches found</span>
                                                 <%}%>
                                             </ul>
                                         </div>

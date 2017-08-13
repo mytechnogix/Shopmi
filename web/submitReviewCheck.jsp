@@ -19,7 +19,6 @@
             pst.setString(2, id);
             rs = pst.executeQuery();
             if (rs.next()) {
-
                 pst = con.prepareStatement("update reviewstore set review=? where uid=? and storeid=?");
                 pst.setString(1, review);
                 pst.setString(2, uid);
@@ -29,7 +28,7 @@
                     res = "1";
                 }
             } else {
-                pst = con.prepareStatement("insert into reviewstore(uid, storeid, review) values(?,?,?);");
+                pst = con.prepareStatement("insert into reviewstore(uid, storeid, review) values(?,?,?)");
                 pst.setString(1, uid);
                 pst.setString(2, id);
                 pst.setString(3, review);
@@ -105,7 +104,7 @@
                     res = "1";
                 }
             } else {
-                pst = con.prepareStatement("insert into reviewmes(uid, mesid, review) values(?,?,?);");
+                pst = con.prepareStatement("insert into reviewmes(uid, mesid, review, rating) values(?,?,?);");
                 pst.setString(1, uid);
                 pst.setString(2, id);
                 pst.setString(3, review);

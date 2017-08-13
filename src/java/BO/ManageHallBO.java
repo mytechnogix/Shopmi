@@ -26,6 +26,15 @@ public class ManageHallBO {
     private int _reviewCount;
     private String _rating;
     private String _metadata;
+    private String _password;
+
+    public String getPassword() {
+        return _password;
+    }
+
+    public void setPassword(String _password) {
+        this._password = _password;
+    }
 
     public String getPhone() {
         return _phone;

@@ -3,7 +3,7 @@
 <%@page import="BO.ManageStoreBO"%>
 <%
     String storeCatDdl, storeCatTxt, storeCat = "", storeAreaDdl, storeAreaTxt, storeArea = "", url;
-    String lat, longi, storeURL = "", am, pm;
+    String lat, longi, storeURL = "", am, pm, phone;
 
     request.setCharacterEncoding("UTF-8");
     storeCatDdl = request.getParameter("ddlOfferStoreCat");
@@ -25,6 +25,19 @@
     }
     ManageDAO objDAO = new ManageDAO();
     ManageStoreBO objBO = new ManageStoreBO();
+
+    storeURL = request.getParameter("txtOfferURL");
+    phone = request.getParameter("txtOfferPhone");
+
+    if (storeURL.equalsIgnoreCase("")) {
+        storeURL = "Not Available";
+    }
+    if (phone.equalsIgnoreCase("")) {
+        phone = "Not Available";
+    }
+    objBO.setPhone(phone);
+    objBO.setUrl(storeURL);
+
     lat = String.valueOf(session.getAttribute("latitude"));
     longi = String.valueOf(session.getAttribute("longitude"));
     objBO.setStoreName(request.getParameter("txtOfferStoreName"));
@@ -33,7 +46,6 @@
     objBO.setStoreArea(storeArea);
     objBO.setStoreCat(storeCat);
     objBO.setCity(request.getParameter("txtOfferCity"));
-    objBO.setUrl(request.getParameter("txtOfferURL"));
     objBO.setSubs(request.getParameter("ddlOfferSubs"));
     objBO.setWorkingHours(request.getParameter("txtOfferOpenAt") + " " + am + " to " + request.getParameter("txtOfferCloseAt") + " " + pm);
     objBO.setEmail(request.getParameter("txtOfferEmail"));
@@ -64,6 +76,7 @@
         }
     } else {
         objBO.setStoreId(request.getParameter("storeid"));
+        objBO.setPassword(request.getParameter("txtOfferPass"));
         objBO.setAddFlag(false);
         objDAO.updateStoreDetails(objBO);
         if (objBO.isAddFlag()) {

@@ -14,7 +14,6 @@
         PreparedStatement pst;
         Connection con;
         ResultSet rs;
-        int cnt = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
@@ -49,7 +48,6 @@
                                                     <label>Select City</label>
                                                     <select class="form-control" id="txtHostCity" name="txtHostCity" required>
                                                         <option value="Amravati">Amravati</option>
-                                                        <option value="Akola">Akola</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -77,7 +75,8 @@
                                                             while (rs.next()) {
                                                         %>
                                                         <option value="<%=rs.getString("hostarea")%>"><%=rs.getString("hostarea")%></option>
-                                                        <%}%>                                                    
+                                                        <%}%>      
+                                                        <option value="Other">Other</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -95,19 +94,19 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Bedrooms</label>
                                                     <input type="number" id="txtHostBedrooms" name="txtHostBedrooms" class="form-control" placeholder="Enter New Category" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Beds</label>
                                                     <input type="number" id="txtHostBeds" name="txtHostBeds" class="form-control" placeholder="Enter New Category" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>For</label>
                                                     <select class="form-control" id="ddlHostFor" name="ddlHostFor" required>
@@ -117,7 +116,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Furnished</label>
                                                     <select class="form-control" id="ddlHostFurnished" name="ddlHostFurnished" required>
@@ -127,21 +128,21 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Rent</label>
                                                     <input type="number" class="form-control" id="txtHostRent" name="txtHostRent" placeholder="Enter rent in rupees" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Deposit</label>
                                                     <input type="number" class="form-control" id="txtHostDeposit" name="txtHostDeposit" placeholder="Enter deposit in rupees" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Possession</label>
                                                     <select class="form-control" id="ddlHostPossession" name="ddlHostPossession" required>
@@ -151,11 +152,22 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label>Contact Number</label>
+                                                    <label>Contact Number 1</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id="txtHostContact" name="txtHostContact" placeholder="Enter 10 digit contact number" required>
+                                                        <input type="text" class="form-control" id="txtHostContact" name="txtHostContact" placeholder="Enter contact number 1" required>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Contact Number 2</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtHostContact2" name="txtHostPhone" placeholder="Enter contact number 2">
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-phone"></i>
                                                         </div>
@@ -190,10 +202,11 @@
                                                 <div class="form-group">
                                                     <label>Subscription Type</label>
                                                     <select class="form-control" id="ddlHostSubs" name="ddlHostSubs" required>
-                                                        <option value="Initial - Free for 3 Months">Initial - Free for 3 Months</option>
-                                                        <option value="3">3 Months</option>
-                                                        <option value="6">6 Months</option>
-                                                        <option value="12">1 Year</option>
+                                                        <option value=""> - - Select Subscription Type - -</option>
+                                                        <option value="MSPM3">For 90 Days @1.66 Rs/Day - MSPM3</option>
+                                                        <option value="MSPM6">For 180 Days @1.38 Rs/Day - MSPM6</option>
+                                                        <option value="MSPY1">For 365 Days @0.95 Rs/Day - MSPY1</option>
+                                                        <option value="carousal">Included in carousal</option>
                                                     </select>
                                                 </div>
                                             </div>

@@ -2,11 +2,11 @@
     PreparedStatement pst;
     Connection con;
     int cnt = 0;
-    String status = "";
+    String status = "", res = "";
     String id = request.getParameter("id");
     String temp = request.getParameter("status");
     String type = request.getParameter("type");
-    
+
     if (temp.equals("Active")) {
         status = "Inactive";
     }
@@ -27,9 +27,9 @@
             cnt = pst.executeUpdate();
 
             if (cnt > 0) {
-                out.print("1");
+                res = "1";
             } else {
-                out.print("0");
+                res = "0";
             }
         } else if (type.equals("advertise")) {
             pst = con.prepareStatement("update advertise set advstatus=? where aid=?");
@@ -38,9 +38,9 @@
             cnt = pst.executeUpdate();
 
             if (cnt > 0) {
-                out.print("1");
+                res = "1";
             } else {
-                out.print("0");
+                res = "0";
             }
         } else if (type.equals("hall")) {
             pst = con.prepareStatement("update halls set status=? where hallid=?");
@@ -48,10 +48,15 @@
             pst.setString(2, id);
             cnt = pst.executeUpdate();
 
+            pst = con.prepareStatement("update search set status=? where type=? and id=?");
+            pst.setString(1, status);
+            pst.setString(2, type);
+            pst.setString(3, id);
+            pst.executeUpdate();
             if (cnt > 0) {
-                out.print("1");
+                res = "1";
             } else {
-                out.print("0");
+                res = "0";
             }
         } else if (type.equals("mes")) {
             pst = con.prepareStatement("update mes set messtatus=? where mesid=?");
@@ -59,10 +64,15 @@
             pst.setString(2, id);
             cnt = pst.executeUpdate();
 
+            pst = con.prepareStatement("update search set status=? where type=? and id=?");
+            pst.setString(1, status);
+            pst.setString(2, type);
+            pst.setString(3, id);
+            pst.executeUpdate();
             if (cnt > 0) {
-                out.print("1");
+                res = "1";
             } else {
-                out.print("0");
+                res = "0";
             }
         } else if (type.equals("hostel")) {
             pst = con.prepareStatement("update hostel set hoststatus=? where hostid=?");
@@ -70,10 +80,15 @@
             pst.setString(2, id);
             cnt = pst.executeUpdate();
 
+            pst = con.prepareStatement("update search set status=? where type=? and id=?");
+            pst.setString(1, status);
+            pst.setString(2, type);
+            pst.setString(3, id);
+            pst.executeUpdate();
             if (cnt > 0) {
-                out.print("1");
+                res = "1";
             } else {
-                out.print("0");
+                res = "0";
             }
         } else {
             pst = con.prepareStatement("update storedetails set storestatus=? where storeid=?");
@@ -81,13 +96,19 @@
             pst.setString(2, id);
             cnt = pst.executeUpdate();
 
+            pst = con.prepareStatement("update search set status=? where type=? and id=?");
+            pst.setString(1, status);
+            pst.setString(2, type);
+            pst.setString(3, id);
+            pst.executeUpdate();
             if (cnt > 0) {
-                out.print("1");
+                res = "1";
             } else {
-                out.print("0");
+                res = "0";
             }
         }
         con.close();
+        out.print(res);
     } catch (Exception ex) {
         out.print(ex);
     }%>

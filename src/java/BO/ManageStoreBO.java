@@ -30,6 +30,15 @@ public class ManageStoreBO {
     private String _storePhoto2;
     private String _storePhoto3;
     private String _busAdd;
+    private String _password;
+
+    public String getPassword() {
+        return _password;
+    }
+
+    public void setPassword(String _password) {
+        this._password = _password;
+    }
 
     public String getBusAdd() {
         return _busAdd;

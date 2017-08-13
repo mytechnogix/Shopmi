@@ -51,7 +51,7 @@
                                         String storeid = String.valueOf(session.getAttribute("sStoreid"));
                                         int cnt = 0;
                                         String subtype = "";
-                                        String img = "", aid = "";
+                                        String img = "", aid = "", advStatus = "";
                                         PreparedStatement pst;
                                         ResultSet rs;
                                         Connection con;
@@ -66,6 +66,7 @@
                                             subtype = rs.getString("subtype");
                                             aid = rs.getString("aid");
                                             img = rs.getString("advimg");
+                                            advStatus = rs.getString("advstatus");
                                             cnt++;
                                     %>
                                     <table class="tblOffer">
@@ -103,7 +104,9 @@
                                     <img src="images/advphotos/<%=img%>" style="width: 500px; height: 270px">
                                 </div>   
                                 <div class="box-footer clearfix no-border">
+                                    <%if (!advStatus.equals("Active")) {%>
                                     <span style="color: green; font-weight: bold"> Note : Team MyShejari.com will connect you soon</span>
+                                    <%}%>
                                 </div>
                             </div>
                         </div>

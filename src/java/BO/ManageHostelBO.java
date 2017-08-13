@@ -38,6 +38,33 @@ public class ManageHostelBO {
     private String _possession;
     private String _furnished;
     private String _metadata;
+    private String _phone;
+    private String _subscription;
+    private String _password;
+
+    public String getPassword() {
+        return _password;
+    }
+
+    public void setPassword(String _password) {
+        this._password = _password;
+    }
+
+    public String getSubscription() {
+        return _subscription;
+    }
+
+    public void setSubscription(String _subscription) {
+        this._subscription = _subscription;
+    }
+    
+    public String getPhone() {
+        return _phone;
+    }
+
+    public void setPhone(String _phone) {
+        this._phone = _phone;
+    }
 
     public String getHostId() {
         return _hostId;

@@ -77,7 +77,6 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Manage Stores</li>
                         <li class="active">Manage Marriage Hall</li>
                     </ol>
                 </section>
@@ -101,7 +100,7 @@
                                         </div>
                                         <div class="box-footer">
                                             <a class="btn btn-primary" id="btnCancel" onclick="history.back()">Back</a>
-                                            <button type="submit" class="btn btn-primary">Next</button>
+                                            <button type="submit" class="btn btn-primary">Finish</button>
                                             <input type="reset" value="Reset" class="btn btn-primary">
                                         </div>
                                     </form>

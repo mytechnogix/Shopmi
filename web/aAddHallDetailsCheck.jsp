@@ -2,7 +2,7 @@
 <%@page import="DAO.ManageDAO"%>
 <%@page import="BO.ManageHallBO"%>
 <%
-    String hallAreaDdl, hallAreaTxt, hallArea = "", url, email;
+    String hallAreaDdl, hallAreaTxt, hallArea = "", url, email, phone;
     String lat, longi, hallURL = "";
 
     request.setCharacterEncoding("UTF-8");
@@ -15,8 +15,21 @@
     } else {
         hallArea = hallAreaDdl;
     }
+
     ManageDAO objDAO = new ManageDAO();
     ManageHallBO objBO = new ManageHallBO();
+    hallURL = request.getParameter("txtHallURL");
+    phone = request.getParameter("txtHallPhone");
+
+    if (hallURL.equalsIgnoreCase("")) {
+        hallURL = "Not Available";
+    }
+    if (phone.equalsIgnoreCase("")) {
+        phone = "Not Available";
+    }
+    objBO.setPhone(phone);
+    objBO.setUrl(hallURL);
+
     lat = String.valueOf(session.getAttribute("latitude"));
     longi = String.valueOf(session.getAttribute("longitude"));
     objBO.setHallName(request.getParameter("txtHallName"));
@@ -25,7 +38,6 @@
     objBO.setHallAreaSqft(Integer.parseInt(request.getParameter("txtHallAreaSqft")));
     objBO.setCity(request.getParameter("txtHallCity"));
     objBO.setMetadata(request.getParameter("txtHallMetadata"));
-    objBO.setUrl(request.getParameter("txtHallURL"));
     objBO.setSubType(request.getParameter("ddlHallSubs"));
     objBO.setEmail(email);
     objBO.setContact(request.getParameter("txtHallContact"));
@@ -54,6 +66,7 @@
         }
     } else {
         objBO.setHallId(request.getParameter("hallid"));
+        objBO.setPassword(request.getParameter("txtHallPass"));
         objBO.setAddFlag(false);
         objDAO.updateHallDetails(objBO);
         if (objBO.isAddFlag()) {
