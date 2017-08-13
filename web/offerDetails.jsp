@@ -13,18 +13,19 @@
     Connection con;
     ResultSet rs;
     String storeName = "", discount = "", discountOn = "", offerImg = "", tc = "", mapLocation = "", storeId = "";
-    String storeArea = "", ratingStr = "", city = "", reviewCount = "";
+    String storeArea = "", ratingStr = "", city = "", reviewCount = "", oid="";
     int ratingCount = 1;
-    String oid = request.getParameter("id");
+    String gurkha = request.getParameter("id");
     double ratingDbl = 0.0;
     try {
         Class.forName("com.mysql.jdbc.Driver");
         DBConnector dbc = new DBConnector();
         con = DriverManager.getConnection(dbc.getConstr());
-        pst = con.prepareStatement("select * from view_offers_details where oid=?");
-        pst.setString(1, oid);
+        pst = con.prepareStatement("select * from view_offers_details where gurkha=?");
+        pst.setString(1, gurkha);
         rs = pst.executeQuery();
         if (rs.next()) {
+            oid = rs.getString("oid");
             storeName = rs.getString("storename");
             storeId = rs.getString("storeid");
             discount = rs.getString("discount");
@@ -118,7 +119,7 @@
                         <div class="col-lg-6">
                             <div class="box box-primary" style="padding: 10px">
                                 <h3><span class="text-red"><%=discount%>% Off</span> on <%=discountOn%></h3>
-                                <h4 class="text-blue"><a href="storeDetails.jsp?id=<%=storeId%>" target="_blank">  <%=storeName%>, <%=storeArea%>, <%=city%>
+                                <h4 class="text-blue"><a href="storeDetails.jsp?id=<%=gurkha%>" target="_blank">  <%=storeName%>, <%=storeArea%>, <%=city%>
                                         <i class="fa fa-external-link"></i>
                                     </a></h4>
                                 <small><i class="fa fa-star bg-green-active" style="padding: 3px;">  <%=ratingDbl%></i>  <%=ratingCount%> People Rated and <%=reviewCount%> Reviewed</small>

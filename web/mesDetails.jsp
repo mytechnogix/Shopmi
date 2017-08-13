@@ -8,12 +8,12 @@
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.sql.*"%>
 <%
-    String mesid = request.getParameter("id");
+    String gurkha = request.getParameter("id");
     String uid = String.valueOf(session.getAttribute("uid"));
     ManageMesBO objBO = new ManageMesBO();
     ManageDAO objDAO = new ManageDAO();
 
-    objBO.setMesId(mesid);
+    objBO.setGurkha(gurkha);
     objDAO.getAllMesDetails(objBO);
 
     if (!objBO.isAddFlag()) {
@@ -36,7 +36,7 @@
 //    pst.executeUpdate();
 
     pst = con.prepareStatement("update mes set visitcount=visitcount+1 where mesid=?");
-    pst.setString(1, mesid);
+    pst.setString(1, objBO.getMesId());
     pst.executeUpdate();
 %>
 <!DOCTYPE html>
@@ -225,7 +225,7 @@
                                     <%
                                         String review = "";
                                         pst = con.prepareStatement("select review from reviewmes where mesid=? and uid=?");
-                                        pst.setString(1, mesid);
+                                        pst.setString(1,  objBO.getMesId());
                                         pst.setString(2, uid);
                                         rs = pst.executeQuery();
                                         while (rs.next()) {
@@ -274,7 +274,7 @@
                                                 <%
                                                     int reviewCount = 0;
                                                     pst = con.prepareStatement("select * from view_reviewmes where mesid=? order by reviewdate desc");
-                                                    pst.setString(1, mesid);
+                                                    pst.setString(1,  objBO.getMesId());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
@@ -350,14 +350,14 @@
                                             <ul class="todo-list">
                                                 <%
                                                     int similarCount = 0;
-                                                    pst = con.prepareStatement("select mesname, mesid from mes where mesid!=? order by mesname limit 10");
-                                                    pst.setString(1, mesid);
+                                                    pst = con.prepareStatement("select mesname, gurkha from mes where mesid!=? order by mesname limit 10");
+                                                    pst.setString(1,  objBO.getMesId());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         similarCount++;
                                                 %>
                                                 <li>
-                                                    <a href="mesDetails.jsp?id=<%=rs.getInt("mesid")%>">
+                                                    <a href="mesDetails.jsp?id=<%=rs.getString("gurkha")%>">
                                                         <span class="handle">
                                                             <i class="fa fa-map-marker"></i>
                                                         </span>

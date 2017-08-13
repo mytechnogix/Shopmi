@@ -8,12 +8,12 @@
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.sql.*"%>
 <%
-    String storeid = request.getParameter("id");
+    String gurkha = request.getParameter("id");
     String uid = String.valueOf(session.getAttribute("uid"));
     ManageStoreBO objBO = new ManageStoreBO();
     ManageDAO objDAO = new ManageDAO();
-
-    objBO.setStoreId(storeid);
+    
+    objBO.setGurkha(gurkha);
     objDAO.getAllStoreDetails(objBO);
     if (!objBO.isAddFlag()) {
 %>
@@ -29,7 +29,7 @@
     String rating = String.format("%.1f", Double.parseDouble(objBO.getRating()));
 
     pst = con.prepareStatement("insert into log_popular(storeid, uid, storename, category, city, storearea) values(?,?,?,?,?,?)");
-    pst.setString(1, storeid);
+    pst.setString(1, objBO.getStoreId());
     pst.setString(2, uid);
     pst.setString(3, objBO.getStoreName());
     pst.setString(4, objBO.getStoreCat());
@@ -38,7 +38,7 @@
     pst.executeUpdate();
 
     pst = con.prepareStatement("update storedetails set visitcount=visitcount+1 where storeid=?");
-    pst.setString(1, storeid);
+    pst.setString(1, objBO.getStoreId());
     pst.executeUpdate();
 %>
 <!DOCTYPE html>
@@ -234,7 +234,7 @@
                                     <%
                                         String review = "";
                                         pst = con.prepareStatement("select review from reviewstore where storeid=? and uid=?");
-                                        pst.setString(1, storeid);
+                                        pst.setString(1, objBO.getStoreId());
                                         pst.setString(2, uid);
                                         rs = pst.executeQuery();
                                         while (rs.next()) {
@@ -283,7 +283,7 @@
                                                 <%
                                                     int reviewCount = 0;
                                                     pst = con.prepareStatement("select * from view_reviewstore where storeid=? order by reviewdate desc");
-                                                    pst.setString(1, storeid);
+                                                    pst.setString(1, objBO.getStoreId());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
@@ -360,15 +360,15 @@
                                             <ul class="todo-list">
                                                 <%
                                                     int similarCount = 0;
-                                                    pst = con.prepareStatement("select storename, storeid from storedetails where storeid!=? and category=? order by storename limit 10");
-                                                    pst.setString(1, storeid);
+                                                    pst = con.prepareStatement("select storename, gurkha from storedetails where storeid!=? and category=? order by storename limit 10");
+                                                    pst.setString(1, objBO.getStoreId());
                                                     pst.setString(2, objBO.getStoreCat());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         similarCount++;
                                                 %>
                                                 <li>
-                                                    <a href="storeDetails.jsp?id=<%=rs.getInt("storeid")%>">
+                                                    <a href="storeDetails.jsp?id=<%=rs.getString("gurkha")%>">
                                                         <span class="handle">
                                                             <i class="fa fa-map-marker"></i>
                                                         </span>

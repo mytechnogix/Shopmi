@@ -8,12 +8,12 @@
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="java.sql.*"%>
 <%
-    String hallid = request.getParameter("id");
+    String gurkha = request.getParameter("id");
     String uid = String.valueOf(session.getAttribute("uid"));
     ManageHallBO objBO = new ManageHallBO();
     ManageDAO objDAO = new ManageDAO();
 
-    objBO.setHallId(hallid);
+    objBO.setGurkha(gurkha);
     objDAO.getAllHallDetails(objBO);
 
     if (!objBO.isAddFlag()) {
@@ -36,7 +36,7 @@
 //    pst.executeUpdate();
 
     pst = con.prepareStatement("update halls set visitcount=visitcount+1 where hallid=?");
-    pst.setString(1, hallid);
+    pst.setString(1, objBO.getHallId());
     pst.executeUpdate();
 %>
 <!DOCTYPE html>
@@ -307,7 +307,7 @@
                                     <%
                                         String review = "";
                                         pst = con.prepareStatement("select review from reviewhall where hallid=? and uid=?");
-                                        pst.setString(1, hallid);
+                                        pst.setString(1, objBO.getHallId());
                                         pst.setString(2, uid);
                                         rs = pst.executeQuery();
                                         while (rs.next()) {
@@ -356,7 +356,7 @@
                                                 <%
                                                     int reviewCount = 0;
                                                     pst = con.prepareStatement("select * from view_reviewhall where hallid=? order by reviewdate desc");
-                                                    pst.setString(1, hallid);
+                                                    pst.setString(1, objBO.getHallId());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
@@ -432,15 +432,15 @@
                                             <ul class="todo-list">
                                                 <%
                                                     int similarCount = 0;
-                                                    pst = con.prepareStatement("select hallname, hallid from halls where hallid!=? order by hallname limit 10");
-                                                    pst.setString(1, hallid);
+                                                    pst = con.prepareStatement("select hallname, gurkha, hallid from halls where hallid!=? order by hallname limit 10");
+                                                    pst.setString(1, objBO.getHallId());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         similarCount++;
 
                                                 %>
                                                 <li>
-                                                    <a href="hallDetails.jsp?id=<%=rs.getInt("hallid")%>">
+                                                    <a href="hallDetails.jsp?id=<%=rs.getString("gurkha")%>">
                                                         <span class="handle">
                                                             <i class="fa fa-map-marker"></i>
                                                         </span>
@@ -529,7 +529,7 @@
         {
             var month=document.getElementById("month").value;
             var year=document.getElementById("year").value;
-            var hallid = <%=hallid%>;
+            var hallid = <%=objBO.getHallId()%>;
             xmlhttp=GetXmlHttpObject();
             if (xmlhttp==null)
             {

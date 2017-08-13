@@ -12,17 +12,16 @@
     PreparedStatement pst;
     Connection con;
     ResultSet rs;
-    String storeName = "", discount = "", discountOn = "", img = "", tc = "", mapLocation = "", storeId = "";
-    String storeArea = "", city = "", advTitle = "", advDesc = "";
+    String storeName = "", img = "", tc = "", mapLocation = "", storeId = "";
+    String storeArea = "", city = "", advTitle = "", advDesc = "", gurkha = "";
 
-    int aid = 0;
     try {
-        aid = Integer.parseInt(request.getParameter("aid"));
+        gurkha = request.getParameter("aid");
         Class.forName("com.mysql.jdbc.Driver");
         DBConnector dbc = new DBConnector();
         con = DriverManager.getConnection(dbc.getConstr());
-        pst = con.prepareStatement("select * from view_advertise where aid=? and advstatus='Active'");
-        pst.setInt(1, aid);
+        pst = con.prepareStatement("select * from view_advertise where gurkha=? and advstatus='Active'");
+        pst.setString(1, gurkha);
         rs = pst.executeQuery();
         if (rs.next()) {
             storeName = rs.getString("storename");
@@ -34,11 +33,9 @@
             mapLocation = rs.getString("maplocation");
             city = rs.getString("city");
             storeArea = rs.getString("storearea");
-        }
-        con.close();
-    } catch (Exception ex) {
-        out.print(ex);
-    }
+        } else {
+%><jsp:forward page="index.jsp"/><%        }
+
 %>
 <!DOCTYPE html>
 <html>
@@ -79,7 +76,7 @@
                 <section class="content">
                     <div class="row">
                         <div class="col-lg-12">
-                            <input type="hidden" id="oid" value="<%=aid%>">
+                            <input type="hidden" id="oid" value="<%=gurkha%>">
                             <input type="hidden" id="sid" value="<%=storeId%>">
                             <img src="images/advphotos/<%=img%>" class="advMobImg" alt="" width="100%" style="height: 450px">
                         </div>
@@ -89,9 +86,18 @@
                             <div class="row">
                                 <div class="col-lg-7">
                                     <div class="box box-primary" style="padding: 10px">
-                                        <a href="storeDetails.jsp?id=<%=storeId%>"> 
-                                        <h3><span class="text-red"><%=advTitle%></span></h3>
-                                        <h4 class="text-blue"> <%=storeName%>, <%=storeArea%>, <%=city%></a></h4>
+                                        <%
+                                            String sGurkha = "#";
+                                            pst = con.prepareStatement("select gurkha from storedetails where storeid=? and storestatus='Active'");
+                                            pst.setString(1, storeId);
+                                            rs = pst.executeQuery();
+                                            if (rs.next()) {
+                                                sGurkha = rs.getString("gurkha");
+                                            }
+                                        %>
+                                        <a href="storeDetails.jsp?id=<%=sGurkha%>"> 
+                                            <h3><span class="text-red"><%=advTitle%></span></h3>
+                                            <h4 class="text-blue"> <%=storeName%>, <%=storeArea%>, <%=city%></a></h4>
                                         <br>
                                     </div>
                                 </div>
@@ -156,45 +162,6 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6XvLNwRfIt-b_F1X3QPta6yAK5Yh0mj4"></script>
         <link href="css/autocomplete.css" rel="stylesheet" />
         <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
-        <!--         getOffer success modal-->
-        <div id="couponModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content" style="border: solid blue">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">
-                            <b><i class="fa fa-check"></i> 
-                                Congratulations!
-                            </b>
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row text-center">
-                            <div class="col-md-2">
-                                <img id="modalImg" src="images/shejari.com.png" style="width: 150px; height: 100px">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <span id="modalCouponCode" style="font-size: 28px; border: dashed brown; padding: 4px;"></span>
-                                    <br><br>
-                                    <span id="modalDiscount" style="color: red; font-size: 20px; font-weight: bold"><%=discount%>% Off</span>
-                                    On <span id="modalDiscountOn"  style="color: green; font-size: 20px"><%=discountOn%></span>
-                                    <br>
-                                    In <span id="modalStoreName" style="color: black;font-size: 20px"><%=storeName%></span>
-                                    <br><span id="modalStoreArea" style="color: black;font-size: 14px"><%=storeArea%>, <%=city%></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row text-center">
-                            <hr>
-                            <div class="col-xs-12">
-                                <span>Note: Take this coupon to the shop to avail discount</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <script>
             //  $("#directionPanel").hide();
             $('#btnGetDirection').click(function() {
@@ -303,6 +270,10 @@
                 });
             }
         </script>
-
+        <%
+                con.close();
+            } catch (Exception ex) {
+                out.print(ex);
+            }%>
     </body>
 </html>

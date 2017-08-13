@@ -601,3 +601,71 @@ END $$
 
 DELIMITER
 
+//trigger before insert on store for gurkha
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateStoreGurkha
+before insert ON storedetails for each row
+begin
+
+SET new.gurkha = fn_enctest(new.storeid);
+
+END $$
+
+DELIMITER
+
+//trigger before insert on hall for gurkha
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateHallGurkha
+before insert ON halls for each row
+begin
+
+SET new.gurkha = fn_enctest(new.hallid);
+
+END $$
+
+DELIMITER
+
+//trigger before insert on mes for gurkha
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateMesGurkha
+before insert ON mes for each row
+begin
+
+SET new.gurkha = fn_enctest(new.mesid);
+
+END $$
+
+DELIMITER
+
+//trigger before insert on hostel for gurkha
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateHostelGurkha
+before insert ON hostel for each row
+begin
+
+SET new.gurkha = fn_enctest(new.hostid);
+
+END $$
+
+DELIMITER
+
+//trigger before insert on advertise for gurkha
+
+DELIMITER $$
+
+CREATE TRIGGER tgr_updateAdvertiseGurkha
+before insert ON advertise for each row
+begin
+
+SET new.gurkha = fn_enctest(new.aid);
+
+END $$
+
+DELIMITER

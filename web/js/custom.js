@@ -402,7 +402,7 @@ function toggleRatingOutput()
 {
     if (xmlhttp.readyState==4)
     {
-        alert(xmlhttp.responseText);
+        //alert(xmlhttp.responseText);
         if(xmlhttp.responseText=="1"){
             $("#shop").hide();  
             $("#rateMsg").text("You have rated "+rateVal + " stars to this shop");

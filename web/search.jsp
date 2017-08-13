@@ -136,12 +136,12 @@
                                 <div class="box-body">
                                     <ul class="todo-list">
                                         <%
-                                            pst = con.prepareStatement("select storename, storeid, count(*) as frequency from log_popular group by category order by count(*) desc limit 10;");
+                                            pst = con.prepareStatement("select storename, gurkha from storedetails order by visitcount desc limit 10;");
                                             rs = pst.executeQuery();
                                             while (rs.next()) {
                                         %>
                                         <li>
-                                            <a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>">
+                                            <a href="storeDetails.jsp?id=<%=rs.getString("gurkha")%>">
                                                 <span class="handle">
                                                     <i class="fa fa-map-marker"></i>
                                                 </span>
@@ -184,7 +184,7 @@
                                     <div class="box-body">
                                         <table>
                                             <tr>
-                                                <td> <input type="radio" class="flat-red option-input radio" value="visitcount" name="filterChk" id="chkPopular" checked>
+                                                <td> <input type="radio" class="flat-red option-input radio" value="visitcount" name="filterChk" id="chkPopular" checked="true">
                                                     <span class="radioLabel2"> Popularity</span>
                                                 </td>
                                             </tr>
@@ -234,7 +234,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat1"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -253,7 +253,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and  storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat2"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -272,7 +272,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and  storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat3"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -291,7 +291,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and  storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat4"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -310,7 +310,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and  storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat5"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {

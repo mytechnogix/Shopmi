@@ -3,6 +3,7 @@ package BO;
 public class ManageStoreBO {
 
     private String _storeId;
+    private String _gurkha;
     private String _storeName;
     private String _storeNameHindi;
     private String _city;
@@ -31,6 +32,14 @@ public class ManageStoreBO {
     private String _storePhoto3;
     private String _busAdd;
     private String _password;
+
+    public String getGurkha() {
+        return _gurkha;
+    }
+
+    public void setGurkha(String _gurkha) {
+        this._gurkha = _gurkha;
+    }
 
     public String getPassword() {
         return _password;

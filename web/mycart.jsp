@@ -98,7 +98,7 @@
                                         </thead>
                                         <tbody>
                                             <%
-                                                String status = "", oid = "", claimeddate = "", img = "", discount = "", discounton = "", coupon = "", storeName = "";
+                                                String status = "", oid = "", claimeddate = "", img = "",gurkha="", discount = "", discounton = "", coupon = "", storeName = "";
                                                 int cnt = 0, cid = 0, storeid = 0;
                                                 pst = con.prepareStatement("select * from view_claimedoffers_notify where uid=? order by claimdate desc");
                                                 pst.setString(1, uid);
@@ -107,6 +107,7 @@
                                                     cnt++;
                                                     cid = rs.getInt("cid");
                                                     storeName = rs.getString("storename");
+                                                    gurkha = rs.getString("gurkha");
                                                     storeid = rs.getInt("storeid");
                                                     status = rs.getString("couponstatus");
                                                     oid = rs.getString("oid");
@@ -118,8 +119,8 @@
                                             %>
                                             <tr>
                                                 <td><%=cid%></td>
-                                                <td class="text-blue"><a href="offerDetails.jsp?id=<%=oid%>" target="_blank"><%=discount%>% Off on <%=discounton%></a></td>
-                                                <td><a href="storeDetails.jsp?id=<%=storeid%>" target="_blank"><%=storeName%></a></td>
+                                                <td class="text-blue"><a href="offerDetails.jsp?id=<%=gurkha%>" target="_blank"><%=discount%>% Off on <%=discounton%></a></td>
+                                                <td><a href="storeDetails.jsp?id=<%=gurkha%>" target="_blank"><%=storeName%></a></td>
                                                 <td><%=coupon%></td>
                                                 <td><%=claimeddate%></td>
                                                 <td><%=status%></td>
@@ -146,7 +147,7 @@
                                             <%
                                                 String fav = "0", rating = "0", review = "";
                                                 cnt = 0;
-                                                pst = con.prepareStatement("select s.storename, r.storeid, r.rid, r.rating, r.fav, r.reviewdate from storedetails s, reviewstore r where r.storeid=s.storeid and r.uid=?");
+                                                pst = con.prepareStatement("select s.gurkha, s.storename, r.storeid, r.rid, r.rating, r.fav, r.reviewdate from storedetails s, reviewstore r where r.storeid=s.storeid and r.uid=?");
                                                 pst.setString(1, uid);
                                                 rs = pst.executeQuery();
                                                 while (rs.next()) {
@@ -166,7 +167,7 @@
                                             %>
                                             <tr>
                                                 <td><%=rs.getInt("rid")%></td>
-                                                <td><a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>" target="_blank"><%=rs.getString("storename")%></a></td>
+                                                <td><a href="storeDetails.jsp?id=<%=rs.getString("gurkha")%>" target="_blank"><%=rs.getString("storename")%></a></td>
                                                 <td><%=rating%></td>
                                             </tr>
                                             <%}%>
@@ -191,7 +192,7 @@
                                         <tbody>
                                             <%
                                                 cnt = 0;
-                                                pst = con.prepareStatement("select s.storename, r.storeid, r.review, r.reviewdate from storedetails s, reviewstore r where r.storeid=s.storeid and r.review!='NA' and r.uid=?");
+                                                pst = con.prepareStatement("select s.gurkha, s.storename, r.storeid, r.review, r.reviewdate from storedetails s, reviewstore r where r.storeid=s.storeid and r.review!='NA' and r.uid=?");
                                                 pst.setString(1, uid);
                                                 rs = pst.executeQuery();
                                                 while (rs.next()) {
@@ -203,7 +204,7 @@
                                             %>
                                             <tr>
                                                 <td><%=cnt%></td>
-                                                <td><a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>" target="_blank"><%=rs.getString("storename")%></a></td>
+                                                <td><a href="storeDetails.jsp?id=<%=rs.getString("gurkha")%>" target="_blank"><%=rs.getString("storename")%></a></td>
                                                 <td><%=review%></td>
                                                 <td><%=rs.getString("reviewdate")%></td>
                                             </tr>
@@ -232,7 +233,7 @@
                                             <%
                                                 String enquiry = "";
                                                 cnt = 0;
-                                                pst = con.prepareStatement("select s.storename, r.storeid, r.enquiry, r.reviewsub, r.reviewdate, r.reviewstatus from storedetails s, reviewstore r where r.storeid=s.storeid and r.enquiry!='NA' and r.uid=?");
+                                                pst = con.prepareStatement("select s.gurkha, s.storename, r.storeid, r.enquiry, r.reviewsub, r.reviewdate, r.reviewstatus from storedetails s, reviewstore r where r.storeid=s.storeid and r.enquiry!='NA' and r.uid=?");
                                                 pst.setString(1, uid);
                                                 rs = pst.executeQuery();
                                                 while (rs.next()) {
@@ -244,7 +245,7 @@
                                             %>
                                             <tr>
                                                 <td><%=cnt%></td>
-                                                <td><a href="storeDetails.jsp?id=<%=rs.getString("storeid")%>" target="_blank"><%=rs.getString("storename")%></a></td>
+                                                <td><a href="storeDetails.jsp?id=<%=rs.getString("gurkha")%>" target="_blank"><%=rs.getString("storename")%></a></td>
                                                 <td><%=rs.getString("reviewsub")%></td>
                                                 <td><%=enquiry%></td>
                                                 <td><%=rs.getString("reviewdate")%></td>

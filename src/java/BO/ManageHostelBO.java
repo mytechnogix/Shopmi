@@ -3,6 +3,7 @@ package BO;
 public class ManageHostelBO {
 
     private String _hostName;
+    private String _gurkha;
     private String _hostNameHindi;
     private String _contact;
     private String _address;
@@ -41,6 +42,14 @@ public class ManageHostelBO {
     private String _phone;
     private String _subscription;
     private String _password;
+
+    public String getGurkha() {
+        return _gurkha;
+    }
+
+    public void setGurkha(String _gurkha) {
+        this._gurkha = _gurkha;
+    }
 
     public String getPassword() {
         return _password;

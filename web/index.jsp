@@ -1,5 +1,5 @@
-<%@page import="BO.ManageStoreBO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="BO.ManageStoreBO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.ManageDAO"%>
 <%@page import="BO.ManageOfferBO"%>
@@ -217,19 +217,19 @@
                                         <div class="carousel-inner" role="listbox">
                                             <%
                                                 cnt = 0;
-                                                pst = con.prepareStatement("select advimg, aid from advertise where advstatus='Active'");
+                                                pst = con.prepareStatement("select advimg, gurkha from advertise where advstatus='Active'");
                                                 rs = pst.executeQuery();
                                                 while (rs.next()) {
                                                     if (cnt == 0) {
                                             %>
                                             <div class="item active" >
-                                                <a href="advertise.jsp?aid=<%=rs.getString("aid")%>">
+                                                <a href="advertise.jsp?aid=<%=rs.getString("gurkha")%>">
                                                     <img src="images/advphotos/<%=rs.getString("advimg")%>" alt="" width="100%" class="advMobImg" style="height: 420px">
                                                 </a>
                                             </div>
                                             <%} else {%>
                                             <div class="item">
-                                                <a href="advertise.jsp?aid=<%=rs.getString("aid")%>">
+                                                <a href="advertise.jsp?aid=<%=rs.getString("gurkha")%>">
                                                     <img src="images/advphotos/<%=rs.getString("advimg")%>" alt="" width="100%" class="advMobImg" style="height: 420px">
                                                 </a>
                                             </div>
@@ -272,7 +272,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat1"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -291,7 +291,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat2"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -310,7 +310,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat3"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -329,7 +329,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat4"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -348,7 +348,7 @@
                                                 </a>
                                                 <span class="product-description">
                                                     <%
-                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=?");
+                                                        pst = con.prepareStatement("select count(category) as total from storedetails where category=? and storestatus='Active'");
                                                         pst.setString(1, rs.getString("cat5"));
                                                         rs1 = pst.executeQuery();
                                                         if (rs1.next()) {
@@ -401,7 +401,7 @@
                                                             <%                                                        }
                                                             %>
                                                             <div class="col-sm-3">
-                                                                <a href="offerDetails.jsp?id=<%=myclass.get(i).getOid()%>">
+                                                                <a href="offerDetails.jsp?id=<%=myclass.get(i).getGurkha()%>">
                                                                     <div class="col-item" style="background-color:lightgoldenrodyellow;">
                                                                         <div class="photo">
                                                                             <img src="images/offerphotos/<%=myclass.get(i).getOfferPhoto()%>" class="img-responsive" alt="<%=myclass.get(i).getStoreName()%>"/>
@@ -436,7 +436,7 @@
                                                                             }
                                                                             tCnt++;
                                                                             //for (int j = 0; j < remSize; j++) {
-                                                            %>
+%>
                                                             <div class="col-sm-3">
                                                                 <a href="offerDetails.jsp?id=<%=rs1.getString("oid")%>">
                                                                     <div class="col-item" style="background-color:lightgoldenrodyellow;">
@@ -489,7 +489,7 @@
                                         <div class="box-body">
                                             <ul class="products-list product-list-in-box">
                                                 <%
-                                                    pst = con.prepareStatement("select hallid, hallname, hallnamehindi, hall_area, photo, city from halls where status='Active' order by visitcount desc limit 4;");
+                                                    pst = con.prepareStatement("select gurkha, hallname, hallnamehindi, hall_area, photo, city from halls where status='Active' order by visitcount desc limit 4;");
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         String img = rs.getString("photo");
@@ -498,7 +498,7 @@
                                                         }
                                                 %>
                                                 <li class="item">
-                                                    <a href="hallDetails.jsp?id=<%=rs.getString("hallid")%>">
+                                                    <a href="hallDetails.jsp?id=<%=rs.getString("gurkha")%>">
                                                         <div class="product-img">
                                                             <img src="images/hallphotos/<%=img%>" alt="Hall Icon">
                                                         </div>
@@ -526,7 +526,7 @@
                                             <ul class="products-list product-list-in-box">
                                                 <%
                                                     String photo = "";
-                                                    pst = con.prepareStatement("select mesid, mesname, mesnamehindi, mesarea, photo, city from mes where messtatus='Active' order by visitcount desc limit 4;");
+                                                    pst = con.prepareStatement("select gurkha, mesname, mesnamehindi, mesarea, photo, city from mes where messtatus='Active' order by visitcount desc limit 4;");
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         photo = rs.getString("photo");
@@ -535,7 +535,7 @@
                                                         }
                                                 %>
                                                 <li class="item">
-                                                    <a href="mesDetails.jsp?id=<%=rs.getString("mesid")%>">
+                                                    <a href="mesDetails.jsp?id=<%=rs.getString("gurkha")%>">
                                                         <div class="product-img">
                                                             <img src="images/mesphotos/<%=photo%>" alt="Mes Icon">
                                                         </div>
@@ -556,7 +556,7 @@
                                     <div class="box box-primary">
                                         <div class="box-header">
                                             <h3 class="box-title">
-                                                <i class="fa fa-building"></i>  हॉस्टेल 
+                                                <i class="fa fa-building"></i>  हॉस्टेल / प्रॉपर्टी
                                             </h3>
                                         </div>
 
@@ -564,7 +564,7 @@
                                             <ul class="products-list product-list-in-box">
                                                 <%
                                                     photo = "";
-                                                    pst = con.prepareStatement("select hostid, hostname, hostnamehindi, hostarea, photo, city from hostel where hoststatus='Active' order by visitcount desc limit 4;");
+                                                    pst = con.prepareStatement("select gurkha, hostname, hostnamehindi, hostarea, photo, city from hostel where hoststatus='Active' order by visitcount desc limit 4;");
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         photo = rs.getString("photo");
@@ -573,7 +573,7 @@
                                                         }
                                                 %>
                                                 <li class="item">
-                                                    <a href="hostDetails.jsp?id=<%=rs.getString("hostid")%>">
+                                                    <a href="hostDetails.jsp?id=<%=rs.getString("gurkha")%>">
                                                         <div class="product-img">
                                                             <img src="images/hostelphotos/<%=photo%>" alt="Hostel Icon">
                                                         </div>
@@ -680,7 +680,7 @@
                                                             <img src="images/storephotos/<%=recentStores.get(i).getStorePhoto()%>" alt="Shop Icon">
                                                         </div>
                                                         <div class="product-info">
-                                                            <a href="storeDetails.jsp?id=<%=recentStores.get(i).getStoreId()%>" class="product-title">
+                                                            <a href="storeDetails.jsp?id=<%=recentStores.get(i).getGurkha()%>" class="product-title">
                                                                 <%=recentStores.get(i).getStoreName()%>
                                                             </a>
                                                             <span class="product-description">

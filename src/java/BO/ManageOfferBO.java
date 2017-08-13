@@ -3,6 +3,7 @@ package BO;
 public class ManageOfferBO {
 
     private String _storeId;
+    private String _gurkha;
     private String _storeName;
     private int _oid;
     private String _discount;
@@ -24,6 +25,14 @@ public class ManageOfferBO {
     private String _claimDate;
     private String _redeemDate;
     private int _fav;
+
+    public String getGurkha() {
+        return _gurkha;
+    }
+
+    public void setGurkha(String _gurkha) {
+        this._gurkha = _gurkha;
+    }
 
     public int getFav() {
         return _fav;

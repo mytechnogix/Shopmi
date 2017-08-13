@@ -3,6 +3,7 @@ package BO;
 public class ManageMesBO {
 
     private String _mesName;
+    private String _gurkha;
     private String _mesNameHindi;
     private String _contact;
     private String _phone;
@@ -33,6 +34,14 @@ public class ManageMesBO {
     private String _serviceArea;
     private String _metadata;
     private String _password;
+
+    public String getGurkha() {
+        return _gurkha;
+    }
+
+    public void setGurkha(String _gurkha) {
+        this._gurkha = _gurkha;
+    }
 
     public String getPassword() {
         return _password;

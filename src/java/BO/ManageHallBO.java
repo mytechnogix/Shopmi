@@ -3,6 +3,7 @@ package BO;
 public class ManageHallBO {
 
     private String _hallId;
+    private String _gurkha;
     private String _hallName;
     private String _hallNameHindi;
     private String _hallArea;
@@ -27,6 +28,14 @@ public class ManageHallBO {
     private String _rating;
     private String _metadata;
     private String _password;
+
+    public String getGurkha() {
+        return _gurkha;
+    }
+
+    public void setGurkha(String _gurkha) {
+        this._gurkha = _gurkha;
+    }
 
     public String getPassword() {
         return _password;

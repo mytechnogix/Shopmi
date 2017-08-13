@@ -15,12 +15,12 @@
 <%@page import="com.quickc.pack.DBConnector"%>
 <%@page import="com.quickc.pack.PostedOn"%>
 <%
-    String hostid = request.getParameter("id");
+    String gurkha = request.getParameter("id");
     String uid = String.valueOf(session.getAttribute("uid"));
     ManageHostelBO objBO = new ManageHostelBO();
     ManageDAO objDAO = new ManageDAO();
 
-    objBO.setHostId(hostid);
+    objBO.setGurkha(gurkha);
     objDAO.getAllHostelDetails(objBO);
 
     if (!objBO.isAddFlag()) {
@@ -43,7 +43,7 @@
 //    pst.executeUpdate();
 
     pst = con.prepareStatement("update hostel set visitcount=visitcount+1 where hostid=?");
-    pst.setString(1, hostid);
+    pst.setString(1, objBO.getHostId());
     pst.executeUpdate();
 %>
 <!DOCTYPE html>
@@ -287,7 +287,7 @@
                                                                 Date date1 = new Date();
                                                                 Date date2 = null;
                                                                 pst = con.prepareStatement("SELECT regDate from hostel where hostid=?;");
-                                                                pst.setString(1, hostid);
+                                                                pst.setString(1, objBO.getHostId());
                                                                 rs = pst.executeQuery();
                                                                 if (rs.next()) {
                                                                     Timestamp t = rs.getTimestamp("regDate");
@@ -403,7 +403,7 @@
                                     <%
                                         String review = "";
                                         pst = con.prepareStatement("select review from reviewhost where hostid=? and uid=?");
-                                        pst.setString(1, hostid);
+                                        pst.setString(1, objBO.getHostId());
                                         pst.setString(2, uid);
                                         rs = pst.executeQuery();
                                         while (rs.next()) {
@@ -450,7 +450,7 @@
                                                 <%
                                                     int reviewCount = 0;
                                                     pst = con.prepareStatement("select * from view_reviewhost where hostid=? order by reviewdate desc");
-                                                    pst.setString(1, hostid);
+                                                    pst.setString(1, objBO.getHostId());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         if (!(rs.getString("review")).equals("NA")) {
@@ -535,14 +535,14 @@
                                             <ul class="todo-list">
                                                 <%
                                                     int similarCount = 0;
-                                                    pst = con.prepareStatement("select hostname, hostid from hostel where hostid!=? order by hostname limit 10");
-                                                    pst.setString(1, hostid);
+                                                    pst = con.prepareStatement("select hostname, gurkha from hostel where hostid!=? order by hostname limit 10");
+                                                    pst.setString(1, objBO.getHostId());
                                                     rs = pst.executeQuery();
                                                     while (rs.next()) {
                                                         similarCount++;
                                                 %>
                                                 <li>
-                                                    <a href="hostDetails.jsp?id=<%=rs.getInt("hostid")%>">
+                                                    <a href="hostDetails.jsp?id=<%=rs.getString("gurkha")%>">
                                                         <span class="handle">
                                                             <i class="fa fa-map-marker"></i>
                                                         </span>

@@ -205,20 +205,21 @@ public class ManageDAO {
             pst.setString(18, objBO.getContact());
             cnt = pst.executeUpdate();
             if (cnt > 0) {
-                pst = con.prepareStatement("select storeid from storedetails where storename=? and category=?;");
+                pst = con.prepareStatement("select storeid, gurkha from storedetails where storename=? and email=?;");
                 pst.setString(1, objBO.getStoreName());
-                pst.setString(2, objBO.getStoreCat());
+                pst.setString(2, objBO.getEmail());
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     storeid = rs.getString("storeid");
-                    pst1 = con.prepareStatement("insert into search values(?,?,?,?,?);");
+                    pst1 = con.prepareStatement("insert into search values(?,?,?,?,?,?,?);");
                     pst1.setInt(1, Integer.parseInt(storeid));
                     pst1.setString(2, "store");
                     pst1.setString(3, objBO.getStoreName());
                     pst1.setString(4, objBO.getStoreArea());
                     pst1.setString(5, objBO.getMetadata());
+                    pst1.setString(6, "Pending");
+                    pst1.setString(7, rs.getString("gurkha"));
                     pst1.executeUpdate();
-
                     objBO.setStoreId(storeid);
                 }
             } else {
@@ -531,12 +532,13 @@ public class ManageDAO {
             objBO.setAddFlag(false);
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
-            Connection con = DriverManager.getConnection(dbc.getConstr());
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("Select * from storedetails where storeid=" + objBO.getStoreId() + "");
-
+            con = DriverManager.getConnection(dbc.getConstr());
+            pst = con.prepareStatement("Select * from storedetails where gurkha=?");
+            pst.setString(1, objBO.getGurkha());
+            rs = pst.executeQuery();
             while (rs.next()) {
                 objBO.setAddFlag(true);
+                objBO.setStoreId(rs.getString("storeid"));
                 objBO.setStoreName(rs.getString("storename"));
                 objBO.setStoreArea(rs.getString("storearea"));
                 objBO.setContact(rs.getString("contact"));
@@ -603,6 +605,7 @@ public class ManageDAO {
                 objBO = new ManageOfferBO();
                 objBO.setStoreName(rs.getString("storename"));
                 objBO.setStoreId(rs.getString("storeid"));
+                objBO.setGurkha(rs.getString("gurkha"));
                 objBO.setOid(rs.getInt("oid"));
                 objBO.setDiscount(rs.getString("discount"));
                 objBO.setDiscountOn(rs.getString("discounton"));
@@ -930,7 +933,7 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            pst = con.prepareStatement("SELECT storeid,storename, storearea,city, photo FROM storedetails WHERE storestatus='Active' and regDate BETWEEN NOW() - INTERVAL 30 DAY AND NOW() order by regDate desc limit 16");
+            pst = con.prepareStatement("SELECT storeid,storename, storearea,city, photo, gurkha FROM storedetails WHERE storestatus='Active' and regDate BETWEEN NOW() - INTERVAL 30 DAY AND NOW() order by regDate desc limit 16");
             rs = pst.executeQuery();
             while (rs.next()) {
                 objBO = new ManageStoreBO();
@@ -938,6 +941,7 @@ public class ManageDAO {
                 objBO.setStoreId(rs.getString("storeid"));
                 objBO.setStoreArea(rs.getString("storearea"));
                 objBO.setCity(rs.getString("city"));
+                objBO.setGurkha(rs.getString("gurkha"));
                 photoSm = rs.getString("photo");
                 photoLg = photoSm;
                 if (photoSm.contains("default")) {
@@ -1081,11 +1085,12 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            Statement stmt = con.createStatement();
-            rs = stmt.executeQuery("Select * from halls where hallid=" + objBO.getHallId() + "");
-
+            pst = con.prepareStatement("Select * from halls where gurkha=?");
+            pst.setString(1, objBO.getGurkha());
+            rs = pst.executeQuery();
             while (rs.next()) {
                 objBO.setAddFlag(true);
+                objBO.setHallId(rs.getString("hallid"));
                 objBO.setHallName(rs.getString("hallname"));
                 objBO.setHallArea(rs.getString("hall_area"));
                 objBO.setContact(rs.getString("contact"));
@@ -1270,11 +1275,12 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             Connection con = DriverManager.getConnection(dbc.getConstr());
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("Select * from mes where mesid=" + objBO.getMesId() + "");
-
+            pst = con.prepareStatement("Select * from mes where gurkha=?");
+            pst.setString(1, objBO.getGurkha());
+            rs = pst.executeQuery();
             while (rs.next()) {
                 objBO.setAddFlag(true);
+                objBO.setMesId(rs.getString("mesid"));
                 objBO.setMesName(rs.getString("mesname"));
                 objBO.setMesArea(rs.getString("mesarea"));
                 objBO.setContact(rs.getString("contact"));
@@ -1353,18 +1359,20 @@ public class ManageDAO {
             cnt = pst.executeUpdate();
 
             if (cnt > 0) {
-                pst = con.prepareStatement("select hostid from hostel where hostname=? and email=?;");
+                pst = con.prepareStatement("select hostid, gurkha from hostel where hostname=? and email=?;");
                 pst.setString(1, objBO.getHostName());
                 pst.setString(2, objBO.getEmail());
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     hostid = rs.getString("hostid");
-                    pst1 = con.prepareStatement("insert into search values(?,?,?,?,?);");
+                    pst1 = con.prepareStatement("insert into search values(?,?,?,?,?,?,?);");
                     pst1.setInt(1, Integer.parseInt(hostid));
                     pst1.setString(2, "hostel");
                     pst1.setString(3, objBO.getHostName());
                     pst1.setString(4, objBO.getHostArea());
                     pst1.setString(5, objBO.getMetadata());
+                    pst1.setString(6, "Pending");
+                    pst1.setString(7, rs.getString("gurkha"));
                     pst1.executeUpdate();
                     objBO.setHostId(hostid);
                 }
@@ -1451,11 +1459,12 @@ public class ManageDAO {
             Class.forName("com.mysql.jdbc.Driver");
             DBConnector dbc = new DBConnector();
             con = DriverManager.getConnection(dbc.getConstr());
-            Statement stmt = con.createStatement();
-            rs = stmt.executeQuery("Select * from hostel where hostid=" + objBO.getHostId() + "");
-
+            pst = con.prepareStatement("Select * from hostel where gurkha=?");
+            pst.setString(1, objBO.getGurkha());
+            rs = pst.executeQuery();
             while (rs.next()) {
                 objBO.setAddFlag(true);
+                objBO.setHostId(rs.getString("hostid"));
                 objBO.setHostName(rs.getString("hostname"));
                 objBO.setHostArea(rs.getString("hostarea"));
                 objBO.setContact(rs.getString("contact"));
@@ -1561,7 +1570,7 @@ public class ManageDAO {
                     area = rs.getString("area");
                     name = rs.getString("nm");
                     SearchBO c = new SearchBO();
-                    c.setData(rs.getString("id") + "," + rs.getString("type"));
+                    c.setData(rs.getString("gurkha") + "," + rs.getString("type"));
                     c.setValue(rs.getString("nm") + ", " + rs.getString("area"));
                     data.add(c);
                 }
